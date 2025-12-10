@@ -1,3 +1,3 @@
 export default function DashboardPage() {
-  return <div>Dashboard Home (you can design this later)</div>;
+  return <div className="p-6 text-2xl font-semibold">Dashboard Home</div>;
 }
