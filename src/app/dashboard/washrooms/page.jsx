@@ -117,17 +117,21 @@ export default function WashroomsPage() {
                     </div>
                 </div>
                 <div style={{ display: 'flex', gap: '12px' }}>
-                    <Link href="/dashboard/washrooms/add-location" passHref legacyBehavior>
-                        <a style={{ ...styles.actionButtonBase, ...styles.primaryBtn }}>
-                            <Plus size={14} /> Add Location
-                        </a>
+                    <Link
+                        href="/dashboard/washrooms/add-location"
+                        style={{ ...styles.actionButtonBase, ...styles.primaryBtn }}
+                    >
+                        <Plus size={14} /> Add Location
                     </Link>
-                    <Link href="/dashboard/cleaner-assignments/add" passHref legacyBehavior>
-                        <a style={{ ...styles.actionButtonBase, ...styles.successBtn }}>
-                            <UserPlus size={14} /> Assign
-                        </a>
+
+                    <Link
+                        href="/dashboard/cleaner-assignments/add"
+                        style={{ ...styles.actionButtonBase, ...styles.successBtn }}
+                    >
+                        <UserPlus size={14} /> Assign
                     </Link>
                 </div>
+
             </div>
 
             {/* ---------- FILTER BAR (White Card) ---------- */}
