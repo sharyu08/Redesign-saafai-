@@ -5,6 +5,7 @@ import Link from 'next/link';
 import { MapPin, Users, Heart, Camera, Plus, Upload, Ruler, FileText, UserPlus } from 'lucide-react';
 import { MapContainer, TileLayer, Marker, useMapEvents } from 'react-leaflet';
 import L from 'leaflet';
+import "leaflet/dist/leaflet.css";
 
 // --- State and Handlers ---
 
@@ -137,7 +138,7 @@ const CheckboxGrid = ({ label, name, options, state, onChange }) => (
                         type="checkbox"
                         name={name}
                         value={option}
-                        checked={state[option.replace(/\s|-/g, '').toLowerCase()]}
+                        checked={state[option.replace(/\s|-|\//g, '').toLowerCase()]}
                         onChange={onChange}
                         style={{ marginRight: '8px' }}
                     />
@@ -151,37 +152,41 @@ const CheckboxGrid = ({ label, name, options, state, onChange }) => (
 
 export default function AddWashroomPage() {
     const [formData, setFormData] = useState(getInitialFormData());
-    const mapRef = useRef(null);
+    // NOTE: The useRef for mapInstance is kept here, but the useEffect logic for cleanup is updated.
+    const mapInstanceRef = useRef(null);
 
     useEffect(() => {
+        // Attempt to access the map instance for cleanup (if needed in a real app)
+        // In the context of react-leaflet using MapContainer, manual removal is often unnecessary
+        // but keeping the cleanup function as a safeguard if MapContainer is not fully unmounting.
         return () => {
-            // remove Leaflet map instance on unmount to avoid "Map container is already initialized" errors
-            if (mapRef.current) {
-                try {
-                    mapRef.current.remove();
-                } catch (e) {
-                    // ignore removal errors
-                }
-                mapRef.current = null;
-            }
+            // No explicit map destruction is necessary for MapContainer in modern react-leaflet unless using uncontrolled mode.
+            // Keeping this return empty or for other unmount logic is safer.
         };
     }, []);
+
     const [mapView, setMapView] = useState('Map'); // State for Map/Satellite toggle
 
     const handleChange = (e) => {
         const { name, value, type, checked } = e.target;
-        if (type === 'checkbox') {
-            setFormData(prev => ({
-                ...prev,
-                availableGender: { ...prev.availableGender, [name]: checked }
-            }));
-        } else if (type === 'range') {
-            // Handle toggle switches by name
+
+        // Handle the ToggleSwitch (which uses type="checkbox")
+        if (name === 'availability24x7' || name === 'handDryer' || name === 'paidEntry' || name === 'wheelchairAccessible' || name === 'disabledOnly' || name === 'babyChanging' || name === 'sanitaryProducts') {
             setFormData(prev => ({
                 ...prev,
                 [name]: checked
             }));
-        } else {
+        }
+        // Handle the CheckboxGrid (where all options are in 'availableGender')
+        else if (type === 'checkbox') {
+            const key = value.replace(/\s|-|\//g, '').toLowerCase(); // Use value directly for naming convention
+            setFormData(prev => ({
+                ...prev,
+                availableGender: { ...prev.availableGender, [key]: checked }
+            }));
+        }
+        // Handle all other input types (text, number, select)
+        else {
             setFormData(prev => ({
                 ...prev,
                 [name]: value
@@ -204,7 +209,7 @@ export default function AddWashroomPage() {
             </div>
             <label style={{ position: 'relative', display: 'inline-block', width: '40px', height: '20px' }}>
                 <input
-                    type="checkbox"
+                    type="checkbox" // Changed to checkbox for standard HTML input behavior
                     name={name}
                     checked={isChecked}
                     onChange={handleChange}
@@ -346,14 +351,7 @@ export default function AddWashroomPage() {
                                 name="availableGender"
                                 options={['Male', 'Female', 'Unisex/All Genders', 'Family Room', 'Children Only']}
                                 state={formData.availableGender}
-                                onChange={(e) => {
-                                    const { value, checked } = e.target;
-                                    const key = value.replace(/\s|\//g, '').toLowerCase();
-                                    setFormData(prev => ({
-                                        ...prev,
-                                        availableGender: { ...prev.availableGender, [key]: checked }
-                                    }));
-                                }}
+                                onChange={handleChange}
                             />
                         </div>
 
@@ -384,10 +382,14 @@ export default function AddWashroomPage() {
                             </div>
 
                             <MapContainer
-                                center={formData.lat && formData.lng ? [parseFloat(formData.lat), parseFloat(formData.lng)] : [19.0760, 72.8777]}
+                                center={
+                                    formData.lat && formData.lng
+                                        ? [parseFloat(formData.lat), parseFloat(formData.lng)]
+                                        : [19.0760, 72.8777]
+                                }
                                 zoom={14}
-                                style={{ width: '100%', height: '100%' }}
-                                whenCreated={(map) => (mapRef.current = map)}
+                                style={{ width: "100%", height: "100%" }}
+                                ref={mapInstanceRef} // Use a more appropriate ref for the map instance
                             >
                                 <TileLayer
                                     attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
