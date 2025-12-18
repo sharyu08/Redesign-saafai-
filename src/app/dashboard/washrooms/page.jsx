@@ -116,8 +116,9 @@ export default function WashroomsPage() {
   };
 
   return (
-    <div className="p-6 bg-[var(--bg-surface)] min-h-screen">
-      <div className="max-w-6xl mx-auto grid grid-cols-1 xl:grid-cols-[minmax(0,2fr)_minmax(0,1.3fr)] gap-6">
+    <div className="min-h-screen bg-[var(--bg-page)] p-6">
+      <div className="max-w-7xl mx-auto grid grid-cols-1 xl:grid-cols-[minmax(0,2fr)_minmax(0,1.2fr)] gap-6">
+
         <div className="space-y-4">
           <WashroomHeader />
 

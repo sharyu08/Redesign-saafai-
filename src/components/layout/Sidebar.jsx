@@ -31,8 +31,8 @@ const navSections = [
         label: "Location Hierarchy",
         icon: Layers3,
         children: [
-          { label: "View Location Hierarchy", href: "/dashboard/location-hierarchy" },
-          { label: "Add Location Hierarchy", href: "/dashboard/location-hierarchy/add", icon: Plus },
+          { label: "View Location Hierarchy", href: "/dashboard/locationHierarchy" },
+          { label: "Add Location Hierarchy", href: "/dashboard/locationHierarchy/add", icon: Plus },
         ],
       },
       {
@@ -76,10 +76,10 @@ const navSections = [
 const ActiveGradientBackground = ({ active, children }) => {
   const activeStyle = active
     ? {
-        background: "linear-gradient(to right, #FF9391, #FE7775)", // Custom gradient from #FF9391 to #FE7775
-        color: "white",
-        boxShadow: "0 4px 6px -1px rgba(254, 119, 117, 0.4), 0 2px 4px -2px rgba(254, 119, 117, 0.4)",
-      }
+      background: "linear-gradient(to right, #FF9391, #FE7775)", // Custom gradient from #FF9391 to #FE7775
+      color: "white",
+      boxShadow: "0 4px 6px -1px rgba(254, 119, 117, 0.4), 0 2px 4px -2px rgba(254, 119, 117, 0.4)",
+    }
     : {};
 
   // We apply the custom style directly using the 'style' prop when active
@@ -125,11 +125,9 @@ export default function Sidebar({ open, onClose, collapsed, onToggleCollapse }) 
 
   return (
     <aside
-      className={`fixed inset-y-0 left-0 z-40 flex ${
-        collapsed ? "w-20" : "w-72"
-      } flex-col bg-[#0c1224] text-slate-100 shadow-2xl transition-transform duration-200 md:static md:translate-x-0 ${
-        open ? "translate-x-0" : "-translate-x-full md:translate-x-0"
-      }`}
+      className={`fixed inset-y-0 left-0 z-40 flex ${collapsed ? "w-20" : "w-72"
+        } flex-col bg-[#0c1224] text-slate-100 shadow-2xl transition-transform duration-200 md:static md:translate-x-0 ${open ? "translate-x-0" : "-translate-x-full md:translate-x-0"
+        }`}
     >
       <div className="flex h-16 items-center gap-3 border-b border-white/10 bg-[#0f1730] px-3">
         {!collapsed && (
@@ -195,23 +193,21 @@ export default function Sidebar({ open, onClose, collapsed, onToggleCollapse }) 
                         href={item.href}
                         onClick={onClose}
                         // Applying common styles first
-                        className={`group flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm font-medium transition-all ${
-                          active
+                        className={`group flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm font-medium transition-all ${active
                             ? "text-white" // Text color handled by style prop
                             : "text-slate-200 hover:bg-white/5 hover:text-white"
-                        }`}
+                          }`}
                         // Applying custom gradient/color directly when active
                         style={active ? {
-                            background: "linear-gradient(to right, #FF9391, #FE7775)",
-                            boxShadow: "0 4px 6px -1px rgba(254, 119, 117, 0.4), 0 2px 4px -2px rgba(254, 119, 117, 0.4)",
+                          background: "linear-gradient(to right, #FF9391, #FE7775)",
+                          boxShadow: "0 4px 6px -1px rgba(254, 119, 117, 0.4), 0 2px 4px -2px rgba(254, 119, 117, 0.4)",
                         } : {}}
                       >
                         <Icon
-                          className={`h-5 w-5 flex-shrink-0 transition ${
-                            active
+                          className={`h-5 w-5 flex-shrink-0 transition ${active
                               ? "text-white"
                               : "text-slate-300 group-hover:text-white"
-                          }`}
+                            }`}
                         />
                         {!collapsed && (
                           <span className="flex-1 whitespace-nowrap overflow-hidden text-ellipsis">
@@ -226,18 +222,16 @@ export default function Sidebar({ open, onClose, collapsed, onToggleCollapse }) 
                     <div key={item.label} className="space-y-0.5">
                       <button
                         onClick={() => toggleGroup(item.label)}
-                        className={`group flex w-full items-center gap-3 rounded-lg px-3 py-2.5 text-sm font-medium transition-all ${
-                          active
+                        className={`group flex w-full items-center gap-3 rounded-lg px-3 py-2.5 text-sm font-medium transition-all ${active
                             ? "bg-white/10 text-white" // Keeping this as a different style for parent menu items
                             : "text-slate-200 hover:bg-white/5 hover:text-white"
-                        }`}
+                          }`}
                       >
                         <Icon
-                          className={`h-5 w-5 flex-shrink-0 transition ${
-                            active
+                          className={`h-5 w-5 flex-shrink-0 transition ${active
                               ? "text-white"
                               : "text-slate-300 group-hover:text-white"
-                          }`}
+                            }`}
                         />
                         {!collapsed && (
                           <>
@@ -245,9 +239,8 @@ export default function Sidebar({ open, onClose, collapsed, onToggleCollapse }) 
                               {item.label}
                             </span>
                             <ChevronDown
-                              className={`h-4 w-4 flex-shrink-0 transition-transform duration-200 ${
-                                expanded ? "rotate-180" : ""
-                              } ${active ? "text-white" : "text-slate-400"}`}
+                              className={`h-4 w-4 flex-shrink-0 transition-transform duration-200 ${expanded ? "rotate-180" : ""
+                                } ${active ? "text-white" : "text-slate-400"}`}
                             />
                           </>
                         )}
@@ -262,23 +255,21 @@ export default function Sidebar({ open, onClose, collapsed, onToggleCollapse }) 
                                 key={child.href}
                                 href={child.href}
                                 onClick={onClose}
-                                className={`group flex items-center gap-2.5 rounded-lg px-3 py-2 text-[13px] font-medium transition-all ${
-                                    childActive
-                                      ? "text-white" // Text color handled by style prop
-                                      : "text-slate-200 hover:bg-white/5 hover:text-white"
-                                }`}
+                                className={`group flex items-center gap-2.5 rounded-lg px-3 py-2 text-[13px] font-medium transition-all ${childActive
+                                    ? "text-white" // Text color handled by style prop
+                                    : "text-slate-200 hover:bg-white/5 hover:text-white"
+                                  }`}
                                 style={childActive ? {
-                                    background: "linear-gradient(to right, #FF9391, #FE7775)",
-                                    boxShadow: "0 2px 4px -2px rgba(254, 119, 117, 0.2)",
+                                  background: "linear-gradient(to right, #FF9391, #FE7775)",
+                                  boxShadow: "0 2px 4px -2px rgba(254, 119, 117, 0.2)",
                                 } : {}}
                               >
                                 {ChildIcon ? (
                                   <ChildIcon
-                                    className={`h-4 w-4 flex-shrink-0 transition ${
-                                      childActive
+                                    className={`h-4 w-4 flex-shrink-0 transition ${childActive
                                         ? "text-white"
                                         : "text-slate-300 group-hover:text-white"
-                                    }`}
+                                      }`}
                                   />
                                 ) : (
                                   <span className={`h-1.5 w-1.5 flex-shrink-0 rounded-full ${childActive ? 'bg-white' : 'bg-slate-400 group-hover:bg-indigo-300'}`} />
@@ -318,9 +309,8 @@ export default function Sidebar({ open, onClose, collapsed, onToggleCollapse }) 
 
         <button
           onClick={onClose}
-          className={`mt-3 flex w-full items-center justify-center gap-2 rounded-lg border border-white/10 px-3 py-2 text-sm font-semibold text-white transition hover:border-white/30 hover:bg-white/5 ${
-            collapsed ? "justify-center" : ""
-          }`}
+          className={`mt-3 flex w-full items-center justify-center gap-2 rounded-lg border border-white/10 px-3 py-2 text-sm font-semibold text-white transition hover:border-white/30 hover:bg-white/5 ${collapsed ? "justify-center" : ""
+            }`}
         >
           <LogOut className="h-4 w-4" />
           {!collapsed && "Logout"}

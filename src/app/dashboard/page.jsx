@@ -11,6 +11,7 @@ import {
   Users,
   Wrench,
 } from "lucide-react";
+import ThemeToggle from "@/components/layout/ThemeToggle";
 
 // Reusable card shells for consistent styling
 const CardShell = ({ title, subtitle, icon, headerRight, children }) => (
@@ -426,18 +427,21 @@ const statusBadge = (status) => {
 export default function DashboardPage() {
   return (
     <>
-      <div className="space-y-5 bg-[#F0F0FA] p-6">
+      <div className="space-y-5 bg-[var(--bg-surface)] p-6">
         <div className="flex items-center justify-between gap-4 mb-6">
           <div>
-            <p className="text-sm font-semibold text-blue-700">Overview</p>
-            <h1 className="text-2xl font-bold text-gray-800">Dashboard</h1>
-            <p className="text-sm text-gray-500">
+            <p className="text-sm font-semibold text-[var(--primary)]">Overview</p>
+            <h1 className="text-2xl font-bold text-[var(--text)]">Dashboard</h1>
+            <p className="text-sm text-[var(--muted)]">
               Snapshot of toilets, cleaners, and today's field updates.
             </p>
           </div>
-          <div className="flex items-center gap-2 rounded-full bg-white px-3 py-1.5 text-sm font-medium text-gray-700 shadow-sm border border-gray-200 sm:flex">
-            <Sparkles className="h-4 w-4 text-blue-600" />
-            Fresh insights ready
+          <div className="flex items-center gap-3">
+            <div className="hidden sm:flex items-center gap-2 rounded-full bg-[var(--bg-card)] px-\[10px] py-1.5 text-sm font-medium text-[var(--text)] shadow-sm border border-[var(--border-subtle)]">
+              <Sparkles className="h-4 w-4 text-[var(--primary)]" />
+              <span className="hidden md:inline">Fresh insights ready</span>
+            </div>
+            <ThemeToggle />
           </div>
         </div>
 
