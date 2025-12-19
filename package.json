@@ -9,8 +9,8 @@
     "lint": "eslint"
   },
   "dependencies": {
-    "chart.js": "^4.5.1",
     "@react-google-maps/api": "^2.20.8",
+    "chart.js": "^4.5.1",
     "date-fns": "^4.1.0",
     "leaflet": "^1.9.4",
     "lucide-react": "^0.556.0",

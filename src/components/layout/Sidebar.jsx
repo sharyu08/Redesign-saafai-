@@ -31,8 +31,8 @@ const navSections = [
         label: "Location Hierarchy",
         icon: Layers3,
         children: [
-          { label: "View Hierarchy", href: "/dashboard/location-hierarchy" },
-          { label: "Add Hierarchy", href: "/dashboard/location-hierarchy/add", icon: Plus },
+          { label: "View Hierarchy", href: "/dashboard/locationHierarchy" },
+          { label: "Add Hierarchy", href: "/dashboard/locationHierarchy/add", icon: Plus },
         ],
       },
       {
@@ -100,11 +100,9 @@ export default function Sidebar({ open, onClose, collapsed, onToggleCollapse }) 
 
   return (
     <aside
-      className={`fixed inset-y-0 left-0 z-40 flex ${
-        collapsed ? "w-20" : "w-72"
-      } flex-col bg-[#E8F4F5] border-r border-[#DEE9EB] transition-transform duration-200 md:static ${
-        open ? "translate-x-0" : "-translate-x-full md:translate-x-0"
-      }`}
+      className={`fixed inset-y-0 left-0 z-40 flex ${collapsed ? "w-20" : "w-72"
+        } flex-col bg-[#E8F4F5] border-r border-[#DEE9EB] transition-transform duration-200 md:static ${open ? "translate-x-0" : "-translate-x-full md:translate-x-0"
+        }`}
     >
       {/* HEADER */}
       <div className="flex h-16 items-center gap-3 px-4 border-b border-[#EAF2F5] bg-white">
@@ -153,11 +151,10 @@ export default function Sidebar({ open, onClose, collapsed, onToggleCollapse }) 
                       key={item.label}
                       href={item.href}
                       onClick={onClose}
-                      className={`flex items-center gap-3 rounded-xl px-3 py-2 text-sm font-medium transition ${
-                        active
-                          ? "bg-[#EAF7F8] text-[#2DB7C4]"
-                          : "text-[#2F3A45] hover:bg-[#F0F9FA]"
-                      }`}
+                      className={`flex items-center gap-3 rounded-xl px-3 py-2 text-sm font-medium transition ${active
+                        ? "bg-[#EAF7F8] text-[#2DB7C4]"
+                        : "text-[#2F3A45] hover:bg-[#F0F9FA]"
+                        }`}
                     >
                       <Icon className="h-5 w-5" />
                       {!collapsed && item.label}
@@ -181,9 +178,8 @@ export default function Sidebar({ open, onClose, collapsed, onToggleCollapse }) 
                         <>
                           <span className="flex-1 text-left">{item.label}</span>
                           <ChevronDown
-                            className={`h-4 w-4 transition ${
-                              openGroups[item.label] ? "rotate-180" : ""
-                            }`}
+                            className={`h-4 w-4 transition ${openGroups[item.label] ? "rotate-180" : ""
+                              }`}
                           />
                         </>
                       )}
@@ -195,11 +191,10 @@ export default function Sidebar({ open, onClose, collapsed, onToggleCollapse }) 
                           <Link
                             key={child.href}
                             href={child.href}
-                            className={`block rounded-lg px-3 py-2 text-sm ${
-                              isActive(child.href)
-                                ? "bg-[#EAF7F8] text-[#2DB7C4]"
-                                : "text-[#6B7280] hover:bg-[#F0F9FA]"
-                            }`}
+                            className={`block rounded-lg px-3 py-2 text-sm ${isActive(child.href)
+                              ? "bg-[#EAF7F8] text-[#2DB7C4]"
+                              : "text-[#6B7280] hover:bg-[#F0F9FA]"
+                              }`}
                           >
                             {child.label}
                           </Link>
