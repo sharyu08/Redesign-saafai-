@@ -25,11 +25,18 @@ export default function MapPanel({ locations }) {
             </div>
 
             <div className="flex-1 rounded-xl overflow-hidden border border-[var(--border-subtle)] shadow-inner">
-                <LoadScript googleMapsApiKey={process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY}>
+                <LoadScript
+                    googleMapsApiKey={process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY}
+                    libraries={["places"]}
+                >
                     <GoogleMap
                         mapContainerStyle={{ width: "100%", height: "100%" }}
                         center={center}
                         zoom={12}
+                        options={{
+                            disableDefaultUI: true,
+                            zoomControl: true,
+                        }}
                     >
                         {(locations || []).map((loc) => (
                             <Marker

@@ -14,32 +14,48 @@ export default function AssignmentsTable({
 
   return (
     <div className="overflow-x-auto">
-      <table className="min-w-full text-xs">
-        <thead>
-          <tr className="bg-slate-50 text-slate-500 border-b border-slate-100">
-            <th className="w-10 px-4 py-2 text-left">
+      <table className="min-w-full border-separate border-spacing-0 text-left text-xs">
+        {/* Header updated to use primary-dark variable and bold uppercase text */}
+        <thead className="sticky top-0 z-10">
+          <tr style={{ backgroundColor: 'var(--primary-dark)' }}>
+            <th className="w-10 px-8 py-5 border-b border-white/10">
               <input
                 type="checkbox"
+                className="rounded border-slate-300 text-[#58BECF] focus:ring-[#58BECF]"
                 checked={allPageSelected}
                 onChange={onToggleSelectAllCurrent}
               />
             </th>
-            <th className="w-8 px-2 py-2 text-left">#</th>
-            <th className="px-4 py-2 text-left">Name</th>
-            <th className="px-4 py-2 text-left">Location</th>
-            <th className="px-4 py-2 text-left">Role</th>
-            <th className="px-4 py-2 text-left">Status</th>
-            <th className="px-4 py-2 text-left">Assigned On</th>
-            <th className="px-4 py-2 text-right">Actions</th>
+            <th className="px-4 py-5 text-[10px] font-bold uppercase tracking-[0.2em] text-white border-b border-white/10">
+              #
+            </th>
+            <th className="px-4 py-5 text-[10px] font-bold uppercase tracking-[0.2em] text-white border-b border-white/10">
+              Cleaner
+            </th>
+            <th className="px-4 py-5 text-[10px] font-bold uppercase tracking-[0.2em] text-white border-b border-white/10">
+              Location
+            </th>
+            <th className="px-4 py-5 text-[10px] font-bold uppercase tracking-[0.2em] text-white border-b border-white/10">
+              Role
+            </th>
+            <th className="px-4 py-5 text-[10px] font-bold uppercase tracking-[0.2em] text-white border-b border-white/10">
+              Status
+            </th>
+            <th className="px-4 py-5 text-[10px] font-bold uppercase tracking-[0.2em] text-white border-b border-white/10">
+              Assigned On
+            </th>
+            <th className="px-8 py-5 text-right text-[10px] font-bold uppercase tracking-[0.2em] text-white border-b border-white/10">
+              Action
+            </th>
           </tr>
         </thead>
 
-        <tbody>
+        <tbody className="divide-y divide-slate-50 bg-white">
           {rows.length === 0 ? (
             <tr>
               <td
                 colSpan={8}
-                className="px-4 py-6 text-center text-slate-500"
+                className="px-4 py-10 text-center font-medium text-slate-400"
               >
                 No assignments found for current filters.
               </td>

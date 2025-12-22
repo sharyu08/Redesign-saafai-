@@ -1,142 +1,150 @@
 "use client";
 
-import { useMemo, useState } from "react";
-import ModeToggle from "../../../../components/createAssignment/ModeToggle";
-import UsersTypeahead from "../../../../components/createAssignment/UsersTypeahead";
-import LocationsPicker from "../../../../components/createAssignment/LocationsPicker";
-import AssignmentOptions from "../../../../components/createAssignment/AssignmentOptions";
-import PreviewModal from "../../../../components/createAssignment/PreviewModal";
-import { MOCK_USERS, MOCK_LOCATIONS } from "../../../../data/mockAssignments";
+import React, { useState } from "react";
 import { useRouter } from "next/navigation";
+import {
+  ClipboardPlus,
+  Users,
+  ChevronDown,
+  ArrowLeft,
+  ShieldCheck,
+  Check
+} from "lucide-react";
 
 export default function CreateAssignmentsPage() {
   const router = useRouter();
-  const [mode, setMode] = useState("multiple"); // "single" | "multiple"
-  const [selectedUsers, setSelectedUsers] = useState([]); // array of user objects
-  const [selectedLocations, setSelectedLocations] = useState([]); // array of location objects
-  const [assignmentType, setAssignmentType] = useState("many-to-many"); // "many-to-many" | "one-to-one" | "round-robin"
-  const [startDate, setStartDate] = useState("");
-  const [previewOpen, setPreviewOpen] = useState(false);
-  const [roleFilter, setRoleFilter] = useState("all");
+  const [isMultipleMode, setIsMultipleMode] = useState(true);
+  const [roleFilter, setRoleFilter] = useState("All Roles");
 
-  const filteredUsers = useMemo(() => {
-    if (roleFilter === "all") return MOCK_USERS;
-    return MOCK_USERS.filter((u) => u.role === roleFilter);
-  }, [roleFilter]);
+  const roles = ["All Roles", "Cleaner", "Supervisor"];
 
-  const openPreview = () => {
-    // basic validation
-    if (selectedUsers.length === 0) {
-      alert("Please select at least one user.");
-      return;
-    }
-    if (selectedLocations.length === 0) {
-      alert("Please select at least one location.");
-      return;
-    }
-    if (assignmentType === "one-to-one" && selectedUsers.length !== selectedLocations.length) {
-      alert("For one-to-one mapping, select equal number of users and locations.");
-      return;
-    }
-    setPreviewOpen(true);
-  };
-
-  const handleCreate = async () => {
-    // simulate API call: create assignments for preview
-    // build payload
-    const payload = {
-      assignmentType,
-      userIds: selectedUsers.map(u => u.id),
-      locationIds: selectedLocations.map(l => l.id),
-      startDate: startDate || null,
-    };
-
-    // simulate network delay
-    await new Promise((res) => setTimeout(res, 800));
-
-    // For demo: just show success and redirect back to assignments list (or keep)
-    setPreviewOpen(false);
-    alert(`Created ${payload.userIds.length * payload.locationIds.length} assignments (mock).`);
-    // Optionally redirect to assignments list:
-    // window.location.href = "/dashboard/cleaner-assignments";
-  };
+  const handleBack = () => router.back();
 
   return (
-    <div className="min-h-screen bg-white py-8 px-4">
-      <div className="max-w-5xl mx-auto space-y-6">
-        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
-          <div>
-            <h1 className="text-2xl font-semibold text-[#2F3A45]">Create Assignments</h1>
-            <p className="text-sm text-[#6B7280]">Assign locations to users</p>
+    <div className="min-h-screen bg-[#F8FAFB] w-full pt-8 pb-12 px-6 flex flex-col items-center relative overflow-hidden">
+
+      {/* Background Decorative Blur */}
+      <div className="absolute top-0 right-0 w-64 h-64 bg-[#E6F7F9] rounded-full blur-3xl opacity-50 -mr-20 -mt-20 pointer-events-none" />
+
+      {/* 1. Back Button: Absolute Left (Matches previous pages) */}
+      <div className="absolute top-8 left-8 z-20">
+        <button
+          onClick={handleBack}
+          className="group flex items-center gap-3 text-[10px] font-black uppercase tracking-[0.2em] text-slate-400 hover:text-[#58BECF] transition-all"
+        >
+          <div className="h-9 w-9 rounded-full bg-white shadow-sm border border-slate-100 flex items-center justify-center group-hover:border-[#58BECF] group-hover:shadow-md transition-all">
+            <ArrowLeft size={16} strokeWidth={3} className="group-hover:-translate-x-1 transition-transform" />
           </div>
-
-          <div className="flex items-center gap-3">
-            <Link href="/dashboard/cleaner-assignments">
-              <button className="px-4 py-2 rounded-lg border border-[#D1E0E2] bg-white text-[#2F3A45] text-sm font-medium hover:bg-[#F8FAFB] transition-colors">
-                <span className="flex items-center gap-1">
-                  <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" viewBox="0 0 20 20" fill="currentColor">
-                    <path fillRule="evenodd" d="M9.707 16.707a1 1 0 01-1.414 0l-6-6a1 1 0 010-1.414l6-6a1 1 0 011.414 1.414L5.414 9H17a1 1 0 110 2H5.414l4.293 4.293a1 1 0 010 1.414z" clipRule="evenodd" />
-                  </svg>
-                  Back
-                </span>
-              </button>
-            </Link>
-            <button
-              onClick={openPreview}
-              className="px-4 py-2 rounded-lg bg-gradient-to-r from-[#2DB7C4] to-[#4F7FD9] text-white text-sm font-medium hover:opacity-90 focus:outline-none focus:ring-2 focus:ring-[#2DB7C4] focus:ring-offset-2 transition-all shadow-sm"
-            >
-              Preview & Create
-            </button>
-          </div>
-        </div>
-
-        <ModeToggle value={mode} onChange={setMode} />
-
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-          <div className="space-y-4">
-            <div className="bg-[#F4FBFC] p-6 rounded-2xl border border-[#E6F6F7] shadow-sm">
-              <h3 className="text-sm font-medium text-[#2F3A45] mb-3">Select Users</h3>
-              <UsersTypeahead
-                available={MOCK_USERS}
-                selected={selectedUsers}
-                onChange={setSelectedUsers}
-                mode={mode}
-              />
-            </div>
-
-            <AssignmentOptions
-              assignmentType={assignmentType}
-              setAssignmentType={setAssignmentType}
-              startDate={startDate}
-              setStartDate={setStartDate}
-            />
-          </div>
-
-          <div className="space-y-4">
-            <div className="bg-[#F4FBFC] p-6 rounded-2xl border border-[#E6F6F7] shadow-sm">
-              <h3 className="text-sm font-medium text-[#2F3A45] mb-3">Select Locations</h3>
-              <LocationsPicker
-                available={MOCK_LOCATIONS}
-                selected={selectedLocations}
-                onChange={setSelectedLocations}
-              />
-            </div>
-            <div className="text-xs text-[#6B7280] bg-[#F4FBFC] p-4 rounded-2xl border border-[#E6F6F7] shadow-sm">
-              <span className="font-medium text-[#2F3A45]">Tip:</span> Click map markers to preview location, or click items on the left list to add/remove.
-            </div>
-          </div>
-        </div>
+          <span className="hidden lg:block">Return</span>
+        </button>
       </div>
 
-      <PreviewModal
-        open={previewOpen}
-        onClose={() => setPreviewOpen(false)}
-        users={selectedUsers}
-        locations={selectedLocations}
-        assignmentType={assignmentType}
-        startDate={startDate}
-        onConfirm={handleCreate}
-      />
+
+
+      {/* 3. Compact Assignment Card (Reduced Width: max-w-xl) */}
+      <div className="max-w-xl w-full bg-white rounded-[32px] shadow-2xl shadow-slate-200/50 border border-slate-100 overflow-hidden animate-in fade-in slide-in-from-bottom-8 duration-1000 relative z-10">
+
+        {/* Inner Card Banner */}
+        <div className="bg-[#E6F7F9] px-6 py-4 border-b border-[#D1F0F2] flex justify-between items-center">
+          <div className="flex items-center gap-2">
+            <ClipboardPlus size={16} className="text-[#58BECF]" />
+            <h2 className="text-[#007C85] font-black text-[10px] uppercase tracking-widest">Create Assignments</h2>
+          </div>
+          <div className="h-2 w-2 rounded-full bg-[#28C76F] animate-pulse" />
+        </div>
+
+        <form className="p-8 space-y-6">
+
+          {/* Mode Toggle Box (Compact) */}
+          <div className="bg-[#F8FAFB] border border-slate-50 rounded-2xl p-4 flex items-center justify-between">
+            <div className="flex items-center gap-3">
+              <div className="h-9 w-9 rounded-lg bg-white flex items-center justify-center shadow-sm">
+                <ShieldCheck className="text-[#58BECF]" size={18} />
+              </div>
+              <div className="text-left">
+                <h3 className="text-xs font-black text-slate-800 uppercase tracking-tight">Multiple Mode</h3>
+                <p className="text-[9px] font-bold text-slate-400 uppercase">Bulk Mapping Active</p>
+              </div>
+            </div>
+
+            {/* Custom Toggle Switch (Teal Color) */}
+            <button
+              type="button"
+              onClick={() => setIsMultipleMode(!isMultipleMode)}
+              className={`relative inline-flex h-8 w-14 items-center rounded-full transition-all duration-300 ${isMultipleMode ? 'bg-[#58BECF]' : 'bg-slate-200'
+                }`}
+            >
+              <span className={`inline-block h-6 w-6 transform rounded-full bg-white transition-transform duration-300 shadow-md ${isMultipleMode ? 'translate-x-7' : 'translate-x-1'
+                }`}
+              />
+            </button>
+          </div>
+
+          {/* Filter Bar (Teal Branded) */}
+          <div className="text-left space-y-3 bg-[#F0FBFC] p-5 rounded-2xl border border-cyan-50">
+            <p className="text-[9px] font-black text-[#007C85]/60 uppercase tracking-widest ml-1">Filter by Role</p>
+            <div className="flex gap-2">
+              {roles.map((role) => (
+                <button
+                  key={role}
+                  type="button"
+                  onClick={() => setRoleFilter(role)}
+                  className={`px-4 py-2 rounded-lg text-[9px] font-black uppercase tracking-widest transition-all border ${roleFilter === role
+                    ? 'bg-[#58BECF] border-[#58BECF] text-white shadow-md'
+                    : 'bg-white border-slate-100 text-slate-400 hover:border-cyan-200'
+                    }`}
+                >
+                  {role}
+                </button>
+              ))}
+            </div>
+          </div>
+
+          {/* Selection Dropdowns */}
+          <div className="space-y-4">
+            <div className="text-left space-y-1.5">
+              <label className="text-[9px] font-black text-slate-400 uppercase tracking-widest ml-1">Select Users</label>
+              <div className="relative cursor-pointer group">
+                <input
+                  type="text"
+                  readOnly
+                  placeholder="Choose personnel..."
+                  className="w-full px-5 py-3 rounded-xl border border-slate-100 bg-[#F8FAFB] text-xs font-bold text-slate-700 outline-none focus:border-[#58BECF] transition-all cursor-pointer"
+                />
+                <ChevronDown className="absolute right-4 top-1/2 -translate-y-1/2 text-slate-300 group-hover:text-[#58BECF]" size={16} />
+              </div>
+            </div>
+
+            <div className="text-left space-y-1.5">
+              <label className="text-[9px] font-black text-slate-400 uppercase tracking-widest ml-1">Select Locations</label>
+              <div className="relative cursor-pointer group">
+                <input
+                  type="text"
+                  readOnly
+                  placeholder="Choose facilities..."
+                  className="w-full px-5 py-3 rounded-xl border border-slate-100 bg-[#F8FAFB] text-xs font-bold text-slate-700 outline-none focus:border-[#58BECF] transition-all cursor-pointer"
+                />
+                <ChevronDown className="absolute right-4 top-1/2 -translate-y-1/2 text-slate-300 group-hover:text-[#58BECF]" size={16} />
+              </div>
+            </div>
+          </div>
+
+          {/* Action Button: Teal Gradient */}
+          <div className="pt-4 border-t border-slate-50">
+            <button
+              type="submit"
+              style={{ background: 'linear-gradient(to right, #58BECF, #6D9CDC)' }}
+              className="w-full py-4 rounded-2xl text-white text-[10px] font-black uppercase tracking-[0.2em] shadow-xl shadow-cyan-500/20 hover:brightness-105 active:scale-95 transition-all flex items-center justify-center gap-2"
+            >
+              <Check size={16} strokeWidth={3} /> Initialize Assignments
+            </button>
+          </div>
+        </form>
+      </div>
+
+      <p className="mt-8 text-[9px] font-bold text-slate-400 uppercase tracking-[0.3em] opacity-60">
+        System Registry Synchronization Active
+      </p>
     </div>
   );
 }

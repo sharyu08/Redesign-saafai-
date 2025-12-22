@@ -3,56 +3,30 @@
 import Link from "next/link";
 import { useMemo, useState } from "react";
 import SummaryCards from "../../../components/cleanerAssignments/SummaryCards";
-import BulkActionsBar from "../../../components/cleanerAssignments/BulkActionsBar";
 import FilterBar from "../../../components/cleanerAssignments/FilterBar";
+import {
+  Search,
+  Plus,
+  MapPin,
+  Trash2,
+  Users,
+  UserCheck,
+  UserMinus,
+  Shield,
+  ChevronLeft,
+  ChevronRight,
+  Activity,
+  Settings,
+  LayoutList
+} from "lucide-react";
 
 // Mock data
 const initialAssignments = [
-  {
-    id: 1,
-    cleanerName: "Omkar saaf cleaner",
-    cleanerEmail: "omkar.cleaner@example.com",
-    locationName: "New Manish Nagar Chowk",
-    role: "cleaner",
-    status: "assigned",
-    assignedOn: "2025-12-08",
-  },
-  {
-    id: 2,
-    cleanerName: "Rajesh sahani - Narendra square",
-    cleanerEmail: "rajesh.sahani@example.com",
-    locationName: "New Manish Nagar Chowk",
-    role: "cleaner",
-    status: "assigned",
-    assignedOn: "2025-12-08",
-  },
-  {
-    id: 3,
-    cleanerName: "Omkar Supervisor",
-    cleanerEmail: "richom056@gmail.com",
-    locationName: "Narendra nagar square",
-    role: "supervisor",
-    status: "assigned",
-    assignedOn: "2025-12-08",
-  },
-  {
-    id: 4,
-    cleanerName: "Test Supervisor",
-    cleanerEmail: "test.supervisor@example.com",
-    locationName: "Budhwar Bazaar",
-    role: "supervisor",
-    status: "assigned",
-    assignedOn: "2025-12-03",
-  },
-  {
-    id: 5,
-    cleanerName: "New Cleaner",
-    cleanerEmail: "new.cleaner@example.com",
-    locationName: "Untitled Location",
-    role: "cleaner",
-    status: "unassigned",
-    assignedOn: null,
-  },
+  { id: 1, cleanerName: "Omkar saaf cleaner", cleanerEmail: "omkar.cleaner@example.com", locationName: "New Manish Nagar Chowk", role: "Cleaner", status: "Assigned", assignedOn: "2025-12-08" },
+  { id: 2, cleanerName: "Rajesh sahani - Narendra square", cleanerEmail: "rajesh.sahani@example.com", locationName: "New Manish Nagar Chowk", role: "Cleaner", status: "Assigned", assignedOn: "2025-12-08" },
+  { id: 3, cleanerName: "Omkar Supervisor", cleanerEmail: "richom056@gmail.com", locationName: "Narendra nagar square", role: "Supervisor", status: "Assigned", assignedOn: "2025-12-08" },
+  { id: 4, cleanerName: "Test Supervisor", cleanerEmail: "test.supervisor@example.com", locationName: "Budhwar Bazaar", role: "Supervisor", status: "Assigned", assignedOn: "2025-12-03" },
+  { id: 5, cleanerName: "New Cleaner", cleanerEmail: "new.cleaner@example.com", locationName: "Untitled Location", role: "Cleaner", status: "Unassigned", assignedOn: "-" },
 ];
 
 const PAGE_SIZE = 5;
@@ -62,370 +36,196 @@ export default function CleanerAssignmentsPage() {
   const [search, setSearch] = useState("");
   const [statusFilter, setStatusFilter] = useState("all");
   const [roleFilter, setRoleFilter] = useState("all");
-  const [selectedIds, setSelectedIds] = useState([]);
   const [page, setPage] = useState(1);
 
-  const totalCount = assignments.length;
-  const assignedCount = assignments.filter((a) => a.status === "assigned").length;
-  const unassignedCount = assignments.filter((a) => a.status === "unassigned").length;
+  // Deletion logic
+  const handleDelete = (id) => {
+    if (confirm("Are you sure you want to remove this assignment?")) {
+      setAssignments(prev => prev.filter(item => item.id !== id));
+    }
+  };
 
-  // Filtering
   const filtered = useMemo(() => {
     let data = [...assignments];
-
     if (search.trim()) {
       const term = search.toLowerCase();
-      data = data.filter((item) => {
-        return (
-          item.cleanerName.toLowerCase().includes(term) ||
-          (item.cleanerEmail && item.cleanerEmail.toLowerCase().includes(term)) ||
-          item.locationName.toLowerCase().includes(term)
-        );
-      });
+      data = data.filter((item) =>
+        item.cleanerName.toLowerCase().includes(term) ||
+        item.locationName.toLowerCase().includes(term)
+      );
     }
-
-    if (statusFilter !== "all") {
-      data = data.filter((item) => item.status === statusFilter);
-    }
-
-    if (roleFilter !== "all") {
-      data = data.filter((item) => item.role === roleFilter);
-    }
-
     return data;
-  }, [assignments, search, statusFilter, roleFilter]);
+  }, [assignments, search]);
 
-  // Pagination
-  const pageCount = Math.max(1, Math.ceil(filtered.length / PAGE_SIZE));
-  const currentPage = Math.min(page, pageCount);
-  const startIndex = (currentPage - 1) * PAGE_SIZE;
+  const startIndex = (page - 1) * PAGE_SIZE;
   const pageItems = filtered.slice(startIndex, startIndex + PAGE_SIZE);
 
-  // Selection helpers
-  const isSelected = (id) => selectedIds.includes(id);
-
-  const toggleSelectOne = (id) => {
-    setSelectedIds((prev) =>
-      prev.includes(id) ? prev.filter((x) => x !== id) : [...prev, id]
-    );
-  };
-
-  const toggleSelectAllCurrentPage = () => {
-    const pageIds = pageItems.map((item) => item.id);
-    const allSelected = pageIds.every((id) => selectedIds.includes(id));
-
-    if (allSelected) {
-      setSelectedIds((prev) => prev.filter((id) => !pageIds.includes(id)));
-    } else {
-      setSelectedIds((prev) => Array.from(new Set([...prev, ...pageIds])));
-    }
-  };
-
-  const clearSelection = () => setSelectedIds([]);
-
-  // Row-level actions
-  const handleToggleAssign = (id) => {
-    setAssignments((prev) =>
-      prev.map((item) =>
-        item.id === id
-          ? {
-              ...item,
-              status: item.status === "assigned" ? "unassigned" : "assigned",
-              assignedOn: item.status === "assigned" ? null : new Date().toISOString().slice(0, 10),
-            }
-          : item
-      )
-    );
-  };
-
-  const handleDelete = (id) => {
-    setAssignments((prev) => prev.filter((item) => item.id !== id));
-    setSelectedIds((prev) => prev.filter((x) => x !== id));
-  };
-
-  // Bulk actions
-  const bulkMarkAssigned = () => {
-    setAssignments((prev) =>
-      prev.map((item) =>
-        selectedIds.includes(item.id)
-          ? {
-              ...item,
-              status: "assigned",
-              assignedOn: new Date().toISOString().slice(0, 10),
-            }
-          : item
-      )
-    );
-    clearSelection();
-  };
-
-  const bulkMarkUnassigned = () => {
-    setAssignments((prev) =>
-      prev.map((item) =>
-        selectedIds.includes(item.id)
-          ? { ...item, status: "unassigned", assignedOn: null }
-          : item
-      )
-    );
-    clearSelection();
-  };
-
-  const bulkDelete = () => {
-    setAssignments((prev) => prev.filter((item) => !selectedIds.includes(item.id)));
-    clearSelection();
-  };
-
-  // Click on summary cards -> status filters
-  const handleSummaryClick = (type) => {
-    if (type === "total") setStatusFilter("all");
-    if (type === "assigned") setStatusFilter("assigned");
-    if (type === "unassigned") setStatusFilter("unassigned");
-    setPage(1);
-  };
-
   return (
-    <div className="min-h-screen bg-white py-8 px-4">
-      <div className="max-w-6xl mx-auto space-y-6">
-        {/* Header & Add button */}
-        <div className="flex items-center justify-between">
-          <div>
-            <h1 className="text-2xl font-semibold text-[#2F3A45]">
+    <div className="min-h-screen bg-[#F8FAFB] py-8 px-8 text-left">
+      <div className="max-w-7xl mx-auto space-y-8">
+
+        {/* 1. Header Section */}
+        <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
+          <div className="text-left">
+            <h1 className="text-3xl font-bold text-slate-800 tracking-tight leading-none uppercase">
               Cleaner Assignments
             </h1>
-            <p className="text-sm text-slate-500">
-              Manage your cleaner-location mappings
+            <p className="text-xs font-medium text-slate-400 uppercase tracking-widest mt-2">
+              System Personnel Mapping Registry
             </p>
           </div>
-
           <Link
             href="/dashboard/cleaner-assignments/add"
-            className="inline-flex items-center rounded-lg bg-gradient-to-r from-[#2DB7C4] to-[#4F7FD9] px-4 py-2 text-sm font-medium text-white shadow-sm hover:opacity-90 focus:outline-none focus:ring-2 focus:ring-[#2DB7C4] focus:ring-offset-2 transition-all"
+            style={{ background: 'linear-gradient(to right, #58BECF, #6D9CDC)' }}
+            className="flex items-center gap-2 px-6 py-2.5 rounded-xl text-white text-[11px] font-bold uppercase tracking-widest shadow-lg shadow-cyan-500/20 hover:brightness-105 active:scale-95 transition-all"
           >
-            Add Cleaner
+            <Plus size={16} strokeWidth={3} /> Add Cleaner
           </Link>
         </div>
 
-        <div className="space-y-4">
-          <SummaryCards
-            total={totalCount}
-            assigned={assignedCount}
-            unassigned={unassignedCount}
-            onClickCard={handleSummaryClick}
-            activeStatus={statusFilter}
-          />
+        {/* 2. Summary Cards */}
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+          <div className="bg-[#FEF3EB] p-6 rounded-[24px] border border-[#FDE0CF] flex items-center justify-between shadow-sm">
+            <div>
+              <p className="text-[10px] font-bold text-[#8E6C1F] uppercase tracking-widest">Unassigned</p>
+              <h3 className="text-3xl font-bold text-[#2F3A45] mt-1">
+                {assignments.filter(a => a.status === "Unassigned").length}
+              </h3>
+            </div>
+            <UserMinus className="text-[#F4B740]" size={32} opacity={0.5} />
+          </div>
+          <div className="bg-[#F0F9FF] p-6 rounded-[24px] border border-[#D1E9FF] flex items-center justify-between shadow-sm">
+            <div>
+              <p className="text-[10px] font-bold text-[#0070AD] uppercase tracking-widest">Assigned</p>
+              <h3 className="text-3xl font-bold text-[#2F3A45] mt-1">
+                {assignments.filter(a => a.status === "Assigned").length}
+              </h3>
+            </div>
+            <UserCheck className="text-[#0070AD]" size={32} opacity={0.5} />
+          </div>
+          <div className="bg-[#F0FDF4] p-6 rounded-[24px] border border-[#DCFCE7] flex items-center justify-between shadow-sm">
+            <div>
+              <p className="text-[10px] font-bold text-[#15803D] uppercase tracking-widest">Total Staff</p>
+              <h3 className="text-3xl font-bold text-[#2F3A45] mt-1">{assignments.length}</h3>
+            </div>
+            <Users className="text-[#15803D]" size={32} opacity={0.5} />
+          </div>
+        </div>
 
-          <div className="bg-[#F4FBFC] rounded-2xl border border-[#E6F6F7] p-6 shadow-sm">
-            <FilterBar
-              search={search}
-              onSearchChange={(value) => {
-                setSearch(value);
-                setPage(1);
-              }}
-              statusFilter={statusFilter}
-              onStatusChange={(value) => {
-                setStatusFilter(value);
-                setPage(1);
-              }}
-              roleFilter={roleFilter}
-              onRoleChange={(value) => {
-                setRoleFilter(value);
-                setPage(1);
-              }}
-              onClearFilters={() => {
-                setSearch("");
-                setStatusFilter("all");
-                setRoleFilter("all");
-                setPage(1);
-              }}
-            />
+        {/* 3. Filter Bar */}
+        <div className="bg-white/50 rounded-[24px] border border-slate-100 p-5 shadow-sm backdrop-blur-sm">
+          <div className="flex flex-col md:flex-row items-center gap-4">
+            <div className="relative flex-1 w-full group">
+              <Search className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-300 group-focus-within:text-[#58BECF] transition-colors" size={18} />
+              <input
+                type="text"
+                placeholder="Search registry by name or node..."
+                value={search}
+                onChange={(e) => setSearch(e.target.value)}
+                className="w-full pl-12 pr-4 py-3 bg-white border border-slate-100 rounded-xl text-[10px] font-medium uppercase tracking-wider outline-none focus:ring-4 focus:ring-cyan-50 transition-all"
+              />
+            </div>
+            <FilterBar statusFilter={statusFilter} onStatusChange={setStatusFilter} roleFilter={roleFilter} onRoleChange={setRoleFilter} />
+          </div>
+        </div>
+
+        {/* 4. Main Data Table */}
+        <div className="bg-white rounded-[24px] border border-slate-100 shadow-xl shadow-slate-200/20 overflow-hidden">
+          <div className="overflow-x-auto">
+            <table className="min-w-full border-separate border-spacing-0">
+              <thead>
+                <tr className="bg-[#E0F7FA]">
+                  <th className="px-6 py-5 text-[10px] font-bold uppercase tracking-wider text-[#00838F] border-b border-cyan-100">
+                    <div className="flex items-center gap-2"><Users size={14} strokeWidth={2.5} /> Cleaner</div>
+                  </th>
+                  <th className="px-6 py-5 text-[10px] font-bold uppercase tracking-wider text-[#00838F] border-b border-cyan-100">
+                    <div className="flex items-center gap-2"><MapPin size={14} strokeWidth={2.5} /> Location</div>
+                  </th>
+                  <th className="px-6 py-5 text-[10px] font-bold uppercase tracking-wider text-[#00838F] border-b border-cyan-100">
+                    <div className="flex items-center gap-2"><Shield size={14} strokeWidth={2.5} /> Role</div>
+                  </th>
+                  <th className="px-6 py-5 text-[10px] font-bold uppercase tracking-wider text-[#00838F] border-b border-cyan-100">
+                    <div className="flex items-center gap-2"><Activity size={14} strokeWidth={2.5} /> Status</div>
+                  </th>
+                  <th className="px-6 py-5 text-[10px] font-bold uppercase tracking-wider text-[#00838F] border-b border-cyan-100">
+                    <div className="flex items-center gap-2"><LayoutList size={14} strokeWidth={2.5} /> Assigned On</div>
+                  </th>
+                  <th className="px-8 py-5 text-right text-[10px] font-bold uppercase tracking-wider text-[#00838F] border-b border-cyan-100">
+                    <div className="flex items-center justify-end gap-2"><Settings size={14} strokeWidth={2.5} /> Action</div>
+                  </th>
+                </tr>
+              </thead>
+              <tbody className="divide-y divide-slate-50">
+                {pageItems.map((item) => (
+                  <tr key={item.id} className="hover:bg-[#F4FBFC]/60 transition-colors">
+                    <td className="px-6 py-5">
+                      <div className="flex items-center gap-3">
+                        <div className="h-9 w-9 rounded-full bg-white border border-cyan-100 text-[#00838F] flex items-center justify-center font-bold text-[11px] shadow-sm">
+                          {item.cleanerName.split(' ').map(n => n[0]).join('').substring(0, 2).toUpperCase()}
+                        </div>
+                        <div className="text-left">
+                          <p className="text-sm font-semibold text-slate-700 leading-none mb-1">{item.cleanerName}</p>
+                          <p className="text-[10px] font-medium text-slate-400">{item.cleanerEmail}</p>
+                        </div>
+                      </div>
+                    </td>
+                    <td className="px-6 py-5">
+                      <p className="text-sm font-semibold text-[#007C85] hover:text-[#58BECF] transition-colors cursor-pointer">
+                        {item.locationName}
+                      </p>
+                    </td>
+                    <td className="px-6 py-5">
+                      <span className={`px-2.5 py-1 rounded-lg text-[9px] font-bold uppercase tracking-widest border ${item.role === 'Supervisor' ? 'bg-blue-50 border-blue-100 text-blue-500' : 'bg-teal-50 border-teal-100 text-teal-600'
+                        }`}>
+                        {item.role}
+                      </span>
+                    </td>
+                    <td className="px-6 py-5">
+                      <span className={`px-2.5 py-1 rounded-lg text-[9px] font-bold uppercase tracking-widest border ${item.status === 'Assigned' ? 'bg-emerald-50 border-emerald-100 text-emerald-600' : 'bg-rose-50 border-rose-100 text-rose-400'
+                        }`}>
+                        {item.status}
+                      </span>
+                    </td>
+                    <td className="px-6 py-5 text-sm font-medium text-slate-400">
+                      {item.assignedOn}
+                    </td>
+                    <td className="px-8 py-5 text-right">
+                      <div className="flex justify-end">
+                        <button
+                          onClick={() => handleDelete(item.id)}
+                          className="p-2 text-slate-300 hover:text-rose-500 hover:bg-rose-50 rounded-lg transition-all"
+                          title="Delete Assignment"
+                        >
+                          <Trash2 size={18} strokeWidth={2} />
+                        </button>
+                      </div>
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
           </div>
 
-          {selectedIds.length > 0 && (
-            <BulkActionsBar
-              selectedCount={selectedIds.length}
-              onClearSelection={clearSelection}
-              onBulkAssign={bulkMarkAssigned}
-              onBulkUnassign={bulkMarkUnassigned}
-              onBulkDelete={bulkDelete}
-            />
-          )}
-
-          <div className="bg-white rounded-2xl border border-[#EEF2F5] shadow-sm overflow-hidden">
-            <div className="overflow-x-auto">
-              <table className="min-w-full divide-y divide-[#EEF2F5]">
-                <thead className="bg-[#F8FAFB]">
-                  <tr>
-                    <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-[#6B7280] uppercase tracking-wider">
-                      <div className="flex items-center">
-                        <input
-                          id="select-all-rows"
-                          name="select-all-rows"
-                          type="checkbox"
-                          className="h-4 w-4 rounded border-[#D1E0E2] text-[#2DB7C4] focus:ring-[#2DB7C4]"
-                          checked={selectedIds.length > 0 && selectedIds.length === pageItems.length}
-                          onChange={toggleSelectAllCurrentPage}
-                        />
-                        <span className="ml-2">Cleaner</span>
-                      </div>
-                    </th>
-                    <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-[#6B7280] uppercase tracking-wider">
-                      Location
-                    </th>
-                    <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-[#6B7280] uppercase tracking-wider">
-                      Role
-                    </th>
-                    <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-[#6B7280] uppercase tracking-wider">
-                      Status
-                    </th>
-                    <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-[#6B7280] uppercase tracking-wider">
-                      Assigned On
-                    </th>
-                    <th scope="col" className="relative px-6 py-3">
-                      <span className="sr-only">Actions</span>
-                    </th>
-                  </tr>
-                </thead>
-                <tbody className="bg-white divide-y divide-[#EEF2F5]">
-                  {pageItems.map((item) => (
-                    <tr
-                      key={item.id}
-                      className={isSelected(item.id) ? 'bg-[#F4FBFC]' : 'hover:bg-[#F8FAFB] transition-colors'}
-                    >
-                      <td className="px-6 py-4 whitespace-nowrap">
-                        <div className="flex items-center">
-                          <input
-                            id={`select-${item.id}`}
-                            name={`select-${item.id}`}
-                            type="checkbox"
-                            className="h-4 w-4 rounded border-[#D1E0E2] text-[#2DB7C4] focus:ring-[#2DB7C4]"
-                            checked={isSelected(item.id)}
-                            onChange={() => toggleSelectOne(item.id)}
-                            onClick={(e) => e.stopPropagation()}
-                          />
-                          <div className="ml-4 flex items-center">
-                            <div className={`w-9 h-9 rounded-full flex items-center justify-center mr-3 font-medium text-white ${
-                              item.role === 'supervisor' 
-                                ? 'bg-gradient-to-r from-[#2DB7C4] to-[#4F7FD9]' 
-                                : 'bg-[#0E7C86]'
-                            }`}>
-                              {item.cleanerName.split(' ').map(n => n[0]).join('').toUpperCase().substring(0, 2)}
-                            </div>
-                            <div className="text-sm font-medium text-[#2F3A45]">
-                              {item.cleanerName}
-                            </div>
-                          </div>
-                        </div>
-                      </td>
-                      <td className="px-6 py-4 whitespace-nowrap text-sm text-[#2F3A45]">
-                        {item.locationName}
-                      </td>
-                      <td className="px-6 py-4 whitespace-nowrap">
-                        <span
-                          className={`px-2.5 py-1 text-xs font-medium rounded-full ${
-                            item.role === 'supervisor'
-                              ? 'bg-[#F0F5FF] text-[#2E5FD4]'
-                              : 'bg-[#E6F6F7] text-[#0E7C86]'
-                          }`}
-                        >
-                          {item.role}
-                        </span>
-                      </td>
-                      <td className="px-6 py-4 whitespace-nowrap">
-                        <span
-                          className={`px-2.5 py-1 text-xs font-medium rounded-full ${
-                            item.status === 'assigned'
-                              ? 'bg-[#E6F6F7] text-[#0E7C86]'
-                              : 'bg-[#FEF9E6] text-[#8E6C1F]'
-                          }`}
-                        >
-                          {item.status}
-                        </span>
-                      </td>
-                      <td className="px-6 py-4 whitespace-nowrap text-sm text-[#6B7280]">
-                        {item.assignedOn || '-'}
-                      </td>
-                      <td className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
-                        <div className="flex items-center justify-end space-x-2">
-                          <button
-                            type="button"
-                            className={`inline-flex items-center px-2.5 py-1 border text-xs font-medium rounded ${
-                              item.status === 'assigned'
-                                ? 'border-[#F4B740] text-[#8E6C1F] bg-[#FEF9E6] hover:bg-[#FEF3C7]'
-                                : 'border-[#2DB7C4] text-[#0E7C86] bg-[#E6F6F7] hover:bg-[#D1EEF1]'
-                            } transition-colors`}
-                            onClick={(e) => {
-                              e.stopPropagation();
-                              handleToggleAssign(item.id);
-                            }}
-                          >
-                            {item.status === 'assigned' ? 'Unassign' : 'Assign'}
-                          </button>
-                          <button
-                            type="button"
-                            className="text-[#B42318] hover:text-[#912018] transition-colors"
-                            onClick={(e) => {
-                              e.stopPropagation();
-                              handleDelete(item.id);
-                            }}
-                          >
-                            <span className="sr-only">Delete</span>
-                            <svg
-                              className="h-5 w-5"
-                              xmlns="http://www.w3.org/2000/svg"
-                              viewBox="0 0 20 20"
-                              fill="currentColor"
-                              aria-hidden="true"
-                            >
-                              <path
-                                fillRule="evenodd"
-                                d="M9 2a1 1 0 00-.894.553L7.382 4H4a1 1 0 000 2v10a2 2 0 002 2h8a2 2 0 002-2V6a1 1 0 100-2h-3.382l-.724-1.447A1 1 0 0011 2H9zM7 8a1 1 0 012 0v6a1 1 0 11-2 0V8zm5-1a1 1 0 00-1 1v6a1 1 0 102 0V8a1 1 0 00-1-1z"
-                                clipRule="evenodd"
-                              />
-                            </svg>
-                          </button>
-                        </div>
-                      </td>
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
-            </div>
-
-            {/* Pagination */}
-            <div className="flex items-center justify-between px-6 py-3 border-t border-[#EEF2F5] text-sm text-[#6B7280] bg-[#F8FAFB]">
-              <div>
-                Showing{' '}
-                <span className="font-medium text-[#2F3A45]">
-                  {filtered.length === 0 ? 0 : startIndex + 1}
-                </span>{' '}
-                to{' '}
-                <span className="font-medium text-[#2F3A45]">
-                  {Math.min(startIndex + PAGE_SIZE, filtered.length)}
-                </span>{' '}
-                of{' '}
-                <span className="font-medium text-[#2F3A45]">
-                  {filtered.length}
-                </span>{' '}
-                entries
-              </div>
-              <div className="flex space-x-2">
-                <button
-                  type="button"
-                  disabled={currentPage === 1}
-                  onClick={() => setPage((p) => Math.max(1, p - 1))}
-                  className="px-3 py-1.5 rounded-md border border-[#D1E0E2] text-[#2F3A45] bg-white hover:bg-[#F4FBFC] disabled:opacity-40 disabled:cursor-not-allowed disabled:bg-[#F8FAFB] transition-colors"
-                >
-                  Previous
-                </button>
-                <button
-                  type="button"
-                  disabled={currentPage === pageCount}
-                  onClick={() => setPage((p) => Math.min(pageCount, p + 1))}
-                  className="px-3 py-1.5 rounded-md border border-[#D1E0E2] text-[#2F3A45] bg-white hover:bg-[#F4FBFC] disabled:opacity-40 disabled:cursor-not-allowed disabled:bg-[#F8FAFB] transition-colors"
-                >
-                  Next
-                </button>
-              </div>
+          {/* Footer Navigation */}
+          <div className="bg-[#F8FAFB]/80 px-8 py-4 border-t border-slate-100 flex items-center justify-between">
+            <p className="text-[10px] font-bold text-slate-300 uppercase tracking-widest">
+              Showing <span className="text-slate-600">{startIndex + 1}-{Math.min(startIndex + PAGE_SIZE, filtered.length)}</span> of {filtered.length} entries
+            </p>
+            <div className="flex gap-2">
+              <button
+                onClick={() => setPage(p => Math.max(1, p - 1))}
+                disabled={page === 1}
+                className="p-2 bg-white border border-slate-200 rounded-lg text-slate-400 hover:text-[#58BECF] disabled:opacity-30 shadow-sm"
+              >
+                <ChevronLeft size={16} strokeWidth={3} />
+              </button>
+              <button
+                onClick={() => setPage(p => p + 1)}
+                disabled={startIndex + PAGE_SIZE >= filtered.length}
+                className="p-2 bg-white border border-slate-200 rounded-lg text-slate-400 hover:text-[#58BECF] disabled:opacity-30 shadow-sm"
+              >
+                <ChevronRight size={16} strokeWidth={3} />
+              </button>
             </div>
           </div>
         </div>

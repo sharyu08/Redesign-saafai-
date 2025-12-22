@@ -11,10 +11,17 @@ export default function WashroomMap() {
 
     return (
         <div className="h-[320px] w-full rounded-xl overflow-hidden">
-            <LoadScript googleMapsApiKey={process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY}>
+            <LoadScript
+                googleMapsApiKey={process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY}
+                libraries={["places"]}
+            >
                 <GoogleMap
                     center={{ lat: 21.1458, lng: 79.0882 }}
                     zoom={12}
+                    options={{
+                        disableDefaultUI: true,
+                        zoomControl: true,
+                    }}
                     mapContainerStyle={{ width: "100%", height: "100%" }}
                 >
                     {locations.map((l, i) => (

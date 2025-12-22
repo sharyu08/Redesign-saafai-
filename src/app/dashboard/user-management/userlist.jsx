@@ -1,178 +1,101 @@
-"use client"; 
+"use client";
 
 import React, { useState } from 'react';
-import Link from 'next/link'; 
-import EditUserFormModal from './EditUserFormModal'; 
-// 👇 NEW IMPORT for the Add User Form
-import AddUserForm from './add-user/adduserform'; 
+import { useRouter } from 'next/navigation';
+import { Search, Plus, Eye, Edit3, Trash2, MapPin, Mail, Phone, Shield, AlertTriangle } from 'lucide-react';
 
-
-// --- MOCK DATA AND HELPER FUNCTIONS (UNCHANGED) ---
-
+// --- MOCK DATA ---
 const initialUserRows = [
-    { 
-        id: 103, 
-        name: 'Rajesh Sahani - Narendra square', 
-        phone: '8955596876', 
-        email: 'N/A', 
-        role: 'Cleaner', 
-        userId: 182, 
+    {
+        id: 103,
+        name: 'Rajesh Sahani',
+        phone: '8955596876',
+        email: 'rajesh@saaf.ai',
+        role: 'Cleaner',
+        userId: 182,
         locations: [
-            { name: 'Narendra nagar square', assignedDate: '20 Nov 2025', active: true, coordinates: '21.10769962728607, 79.07983507777436' },
-            { name: 'New Manish Nagar Chowk', assignedDate: '8 Dec 2025', active: true, coordinates: '21.08506067326107, 79.08774520874023' }
+            { name: 'Narendra nagar square', assignedDate: '20 Nov 2025', active: true, coordinates: '21.107, 79.079' },
+            { name: 'New Manish Nagar Chowk', assignedDate: '8 Dec 2025', active: true, coordinates: '21.085, 79.087' }
         ]
     },
-    { 
-        id: 101, 
-        name: 'Test Intern', 
-        phone: '9356150564', 
-        email: 'test1@gmail.com', 
-        role: 'Admin', 
-        userId: 180, 
-        locations: [] 
-    },
-    { 
-        id: 102, 
-        name: 'Omkar Supervisor', 
-        phone: '3333333333', 
-        email: 'richom056@gmail.com', 
-        role: 'Supervisor', 
-        userId: 181, 
-        locations: [
-            { name: 'Narendra nagar square', assignedDate: '20 Nov 2025', active: true, coordinates: '21.107, 79.079' }
-        ]
-    },
-    { id: 104, name: 'Test Supervisor', phone: '9356150563', email: 'N/A', role: 'Supervisor', userId: 183, locations: [] },
-    { id: 105, name: 'Test Admin', phone: '9356150562', email: 'N/A', role: 'Admin', userId: 184, locations: [] },
-    { id: 106, name: 'Raju Choudhary', phone: '8210370052', email: 'N/A', role: 'Cleaner', userId: 185, locations: [] },
+    { id: 101, name: 'Test Intern', phone: '9356150564', email: 'test1@gmail.com', role: 'Admin', userId: 180, locations: [] },
+    { id: 102, name: 'Omkar Supervisor', phone: '3333333333', email: 'richom056@gmail.com', role: 'Supervisor', userId: 181, locations: [{ name: 'Narendra nagar square', assignedDate: '20 Nov 2025', active: true, coordinates: '21.107, 79.079' }] },
 ];
 
 const getRoleStyle = (role) => {
     switch (role) {
-        case 'Admin': return 'bg-blue-100 text-blue-800';
-        case 'Supervisor': return 'bg-green-100 text-green-800';
-        case 'Cleaner': return 'bg-gray-200 text-gray-800';
-        default: return 'bg-gray-100 text-gray-600';
+        case 'Admin': return 'bg-blue-50 text-blue-600 border-blue-100';
+        case 'Supervisor': return 'bg-teal-50 text-teal-600 border-teal-100';
+        case 'Cleaner': return 'bg-slate-50 text-slate-600 border-slate-100';
+        default: return 'bg-gray-50 text-gray-600 border-gray-100';
     }
 };
 
-// --- MODAL COMPONENTS (Modal wrappers use fixed inset-0) ---
-
+// --- DELETE CONFIRMATION MODAL ---
 const DeleteConfirmModal = ({ user, onClose, onConfirm }) => (
-    // FIX APPLIED: fixed inset-0 ensures full viewport coverage
-    <div className="fixed inset-0 bg-gray-300 bg-opacity-75 flex items-center justify-center z-50"> 
-        <div className="bg-white p-6 rounded-lg shadow-2xl w-full max-w-sm mx-4">
-            <h2 className="text-xl font-bold mb-4 text-red-700">Confirm Deletion</h2>
-            <p className="mb-6">
-                Are you sure you want to delete user: <span className="font-semibold">{user.name}</span>? This action cannot be undone.
-            </p>
-            <div className="flex justify-end space-x-3">
-                <button onClick={onClose} className="px-4 py-2 border border-gray-300 rounded-lg text-gray-700 hover:bg-gray-100">Cancel</button>
-                <button onClick={() => onConfirm(user)} className="px-4 py-2 bg-red-600 text-white rounded-lg hover:bg-red-700">Delete</button>
+    <div className="fixed inset-0 bg-slate-900/60 backdrop-blur-sm flex items-center justify-center z-[100] p-4 text-left">
+        <div className="bg-white rounded-[32px] shadow-2xl w-full max-w-md overflow-hidden animate-in zoom-in duration-200">
+            <div className="bg-rose-50 p-8 flex flex-col items-center text-center">
+                <div className="w-16 h-16 bg-rose-100 rounded-2xl flex items-center justify-center mb-4">
+                    <AlertTriangle className="h-8 w-8 text-rose-600" />
+                </div>
+                <h2 className="text-xl font-black text-rose-950 uppercase tracking-tight">Confirm Deletion</h2>
+                <p className="text-sm font-bold text-rose-800/60 mt-2 leading-relaxed">
+                    Are you sure you want to remove <span className="text-rose-600">{user.name}</span>? This action is permanent.
+                </p>
+            </div>
+            <div className="p-6 flex gap-3">
+                <button onClick={onClose} className="flex-1 px-6 py-3.5 rounded-2xl border border-slate-200 bg-white text-[11px] font-black text-slate-400 uppercase tracking-widest hover:bg-slate-50 transition-all">
+                    Cancel
+                </button>
+                <button onClick={() => onConfirm(user.id)} className="flex-1 px-6 py-3.5 rounded-2xl bg-rose-600 text-white text-[11px] font-black uppercase tracking-widest shadow-lg shadow-rose-200 hover:brightness-110 transition-all">
+                    Delete User
+                </button>
             </div>
         </div>
     </div>
 );
 
-const LocationAssignmentCard = ({ location }) => (
-    <div className="border border-gray-200 p-4 rounded-lg flex flex-col justify-between">
-        <div className="flex justify-between items-start mb-2">
-            <h3 className="font-semibold text-gray-800 flex items-center">
-                <span className="text-blue-500 mr-2">📍</span>{location.name}
-            </h3>
-            <span className="bg-green-100 text-green-800 text-xs font-medium px-2 py-0.5 rounded-full">assigned</span>
-        </div>
-        <p className="text-xs text-gray-500 mb-2">
-            Nagpur, Maharashtra - 839292<br/>
-            {location.coordinates}
-        </p>
-        <div className="text-xs text-gray-600">
-            <span className="mr-1">🗓️</span> Assigned on {location.assignedDate}
-        </div>
-    </div>
-);
-
+// --- USER DETAIL CARD ---
 const UserDetailCard = ({ user, onClose }) => {
     const activeLocations = user.locations.filter(l => l.active).length;
-
     return (
-        // FIX APPLIED: fixed inset-0 ensures full viewport coverage
-        <div className="fixed inset-0 bg-gray-300 bg-opacity-75 flex items-center justify-center overflow-y-auto z-50">
-            <div className="bg-white rounded-lg shadow-2xl w-full max-w-4xl mx-4 my-8">
-                
-                <div className="p-6 border-b border-gray-200">
-                    <button onClick={onClose} className="text-blue-600 hover:text-blue-800 text-sm mb-4 flex items-center">← Back to Users</button>
-                    <div className="flex items-center">
-                        <div className="w-12 h-12 bg-indigo-600 text-white flex items-center justify-center rounded-full text-xl font-bold mr-4">
+        <div className="fixed inset-0 bg-slate-900/60 backdrop-blur-sm flex items-center justify-center overflow-y-auto z-[60] p-4 text-left">
+            <div className="bg-white rounded-[24px] shadow-2xl w-full max-w-4xl overflow-hidden animate-in fade-in zoom-in duration-200">
+                <div className="bg-[#E6F7F9] p-8 border-b border-[#D1F0F2] flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
+                    <div className="flex items-center gap-5">
+                        <div className="w-16 h-16 bg-[#007C85] text-white flex items-center justify-center rounded-2xl text-2xl font-black shadow-lg">
                             {user.name.charAt(0)}
                         </div>
                         <div>
-                            <h1 className="text-2xl font-bold">{user.name}</h1>
-                            <p className="text-sm text-gray-500">
-                                <span className={`font-semibold ${getRoleStyle(user.role)} px-2 py-0.5 rounded-md`}>
-                                    {user.role}
-                                </span>
-                            </p>
+                            <h1 className="text-2xl font-black text-[#007C85] tracking-tight">{user.name}</h1>
+                            <div className={`inline-flex items-center px-3 py-1 mt-2 rounded-lg border text-xs font-bold uppercase tracking-widest ${getRoleStyle(user.role)}`}>
+                                <Shield className="w-3 h-3 mr-1.5" /> {user.role}
+                            </div>
                         </div>
                     </div>
+                    <button onClick={onClose} className="px-5 py-2 rounded-xl border border-slate-200 bg-white text-xs font-black uppercase tracking-widest text-slate-400 hover:text-[#EA5455] transition-all">
+                        Close Profile
+                    </button>
                 </div>
-
-                <div className="p-6 border-b grid grid-cols-2 lg:grid-cols-4 gap-6">
-                    <div>
-                        <p className="text-xs font-medium text-gray-500">📧 EMAIL</p>
-                        <p>{user.email}</p>
-                    </div>
-                    <div>
-                        <p className="text-xs font-medium text-gray-500">📞 PHONE</p>
-                        <p>{user.phone}</p>
-                    </div>
-                    <div className="col-span-2">
-                        <p className="text-xs font-medium text-gray-500">🏢 COMPANY</p>
-                        <p>Nagpur Municipal Corporation Pilot</p>
-                    </div>
-                    <div>
-                        <p className="text-xs font-medium text-gray-500">👤 USER ID</p>
-                        <p>{user.userId}</p>
-                    </div>
+                <div className="p-8 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 bg-white">
+                    <div className="space-y-1"><p className="text-[10px] font-black text-slate-400 uppercase tracking-widest">Email Address</p><p className="font-bold text-slate-700 flex items-center gap-2 lowercase"><Mail size={14} /> {user.email}</p></div>
+                    <div className="space-y-1"><p className="text-[10px] font-black text-slate-400 uppercase tracking-widest">Phone Number</p><p className="font-bold text-slate-700 flex items-center gap-2"><Phone size={14} /> {user.phone}</p></div>
+                    <div className="space-y-1"><p className="text-[10px] font-black text-slate-400 uppercase tracking-widest">Organization</p><p className="font-bold text-slate-700 uppercase tracking-tight text-xs">Nagpur Municipal Corp</p></div>
+                    <div className="space-y-1 text-right"><p className="text-[10px] font-black text-slate-400 uppercase tracking-widest">Staff ID</p><p className="font-mono font-bold text-[#007C85]">#{user.userId}</p></div>
                 </div>
-
-                <div className="p-6">
-                    <div className="flex justify-between mb-4">
-                        <h2 className="text-xl font-semibold flex items-center">
-                            <span className="text-indigo-600 mr-2">📍</span> Locations
-                        </h2>
-                        <span>{activeLocations} / {user.locations.length}</span>
-                    </div>
-
-                    {user.locations.length > 0 ? (
-                        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                            {user.locations.map((loc, i) => (
-                                <LocationAssignmentCard key={i} location={loc} />
-                            ))}
-                        </div>
-                    ) : (
-                        <p className="text-sm text-gray-500 italic">No locations assigned.</p>
-                    )}
-                </div>
-
             </div>
         </div>
     );
 };
 
-
 // --- MAIN COMPONENT ---
-
 const UserList = () => {
+    const router = useRouter();
     const [userRows, setUserRows] = useState(initialUserRows);
     const [searchTerm, setSearchTerm] = useState("");
-
     const [viewingUser, setViewingUser] = useState(null);
     const [deletingUser, setDeletingUser] = useState(null);
-    const [editingUser, setEditingUser] = useState(null);
-    // 👇 NEW STATE for Add User Modal
-    const [isAddingUser, setIsAddingUser] = useState(false); 
-
 
     const filteredUsers = userRows.filter(user => {
         const term = searchTerm.toLowerCase();
@@ -183,203 +106,125 @@ const UserList = () => {
         );
     });
 
-    // 👇 NEW HANDLER: Logic to add a new user to the state
-    const handleAddUserSubmit = (newUserData) => {
-        // 1. Determine the highest current IDs for mocking
-        const maxId = userRows.length > 0 ? Math.max(...userRows.map(u => u.id)) : 100;
-        const maxUserId = userRows.length > 0 ? Math.max(...userRows.map(u => u.userId)) : 180;
-
-        const newUser = {
-            id: maxId + 1, // Assign new ID
-            name: newUserData.fullName,
-            phone: newUserData.phone,
-            email: newUserData.email,
-            role: newUserData.role, 
-            userId: maxUserId + 1, // Assign new User ID
-            locations: [], // New users start with no locations
-        };
-
-        // 2. Update the state by adding the new user (at the beginning of the array)
-        setUserRows(prev => [newUser, ...prev]);
-
-        // 3. Close the modal
-        setIsAddingUser(false); 
-    };
-    
-    // Handler for editing an existing user (already worked)
-    const handleEditUserSubmit = (updatedUserFormData) => {
-        setUserRows(prev => prev.map(u => 
-            u.id === editingUser.id ? { ...u, 
-                name: updatedUserFormData.fullName,
-                email: updatedUserFormData.email,
-                phone: updatedUserFormData.phone,
-                role: updatedUserFormData.role,
-            } : u
-        ));
-        setEditingUser(null);
-    };
-
-    // Handler for deleting a user (already worked)
-    const handleDeleteConfirm = (userToDelete) => {
-        setUserRows(prev => prev.filter(u => u.id !== userToDelete.id));
+    const handleDeleteUser = (id) => {
+        setUserRows(prev => prev.filter(u => u.id !== id));
         setDeletingUser(null);
     };
 
-    const isModalOpen = viewingUser || deletingUser || editingUser || isAddingUser; 
+    const isModalOpen = viewingUser || deletingUser;
 
     return (
-        <div className="p-6 relative">
-            
-            <div className={isModalOpen ? 'pointer-events-none blur-sm' : ''}>
-                
-                <div className="flex justify-between mb-6">
-                    <h1 className="text-2xl font-semibold">👥 Manage Users</h1>
-                    
-                    {/* 👇 CHANGE: Replace Link with Button to open modal */}
-                    <button 
-                        onClick={() => setIsAddingUser(true)} // Open the new Add User modal
-                        className="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 font-medium"
+        <div className="p-8 max-w-7xl mx-auto space-y-8">
+            <div className={`space-y-8 transition-all duration-300 ${isModalOpen ? 'blur-md scale-[0.98] pointer-events-none' : 'scale-100'}`}>
+
+                {/* Header Section */}
+                <div className="bg-[#E6F7F9] rounded-[18px] border border-[#D1F0F2] p-4 flex flex-col md:flex-row justify-between items-center gap-4 shadow-sm">
+                    <div className="flex items-center gap-4 text-left">
+                        {/* Reduced from h-14 to h-10 */}
+                        <div className="h-10 w-10 bg-white rounded-xl flex items-center justify-center shadow-sm">
+                            <Shield className="h-5 w-5 text-[#007C85]" />
+                        </div>
+
+                        <div className="text-left">
+                            {/* Reduced from text-2xl to text-lg */}
+                            <h1 className="text-lg font-black text-[#007C85] tracking-tight uppercase leading-none">
+                                User Directory
+                            </h1>
+                            {/* Reduced from text-xs to text-[10px] */}
+                            <p className="text-[10px] font-bold text-[#2D8E97] uppercase tracking-widest opacity-70 mt-0.5">
+                                Manage access levels and mapping
+                            </p>
+                        </div>
+                    </div>
+
+                    <button
+                        onClick={() => router.push('/dashboard/user-management/add-user')}
+                        style={{ background: 'linear-gradient(to right, #58BECF, #6D9CDC)' }}
+                        /* Reduced padding from px-8 py-3.5 to px-5 py-2 */
+                        className="flex items-center gap-2 px-5 py-2 rounded-xl text-white text-[10px] font-black uppercase tracking-widest shadow-md shadow-teal-900/10 hover:brightness-110 active:scale-95 transition-all"
                     >
-                        + Add User
+                        <Plus size={14} strokeWidth={3} /> Add User
                     </button>
                 </div>
 
-                <div className="mb-6">
+                {/* Search Bar */}
+                <div className="relative group max-w-2xl text-left">
+                    <Search className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400 group-focus-within:text-[#007C85] transition-colors" size={20} />
                     <input
                         type="text"
                         value={searchTerm}
                         onChange={(e) => setSearchTerm(e.target.value)}
-                        placeholder="🔍 Search by name, email, or phone..."
-                        className="w-full p-3 border rounded-lg"
+                        placeholder="SEARCH BY NAME, EMAIL, OR STAFF ID..."
+                        className="w-full pl-12 pr-6 py-4 rounded-2xl border border-slate-200 bg-white text-xs font-bold uppercase tracking-widest outline-none focus:ring-4 focus:ring-[#E6F7F9] focus:border-[#2D8E97] transition-all shadow-sm"
                     />
                 </div>
 
-                {/* TABLE (UNCHANGED) */}
-                <div className="overflow-x-auto bg-white rounded-lg shadow-md">
-                    <table className="min-w-full divide-y divide-gray-200 table-fixed"> 
-
-                        <thead className="bg-gray-50">
+                {/* Table View */}
+                <div className="rounded-[24px] bg-white shadow-sm border border-slate-200 overflow-hidden">
+                    <table className="w-full text-sm border-collapse">
+                        <thead className="bg-[#E6F7F9]">
                             <tr>
-                                <th className="w-1/4 px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">
-                                    Name
-                                </th>
-                                <th className="w-1/4 px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">
-                                    Email
-                                </th>
-                                <th className="w-1/6 px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">
-                                    Role
-                                </th>
-                                <th className="w-1/12 px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase">
-                                    Actions
-                                </th>
+                                <th className="px-8 py-5 text-left text-[11px] font-black uppercase tracking-widest text-[#2D8E97] border-b border-[#D1F0F2]">Staff Member</th>
+                                <th className="px-8 py-5 text-left text-[11px] font-black uppercase tracking-widest text-[#2D8E97] border-b border-[#D1F0F2]">Contact Info</th>
+                                <th className="px-8 py-5 text-left text-[11px] font-black uppercase tracking-widest text-[#2D8E97] border-b border-[#D1F0F2]">Permission Level</th>
+                                <th className="px-8 py-5 text-right text-[11px] font-black uppercase tracking-widest text-[#2D8E97] border-b border-[#D1F0F2]">Action</th>
                             </tr>
                         </thead>
-
-                        <tbody className="bg-white divide-y divide-gray-200">
+                        <tbody className="divide-y divide-slate-200">
                             {filteredUsers.map((user) => (
-                                <tr key={user.id} className="hover:bg-gray-50">
-                                    
-                                    <td className="px-6 py-4 truncate">
-                                        <div className="text-sm font-medium">{user.name}</div>
-                                        <div className="text-xs text-gray-500">{user.phone}</div>
+                                <tr key={user.id} className="hover:bg-[#F8FAFB] transition-colors">
+                                    <td className="px-8 py-5 text-left border-b border-slate-100">
+                                        <div className="flex items-center gap-4 text-left">
+                                            <div className="w-10 h-10 rounded-xl bg-white border border-slate-200 text-[#007C85] flex items-center justify-center font-black text-sm shadow-sm">{user.name.charAt(0)}</div>
+                                            <div className="text-left">
+                                                <div className="text-sm font-black text-[#007C85] uppercase tracking-tight">{user.name}</div>
+                                                <div className="text-[10px] font-bold text-slate-400 uppercase tracking-widest">ID: #{user.userId}</div>
+                                            </div>
+                                        </div>
                                     </td>
-
-                                    <td className="px-6 py-4 truncate">{user.email}</td>
-
-                                    <td className="px-6 py-4">
-                                        <span className={`px-3 py-1 rounded-full text-xs font-medium ${getRoleStyle(user.role)}`}>
-                                            {user.role}
-                                        </span>
+                                    <td className="px-8 py-5 text-left border-b border-slate-100">
+                                        <div className="text-xs font-bold text-slate-600 lowercase">{user.email}</div>
+                                        <div className="text-[10px] font-black text-slate-400 uppercase tracking-tighter mt-1">{user.phone}</div>
                                     </td>
-
-                                    <td className="px-6 py-4 text-right">
-                                        <div className="flex justify-end space-x-1.5"> 
-                                            
-                                            {/* View Button (Green) */}
-                                            <button 
-                                                onClick={() => setViewingUser(user)} 
-                                                title="View User"
-                                                className="p-2 rounded-lg transition-colors duration-150 text-green-600 border border-green-200 bg-green-50 hover:bg-green-100"
+                                    <td className="px-8 py-5 text-left border-b border-slate-100">
+                                        <span className={`px-4 py-1.5 rounded-xl border text-[10px] font-black uppercase tracking-widest ${getRoleStyle(user.role)}`}>{user.role}</span>
+                                    </td>
+                                    <td className="px-8 py-5 text-right border-b border-slate-100">
+                                        {/* Buttons are now always visible */}
+                                        <div className="flex justify-end gap-2">
+                                            <button
+                                                onClick={() => setViewingUser(user)}
+                                                className="p-2.5 rounded-xl bg-white border border-slate-200 text-[#007C85] hover:bg-[#E6F7F9] transition-all shadow-sm"
+                                                title="View Profile"
                                             >
-                                                {/* Eye Icon SVG */}
-                                                <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-                                                    <path strokeLinecap="round" strokeLinejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
-                                                    <path strokeLinecap="round" strokeLinejoin="round" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.477 0 8.268 2.943 9.542 7-1.274 4.057-5.065 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
-                                                </svg>
+                                                <Eye size={16} />
                                             </button>
-
-                                            {/* Edit Button (Blue) */}
-                                            <button 
-                                                onClick={() => setEditingUser(user)} 
-                                                title="Edit User"
-                                                className="p-2 rounded-lg transition-colors duration-150 text-blue-600 border border-blue-200 bg-blue-50 hover:bg-blue-100"
+                                            <button
+                                                onClick={() => router.push(`/dashboard/user-management/edit/${user.id}`)}
+                                                className="p-2.5 rounded-xl bg-white border border-slate-200 text-[#2D8E97] hover:bg-[#E6F7F9] transition-all shadow-sm"
+                                                title="Edit Account"
                                             >
-                                                {/* Edit Icon SVG */}
-                                                <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-                                                    <path strokeLinecap="round" strokeLinejoin="round" d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z" />
-                                                </svg>
+                                                <Edit3 size={16} />
                                             </button>
-
-                                            {/* Delete Button (Red) */}
-                                            <button 
-                                                onClick={() => setDeletingUser(user)} 
+                                            <button
+                                                onClick={() => setDeletingUser(user)}
+                                                className="p-2.5 rounded-xl bg-white border border-slate-200 text-rose-500 hover:bg-rose-50 transition-all shadow-sm"
                                                 title="Delete User"
-                                                className="p-2 rounded-lg transition-colors duration-150 text-red-600 border border-red-200 bg-red-50 hover:bg-red-100"
                                             >
-                                                {/* Trash Icon SVG */}
-                                                <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-                                                    <path strokeLinecap="round" strokeLinejoin="round" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
-                                                </svg>
+                                                <Trash2 size={16} />
                                             </button>
                                         </div>
                                     </td>
-
                                 </tr>
                             ))}
                         </tbody>
-
                     </table>
                 </div>
-
-                <div className="mt-4 text-sm text-gray-600">
-                    Showing <b>{filteredUsers.length}</b> of <b>{userRows.length}</b> users
-                </div>
-
             </div>
 
             {/* MODALS */}
-            {/* 1. Edit User Modal */}
-            {editingUser && (
-                <EditUserFormModal 
-                    initialUser={editingUser}
-                    onClose={() => setEditingUser(null)} 
-                    onSubmit={handleEditUserSubmit}
-                />
-            )}
-
-            {/* 2. View User Modal */}
-            {viewingUser && (
-                <UserDetailCard user={viewingUser} onClose={() => setViewingUser(null)} />
-            )}
-
-            {/* 3. Delete User Modal */}
-            {deletingUser && (
-                <DeleteConfirmModal 
-                    user={deletingUser}
-                    onClose={() => setDeletingUser(null)}
-                    onConfirm={handleDeleteConfirm}
-                />
-            )}
-            
-            {/* 👇 4. NEW: Add User Modal */}
-            {isAddingUser && (
-                <div className="fixed inset-0 bg-gray-300 bg-opacity-75 flex items-center justify-center z-50 overflow-y-auto">
-                    <AddUserForm 
-                        onClose={() => setIsAddingUser(false)} 
-                        onSubmit={handleAddUserSubmit}
-                    />
-                </div>
-            )}
+            {viewingUser && <UserDetailCard user={viewingUser} onClose={() => setViewingUser(null)} />}
+            {deletingUser && <DeleteConfirmModal user={deletingUser} onClose={() => setDeletingUser(null)} onConfirm={handleDeleteUser} />}
         </div>
     );
 };

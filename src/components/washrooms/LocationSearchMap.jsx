@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useCallback, useEffect } from "react";
 import {
     GoogleMap,
     Marker,
@@ -10,24 +10,29 @@ import {
 
 const libraries = ["places"];
 
-export default function LocationSearchMap() {
+export default function LocationSearchMap({ onLocationChange }) {
     const [autocomplete, setAutocomplete] = useState(null);
-    const [lat, setLat] = useState(19.0760); // default: Mumbai
-    const [lng, setLng] = useState(72.8777);
+    const [lat, setLat] = useState(21.1458);
+    const [lng, setLng] = useState(79.0882);
 
     const { isLoaded, loadError } = useJsApiLoader({
         googleMapsApiKey: process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY,
         libraries,
     });
 
-    const hasGoogle =
-        typeof window !== "undefined" &&
-        typeof window.google !== "undefined" &&
-        typeof window.google.maps !== "undefined";
+    // Notify parent component whenever lat/lng changes
+    useEffect(() => {
+        if (onLocationChange) {
+            onLocationChange({ lat, lng });
+        }
+    }, [lat, lng, onLocationChange]);
+
+    const onLoad = useCallback((auto) => {
+        setAutocomplete(auto);
+    }, []);
 
     const handlePlaceChanged = () => {
         if (!autocomplete) return;
-
         const place = autocomplete.getPlace();
         if (!place.geometry) return;
 
@@ -40,88 +45,88 @@ export default function LocationSearchMap() {
 
     if (loadError) {
         return (
-            <div className="bg-white shadow-md rounded-xl p-6 text-red-600">
-                Failed to load map.
+            <div className="bg-red-50 border border-red-200 rounded-[var(--radius)] p-6 text-red-600 flex items-center gap-3">
+                <span className="font-medium">Failed to load Google Maps. Please check your API key.</span>
             </div>
         );
     }
 
     if (!isLoaded) {
         return (
-            <div className="bg-white shadow-md rounded-xl p-6">
-                <div className="h-10 w-full animate-pulse rounded-lg bg-slate-100 mb-3" />
-                <div className="h-64 w-full animate-pulse rounded-xl bg-slate-100" />
-            </div>
-        );
-    }
-
-    if (!hasGoogle) {
-        return (
-            <div className="bg-white shadow-md rounded-xl p-6 space-y-3">
-                <h2 className="text-xl font-semibold text-gray-700">Search Location</h2>
-                <p className="text-sm text-amber-700 bg-amber-50 border border-amber-200 rounded-lg p-3">
-                    Maps could not load (billing or API key issue). Please enable billing for the Google Maps
-                    JavaScript API and ensure <code className="font-mono">NEXT_PUBLIC_GOOGLE_MAPS_API_KEY</code> is set.
-                </p>
-                <div className="grid grid-cols-2 gap-4">
-                    <input
-                        className="input-ui"
-                        placeholder="Latitude"
-                        value={lat}
-                        onChange={(e) => setLat(Number(e.target.value))}
-                    />
-                    <input
-                        className="input-ui"
-                        placeholder="Longitude"
-                        value={lng}
-                        onChange={(e) => setLng(Number(e.target.value))}
-                    />
-                </div>
+            <div className="bg-[hsl(var(--card))] border border-[hsl(var(--border))] rounded-[var(--radius)] p-6 space-y-4">
+                <div className="h-6 w-32 animate-pulse rounded bg-[hsl(var(--muted))]" />
+                <div className="h-64 w-full animate-pulse rounded-xl bg-[hsl(var(--muted))]" />
             </div>
         );
     }
 
     return (
-        <div className="bg-white shadow-md hover:shadow-lg transition rounded-xl p-6">
-            <h2 className="text-xl font-semibold mb-5 text-gray-700">
-                Search Location
-            </h2>
+        <div className="bg-[hsl(var(--card))] border border-[hsl(var(--border))] rounded-[var(--radius)] p-6 shadow-sm">
+            <div className="flex items-center gap-3 mb-5">
+                <div className="p-2 bg-[#E0F7FA] rounded-lg shadow-sm">
+                    <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 text-[hsl(var(--primary))]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+                    </svg>
+                </div>
+                <h2 className="text-xl font-extrabold tracking-tight text-[hsl(var(--foreground))]">
+                    Pin Location
+                </h2>
+            </div>
 
-            {/* GOOGLE AUTOCOMPLETE */}
-            <Autocomplete onLoad={setAutocomplete} onPlaceChanged={handlePlaceChanged}>
-                <input
-                    className="input-ui mb-3"
-                    placeholder="Search for a place…"
-                    type="text"
-                />
-            </Autocomplete>
+            <div className="relative group mb-4">
+                <Autocomplete onLoad={onLoad} onPlaceChanged={handlePlaceChanged}>
+                    <input
+                        className="w-full px-4 py-3 bg-[hsl(var(--input))] border border-[hsl(var(--border))] rounded-xl text-sm font-medium focus:ring-2 focus:ring-[hsl(var(--primary))] focus:border-transparent outline-none transition-all"
+                        placeholder="Search for building, area or street..."
+                        type="text"
+                    />
+                </Autocomplete>
+                <div className="absolute right-4 top-3.5 text-[hsl(var(--muted-foreground))]">
+                    <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                    </svg>
+                </div>
+            </div>
 
-            {/* MAP PREVIEW */}
-            <div className="w-full h-64 rounded-xl overflow-hidden border shadow-inner mb-3">
+            <div className="w-full h-72 rounded-2xl overflow-hidden border border-[hsl(var(--border))] shadow-inner mb-6">
                 <GoogleMap
                     center={{ lat, lng }}
                     zoom={15}
                     mapContainerStyle={{ width: "100%", height: "100%" }}
                 >
-                    <Marker position={{ lat, lng }} />
+                    <Marker
+                        position={{ lat, lng }}
+                        draggable={true}
+                        onDragEnd={(e) => {
+                            setLat(e.latLng.lat());
+                            setLng(e.latLng.lng());
+                        }}
+                    />
                 </GoogleMap>
             </div>
 
-            {/* LAT / LNG INPUTS */}
-            <div className="grid grid-cols-2 gap-4 mt-4">
-                <input
-                    className="input-ui"
-                    placeholder="Latitude"
-                    value={lat}
-                    onChange={(e) => setLat(Number(e.target.value))}
-                />
+            <div className="grid grid-cols-2 gap-4">
+                <div className="flex flex-col gap-1.5">
+                    <label className="text-xs font-bold text-[hsl(var(--muted-foreground))] uppercase tracking-widest ml-1">Latitude</label>
+                    <div className="px-4 py-2.5 bg-[#F4FBFC] border border-[hsl(var(--primary)/0.2)] rounded-xl text-sm font-mono font-bold text-[hsl(var(--primary-dark))]">
+                        {lat.toFixed(6)}
+                    </div>
+                </div>
 
-                <input
-                    className="input-ui"
-                    placeholder="Longitude"
-                    value={lng}
-                    onChange={(e) => setLng(Number(e.target.value))}
-                />
+                <div className="flex flex-col gap-1.5">
+                    <label className="text-xs font-bold text-[hsl(var(--muted-foreground))] uppercase tracking-widest ml-1">Longitude</label>
+                    <div className="px-4 py-2.5 bg-[#F4FBFC] border border-[hsl(var(--primary)/0.2)] rounded-xl text-sm font-mono font-bold text-[hsl(var(--primary-dark))]">
+                        {lng.toFixed(6)}
+                    </div>
+                </div>
+            </div>
+
+            <div className="mt-4 flex items-start gap-2 text-[11px] text-[hsl(var(--muted-foreground))] italic leading-relaxed">
+                <svg xmlns="http://www.w3.org/2000/svg" className="h-3.5 w-3.5 shrink-0 mt-0.5 text-[hsl(var(--primary))]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                </svg>
+                <span>Search an address above or drag the red marker to pin the exact facility entrance. Coordinates are automatically captured.</span>
             </div>
         </div>
     );

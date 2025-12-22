@@ -3,7 +3,7 @@
 import { useState, useRef, useEffect } from "react";
 import { useRouter } from 'next/navigation';
 import DatePicker from "react-datepicker";
-import { format, parse } from 'date-fns';
+import { format } from 'date-fns';
 import "react-datepicker/dist/react-datepicker.css";
 import {
   Calendar as CalendarIcon,
@@ -11,6 +11,7 @@ import {
   Filter,
   RefreshCw,
   ChevronDown,
+  Download,
 } from "lucide-react";
 
 const reportTypes = [
@@ -68,7 +69,6 @@ const statuses = ["All Status", "Completed", "Ongoing"];
 
 function CustomDropdown({ label, value, options, onChange, icon: Icon }) {
   const [isOpen, setIsOpen] = useState(false);
-  const [hoveredIndex, setHoveredIndex] = useState(-1);
   const dropdownRef = useRef(null);
 
   useEffect(() => {
@@ -88,46 +88,32 @@ function CustomDropdown({ label, value, options, onChange, icon: Icon }) {
 
   return (
     <div className="relative" ref={dropdownRef}>
-      <label className="mb-2 block text-sm font-medium text-slate-700">
-        {label}
-      </label>
+      {label && <label className="mb-2 block text-[11px] font-black text-slate-500 uppercase tracking-widest">{label}</label>}
       <button
         type="button"
         onClick={() => setIsOpen(!isOpen)}
-        className={`w-full flex items-center justify-between rounded-lg border ${
-          isOpen ? "border-indigo-500" : "border-slate-300"
-        } bg-white px-4 py-2.5 text-sm text-[#8A8AB2] shadow-sm transition focus:border-indigo-500 focus:outline-none focus:ring-2 focus:ring-indigo-100`}
+        className={`w-full flex items-center justify-between rounded-xl border ${isOpen ? "border-[#58BECF]" : "border-slate-200"
+          } bg-white px-4 py-2.5 text-sm font-bold text-slate-700 shadow-sm transition focus:outline-none focus:ring-4 focus:ring-cyan-50`}
       >
         <span className="flex items-center gap-2">
-          {Icon && <Icon className="h-4 w-4 text-slate-400" />}
-          <span className="text-left">{value}</span>
+          {Icon && <Icon className="h-4 w-4 text-[#58BECF]" />}
+          <span className="text-left truncate max-w-[200px]">{value}</span>
         </span>
-        <ChevronDown
-          className={`h-4 w-4 text-slate-400 transition ${
-            isOpen ? "rotate-180" : ""
-          }`}
-        />
+        <ChevronDown className={`h-4 w-4 text-slate-400 transition ${isOpen ? "rotate-180" : ""}`} />
       </button>
       {isOpen && (
-        <div className="absolute z-50 mt-1 w-full rounded-lg border border-slate-200 bg-white shadow-lg overflow-hidden">
+        <div className="absolute z-50 mt-1 w-full rounded-xl border border-slate-100 bg-white shadow-xl overflow-hidden animate-in fade-in zoom-in duration-200">
           <div className="max-h-60 overflow-y-auto">
-            {options.map((option, index) => (
+            {options.map((option) => (
               <button
-  key={option}
-  type="button"
-  onClick={() => handleSelect(option)}
-  onMouseEnter={() => setHoveredIndex(index)}
-  onMouseLeave={() => setHoveredIndex(-1)}
-  className={`w-full px-4 py-2 text-left text-sm transition ${
-    option === value
-      ? "bg-indigo-100 text-[#4B4E77] font-medium"
-      : hoveredIndex === index
-      ? "bg-indigo-50 text-[#4B4E77]"
-      : "text-[#4B4E77] hover:bg-indigo-50"
-  }`}
->
-  {option}
-</button>
+                key={option}
+                type="button"
+                onClick={() => handleSelect(option)}
+                className={`w-full px-4 py-2.5 text-left text-xs font-bold transition-colors ${option === value ? "bg-[#E6F7F9] text-[#007C85]" : "text-slate-600 hover:bg-[#F8FAFB] hover:text-[#58BECF]"
+                  }`}
+              >
+                {option}
+              </button>
             ))}
           </div>
         </div>
@@ -147,12 +133,11 @@ export default function ReportsPage() {
     endDate: new Date(),
     status: "All Status",
   });
-  
+
   const [showStartDatePicker, setShowStartDatePicker] = useState(false);
   const [showEndDatePicker, setShowEndDatePicker] = useState(false);
   const datePickerRef = useRef(null);
-  
-  // Handle click outside to close date picker
+
   useEffect(() => {
     function handleClickOutside(event) {
       if (datePickerRef.current && !datePickerRef.current.contains(event.target)) {
@@ -161,15 +146,11 @@ export default function ReportsPage() {
       }
     }
     document.addEventListener("mousedown", handleClickOutside);
-    return () => {
-      document.removeEventListener("mousedown", handleClickOutside);
-    };
+    return () => document.removeEventListener("mousedown", handleClickOutside);
   }, []);
+
   const handleGenerateReport = () => {
-    // Format dates to DD-MM-YYYY before sending
     const formatDate = (date) => format(date, 'dd-MM-yyyy');
-    
-    // Navigate to the generated report page with query parameters
     const queryParams = new URLSearchParams({
       type: reportType,
       zone: filters.zone,
@@ -192,196 +173,166 @@ export default function ReportsPage() {
     });
     setReportType("Cleaning Report");
   };
-  
-  const handleStartDateChange = (date) => {
-    setFilters({ ...filters, startDate: date });
-    setShowStartDatePicker(false);
-  };
-  
-  const handleEndDateChange = (date) => {
-    setFilters({ ...filters, endDate: date });
-    setShowEndDatePicker(false);
-  };
 
   return (
-    <div className="space-y-4 bg-white p-4 w-full">
-      {/* Header */}
-      <div className="flex items-start justify-between">
-        <div>
-          <div className="flex items-center gap-3 mb-2">
-            <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-gradient-to-r from-[#2DB7C4] to-[#4F7FD9] text-white shadow-lg">
-              <FileText className="h-6 w-6" />
+    <div className="min-h-screen bg-[#F8FAFB] py-8 px-8 space-y-8 w-full">
+
+      {/* 1. Branded Header Container */}
+      <div className="w-full">
+        <div className="bg-[#E6F7F9] rounded-[24px] border border-[#D1F0F2] p-4 flex flex-col md:flex-row justify-between items-center gap-4 shadow-sm">
+          <div className="flex items-center gap-5">
+            {/* White Shield Icon Box */}
+            <div className="h-12 w-12 bg-white rounded-xl flex items-center justify-center shadow-sm border border-white">
+              <FileText className="h-6 w-6 text-[#58BECF]" strokeWidth={2.5} />
             </div>
-            <div>
-              <h1 className="text-2xl font-bold text-[#2F3A45]">Reports</h1>
-              <p className="text-sm text-[#6B7280] mt-1">
-                Generate and export detailed reports
+            <div className="text-left">
+              <h1 className="text-lg font-black text-[#007C85] tracking-tight uppercase leading-none">
+                Analytics Reports
+              </h1>
+              <p className="text-[10px] font-bold text-[#2D8E97] uppercase tracking-widest opacity-70 mt-1">
+                Generate and export detailed system performance data
               </p>
             </div>
           </div>
+          <div className="flex items-center gap-4">
+            <button
+              onClick={handleGenerateReport}
+              style={{ background: 'linear-gradient(to right, #58BECF, #6D9CDC)' }}
+              className="flex items-center gap-2 px-6 py-2.5 rounded-xl text-white text-[10px] font-black uppercase tracking-widest shadow-lg shadow-cyan-500/20 hover:brightness-105 active:scale-95 transition-all"
+            >
+              <Download size={14} strokeWidth={3} /> Export All Reports
+            </button>
+          </div>
         </div>
       </div>
 
-      {/* Report Type Selection */}
-      <div className="rounded-2xl border border-[#E6F6F7] bg-[#F4FBFC] p-6 shadow-sm">
-        <div className="flex items-center gap-2 mb-4">
-          <FileText className="h-5 w-5 text-[#2DB7C4]" />
-          <h2 className="text-lg font-semibold text-[#2F3A45]">Select Report Type</h2>
-        </div>
-        <CustomDropdown
-          label=""
-          value={reportType}
-          options={reportTypes}
-          onChange={setReportType}
-        />
-        <p className="mt-3 text-sm text-[#6B7280]">
-          View cleaner tasks with AI scores and compliance
-        </p>
-      </div>
-
-      {/* Filters Section */}
-      <div className="rounded-2xl border border-[#E6F6F7] bg-[#F4FBFC] p-6 shadow-sm">
-        <div className="flex items-center gap-2 mb-6">
-          <Filter className="h-5 w-5 text-[#2DB7C4]" />
-          <h2 className="text-lg font-semibold text-[#2F3A45]">Filters</h2>
+      {/* 2. Selection Section */}
+      <div className="bg-white rounded-[32px] border border-slate-100 p-8 shadow-sm">
+        <div className="flex items-center gap-3 mb-6">
+          <div className="h-8 w-8 rounded-lg bg-[#E6F7F9] flex items-center justify-center">
+            <Filter className="h-4 w-4 text-[#2DB7C4]" />
+          </div>
+          <h2 className="text-sm font-black text-slate-800 uppercase tracking-widest">Configure Report Parameters</h2>
         </div>
 
-        <div className="space-y-4">
-          {/* First Row */}
-          <div className="grid grid-cols-1 gap-4 md:grid-cols-3">
-            {/* Zone / Location Type */}
-            <div>
-              <label className="mb-2 block text-sm font-medium text-slate-700">
-                Zone / Location Type
-              </label>
-              <CustomDropdown
-                value={filters.zone}
-                options={zones}
-                onChange={(value) => setFilters({ ...filters, zone: value })}
-              />
-            </div>
-
-            {/* Location / Washroom */}
-            <div>
-              <label className="mb-2 block text-sm font-medium text-slate-700">
-                Location / Washroom
-              </label>
-              <CustomDropdown
-                value={filters.location}
-                options={locations}
-                onChange={(value) => setFilters({ ...filters, location: value })}
-              />
-            </div>
-
-            {/* Cleaner */}
-            <div>
-              <label className="mb-2 block text-sm font-medium text-slate-700">
-                Cleaner
-              </label>
-              <CustomDropdown
-                value={filters.cleaner}
-                options={cleaners}
-                onChange={(value) => setFilters({ ...filters, cleaner: value })}
-              />
-            </div>
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+          <div>
+            <CustomDropdown
+              label="Select Report Type"
+              value={reportType}
+              options={reportTypes}
+              onChange={setReportType}
+              icon={FileText}
+            />
+            <p className="mt-3 text-[10px] font-bold text-slate-400 uppercase tracking-widest ml-1">
+              * Includes AI scores and cleaner compliance metrics
+            </p>
           </div>
 
-          {/* Second Row */}
-          <div className="grid grid-cols-1 gap-4 md:grid-cols-3">
-            {/* Start Date */}
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <div>
-              <label className="mb-2 block text-sm font-medium text-slate-700">
-                Start Date
-              </label>
-              <div className="relative w-full" ref={datePickerRef}>
-                <div 
-                  className="flex items-center justify-between w-full rounded-lg border border-slate-300 bg-white px-4 py-2.5 text-sm text-slate-900 shadow-sm cursor-pointer h-[42px]"
-                  onClick={() => setShowStartDatePicker(!showStartDatePicker)}
-                >
-                  <span className="text-sm">{format(filters.startDate, 'dd-MM-yyyy')}</span>
-                  <CalendarIcon className="h-4 w-4 text-slate-400 flex-shrink-0" />
-                </div>
-                {showStartDatePicker && (
-                  <div className="absolute z-10 mt-1">
-                    <DatePicker
-                      selected={filters.startDate}
-                      onChange={handleStartDateChange}
-                      selectsStart
-                      startDate={filters.startDate}
-                      endDate={filters.endDate}
-                      maxDate={new Date()}
-                      inline
-                      className="border border-slate-200 rounded-lg shadow-lg"
-                    />
-                  </div>
-                )}
-              </div>
-            </div>
-            
-            {/* End Date */}
-            <div>
-              <label className="mb-2 block text-sm font-medium text-slate-700">
-                End Date
-              </label>
-              <div className="relative w-full" ref={datePickerRef}>
-                <div 
-                  className="flex items-center justify-between w-full rounded-lg border border-slate-300 bg-white px-4 py-2.5 text-sm text-slate-900 shadow-sm cursor-pointer h-[42px]"
-                  onClick={() => setShowEndDatePicker(!showEndDatePicker)}
-                >
-                  <span className="text-sm">{format(filters.endDate, 'dd-MM-yyyy')}</span>
-                  <CalendarIcon className="h-4 w-4 text-slate-400 flex-shrink-0" />
-                </div>
-                {showEndDatePicker && (
-                  <div className="absolute z-10 mt-1">
-                    <DatePicker
-                      selected={filters.endDate}
-                      onChange={handleEndDateChange}
-                      selectsEnd
-                      startDate={filters.startDate}
-                      endDate={filters.endDate}
-                      minDate={filters.startDate}
-                      maxDate={new Date()}
-                      inline
-                      className="border border-slate-200 rounded-lg shadow-lg"
-                    />
-                  </div>
-                )}
-              </div>
-            </div>
-
-            
-            {/* Status */}
-            <div>
-              <label className="mb-2 block text-sm font-medium text-slate-700">
-                Status
-              </label>
+              <label className="mb-2 block text-[11px] font-black text-slate-500 uppercase tracking-widest">Status Filter</label>
               <CustomDropdown
                 value={filters.status}
                 options={statuses}
                 onChange={(value) => setFilters({ ...filters, status: value })}
               />
             </div>
-          </div>
-
-          {/* Action Buttons */}
-          <div className="mt-6 flex items-center gap-3">
-            <button 
-              onClick={handleGenerateReport}
-              className="inline-flex items-center gap-2 rounded-lg bg-gradient-to-r from-[#2DB7C4] to-[#4F7FD9] px-6 py-2.5 text-sm font-medium text-white shadow-md transition-all duration-200 hover:opacity-90 hover:shadow-lg focus:outline-none focus:ring-2 focus:ring-[#2DB7C4] focus:ring-offset-2"
-            >
-              <FileText className="h-4 w-4 text-white" />
-              Generate Report
-            </button>
-            <button
-              onClick={handleReset}
-              className="inline-flex items-center gap-2 rounded-lg bg-gradient-to-r from-[#2DB7C4] to-[#4F7FD9] px-6 py-2.5 text-sm font-medium text-white shadow-md transition-all duration-200 hover:opacity-90 hover:shadow-lg focus:outline-none focus:ring-2 focus:ring-[#2DB7C4] focus:ring-offset-2"
-            >
-              <RefreshCw className="h-4 w-4 text-white" />
-              Reset Filters
-            </button>
+            <div>
+              <label className="mb-2 block text-[11px] font-black text-slate-500 uppercase tracking-widest">Zone Selection</label>
+              <CustomDropdown
+                value={filters.zone}
+                options={zones}
+                onChange={(value) => setFilters({ ...filters, zone: value })}
+              />
+            </div>
           </div>
         </div>
       </div>
+
+      {/* 3. Detailed Filters Section */}
+      <div className="bg-white rounded-[32px] border border-slate-100 p-8 shadow-sm">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+
+          {/* Location Dropdown */}
+          <CustomDropdown
+            label="Location / Washroom Node"
+            value={filters.location}
+            options={locations}
+            onChange={(value) => setFilters({ ...filters, location: value })}
+          />
+
+          {/* Start Date */}
+          <div className="relative" ref={datePickerRef}>
+            <label className="mb-2 block text-[11px] font-black text-slate-500 uppercase tracking-widest">Timeframe Start</label>
+            <div
+              className="flex items-center justify-between rounded-xl border border-slate-200 bg-white px-4 py-2.5 text-sm font-bold text-slate-700 shadow-sm cursor-pointer hover:border-[#58BECF] transition-all"
+              onClick={() => setShowStartDatePicker(!showStartDatePicker)}
+            >
+              <span>{format(filters.startDate, 'dd-MM-yyyy')}</span>
+              <CalendarIcon className="h-4 w-4 text-[#58BECF]" />
+            </div>
+            {showStartDatePicker && (
+              <div className="absolute z-20 mt-2 shadow-2xl border border-slate-100 rounded-2xl overflow-hidden">
+                <DatePicker
+                  selected={filters.startDate}
+                  onChange={(date) => { setFilters({ ...filters, startDate: date }); setShowStartDatePicker(false); }}
+                  maxDate={new Date()}
+                  inline
+                />
+              </div>
+            )}
+          </div>
+
+          {/* End Date */}
+          <div className="relative">
+            <label className="mb-2 block text-[11px] font-black text-slate-500 uppercase tracking-widest">Timeframe End</label>
+            <div
+              className="flex items-center justify-between rounded-xl border border-slate-200 bg-white px-4 py-2.5 text-sm font-bold text-slate-700 shadow-sm cursor-pointer hover:border-[#58BECF] transition-all"
+              onClick={() => setShowEndDatePicker(!showEndDatePicker)}
+            >
+              <span>{format(filters.endDate, 'dd-MM-yyyy')}</span>
+              <CalendarIcon className="h-4 w-4 text-[#58BECF]" />
+            </div>
+            {showEndDatePicker && (
+              <div className="absolute z-20 mt-2 shadow-2xl border border-slate-100 rounded-2xl overflow-hidden">
+                <DatePicker
+                  selected={filters.endDate}
+                  onChange={(date) => { setFilters({ ...filters, endDate: date }); setShowEndDatePicker(false); }}
+                  minDate={filters.startDate}
+                  maxDate={new Date()}
+                  inline
+                />
+              </div>
+            )}
+          </div>
+        </div>
+
+        {/* Action Footer */}
+        <div className="mt-10 pt-8 border-t border-slate-50 flex items-center gap-4">
+          <button
+            onClick={handleGenerateReport}
+            style={{
+              background: 'linear-gradient(to right, #58BECF, #6D9CDC)',
+              color: '#FFFFFF'
+            }}
+            className="flex items-center gap-2 px-8 py-3 rounded-2xl text-white text-[11px] font-black uppercase tracking-[0.2em] shadow-xl shadow-cyan-900/10 hover:brightness-110 active:scale-95 transition-all"
+          >
+            <FileText className="h-4 w-4" /> Generate Detailed Report
+          </button>
+
+          <button
+            onClick={handleReset}
+            className="flex items-center gap-2 px-8 py-3 rounded-2xl bg-white border-2 border-slate-100 text-slate-400 text-[11px] font-black uppercase tracking-[0.2em] hover:bg-slate-50 hover:text-slate-600 transition-all"
+          >
+            <RefreshCw className="h-4 w-4" /> Reset Filters
+          </button>
+        </div>
+      </div>
+
+      <p className="text-center text-[10px] font-bold text-slate-400 uppercase tracking-[0.3em] opacity-60 mt-12">
+        Registry Audit Logging Active • Nagpur Pilot
+      </p>
     </div>
   );
 }

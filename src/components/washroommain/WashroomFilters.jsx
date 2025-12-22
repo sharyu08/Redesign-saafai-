@@ -1,5 +1,7 @@
 "use client";
 
+import { Search, Filter, Building2, Star, XCircle, CheckCircle2, UserMinus, LayoutGrid } from "lucide-react";
+
 export default function WashroomFilters({
     search,
     onSearchChange,
@@ -14,90 +16,107 @@ export default function WashroomFilters({
     onClear,
 }) {
     return (
-        <div className="bg-white rounded-2xl shadow p-4 space-y-3 border border-[var(--border-subtle)]">
-
-            {/* ROW 1: SEARCH + DROPDOWNS */}
+        <div className="bg-white rounded-[var(--radius)] shadow-sm p-3 border border-[hsl(var(--border))]">
             <div className="flex flex-wrap items-center gap-3">
 
-                <input
-                    className="filter-input w-[260px]"
-                    placeholder="Search washrooms..."
-                    value={search}
-                    onChange={(e) => onSearchChange(e.target.value)}
-                />
+                {/* 1. COMPACT SEARCH */}
+                <div className="relative group min-w-[240px] flex-1">
+                    <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-3.5 w-3.5 text-[hsl(var(--muted-foreground))] group-focus-within:text-[hsl(var(--primary))]" />
+                    <input
+                        className="w-full pl-9 pr-4 py-2 bg-[hsl(var(--input))] border border-[hsl(var(--border))] rounded-xl text-sm focus:ring-2 focus:ring-[hsl(var(--primary))] focus:border-transparent outline-none transition-all font-medium"
+                        placeholder="Search washrooms..."
+                        value={search}
+                        onChange={(e) => onSearchChange(e.target.value)}
+                    />
+                </div>
 
-                <select
-                    className="filter-select w-[150px]"
-                    value={typeFilter}
-                    onChange={(e) => onTypeFilterChange(e.target.value)}
+                {/* 2. COMPACT SELECTS */}
+                <div className="flex items-center gap-2">
+                    <div className="relative">
+                        <select
+                            className="appearance-none bg-[hsl(var(--input))] border border-[hsl(var(--border))] rounded-xl pl-3 pr-8 py-2 text-xs font-bold text-[hsl(var(--foreground))] focus:ring-2 focus:ring-[hsl(var(--primary))] outline-none cursor-pointer"
+                            value={typeFilter}
+                            onChange={(e) => onTypeFilterChange(e.target.value)}
+                        >
+                            <option value="all">Types</option>
+                            <option value="Public Toilet">Public</option>
+                            <option value="Community Toilet">Community</option>
+                        </select>
+                        <Filter className="absolute right-2.5 top-1/2 -translate-y-1/2 h-3 w-3 text-[hsl(var(--muted-foreground))] pointer-events-none" />
+                    </div>
+
+                    <div className="relative">
+                        <select
+                            className="appearance-none bg-[hsl(var(--input))] border border-[hsl(var(--border))] rounded-xl pl-3 pr-8 py-2 text-xs font-bold text-[hsl(var(--foreground))] focus:ring-2 focus:ring-[hsl(var(--primary))] outline-none cursor-pointer"
+                            value={companyFilter}
+                            onChange={(e) => onCompanyFilterChange(e.target.value)}
+                        >
+                            <option value="all">Company</option>
+                            <option value="N/A">Unassigned</option>
+                        </select>
+                        <Building2 className="absolute right-2.5 top-1/2 -translate-y-1/2 h-3 w-3 text-[hsl(var(--muted-foreground))] pointer-events-none" />
+                    </div>
+
+                    <div className="relative">
+                        <select
+                            className="appearance-none bg-[hsl(var(--input))] border border-[hsl(var(--border))] rounded-xl pl-3 pr-8 py-2 text-xs font-bold text-[hsl(var(--foreground))] focus:ring-2 focus:ring-[hsl(var(--primary))] outline-none cursor-pointer"
+                            value={ratingFilter}
+                            onChange={(e) => onRatingFilterChange(e.target.value)}
+                        >
+                            <option value="all">Rating</option>
+                            <option value="8plus">8.0+</option>
+                            <option value="9plus">9.0+</option>
+                        </select>
+                        <Star className="absolute right-2.5 top-1/2 -translate-y-1/2 h-3 w-3 text-[hsl(var(--muted-foreground))] pointer-events-none" />
+                    </div>
+                </div>
+
+                {/* 3. SEGMENTED ASSIGNMENT CONTROL (Space Saving) */}
+                <div className="flex bg-[hsl(var(--muted))] p-1 rounded-xl border border-[hsl(var(--border))]">
+                    <button
+                        type="button"
+                        onClick={() => onAssignmentFilterChange("all")}
+                        className={`px-3 py-1 rounded-lg text-[10px] font-bold uppercase tracking-wider transition-all ${assignmentFilter === "all"
+                                ? "bg-white text-[hsl(var(--primary-dark))] shadow-sm"
+                                : "text-[hsl(var(--muted-foreground))] hover:text-[hsl(var(--foreground))]"
+                            }`}
+                    >
+                        All
+                    </button>
+                    <button
+                        type="button"
+                        onClick={() => onAssignmentFilterChange("assigned")}
+                        className={`px-3 py-1 rounded-lg text-[10px] font-bold uppercase tracking-wider transition-all flex items-center gap-1 ${assignmentFilter === "assigned"
+                                ? "bg-[#E0F7FA] text-emerald-700 shadow-sm"
+                                : "text-[hsl(var(--muted-foreground))] hover:text-emerald-600"
+                            }`}
+                    >
+                        <CheckCircle2 className="h-3 w-3" />
+                        Assigned
+                    </button>
+                    <button
+                        type="button"
+                        onClick={() => onAssignmentFilterChange("unassigned")}
+                        className={`px-3 py-1 rounded-lg text-[10px] font-bold uppercase tracking-wider transition-all flex items-center gap-1 ${assignmentFilter === "unassigned"
+                                ? "bg-amber-50 text-amber-700 shadow-sm"
+                                : "text-[hsl(var(--muted-foreground))] hover:text-amber-600"
+                            }`}
+                    >
+                        <UserMinus className="h-3 w-3" />
+                        None
+                    </button>
+                </div>
+
+                {/* 4. CLEAR ACTION */}
+                <button
+                    type="button"
+                    onClick={onClear}
+                    className="p-2 text-[hsl(var(--muted-foreground))] hover:text-rose-500 hover:bg-rose-50 rounded-xl transition-all"
+                    title="Clear All Filters"
                 >
-                    <option value="all">All Types</option>
-                    <option value="Public Toilet">Public Toilets</option>
-                    <option value="Community Toilet">Community Toilets</option>
-                </select>
-
-                <select
-                    className="filter-select w-[200px]"
-                    value={companyFilter}
-                    onChange={(e) => onCompanyFilterChange(e.target.value)}
-                >
-                    <option value="all">All Facility Companies</option>
-                    <option value="N/A">N/A</option>
-                </select>
-
-                <select
-                    className="filter-select w-[140px]"
-                    value={ratingFilter}
-                    onChange={(e) => onRatingFilterChange(e.target.value)}
-                >
-                    <option value="all">All Ratings</option>
-                    <option value="8plus">8.0+</option>
-                    <option value="9plus">9.0+</option>
-                </select>
-
-                <button type="button" onClick={onClear} className="filter-btn">
-                    Clear
+                    <XCircle className="h-5 w-5" />
                 </button>
             </div>
-
-            {/* ROW 2: STATUS FILTER */}
-            <div className="flex gap-2">
-                <button
-                    type="button"
-                    onClick={() => onAssignmentFilterChange("all")}
-                    className={`px-4 h-9 rounded-lg text-sm transition ${
-                        assignmentFilter === "all"
-                            ? "bg-[var(--navy)] text-white"
-                            : "border border-[var(--border-subtle)] bg-white hover:bg-slate-100"
-                    }`}
-                >
-                    All
-                </button>
-                <button
-                    type="button"
-                    onClick={() => onAssignmentFilterChange("assigned")}
-                    className={`px-4 h-9 rounded-lg text-sm transition ${
-                        assignmentFilter === "assigned"
-                            ? "bg-green-100 text-green-800 border border-green-200"
-                            : "border border-[var(--border-subtle)] bg-white hover:bg-slate-100"
-                    }`}
-                >
-                    Assigned
-                </button>
-                <button
-                    type="button"
-                    onClick={() => onAssignmentFilterChange("unassigned")}
-                    className={`px-4 h-9 rounded-lg text-sm transition ${
-                        assignmentFilter === "unassigned"
-                            ? "bg-amber-100 text-amber-800 border border-amber-200"
-                            : "border border-[var(--border-subtle)] bg-white hover:bg-slate-100"
-                    }`}
-                >
-                    Unassigned
-                </button>
-            </div>
-
         </div>
     );
 }
-

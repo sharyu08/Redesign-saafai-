@@ -1,39 +1,24 @@
-// src/app/dashboard/user-management/edit-user-form/EditUserFormModal.jsx
-
 "use client";
 
 import React, { useState } from 'react';
+import {
+    X,
+    ShieldCheck,
+    Mail,
+    Phone,
+    Check,
+    Fingerprint,
+    User,
+    ArrowRight
+} from 'lucide-react';
 
-// Using a mock icon component for the 'User' symbol
-const UserIcon = () => (
-    <svg
-        xmlns="http://www.w3.org/2000/svg"
-        className="h-10 w-10 text-indigo-600 mb-2"
-        fill="none"
-        viewBox="0 0 24 24"
-        stroke="currentColor"
-        strokeWidth={1.5}
-    >
-        <path strokeLinecap="round" strokeLinejoin="round" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14c-4.418 0-8 3.582-8 8v1h16v-1c0-4.418-3.582-8-8-8z" />
-    </svg>
-);
-
-// This component is structurally identical to AddUserForm, 
-// but is explicitly for editing (isEditMode is internally managed).
 const EditUserFormModal = ({ onClose, onSubmit, initialUser }) => {
-
-    // Hardcoded to true for this dedicated Edit component
-    const isEditMode = true;
-    const defaultRole = initialUser.role || 'Cleaner';
-
     const [formData, setFormData] = useState({
-        company: 'Nagpur Municipal Corporation Pilot',
-        // Ensure name is read correctly from the initial user data structure
-        fullName: initialUser.name || initialUser.fullName || '',
-        email: initialUser.email || '',
-        phone: initialUser.phone || '',
-        // Password is not used/shown in edit mode
-        role: defaultRole,
+        company: 'Nagpur Municipal Corp',
+        fullName: initialUser?.name || initialUser?.fullName || '',
+        email: initialUser?.email || '',
+        phone: initialUser?.phone || '',
+        role: initialUser?.role || 'Cleaner',
     });
 
     const handleChange = (e) => {
@@ -43,136 +28,131 @@ const EditUserFormModal = ({ onClose, onSubmit, initialUser }) => {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-
-        // Validation check (basic, password check is skipped as isEditMode is true)
-        if (!formData.fullName || !formData.phone || !formData.role) {
-            alert("Please fill out all required fields.");
+        if (!formData.fullName || !formData.phone) {
+            alert("Please fill out required fields.");
             return;
         }
-
-        // Pass the updated user data up to the parent component
         onSubmit(formData);
         onClose();
     };
 
-    const title = "Edit User"; // Always "Edit User"
-    const submitButtonText = 'Save Changes';
     const roleOptions = ['Admin', 'Supervisor', 'Cleaner'];
 
     return (
-        // FIX APPLIED: fixed inset-0 ensures full viewport coverage
-        <div className="fixed inset-0 bg-gray-300 bg-opacity-75 flex items-center justify-center z-50 overflow-y-auto">
-            <div className="bg-white rounded-xl shadow-2xl w-full max-w-xl p-8 my-8">
+        <div className="fixed inset-0 bg-slate-900/40 backdrop-blur-sm flex items-center justify-center z-[70] p-4 overflow-y-auto">
+            {/* Width reduced from max-w-2xl to max-w-md for a compact feel */}
+            <div className="bg-white rounded-[32px] shadow-2xl w-full max-w-md overflow-hidden animate-in fade-in zoom-in duration-300">
 
-                {/* Centered Header Section (Icon + Title) */}
-                <div className="flex flex-col items-center mb-8 text-center">
-                    <UserIcon />
-                    <h1 className="text-2xl font-semibold text-gray-800">{title}</h1>
+                {/* 1. Slimmed Header */}
+                <div className="bg-[#E6F7F9] px-6 py-5 border-b border-[#D1F0F2] flex items-center justify-between">
+                    <div className="flex items-center gap-3">
+                        <div className="h-10 w-10 rounded-xl bg-white flex items-center justify-center shadow-sm">
+                            <Fingerprint className="h-6 w-6 text-[#58BECF]" strokeWidth={2} />
+                        </div>
+                        <div className="text-left">
+                            <h2 className="text-sm font-black text-slate-800 uppercase tracking-tight leading-none">
+                                Edit Profile
+                            </h2>
+                            <p className="text-[9px] font-bold text-[#58BECF] uppercase tracking-widest mt-1">
+                                ID: #{initialUser?.userId || '182'}
+                            </p>
+                        </div>
+                    </div>
+                    <button onClick={onClose} className="p-2 rounded-full hover:bg-white text-slate-400 hover:text-rose-500 transition-all">
+                        <X size={18} strokeWidth={2.5} />
+                    </button>
                 </div>
 
-                <form onSubmit={handleSubmit} className="space-y-6">
+                <form onSubmit={handleSubmit} className="p-6 space-y-5 bg-white">
 
-                    {/* Company Field (Read-only) */}
-                    <div>
-                        <span className="text-sm font-medium text-gray-700 block mb-1">Company</span>
-                        <div className="flex items-center justify-between border border-gray-300 rounded-lg p-3 bg-gray-50">
-                            <div className="text-gray-800 font-medium">
-                                {formData.company}
-                                <p className="text-xs text-gray-500 mt-0.5">
-                                    Editing user within this company.
-                                </p>
+                    {/* 2. Compact Input Section */}
+                    <div className="space-y-4">
+                        {/* Name Field */}
+                        <div className="text-left group">
+                            <label className="text-[9px] font-black text-slate-400 uppercase tracking-widest ml-1 mb-1 block">Full Name *</label>
+                            <div className="relative">
+                                <User className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-300" size={16} />
+                                <input
+                                    type="text"
+                                    name="fullName"
+                                    value={formData.fullName}
+                                    onChange={handleChange}
+                                    className="w-full pl-11 pr-4 py-2.5 rounded-xl border border-slate-100 bg-[#F8FAFB] text-sm font-bold text-slate-700 outline-none focus:ring-4 focus:ring-cyan-50 focus:border-[#58BECF] transition-all"
+                                    placeholder="Rajesh Sahani"
+                                    required
+                                />
                             </div>
-                            <button
-                                type="button"
-                                className="text-xs font-medium text-indigo-600 border border-indigo-200 bg-white px-2 py-1 rounded hover:bg-indigo-50"
-                            >
-                                Current Company
-                            </button>
+                        </div>
+
+                        {/* Contact Duo: Reduced vertical height */}
+                        <div className="grid grid-cols-1 gap-4">
+                            <div className="text-left">
+                                <label className="text-[9px] font-black text-slate-400 uppercase tracking-widest ml-1 mb-1 block">Email</label>
+                                <div className="relative">
+                                    <Mail className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-300" size={16} />
+                                    <input
+                                        type="email"
+                                        name="email"
+                                        value={formData.email}
+                                        onChange={handleChange}
+                                        className="w-full pl-11 pr-4 py-2.5 rounded-xl border border-slate-100 bg-[#F8FAFB] text-sm font-bold text-slate-700 outline-none focus:ring-4 focus:ring-cyan-50 focus:border-[#58BECF] transition-all"
+                                        placeholder="user@saaf.ai"
+                                    />
+                                </div>
+                            </div>
+                            <div className="text-left">
+                                <label className="text-[9px] font-black text-slate-400 uppercase tracking-widest ml-1 mb-1 block">Phone *</label>
+                                <div className="relative">
+                                    <Phone className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-300" size={16} />
+                                    <input
+                                        type="tel"
+                                        name="phone"
+                                        value={formData.phone}
+                                        onChange={handleChange}
+                                        className="w-full pl-11 pr-4 py-2.5 rounded-xl border border-slate-100 bg-[#F8FAFB] text-sm font-bold text-slate-700 outline-none focus:ring-4 focus:ring-cyan-50 focus:border-[#58BECF] transition-all"
+                                        placeholder="+91"
+                                        required
+                                    />
+                                </div>
+                            </div>
+                        </div>
+
+                        {/* 3. Role Selector: Compact Grid */}
+                        <div className="text-left">
+                            <label className="text-[9px] font-black text-slate-400 uppercase tracking-widest ml-1 mb-2 block">Permission Level</label>
+                            <div className="grid grid-cols-3 gap-2">
+                                {roleOptions.map((role) => (
+                                    <button
+                                        key={role}
+                                        type="button"
+                                        onClick={() => setFormData(p => ({ ...p, role }))}
+                                        className={`py-2 rounded-lg text-[10px] font-black uppercase tracking-tight border transition-all ${formData.role === role
+                                                ? 'bg-cyan-50 border-[#58BECF] text-[#007C85]'
+                                                : 'bg-white border-slate-100 text-slate-400 hover:border-slate-200'
+                                            }`}
+                                    >
+                                        {role}
+                                    </button>
+                                ))}
+                            </div>
                         </div>
                     </div>
 
-                    {/* Full Name */}
-                    <label className="block">
-                        <span className="text-sm font-medium text-gray-700">Full Name *</span>
-                        <input
-                            type="text"
-                            name="fullName"
-                            value={formData.fullName}
-                            onChange={handleChange}
-                            placeholder="Enter full name"
-                            className="mt-1 block w-full p-3 border border-gray-300 rounded-lg focus:ring-indigo-500 focus:border-indigo-500 placeholder-gray-400"
-                            required
-                        />
-                    </label>
-
-                    {/* Email and Phone (Side-by-side) */}
-                    <div className="grid grid-cols-2 gap-4">
-                        {/* Email */}
-                        <label className="flex flex-col">
-                            <span className="text-sm font-medium text-gray-700">Email *</span>
-                            <input
-                                type="email"
-                                name="email"
-                                value={formData.email}
-                                onChange={handleChange}
-                                placeholder="Enter email"
-                                className="mt-1 p-3 border border-gray-300 rounded-lg focus:ring-indigo-500 focus:border-indigo-500 placeholder-gray-400"
-                                required
-                            />
-                        </label>
-
-                        {/* Phone Number */}
-                        <label className="flex flex-col">
-                            <span className="text-sm font-medium text-gray-700">Phone *</span>
-                            <input
-                                type="tel"
-                                name="phone"
-                                value={formData.phone}
-                                onChange={handleChange}
-                                placeholder="Enter 10-digit phone number"
-                                className="mt-1 p-3 border border-gray-300 rounded-lg focus:ring-indigo-500 focus:border-indigo-500 placeholder-gray-400"
-                                required
-                            />
-                        </label>
-                    </div>
-
-                    {/* Password is omitted here because isEditMode is true */}
-
-                    {/* Role */}
-                    <label className="block">
-                        <span className="text-sm font-medium text-gray-700">Role *</span>
-                        <select
-                            name="role"
-                            value={formData.role}
-                            onChange={handleChange}
-                            className="mt-1 block w-full p-3 border border-gray-300 rounded-lg focus:ring-indigo-500 focus:border-indigo-500 bg-white appearance-none pr-10"
-                            required
+                    {/* 4. Action Footer: High-impact gradient button */}
+                    <div className="flex flex-col gap-3 pt-2">
+                        <button
+                            type="submit"
+                            style={{ background: 'linear-gradient(to right, #58BECF, #6D9CDC)' }}
+                            className="w-full py-3.5 rounded-xl text-white text-[11px] font-black uppercase tracking-widest shadow-lg shadow-cyan-500/20 hover:brightness-105 active:scale-95 transition-all flex items-center justify-center gap-2"
                         >
-                            <option value="" disabled>Select a role</option>
-                            {roleOptions.map(role => (
-                                <option key={role} value={role}>{role}</option>
-                            ))}
-                        </select>
-                    </label>
-
-                    {/* Form Actions */}
-                    <div className="flex justify-end pt-4 space-x-3 mt-8">
-
-                        {/* Cancel Button - Styled like a secondary button (light background/border) */}
+                            <Check size={16} strokeWidth={3} /> Save Updates
+                        </button>
                         <button
                             type="button"
                             onClick={onClose}
-                            className="px-6 py-2 border border-gray-300 rounded-lg text-gray-700 bg-gray-50 hover:bg-gray-100 font-medium transition-colors"
+                            className="w-full py-3 text-[10px] font-black text-slate-400 uppercase tracking-widest hover:text-rose-500 transition-all"
                         >
                             Cancel
-                        </button>
-
-                        {/* Save Changes Button - Kept as primary color/solid background */}
-                        <button
-                            type="submit"
-                            className="px-6 py-2 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 transition-colors font-medium shadow-md"
-                        >
-                            {submitButtonText}
                         </button>
                     </div>
                 </form>
