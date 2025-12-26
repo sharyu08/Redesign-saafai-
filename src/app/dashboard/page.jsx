@@ -1,6 +1,5 @@
 "use client";
 import Link from "next/link";
-import { ThemeToggle } from "@/components/theme/ThemeToggle";
 import {
   Activity,
   CheckCircle2,
@@ -40,42 +39,66 @@ const CardShell = ({ title, subtitle, icon, headerRight, children }) => (
 const SummaryCards = () => {
   const cards = [
     {
-      label: "Total Users",
-      value: "50",
+      label: "Total Tolites",
+      value: "18",
       icon: Users,
-      bg: "bg-gradient-to-br from-[#1A1C26] to-[#1E2A3A]",
+      bg: "bg-gradient-to-br from-[#EAF7F8] to-[#d8f0f2]",
       border: "border border-[#2DB7C4]/20",
       text: "text-[#2DB7C4]",
       iconBg: "bg-[#2DB7C4]/10"
     },
     {
-      label: "New Users",
-      value: "100",
+      label: "Ongoing Tasks",
+      value: "5",
       icon: MessageSquare,
-      bg: "bg-gradient-to-br from-[#1A1C26] to-[#1E1A3A]",
+      bg: "bg-gradient-to-br from-[#EEF4FF] to-[#dde7ff]",
       border: "border border-[#9F7AEA]/20",
-      text: "text-[#9F7AEA]",
-      iconBg: "bg-[#9F7AEA]/10"
+      text: "text-[#4F7FD9]",
+      iconBg: "bg-[#4F7FD9]/10"
     },
     {
-      label: "Active Users",
+      label: "Completed Tasks",
       value: "4 / 18",
       icon: CheckCircle2,
-      bg: "bg-gradient-to-br from-[#1A1C26] to-[#1A3A2A]",
+      bg: "bg-gradient-to-br from-[#ECFDF3] to-[#daf5e8]",
       border: "border border-[#48BB78]/20",
-      text: "text-[#48BB78]",
-      iconBg: "bg-[#48BB78]/10"
+      text: "text-[#10B981]",
+      iconBg: "bg-[#10B981]/10"
     },
     {
       label: "Total Repairs",
       value: "4",
       icon: Wrench,
-      bg: "bg-gradient-to-br from-[#1A1C26] to-[#3A2A1A]",
+      bg: "bg-gradient-to-br from-[#FFF6E5] to-[#ffedcc]",
       border: "border border-[#F4B740]/20",
       text: "text-[#F4B740]",
       iconBg: "bg-[#F4B740]/10"
     },
   ];
+
+  // Animation variants for framer-motion
+  const container = {
+    hidden: { opacity: 0 },
+    show: {
+      opacity: 1,
+      transition: {
+        staggerChildren: 0.1
+      }
+    }
+  };
+
+  const item = {
+    hidden: { opacity: 0, y: 20 },
+    show: {
+      opacity: 1,
+      y: 0,
+      transition: {
+        type: "spring",
+        stiffness: 100,
+        damping: 10
+      }
+    }
+  };
 
   return (
     <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
@@ -84,19 +107,22 @@ const SummaryCards = () => {
         return (
           <div
             key={card.label}
-            className={`${card.bg} ${card.border} rounded-xl px-4 py-3 shadow-sm hover:shadow-md transition-all duration-200`}
+            className={`summary-card ${card.bg} dark:bg-card dark:border dark:border-border/30 relative rounded-xl px-4 py-3 shadow-sm transition-all duration-500 hover:scale-[1.02] group overflow-hidden`}
           >
+            {/* Glow effect */}
+            <div className="absolute inset-0 bg-gradient-to-br from-transparent via-white/20 to-transparent opacity-0 group-hover:opacity-100 dark:group-hover:opacity-30 transition-opacity duration-500" />
+            <div className="absolute -inset-1 bg-gradient-to-r from-cyan-500 to-blue-500 dark:from-cyan-500/80 dark:to-blue-500/80 rounded-xl opacity-0 group-hover:opacity-20 dark:group-hover:opacity-15 blur-md transition-all duration-500 group-hover:duration-200" />
             <div className="flex items-center gap-3">
               <div
-                className={`h-8 w-8 rounded-lg ${card.iconBg} flex items-center justify-center`}
+                className={`h-8 w-8 rounded-lg ${card.iconBg} flex items-center justify-center transition-transform duration-300 group-hover:scale-110`}
               >
                 <Icon className={`h-4 w-4 ${card.text}`} />
               </div>
               <div>
-                <p className={`text-lg font-semibold text-white leading-tight`}>
+                <p className={`text-lg font-bold ${card.text} dark:text-foreground leading-tight card-text`}>
                   {card.value}
                 </p>
-                <p className="text-xs text-gray-300">
+                <p className={`text-xs font-medium ${card.text}/80 dark:text-muted-foreground card-label`}>
                   {card.label}
                 </p>
               </div>
@@ -112,22 +138,22 @@ const SummaryCards = () => {
 const HighlightsCard = ({ locations }) => {
   const rankStyles = [
     { 
-      bg: "bg-gradient-to-br from-[#1A1C26] to-[#2A2D3D]", 
-      border: "border border-[#49B8D3]/20",
-      text: "text-[#49B8D3]",
-      badge: "bg-[#49B8D3] text-white" 
+      bg: "bg-gradient-to-br from-[#EAF7F8] to-[#d8f0f2]", 
+      border: "border border-[#49B8D3]/30",
+      text: "text-[#2DB7C4]",
+      badge: "bg-[#2DB7C4] text-white" 
     },
     { 
-      bg: "bg-gradient-to-br from-[#1A1C26] to-[#2D2A3D]", 
-      border: "border border-[#9F7AEA]/20",
-      text: "text-[#9F7AEA]",
-      badge: "bg-[#9F7AEA] text-white" 
+      bg: "bg-gradient-to-br from-[#F5F0FF] to-[#eae0ff]", 
+      border: "border border-[#9F7AEA]/30",
+      text: "text-[#7E5BDD]",
+      badge: "bg-[#7E5BDD] text-white" 
     },
     { 
-      bg: "bg-gradient-to-br from-[#1A1C26] to-[#2A3D3A]", 
-      border: "border border-[#48BB78]/20",
-      text: "text-[#48BB78]",
-      badge: "bg-[#48BB78] text-white" 
+      bg: "bg-gradient-to-br from-[#ECFDF3] to-[#daf5e8]", 
+      border: "border border-[#48BB78]/30",
+      text: "text-[#10B981]",
+      badge: "bg-[#10B981] text-white" 
     },
   ];
 
@@ -135,7 +161,7 @@ const HighlightsCard = ({ locations }) => {
     <CardShell
       title="Today’s Top Rated"
       headerRight={
-        <button className="text-sm text-[#2DB7C4] hover:underline">
+        <button className="text-sm text-[#2DB7C4] font-medium hover:underline">
           View all
         </button>
       }
@@ -144,19 +170,19 @@ const HighlightsCard = ({ locations }) => {
         {locations.slice(0, 3).map((loc, i) => (
           <div
             key={loc.name}
-            className={`flex items-center justify-between rounded-xl px-4 py-3 ${rankStyles[i].bg} ${rankStyles[i].border} shadow-sm hover:shadow-md transition-all duration-200`}
+            className={`highlights-card flex items-center justify-between rounded-xl px-4 py-3 ${rankStyles[i].bg} dark:bg-card/50 dark:border dark:border-border/30 shadow-sm hover:shadow-md transition-all duration-200`}
           >
             <div className="flex items-center gap-3">
               <div
-                className={`h-7 w-7 rounded-full flex items-center justify-center text-sm font-semibold ${rankStyles[i].badge}`}
+                className={`h-7 w-7 rounded-full flex items-center justify-center text-sm font-semibold ${rankStyles[i].badge} dark:bg-primary/80 dark:text-white`}
               >
                 {i + 1}
               </div>
-              <p className={`text-sm font-medium ${rankStyles[i].text}`}>
+              <p className={`text-sm font-medium ${rankStyles[i].text} dark:text-foreground location-name`}>
                 {loc.name}
               </p>
             </div>
-            <span className={`text-sm font-semibold ${rankStyles[i].text}`}>
+            <span className={`text-sm font-semibold ${rankStyles[i].text} dark:text-primary location-score`}>
               ⭐ {loc.score}
             </span>
           </div>
@@ -242,7 +268,6 @@ export default function DashboardPage() {
             <Sparkles className="h-4 w-4 text-primary" />
             Fresh insights ready
           </div>
-          <ThemeToggle />
         </div>
       </div>
 

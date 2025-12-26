@@ -10,6 +10,7 @@ import {
   ShieldCheck,
   Check
 } from "lucide-react";
+import FilterBar from "../../../../components/cleanerAssignments/FilterBar";
 
 export default function CreateAssignmentsPage() {
   const router = useRouter();

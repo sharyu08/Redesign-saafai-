@@ -1,48 +1,53 @@
 "use client";
 
 import { useRouter } from "next/navigation";
-import { ArrowLeft, FolderPlus, MapPin } from "lucide-react";
+import { ChevronLeft, FolderPlus, MapPin } from "lucide-react";
 
 export default function AddHierarchyHeader() {
     const router = useRouter();
 
     return (
-        <div className="rounded-[24px] bg-[#e5f6f8] border border-slate-100 shadow-sm overflow-hidden relative group">
+        /* UI UPDATE: Pure white floating card with refined shadow */
+        <div className="rounded-[24px] bg-white border border-slate-100 shadow-sm overflow-hidden relative group">
 
-            {/* Soft background decorative tint matching your UI */}
-            <div className="absolute top-0 right-0 w-32 h-32 bg-white/40 blur-3xl rounded-full -mr-10 -mt-10 pointer-events-none" />
+            {/* Subtle background decorative tint for brand identity */}
+            <div className="absolute top-0 right-0 w-32 h-32 bg-[#E6F7F9]/40 blur-3xl rounded-full -mr-10 -mt-10 pointer-events-none" />
 
             <div className="relative z-10 px-8 py-6 flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
 
                 {/* Title & Description Section */}
-                <div className="flex items-center gap-4">
-                    <div className="h-12 w-12 rounded-2xl bg-white border border-[#D1F0F2] flex items-center justify-center shadow-inner">
-                        <FolderPlus className="h-6 w-6 text-[#007C85]" />
+                <div className="flex items-center gap-5">
+                    {/* Branded Icon Shield - Slightly reduced size to match new header style */}
+                    <div className="h-11 w-11 rounded-2xl bg-[#E6F7F9] border border-[#D1F0F2] flex items-center justify-center shadow-inner">
+                        <FolderPlus className="h-5 w-5 text-[#58BECF]" strokeWidth={3} />
                     </div>
-                    <div>
-                        <h1 className="text-2xl font-black tracking-tight text-[#007C85]">
-                            Create New Hierarchy
+                    <div className="text-left">
+                        {/* UPDATED HEADING: Increased size and bold weight to match user management */}
+                        <h1 className="text-lg font-black tracking-tight text-[#007C85] uppercase leading-none">
+                            Add New Zone Type
                         </h1>
-                        <p className="flex items-center gap-1.5 mt-0.5 text-xs font-bold uppercase tracking-widest text-[#2D8E97]/70">
-                            <MapPin size={12} />
-                            Define structural nodes & parent mappings
+                        {/* UPDATED SUBTITLE: Increased text size for legibility */}
+                        <p className="flex items-center gap-1.5 mt-1.5 text-[11px] font-black uppercase tracking-widest text-slate-400">
+                            <MapPin size={13} className="text-[#58BECF]" />
+                            Configure Workspace Architecture
                         </p>
                     </div>
                 </div>
 
-                {/* Back Button: Themed to match Action column style */}
+                {/* Back Button: Styled as a tactile white button */}
                 <button
                     onClick={() => router.back()}
                     className="
                         flex items-center gap-2 
-                        px-5 py-2.5 rounded-xl 
-                        text-xs font-black uppercase tracking-widest text-white
-                        hover:opacity-90 transition-all active:scale-95 shadow-sm
+                        px-6 py-3 rounded-xl 
+                        bg-white border border-slate-200 
+                        text-[11px] font-black uppercase tracking-widest text-[#007C85] 
+                        hover:bg-[#F8FAFB] hover:border-[#58BECF]/30 hover:shadow-md
+                        transition-all active:scale-95 shadow-sm
                     "
-                    style={{ background: 'linear-gradient(to right, #58BECF, #6D9CDC)' }}
                 >
-                    <ArrowLeft size={16} strokeWidth={3} />
-                    Back to Registry
+                    <ChevronLeft size={16} strokeWidth={3} />
+                    Back to List
                 </button>
             </div>
         </div>

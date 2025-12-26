@@ -1,5 +1,6 @@
 "use client";
 
+import React from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { usePathname } from "next/navigation";
@@ -17,8 +18,8 @@ import {
   MessageSquare,
   Plus,
   Settings,
-  ShieldCheck,
   Users,
+  Wrench,
 } from "lucide-react";
 
 /* ---------------- NAV DATA ---------------- */
@@ -37,7 +38,7 @@ const navSections = [
       },
       {
         label: "Washrooms",
-        icon: ShieldCheck,
+        icon: Wrench,
         children: [
           { label: "Washrooms List", href: "/dashboard/washrooms" },
           { label: "Add Washroom", href: "/dashboard/washrooms/add", icon: Plus },
@@ -53,7 +54,7 @@ const navSections = [
         icon: Users,
         children: [
           { label: "User List", href: "/dashboard/user-management" },
-          { label: "Add User", href: "/dashboard/user-management/add", icon: Plus },
+          { label: "Add User", href: "/dashboard/user-management/add-user", icon: Plus },
         ],
       },
       {
@@ -100,17 +101,15 @@ export default function Sidebar({ open, onClose, collapsed, onToggleCollapse }) 
 
   return (
     <aside
-      className={`fixed inset-y-0 left-0 z-40 flex ${
-        collapsed ? "w-20" : "w-72"
-      } flex-col bg-card border-r border-border transition-transform duration-200 md:static ${
-        open ? "translate-x-0" : "-translate-x-full md:translate-x-0"
-      }`}
+      className={`fixed inset-y-0 left-0 z-40 flex ${collapsed ? "w-20" : "w-72"
+        } flex-col bg-[#E8F4F5] dark:bg-gray-900 border-r border-[#DEE9EB] dark:border-gray-800 transition-transform duration-200 md:static ${open ? "translate-x-0" : "-translate-x-full md:translate-x-0"
+        }`}
     >
       {/* HEADER */}
-      <div className="flex h-16 items-center gap-3 px-4 border-b border-border bg-card">
+      <div className="flex h-16 items-center gap-3 px-4 border-b border-[#EAF2F5] dark:border-gray-800 bg-white dark:bg-gray-900">
         {!collapsed && (
           <>
-            <div className="h-10 w-10 rounded-xl bg-primary/10 flex items-center justify-center">
+            <div className="h-10 w-10 rounded-xl bg-[#EAF7F8] dark:bg-gray-800 flex items-center justify-center">
               <Image
                 src="/image/dashboard img.png"
                 alt="Safai Logo"
@@ -120,20 +119,16 @@ export default function Sidebar({ open, onClose, collapsed, onToggleCollapse }) 
               />
             </div>
             <div className="flex-1">
-              <p className="text-xs text-muted-foreground">Admin Console</p>
-              <p className="text-sm font-semibold text-foreground">Safai</p>
+              <p className="text-xs text-[#6B7280] dark:text-gray-400">Admin Console</p>
+              <p className="text-sm font-semibold text-[#2F3A45] dark:text-white">Safai</p>
             </div>
           </>
         )}
         <button
           onClick={onToggleCollapse}
-          className="ml-auto h-8 w-8 rounded-lg border border-border bg-card hover:bg-accent flex items-center justify-center"
+          className="ml-auto h-8 w-8 rounded-lg border border-[#EAF2F5] dark:border-gray-700 bg-white dark:bg-gray-800 flex items-center justify-center"
         >
-          <ChevronDown
-            className={`h-4 w-4 text-primary ${
-              collapsed ? "-rotate-90" : "rotate-90"
-            }`}
-          />
+          <ChevronDown className={`h-4 w-4 text-[#2DB7C4] dark:text-cyan-400 ${collapsed ? "-rotate-90" : "rotate-90"}`} />
         </button>
       </div>
 
@@ -142,7 +137,7 @@ export default function Sidebar({ open, onClose, collapsed, onToggleCollapse }) 
         {navSections.map((section) => (
           <div key={section.heading}>
             {!collapsed && (
-              <p className="px-3 mb-2 text-xs font-semibold uppercase tracking-wide text-muted-foreground">
+              <p className="px-3 mb-2 text-xs font-semibold uppercase tracking-wide text-[#9CA3AF] dark:text-gray-500">
                 {section.heading}
               </p>
             )}
@@ -157,11 +152,10 @@ export default function Sidebar({ open, onClose, collapsed, onToggleCollapse }) 
                       key={item.label}
                       href={item.href}
                       onClick={onClose}
-                      className={`flex items-center gap-3 rounded-xl px-3 py-2 text-sm font-medium transition ${
-                        active
-                          ? "bg-primary/10 text-primary"
-                          : "text-foreground hover:bg-accent"
-                      }`}
+                      className={`flex items-center gap-3 rounded-xl px-3 py-2 text-sm font-medium transition ${active
+                        ? "bg-[#EAF7F8] dark:bg-gray-800 text-[#2DB7C4] dark:text-cyan-400"
+                        : "text-[#2F3A45] dark:text-gray-300 hover:bg-[#F0F9FA] dark:hover:bg-gray-800"
+                        }`}
                     >
                       <Icon className="h-5 w-5" />
                       {!collapsed && item.label}
@@ -178,16 +172,15 @@ export default function Sidebar({ open, onClose, collapsed, onToggleCollapse }) 
                           [item.label]: !p[item.label],
                         }))
                       }
-                      className="flex w-full items-center gap-3 rounded-xl px-3 py-2 text-sm font-medium text-foreground hover:bg-accent"
+                      className="flex w-full items-center gap-3 rounded-xl px-3 py-2 text-sm font-medium text-[#2F3A45] dark:text-gray-300 hover:bg-[#F0F9FA] dark:hover:bg-gray-800"
                     >
                       <Icon className="h-5 w-5" />
                       {!collapsed && (
                         <>
                           <span className="flex-1 text-left">{item.label}</span>
                           <ChevronDown
-                            className={`h-4 w-4 transition ${
-                              openGroups[item.label] ? "rotate-180" : ""
-                            }`}
+                            className={`h-4 w-4 transition ${openGroups[item.label] ? "rotate-180" : ""
+                              }`}
                           />
                         </>
                       )}
@@ -199,11 +192,10 @@ export default function Sidebar({ open, onClose, collapsed, onToggleCollapse }) 
                           <Link
                             key={child.href}
                             href={child.href}
-                            className={`block rounded-lg px-3 py-2 text-sm ${
-                              isActive(child.href)
-                                ? "bg-primary/10 text-primary"
-                                : "text-muted-foreground hover:bg-accent"
-                            }`}
+                            className={`block rounded-lg px-3 py-2 text-sm ${isActive(child.href)
+                              ? "bg-[#EAF7F8] dark:bg-gray-800 text-[#2DB7C4] dark:text-cyan-400"
+                              : "text-[#6B7280] dark:text-gray-400 hover:bg-[#F0F9FA] dark:hover:bg-gray-800"
+                              }`}
                           >
                             {child.label}
                           </Link>
@@ -219,22 +211,25 @@ export default function Sidebar({ open, onClose, collapsed, onToggleCollapse }) 
       </div>
 
       {/* FOOTER */}
-      <div className="border-t border-border p-4 bg-card">
-        <div className="flex items-center gap-3 mb-3">
-          <div className="h-9 w-9 rounded-full bg-primary/10 flex items-center justify-center font-semibold text-primary">
+      <div className="border-t border-[#EAF2F5] dark:border-gray-800 p-4 bg-white dark:bg-gray-900">
+        <Link
+          href="/dashboard/profile"
+          onClick={onClose}
+          className="flex items-center gap-3 mb-3 p-1.5 rounded-xl hover:bg-slate-50 dark:hover:bg-gray-800 transition-all group cursor-pointer"
+        >
+          <div className="h-9 w-9 rounded-full bg-[#EAF7F8] dark:bg-gray-800 flex items-center justify-center font-black text-[#2DB7C4] dark:text-cyan-400 group-hover:scale-110 transition-transform">
             TI
           </div>
           {!collapsed && (
-            <div className="flex-1">
-              <p className="text-sm font-semibold text-foreground">Test Intern</p>
-              <p className="text-xs text-muted-foreground">Admin</p>
+            <div className="flex-1 overflow-hidden">
+              <p className="text-sm font-bold text-[#2F3A45] dark:text-gray-200 truncate group-hover:text-[#2DB7C4] dark:group-hover:text-cyan-400 transition-colors">Test Intern</p>
+              <p className="text-[10px] font-bold text-[#9CA3AF] dark:text-gray-500 uppercase tracking-tighter">Admin Account</p>
             </div>
           )}
-          {!collapsed && <Settings className="h-5 w-5 text-muted-foreground" />}
-        </div>
+        </Link>
 
-        <button className="flex w-full items-center justify-center gap-2 rounded-xl border border-border px-3 py-2 text-sm font-semibold text-foreground hover:bg-accent">
-          <LogOut className="h-4 w-4" />
+        <button className="flex w-full items-center justify-center gap-2 rounded-xl border border-[#EAF2F5] dark:border-gray-700 px-3 py-2 text-sm font-semibold text-[#2F3A45] dark:text-gray-300 hover:bg-rose-50 dark:hover:bg-rose-900/30 hover:text-rose-600 dark:hover:text-rose-400 hover:border-rose-100 dark:hover:border-rose-900/50 transition-all group">
+          <LogOut className="h-4 w-4 group-hover:-translate-x-0.5 transition-transform" />
           {!collapsed && "Logout"}
         </button>
       </div>
