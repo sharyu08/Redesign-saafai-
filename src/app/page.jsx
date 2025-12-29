@@ -2,9 +2,11 @@ import { redirect } from 'next/navigation';
 
 // This file handles the root URL: http://localhost:3000/
 export default function RootPage() {
-  // In a real application, you'd check auth here.
-  // Since the user is likely already logged in/testing, we redirect them to the dashboard.
-  redirect('/dashboard');
+  // Redirect to the sign-in page as the entry point
+  redirect('/auth/sign-in');
+  
+  // Note: The middleware will handle redirecting authenticated users to /dashboard
+  // and unauthenticated users will see the sign-in page
 }
 
 // NOTE: If you prefer a simpler static page (like the screenshot), use this:
