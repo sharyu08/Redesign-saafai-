@@ -41,18 +41,7 @@ export default function WashroomHeader() {
             <div className="flex items-center gap-4 mt-5 md:mt-0 z-10">
                 {/* ADD LOCATION */}
                 <Link href="/dashboard/washrooms/add-washroom">
-                    <button className="action-button
-            group flex items-center gap-2
-            rounded-xl
-            px-5 py-2.5
-            font-medium
-            text-sm font-bold
-            text-[hsl(var(--primary-dark))]
-            shadow-sm
-            hover:shadow-md hover:bg-teal-50
-            active:scale-95
-            transition-all duration-200
-          ">
+                    <button className="btn-action group flex items-center gap-2">
                         <span className="text-lg group-hover:rotate-90 transition-transform">+</span>
                         Add Location
                     </button>
@@ -60,15 +49,7 @@ export default function WashroomHeader() {
 
                 {/* ASSIGN */}
                 <Link href="/dashboard/cleaner-assignments/add">
-                    <button className="assign-button
-            flex items-center gap-2
-            px-6 py-2.5
-            text-sm font-bold
-            shadow-sm
-            hover:shadow-md
-            active:scale-95
-            transition-all duration-200
-          ">
+                    <button className="btn-assign flex items-center gap-2">
                         Assign
                     </button>
                 </Link>
