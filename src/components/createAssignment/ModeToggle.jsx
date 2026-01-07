@@ -13,7 +13,7 @@ export default function ModeToggle({ value, onChange }) {
           className={`px-4 py-2 rounded-lg text-sm font-medium ${
             value === "single" 
               ? "bg-gradient-to-r from-[#2DB7C4] to-[#4F7FD9] text-white shadow-sm" 
-              : "bg-white border border-[#D1E0E2] text-[#2F3A45] hover:bg-[#F8FAFB]"
+              : "bg-white border border-[hsl(var(--border))] text-[hsl(var(--text-body))] hover:bg-[hsl(var(--bg-light-gray))]"
           } transition-colors`}
         >
           Single
@@ -23,7 +23,7 @@ export default function ModeToggle({ value, onChange }) {
           className={`px-4 py-2 rounded-lg text-sm font-medium ${
             value === "multiple" 
               ? "bg-gradient-to-r from-[#2DB7C4] to-[#4F7FD9] text-white shadow-sm" 
-              : "bg-white border border-[#D1E0E2] text-[#2F3A45] hover:bg-[#F8FAFB]"
+              : "bg-white border border-[hsl(var(--border))] text-[hsl(var(--text-body))] hover:bg-[hsl(var(--bg-light-gray))]"
           } transition-colors`}
         >
           Multiple

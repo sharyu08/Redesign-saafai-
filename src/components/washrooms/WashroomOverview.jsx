@@ -51,22 +51,22 @@ export default function WashroomOverview({ washroom = MOCK_WASHROOM }) {
           <div className="p-6 space-y-6">
             <div className="flex flex-wrap items-start justify-between gap-4">
               <div className="space-y-1">
-                <h1 className="text-2xl md:text-3xl font-extrabold tracking-tight text-[hsl(var(--primary-dark))]">
+                <h1 className="text-2xl md:text-3xl font-extrabold tracking-tight text-gray-800">
                   {washroom.name}
                 </h1>
                 <div className="flex items-center gap-2 text-sm font-medium text-[hsl(var(--muted-foreground))]">
-                  <MapPin className="h-4 w-4 text-[hsl(var(--primary))]" />
+                  <MapPin className="h-4 w-4 text-blue-600" />
                   <span>{washroom.subtitle}</span>
                 </div>
               </div>
             </div>
 
             <div className="flex flex-wrap gap-4">
-              <div className="rounded-xl border border-[hsl(var(--primary)/0.2)] bg-[#E0F7FA] px-4 py-3">
-                <div className="text-[10px] font-bold uppercase tracking-widest text-[hsl(var(--primary-dark))] mb-1">
+              <div className="rounded-xl border border-blue-200 bg-blue-50 px-4 py-3">
+                <div className="text-[10px] font-bold uppercase tracking-widest text-gray-800 mb-1">
                   Location Hierarchy / Zone
                 </div>
-                <div className="text-sm font-bold text-[hsl(var(--primary-dark))]">
+                <div className="text-sm font-bold text-gray-800">
                   {washroom.zone}
                 </div>
               </div>
@@ -87,17 +87,17 @@ export default function WashroomOverview({ washroom = MOCK_WASHROOM }) {
             </div>
 
             <div className="flex flex-wrap gap-3 pt-2">
-              <button
+                <button
                 type="button"
                 onClick={handleLocate}
-                className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl border border-[hsl(var(--primary)/0.2)] bg-white text-[hsl(var(--primary-dark))] text-sm font-bold hover:bg-teal-50 transition-all active:scale-95 shadow-sm"
+                className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl border border-blue-200 bg-white text-gray-800 text-sm font-bold hover:bg-blue-100 transition-all active:scale-95 shadow-sm"
               >
                 <Map className="h-4 w-4" />
                 Locate on Map
               </button>
 
               <Link href={`/dashboard/washrooms/${washroom.id}/edit`}>
-                <button className="inline-flex items-center gap-2 px-6 py-2.5 rounded-xl bg-[hsl(var(--primary))] text-white text-sm font-bold hover:brightness-110 transition-all active:scale-95 shadow-[0_4px_14px_0_rgba(45,183,196,0.3)]">
+                <button className="inline-flex items-center gap-2 px-6 py-2.5 rounded-xl bg-blue-600 text-white text-sm font-bold hover:brightness-110 transition-all active:scale-95 shadow-md">
                   <Pencil className="h-4 w-4" />
                   Edit Details
                 </button>
@@ -119,7 +119,7 @@ export default function WashroomOverview({ washroom = MOCK_WASHROOM }) {
       {/* Amenities section */}
       <div className="bg-white rounded-[var(--radius)] border border-[hsl(var(--border))] shadow-sm p-6 space-y-4">
         <h2 className="text-sm font-extrabold uppercase tracking-widest text-[hsl(var(--muted-foreground))] flex items-center gap-2">
-          <CheckCircle className="h-4 w-4 text-[hsl(var(--primary))]" />
+          <CheckCircle className="h-4 w-4 text-blue-600" />
           Amenities & Features
         </h2>
         <div className="flex flex-wrap gap-2">
@@ -138,7 +138,7 @@ export default function WashroomOverview({ washroom = MOCK_WASHROOM }) {
         {/* Assigned users */}
         <div className="bg-white rounded-[var(--radius)] border border-[hsl(var(--border))] shadow-sm p-6">
           <h2 className="text-sm font-extrabold uppercase tracking-widest text-[hsl(var(--muted-foreground))] mb-4 flex items-center gap-2">
-            <Users className="h-4 w-4 text-[hsl(var(--primary))]" />
+            <Users className="h-4 w-4 text-blue-600" />
             Assigned Users
           </h2>
           <div className="flex items-center justify-center py-6 border-2 border-dashed border-[hsl(var(--border))] rounded-xl">
@@ -149,15 +149,15 @@ export default function WashroomOverview({ washroom = MOCK_WASHROOM }) {
         {/* Review statistics */}
         <div className="bg-white rounded-[var(--radius)] border border-[hsl(var(--border))] shadow-sm p-6 space-y-4">
           <h2 className="text-sm font-extrabold uppercase tracking-widest text-[hsl(var(--muted-foreground))]">Review Statistics</h2>
-          <div className="grid grid-cols-2 gap-4">
-            <div className="rounded-xl bg-[#F4FBFC] border border-[hsl(var(--primary)/0.1)] p-4">
-              <p className="text-[10px] font-bold text-[hsl(var(--primary-dark))] uppercase tracking-tighter mb-1">User Rating</p>
-              <p className="text-2xl font-black text-[hsl(var(--primary-dark))]">N/A</p>
+            <div className="grid grid-cols-2 gap-4">
+            <div className="rounded-xl bg-blue-100 border border-[hsl(var(--primary)/0.1)] p-4">
+              <p className="text-[10px] font-bold text-gray-800 uppercase tracking-tighter mb-1">User Rating</p>
+              <p className="text-2xl font-black text-gray-800">N/A</p>
               <p className="text-[10px] font-bold text-[hsl(var(--muted-foreground))]">0 User Reviews</p>
             </div>
-            <div className="rounded-xl bg-[#F4FBFC] border border-[hsl(var(--primary)/0.1)] p-4">
-              <p className="text-[10px] font-bold text-[hsl(var(--primary-dark))] uppercase tracking-tighter mb-1">Staff Rating</p>
-              <p className="text-2xl font-black text-[hsl(var(--primary-dark))]">N/A</p>
+            <div className="rounded-xl bg-blue-100 border border-[hsl(var(--primary)/0.1)] p-4">
+              <p className="text-[10px] font-bold text-gray-800 uppercase tracking-tighter mb-1">Staff Rating</p>
+              <p className="text-2xl font-black text-gray-800">N/A</p>
               <p className="text-[10px] font-bold text-[hsl(var(--muted-foreground))]">0 Cleaner Reviews</p>
             </div>
           </div>

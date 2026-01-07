@@ -21,10 +21,10 @@ export default function ParentMapping() {
             <div className="flex items-center justify-between mb-10 relative z-10">
                 <div className="flex items-center gap-5">
                     <div className="h-12 w-12 rounded-2xl bg-primary-light dark:bg-muted flex items-center justify-center shadow-inner border border-primary/10">
-                        <Network size={22} className="text-primary" strokeWidth={2.5} />
+                        <Network size={22} className="text-black" strokeWidth={2.5} />
                     </div>
                     <div>
-                        <h2 className="text-sm font-black text-primary uppercase tracking-widest leading-none">
+                        <h2 className="text-sm font-black text-black uppercase tracking-widest leading-none">
                             Relational Hierarchy
                         </h2>
                         <p className="text-[10px] font-bold text-slate-400 dark:text-muted-foreground uppercase tracking-widest mt-2">
@@ -34,7 +34,7 @@ export default function ParentMapping() {
                 </div>
 
                 <div className="flex items-center gap-2 px-4 py-2 bg-slate-50 dark:bg-muted/50 rounded-xl border border-slate-100 dark:border-border">
-                    <LayoutGrid size={14} className="text-primary" />
+                    <LayoutGrid size={14} className="text-black" />
                     <span className="text-[10px] font-black text-slate-500 dark:text-foreground uppercase tracking-wider">Structural View</span>
                 </div>
             </div>
@@ -56,12 +56,12 @@ export default function ParentMapping() {
                         <div className="p-5 bg-white dark:bg-muted/20 rounded-2xl border border-slate-100 dark:border-border shadow-sm group-hover:shadow-md group-hover:border-primary/20 transition-all">
                             <div className="flex justify-between items-center mb-3">
                                 <div className="flex items-center gap-2">
-                                    <GitBranch size={12} className="text-primary/60" />
+                                    <GitBranch size={12} className="text-black/60" />
                                     <label className="block text-[10px] font-black text-slate-400 dark:text-muted-foreground uppercase tracking-widest">
                                         Assign Parent for <span className="text-slate-700 dark:text-foreground">{loc}</span>
                                     </label>
                                 </div>
-                                <Info size={14} className="text-slate-200 dark:text-muted-foreground/30 group-hover:text-primary transition-colors cursor-help" />
+                                <Info size={14} className="text-slate-200 dark:text-muted-foreground/30 group-hover:text-black transition-colors cursor-help" />
                             </div>
 
                             <div className="relative">
@@ -75,7 +75,7 @@ export default function ParentMapping() {
                                     <option value="Nehru Nagar Zone">Nehru Nagar Zone</option>
                                 </select>
 
-                                <div className="pointer-events-none absolute right-4 top-1/2 -translate-y-1/2 text-slate-300 dark:text-muted-foreground/50 group-hover:text-primary transition-colors">
+                                <div className="pointer-events-none absolute right-4 top-1/2 -translate-y-1/2 text-slate-300 dark:text-muted-foreground/50 group-hover:text-black transition-colors">
                                     <ChevronDown size={16} strokeWidth={3} />
                                 </div>
                             </div>
@@ -91,7 +91,7 @@ export default function ParentMapping() {
                     <div className="h-1.5 w-6 rounded-full bg-primary/40" />
                     <div className="h-1.5 w-1.5 rounded-full bg-primary/20" />
                 </div>
-                <p className="text-[9px] font-black text-primary uppercase tracking-[0.4em] opacity-40">
+                <p className="text-[9px] font-black text-black uppercase tracking-[0.4em] opacity-40">
                     System Architecture Registry
                 </p>
             </div>

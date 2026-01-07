@@ -5,7 +5,7 @@ import EmptySupervisorState from "@/components/assigned-supervisors/EmptySupervi
 
 export default function SupervisorsPage() {
     return (
-        <div className="min-h-screen bg-slate-50 p-6 space-y-6">
+        <div className="min-h-screen bg-white dark:bg-background p-6 space-y-6">
             <AssignedSupervisorHeader />
             <SupervisorStats />
             <SupervisorFilters />

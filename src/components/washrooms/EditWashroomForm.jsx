@@ -25,7 +25,7 @@ export default function EditWashroomForm() {
       <div className="rounded-[var(--radius)] border border-[hsl(var(--border))] bg-white shadow-sm overflow-hidden">
 
         {/* Themed Header */}
-        <div className="flex flex-wrap items-center justify-between gap-4 bg-[#E0F7FA] border-b border-[hsl(var(--primary)/0.2)] px-6 py-4">
+        <div className="flex flex-wrap items-center justify-between gap-4 bg-[hsl(var(--lavender-100))] border-b border-[hsl(var(--primary)/0.2)] px-6 py-4">
           <div className="flex items-center gap-3">
             <div className="p-2 bg-white rounded-lg shadow-sm">
               <MapPin className="h-5 w-5 text-[hsl(var(--primary))]" />
@@ -39,7 +39,7 @@ export default function EditWashroomForm() {
               </p>
             </div>
           </div>
-          <button className="flex items-center gap-2 rounded-xl bg-white border border-[hsl(var(--primary)/0.2)] px-4 py-2 text-xs font-bold text-[hsl(var(--primary-dark))] hover:bg-teal-50 transition shadow-sm active:scale-95">
+          <button className="flex items-center gap-2 rounded-xl bg-white border border-[hsl(var(--primary)/0.2)] px-4 py-2 text-xs font-bold text-[hsl(var(--primary-dark))] hover:bg-[hsl(var(--lavender-200))] transition shadow-sm active:scale-95">
             <ExternalLink className="h-3.5 w-3.5" />
             View Live
           </button>
@@ -108,7 +108,7 @@ export default function EditWashroomForm() {
               <Home className="h-4 w-4 text-[hsl(var(--primary))]" />
               Physical Address Details
             </label>
-            <div className="bg-[#F4FBFC] p-4 rounded-2xl border border-[hsl(var(--primary)/0.1)]">
+            <div className="bg-[hsl(var(--lavender-200))] p-4 rounded-2xl border border-[hsl(var(--primary)/0.1)]">
               <LocationInfoSection />
             </div>
           </div>

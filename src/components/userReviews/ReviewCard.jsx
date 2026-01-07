@@ -16,14 +16,14 @@ export default function ReviewCard({ review, onToggleResolve, onMarkIssue }) {
 
   return (
     /* Reduced vertical footprint with tighter rounded corners and padding */
-    <div className="bg-white rounded-[24px] border-2 border-[#D1F0F2] shadow-sm hover:shadow-md transition-all overflow-hidden text-left mx-auto">
+    <div className="bg-white rounded-[24px] border-2 border-[hsl(var(--lavender-200))] shadow-sm hover:shadow-md transition-all overflow-hidden text-left mx-auto">
 
       {/* 1. Slim Header */}
-      <div className="bg-[#F8FAFB] px-6 py-2.5 border-b-2 border-[#D1F0F2] flex justify-between items-center">
+      <div className="bg-[hsl(var(--lavender-100))] px-6 py-2.5 border-b-2 border-[hsl(var(--lavender-200))] flex justify-between items-center">
         <div className="flex items-center gap-2">
-          <MapPin size={14} className="text-[#58BECF]" strokeWidth={2.5} />
+          <MapPin size={14} className="text-[hsl(var(--primary))]" strokeWidth={2.5} />
           <div className="flex items-center gap-2">
-            <span className="text-[10px] font-black text-[#007C85] uppercase tracking-widest">Node:</span>
+            <span className="text-[10px] font-black text-[hsl(var(--primary))] uppercase tracking-widest">Node:</span>
             <span className="text-sm font-bold text-slate-800">{washroomName}</span>
           </div>
         </div>
@@ -38,7 +38,7 @@ export default function ReviewCard({ review, onToggleResolve, onMarkIssue }) {
 
           <div className="flex gap-4">
             {/* Avatar size slightly reduced to save vertical space */}
-            <div className="h-10 w-10 shrink-0 rounded-full bg-[#E6F7F9] border-2 border-[#D1F0F2] flex items-center justify-center text-[#007C85] font-black text-sm shadow-sm">
+            <div className="h-10 w-10 shrink-0 rounded-full bg-[hsl(var(--lavender-200))] border-2 border-[hsl(var(--lavender-200))] flex items-center justify-center text-[hsl(var(--primary))] font-black text-sm shadow-sm">
               {userName?.charAt(0)}
             </div>
 
@@ -75,11 +75,7 @@ export default function ReviewCard({ review, onToggleResolve, onMarkIssue }) {
           <div className="flex items-center gap-2">
             <button
               onClick={() => onToggleResolve?.(id)}
-              style={!isResolved ? { background: 'linear-gradient(to right, #58BECF, #6D9CDC)' } : {}}
-              className={`flex items-center gap-2 px-4 py-2 rounded-xl text-[10px] font-black uppercase tracking-widest transition-all ${isResolved
-                  ? "bg-emerald-50 text-emerald-600 border border-emerald-100"
-                  : "text-white hover:brightness-105 active:scale-95 shadow-sm"
-                }`}
+              className={`${isResolved ? "bg-emerald-50 text-emerald-600 border border-emerald-100" : "btn btn-primary"} flex items-center gap-2 px-4 py-2 text-[10px] font-black uppercase tracking-widest`}
             >
               {isResolved && <CheckCircle2 size={12} strokeWidth={3} />}
               {isResolved ? "Resolved" : "Mark Resolved"}
@@ -87,14 +83,14 @@ export default function ReviewCard({ review, onToggleResolve, onMarkIssue }) {
 
             <button
               onClick={() => onMarkIssue?.(id)}
-              className="flex items-center gap-2 px-4 py-2 rounded-xl bg-white border border-slate-200 text-[10px] font-black text-slate-400 uppercase tracking-widest hover:border-amber-200 hover:text-amber-600 transition-all"
+              className="btn btn-secondary flex items-center gap-2 px-4 py-2 text-[10px] font-black uppercase tracking-widest"
             >
               <AlertCircle size={12} />
               Issue
             </button>
           </div>
 
-          <button className="flex items-center gap-1.5 text-[10px] font-black text-slate-300 hover:text-[#58BECF] uppercase tracking-widest transition-colors">
+          <button className="flex items-center gap-1.5 text-[10px] font-black text-slate-400 hover:text-primary-dark uppercase tracking-widest transition-colors">
             <MessageSquare size={14} /> Reply
           </button>
         </div>

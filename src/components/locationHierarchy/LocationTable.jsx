@@ -42,74 +42,74 @@ export default function LocationTable() {
     };
 
     return (
-        <div className="rounded-[24px] bg-white dark:bg-slate-800 shadow-sm border border-slate-100 dark:border-slate-700 overflow-hidden">
+        <div className="table-container">
             <div className="overflow-x-auto">
-                <table className="w-full text-sm border-separate border-spacing-0">
-                    <thead>
-                        <tr className="bg-[#E6F7F9] dark:bg-slate-700">
-                            <th className="px-6 py-5 text-left border-b border-[#D1F0F2] dark:border-slate-600 sticky top-0 z-10">
-                                <div className="flex items-center gap-2 text-[#2D8E97] dark:text-cyan-400 font-black text-[10px] uppercase tracking-widest">
+                <table className="table">
+                    <thead className="table-header">
+                        <tr>
+                            <th>
+                                <div className="flex items-center gap-2">
                                     <Hash size={14} strokeWidth={3} /> SR NO
                                 </div>
                             </th>
-                            <th className="px-6 py-5 text-left border-b border-[#D1F0F2] dark:border-slate-600 sticky top-0 z-10">
-                                <div className="flex items-center gap-2 text-[#2D8E97] dark:text-cyan-400 font-black text-[10px] uppercase tracking-widest">
+                            <th>
+                                <div className="flex items-center gap-2">
                                     <Navigation2 size={14} strokeWidth={3} /> Zone Name
                                 </div>
                             </th>
-                            <th className="px-6 py-5 text-left border-b border-[#D1F0F2] dark:border-slate-600 sticky top-0 z-10">
-                                <div className="flex items-center gap-2 text-[#2D8E97] dark:text-cyan-400 font-black text-[10px] uppercase tracking-widest">
+                            <th>
+                                <div className="flex items-center gap-2">
                                     <Activity size={14} strokeWidth={3} /> Parent Hierarchy
                                 </div>
                             </th>
                             {/* NEW COLUMN: Locate on Map */}
-                            <th className="px-6 py-5 text-center border-b border-[#D1F0F2] dark:border-slate-600 sticky top-0 z-10">
-                                <div className="flex items-center justify-center gap-2 text-[#2D8E97] dark:text-cyan-400 font-black text-[10px] uppercase tracking-widest">
+                            <th className="table-cell-center">
+                                <div className="flex items-center justify-center gap-2">
                                     <Map size={14} strokeWidth={3} /> Map view
                                 </div>
                             </th>
-                            <th className="px-6 py-5 text-center border-b border-[#D1F0F2] dark:border-slate-600 sticky top-0 z-10 text-[#2D8E97] dark:text-cyan-400 font-black text-[10px] uppercase tracking-widest">
+                            <th className="table-cell-center">
                                 Action
                             </th>
                         </tr>
                     </thead>
 
-                    <tbody className="divide-y divide-slate-50 dark:divide-slate-700">
+                    <tbody className="table-body">
                         {locationData.map((loc, index) => (
-                            <tr key={loc.id} className="hover:bg-[#F8FDFF] dark:hover:bg-slate-700/50 transition-all group">
-                                <td className="px-6 py-5 text-black dark:text-slate-200 font-bold text-xs text-left">
+                            <tr key={loc.id} className="table-row group">
+                                <td className="table-cell">
                                     {(index + 1).toString().padStart(2, '0')}
                                 </td>
 
-                                <td className="px-6 py-5">
-                                    <span className="text-black dark:text-white font-black text-sm tracking-tight group-hover:text-[#007C85] dark:group-hover:text-cyan-400 transition-colors">
+                                <td className="table-cell">
+                                    <span className="group-hover:text-primary-dark dark:group-hover:text-primary-light transition-colors">
                                         {loc.name}
                                     </span>
                                 </td>
 
-                                <td className="px-6 py-5">
-                                    <div className="inline-flex items-center px-3 py-1.5 bg-white dark:bg-slate-700 border border-slate-200 dark:border-slate-600 rounded-full text-slate-700 dark:text-slate-200 font-medium text-xs tracking-wide group-hover:bg-slate-50 dark:group-hover:bg-slate-600 group-hover:border-slate-300 dark:group-hover:border-slate-500 transition-all shadow-sm">
+                                <td className="table-cell">
+                                    <div className="chip">
                                         {getParentName(loc.parent_id)}
                                     </div>
                                 </td>
 
                                 {/* LOCATE ON MAP BUTTON */}
-                                <td className="px-6 py-5 text-center">
+                                <td className="table-cell table-cell-center">
                                     <button
                                         onClick={() => router.push(`/dashboard/locate?zoneId=${loc.id}`)}
                                         title={`Show all locations in ${loc.name}`}
-                                        className="inline-flex items-center justify-center p-2.5 bg-white dark:bg-slate-700 border border-slate-200 dark:border-slate-600 rounded-xl text-[#007C85] dark:text-cyan-400 hover:bg-[#007C85] dark:hover:bg-cyan-700 hover:text-white hover:shadow-lg hover:shadow-[#007C85]/20 transition-all active:scale-95"
+                                        className="btn-icon"
                                     >
                                         <MapPin size={16} strokeWidth={2.5} />
                                     </button>
                                 </td>
 
-                                <td className="px-6 py-5">
+                                <td className="table-cell">
                                     <div className="flex items-center justify-center gap-3">
                                         <button
                                             onClick={() => router.push(`/dashboard/locationHierarchy/edit/${loc.id}`)}
                                             title="Edit Zone Information"
-                                            className="p-2.5 bg-white dark:bg-slate-700 border border-slate-100 dark:border-slate-600 rounded-xl text-[#58BECF] dark:text-cyan-400 hover:bg-[#E6F7F9] dark:hover:bg-slate-600 hover:border-[#58BECF]/30 transition-all shadow-sm active:scale-90"
+                                            className="btn-icon text-black hover:bg-slate-100"
                                         >
                                             <Edit3 size={16} strokeWidth={2.5} />
                                         </button>
@@ -117,7 +117,7 @@ export default function LocationTable() {
                                         <button
                                             onClick={() => handleDelete(loc.id)}
                                             title="Permanently Delete Zone"
-                                            className="p-2.5 bg-white dark:bg-slate-700 border border-slate-100 dark:border-slate-600 rounded-xl text-rose-400 hover:bg-rose-50 dark:hover:bg-rose-900/30 hover:text-rose-600 dark:hover:text-rose-400 hover:border-rose-200 dark:hover:border-rose-800 transition-all shadow-sm active:scale-90"
+                                            className="btn-icon text-black hover:bg-slate-100"
                                         >
                                             <Trash2 size={16} strokeWidth={2.5} />
                                         </button>
@@ -129,13 +129,13 @@ export default function LocationTable() {
                 </table>
             </div>
 
-            <div className="px-8 py-5 bg-[#F8FAFB] dark:bg-slate-800 border-t border-slate-100 dark:border-slate-700 flex justify-between items-center">
-                <p className="text-[10px] font-black text-slate-400 dark:text-slate-500 uppercase tracking-[0.2em]">
+            <div className="table-footer">
+                <p className="text-xs-standard font-black text-muted-foreground uppercase tracking-widest">
                     Safai Portal Architecture Overview
                 </p>
                 <div className="flex items-center gap-2">
-                    <div className="h-1.5 w-1.5 rounded-full bg-[#58BECF] dark:bg-cyan-400 animate-pulse" />
-                    <span className="text-[10px] font-black text-[#007C85] dark:text-cyan-400 uppercase tracking-widest">
+                    <div className="h-1.5 w-1.5 rounded-full bg-primary-light animate-pulse" />
+                    <span className="text-xs-standard font-black text-primary-dark uppercase tracking-widest">
                         {locationData.length} Total Zones Registered
                     </span>
                 </div>

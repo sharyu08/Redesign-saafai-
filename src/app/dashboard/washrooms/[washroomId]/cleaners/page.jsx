@@ -7,7 +7,7 @@ import CleanerGrid from "@/components/washroomCleaners/CleanerGrid";
 
 export default function AssignedCleanersPage() {
     return (
-        <div className="p-6 bg-gray-50 min-h-screen space-y-6">
+        <div className="p-6 bg-white dark:bg-background min-h-screen space-y-6">
             <CleanerHeader />
             <CleanerStats />
             <CleanerFilters />

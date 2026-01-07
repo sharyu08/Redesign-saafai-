@@ -13,6 +13,7 @@ import {
   Legend,
   Filler,
 } from 'chart.js';
+import { useEffect, useState } from 'react';
 
 // Register ChartJS components
 ChartJS.register(
@@ -27,25 +28,113 @@ ChartJS.register(
   Filler
 );
 
+// Helper function to get CSS variable value as HSL string
+const getCSSVariable = (variableName) => {
+  if (typeof window === 'undefined') return '';
+  const root = document.documentElement;
+  const value = getComputedStyle(root).getPropertyValue(variableName).trim();
+  // If value is just HSL numbers (e.g., "192 58% 67%"), wrap it in hsl()
+  if (value && !value.startsWith('hsl(') && !value.startsWith('#') && !/^\d+\.?\d*$/.test(value)) {
+    return `hsl(${value})`;
+  }
+  return value || '';
+};
+
+// Helper to get numeric CSS variable (for opacity, etc.)
+const getNumericCSSVariable = (variableName, defaultValue = '0') => {
+  if (typeof window === 'undefined') return defaultValue;
+  const root = document.documentElement;
+  const value = getComputedStyle(root).getPropertyValue(variableName).trim();
+  return value || defaultValue;
+};
+
+// Helper to get chart colors based on theme
+const getChartColors = () => {
+  return {
+    primary: getCSSVariable('--chart-primary'),
+    primaryDark: getCSSVariable('--chart-primary-dark'),
+    secondary: getCSSVariable('--chart-secondary'),
+    accent: getCSSVariable('--chart-accent'),
+    tooltipBg: getCSSVariable('--chart-tooltip-bg'),
+    tooltipTitle: getCSSVariable('--chart-tooltip-title'),
+    tooltipBody: getCSSVariable('--chart-tooltip-body'),
+    tooltipBorder: getCSSVariable('--chart-tooltip-border'),
+    grid: getCSSVariable('--chart-grid'),
+    text: getCSSVariable('--chart-text'),
+    chartBg: getCSSVariable('--chart-bg'),
+    chartBorder: getCSSVariable('--chart-border'),
+    gradientStart: getCSSVariable('--chart-gradient-start'),
+    gradientEnd: getCSSVariable('--chart-gradient-end'),
+    gradientOpacityStart: getNumericCSSVariable('--chart-gradient-opacity-start', '0.2'),
+    gradientOpacityEnd: getNumericCSSVariable('--chart-gradient-opacity-end', '0.4'),
+  };
+};
+
 // Washroom Cleanliness Impact Chart
 export function WashroomCleanlinessChart() {
-  const data = {
+  const [chartColors, setChartColors] = useState(getChartColors());
+
+  useEffect(() => {
+    // Update colors when theme changes
+    const updateColors = () => setChartColors(getChartColors());
+    updateColors();
+    
+    // Watch for theme changes
+    const observer = new MutationObserver(updateColors);
+    observer.observe(document.documentElement, {
+      attributes: true,
+      attributeFilter: ['class'],
+    });
+    
+    return () => observer.disconnect();
+  }, []);
+
+    const data = {
     labels: ['Budhawar Bazaar', 'Narendra Nagar', 'Sakkardara Bridge'],
     datasets: [
       {
         label: 'Before Cleaning',
         data: [4.2, 3.8, 4.5],
-        backgroundColor: '#E5E7EB',
+        backgroundColor: 'rgba(242, 153, 74, 0.5)', // Orange with 50% opacity
+        borderColor: '#F2994A', // Orange line
+        borderWidth: 2,
         borderRadius: 6,
         barPercentage: 0.6,
+        gradient: {
+          backgroundColor: (context) => {
+            const chart = context.chart;
+            const {ctx, chartArea} = chart;
+            if (!chartArea) return null;
+            
+            const gradient = ctx.createLinearGradient(0, chartArea.bottom, 0, chartArea.top);
+            gradient.addColorStop(0, 'rgba(242, 153, 74, 0.08)');
+            gradient.addColorStop(1, 'rgba(242, 153, 74, 0.3)');
+            return gradient;
+          }
+        },
         categoryPercentage: 0.8,
       },
       {
         label: 'After Cleaning',
         data: [9.1, 8.8, 9.4],
-        backgroundColor: '#2DB7C4',
+        backgroundColor: 'rgba(46, 196, 182, 0.4)', // Teal with 40% opacity
+        borderColor: '#2EC4B6', // Teal line
+        borderWidth: 2,
         borderRadius: 6,
         barPercentage: 0.6,
+        gradient: {
+          backgroundColor: (context) => {
+            const chart = context.chart;
+            const {ctx, chartArea} = chart;
+            if (!chartArea) return null;
+            
+            const gradient = ctx.createLinearGradient(0, chartArea.bottom, 0, chartArea.top);
+            gradient.addColorStop(0, 'rgba(203, 243, 240, 0.3)');   // CBF3F0
+            gradient.addColorStop(0.6, 'rgba(46, 196, 182, 0.4)');  // 2EC4B6
+            gradient.addColorStop(1, 'rgba(255, 191, 105, 0.6)');   // FFBF69
+            return gradient;
+          }
+        },
         categoryPercentage: 0.8,
       },
     ],
@@ -62,6 +151,7 @@ export function WashroomCleanlinessChart() {
           padding: 16,
           usePointStyle: true,
           pointStyle: 'circle',
+          color: chartColors.text || 'hsl(215 16% 47%)',
         },
       },
       title: {
@@ -74,12 +164,13 @@ export function WashroomCleanlinessChart() {
         padding: {
           bottom: 16,
         },
+        color: chartColors.text || 'hsl(215 16% 47%)',
       },
       tooltip: {
-        backgroundColor: 'white',
-        titleColor: '#1F2937',
-        bodyColor: '#4B5563',
-        borderColor: '#E5E7EB',
+        backgroundColor: chartColors.tooltipBg || 'hsl(0 0% 100%)',
+        titleColor: chartColors.tooltipTitle || 'hsl(215 28% 17%)',
+        bodyColor: chartColors.tooltipBody || 'hsl(215 16% 35%)',
+        borderColor: chartColors.tooltipBorder || 'hsl(220 13% 91%)',
         borderWidth: 1,
         padding: 12,
         boxShadow: '0 4px 20px rgba(0, 0, 0, 0.05)',
@@ -101,16 +192,16 @@ export function WashroomCleanlinessChart() {
           display: false,
         },
         ticks: {
-          color: '#6B7280',
+          color: chartColors.text || 'hsl(215 16% 47%)',
         },
       },
       y: {
         grid: {
-          color: '#F3F4F6',
+          color: chartColors.grid || 'hsl(210 20% 96%)',
           drawBorder: false,
         },
         ticks: {
-          color: '#6B7280',
+          color: chartColors.text || 'hsl(215 16% 47%)',
           stepSize: 2,
           max: 10,
         },
@@ -119,7 +210,7 @@ export function WashroomCleanlinessChart() {
   };
 
   return (
-    <div className="bg-white rounded-2xl border border-[#EEF2F5] shadow-[0_10px_30px_rgba(15,23,42,0.06)] p-5 h-full">
+    <div className="bg-card dark:bg-card rounded-2xl border border-border dark:border-border shadow-[0_10px_30px_rgba(15,23,42,0.06)] dark:shadow-[0_14px_40px_rgba(0,0,0,0.65)] p-5 h-full">
       <Bar 
         data={data} 
         options={options}
@@ -132,7 +223,8 @@ export function WashroomCleanlinessChart() {
               const meta = chart.getDatasetMeta(i);
               meta.data.forEach((bar, index) => {
                 const data = dataset.data[index];
-                ctx.fillStyle = i === 0 ? '#4B5563' : 'white';
+                // Use chart text color for first dataset, white for second
+                ctx.fillStyle = i === 0 ? (chartColors.tooltipBody || 'hsl(215 16% 35%)') : chartColors.tooltipBg || 'white';
                 ctx.font = '500 12px Inter';
                 ctx.textAlign = 'center';
                 ctx.fillText(data, bar.x, bar.y - 8);
@@ -147,33 +239,94 @@ export function WashroomCleanlinessChart() {
 
 // Cleaner Performance Chart
 export function CleanerPerformanceChart() {
+  const [chartColors, setChartColors] = useState(getChartColors());
+
+  useEffect(() => {
+    // Update colors when theme changes
+    const updateColors = () => setChartColors(getChartColors());
+    updateColors();
+    
+    // Watch for theme changes
+    const observer = new MutationObserver(updateColors);
+    observer.observe(document.documentElement, {
+      attributes: true,
+      attributeFilter: ['class'],
+    });
+    
+    return () => observer.disconnect();
+  }, []);
+
+  // Helper to convert HSL string to rgba with opacity
+  const hslToRgba = (hslString, opacity) => {
+    if (!hslString || !hslString.includes('hsl(')) {
+      // Fallback to chart primary color
+      const fallbackColor = chartColors.primary || chartColors.gradientStart || 'hsl(192 58% 67%)';
+      if (fallbackColor.includes('hsl(')) {
+        return hslToRgba(fallbackColor, opacity);
+      }
+      return `rgba(127, 199, 217, ${opacity})`; // Default primary color in RGB
+    }
+    // Extract HSL values: hsl(192 58% 67%) -> ['192', '58', '67']
+    const match = hslString.match(/hsl\((\d+)\s+(\d+)%\s+(\d+)%\)/);
+    if (!match) {
+      const fallbackColor = chartColors.primary || 'hsl(192 58% 67%)';
+      return hslToRgba(fallbackColor, opacity);
+    }
+    
+    const [, h, s, l] = match;
+    // Simple HSL to RGB conversion
+    const hNum = parseInt(h) / 360;
+    const sNum = parseInt(s) / 100;
+    const lNum = parseInt(l) / 100;
+    
+    const c = (1 - Math.abs(2 * lNum - 1)) * sNum;
+    const x = c * (1 - Math.abs((hNum * 6) % 2 - 1));
+    const m = lNum - c / 2;
+    
+    let r, g, b;
+    if (hNum < 1/6) { r = c; g = x; b = 0; }
+    else if (hNum < 2/6) { r = x; g = c; b = 0; }
+    else if (hNum < 3/6) { r = 0; g = c; b = x; }
+    else if (hNum < 4/6) { r = 0; g = x; b = c; }
+    else if (hNum < 5/6) { r = x; g = 0; b = c; }
+    else { r = c; g = 0; b = x; }
+    
+    r = Math.round((r + m) * 255);
+    g = Math.round((g + m) * 255);
+    b = Math.round((b + m) * 255);
+    
+    return `rgba(${r}, ${g}, ${b}, ${opacity})`;
+  };
+
   const data = {
     labels: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
     datasets: [
       {
         label: 'Tasks Completed',
         data: [12, 15, 18, 14, 20, 22, 24],
-        borderColor: 'transparent',
+        borderColor: '#FF9F1C', // Primary orange line
         backgroundColor: (context) => {
-          const bgColor = [
-            'rgba(45, 183, 196, 0.2)',
-            'rgba(45, 183, 196, 0.4)',
-          ];
-          if (!context.chart.chartArea) return;
+          if (!context.chart.chartArea) return 'rgba(255, 191, 105, 0.15)';
           const { ctx, chartArea: { top, bottom } } = context.chart;
           const gradient = ctx.createLinearGradient(0, top, 0, bottom);
-          gradient.addColorStop(0, bgColor[0]);
-          gradient.addColorStop(1, bgColor[1]);
+          gradient.addColorStop(0, 'rgba(255, 191, 105, 0.3)');  // FFBF69
+          gradient.addColorStop(0.7, 'rgba(203, 243, 240, 0.3)'); // CBF3F0
+          gradient.addColorStop(1, 'rgba(203, 243, 240, 0)');     // fade to transparent
           return gradient;
         },
         borderWidth: 3,
+        borderCapStyle: 'round',
+        borderJoinStyle: 'round',
         fill: true,
-        tension: 0.4,
+        tension: 0.5,
         pointBackgroundColor: '#FFFFFF',
-        pointBorderColor: '#2DB7C4',
-        pointBorderWidth: 2,
-        pointRadius: 4,
-        pointHoverRadius: 6,
+        pointBorderColor: '#FF9F1C',
+        pointBorderWidth: 3,
+        pointRadius: 5,
+        pointHoverRadius: 8,
+        pointHoverBackgroundColor: '#FFFFFF',
+        pointHoverBorderColor: '#FFBF69',
+        pointHoverBorderWidth: 3,
       },
     ],
   };
@@ -198,12 +351,13 @@ export function CleanerPerformanceChart() {
         padding: {
           bottom: 16,
         },
+        color: '#6B7280', // Axis text color
       },
       tooltip: {
-        backgroundColor: 'white',
-        titleColor: '#1F2937',
-        bodyColor: '#4B5563',
-        borderColor: '#E5E7EB',
+        backgroundColor: '#FFFFFF', // Tooltip BG
+        titleColor: '#000000',
+        bodyColor: '#000000',
+        borderColor: '#E5E7EB', // Tooltip border
         borderWidth: 1,
         padding: 12,
         boxShadow: '0 4px 20px rgba(0, 0, 0, 0.05)',
@@ -222,16 +376,17 @@ export function CleanerPerformanceChart() {
           display: false,
         },
         ticks: {
-          color: '#6B7280',
+          color: '#6B7280', // Axis text color
         },
       },
       y: {
         grid: {
-          color: '#F3F4F6',
+          color: '#EEEAFE', // Grid lines
+          borderDash: [4, 4],
           drawBorder: false,
         },
         ticks: {
-          color: '#6B7280',
+          color: '#6B7280', // Axis text color
           stepSize: 5,
         },
         min: 0,
@@ -241,10 +396,7 @@ export function CleanerPerformanceChart() {
   };
 
   return (
-    <div className="bg-white rounded-2xl border border-[#EEF2F5] shadow-[0_10px_30px_rgba(15,23,42,0.06)] p-5 h-full relative">
-      <div className="absolute right-4 top-4 bg-[#EAF7F8] text-[#2DB7C4] text-xs font-medium px-2.5 py-1 rounded-full flex items-center">
-        <span className="mr-1">▲</span> Tasks +27%
-      </div>
+    <div className="bg-card dark:bg-card rounded-2xl border border-border dark:border-border shadow-[0_10px_30px_rgba(15,23,42,0.06)] dark:shadow-[0_14px_40px_rgba(0,0,0,0.65)] p-5 h-full relative">
       <Line data={data} options={options} />
       {data.labels.map((label, i) => (
         <div 
@@ -256,8 +408,8 @@ export function CleanerPerformanceChart() {
             transform: 'translate(-50%, -100%)',
           }}
         >
-          <div className="bg-[#F4B740] text-white text-xs font-medium px-2 py-1 rounded-full flex items-center">
-            <span className="mr-1">★</span> {data.datasets[0].data[i]} tasks
+          <div className="bg-gradient-to-r from-[#FF9F1C] to-[#2EC4B6] text-white text-xs font-medium px-3 py-1.5 rounded-full flex items-center shadow-lg border-2 border-white/20">
+            <span className="mr-1.5">🔥</span> {data.datasets[0].data[i]} tasks
           </div>
         </div>
       ))}

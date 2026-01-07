@@ -5,7 +5,7 @@ export default function LocationImagesUpload() {
         <div className="space-y-6">
             {/* Section Header */}
             <div className="flex items-center gap-3 mb-2">
-                <div className="p-2 bg-[#E0F7FA] rounded-lg shadow-sm">
+                <div className="p-2 bg-[hsl(var(--lavender-100))] rounded-lg shadow-sm">
                     <HiOutlineCloudUpload className="text-[hsl(var(--primary))] text-xl" />
                 </div>
                 <h2 className="text-xl font-extrabold tracking-tight text-[hsl(var(--foreground))]">
@@ -19,8 +19,8 @@ export default function LocationImagesUpload() {
                 border-2 border-dashed border-[hsl(var(--primary)/0.3)] 
                 rounded-[var(--radius)] 
                 p-10 text-center 
-                bg-[#F4FBFC]/50
-                hover:bg-[#F4FBFC] hover:border-[hsl(var(--primary))] 
+                bg-[hsl(var(--lavender-200))]/50
+                hover:bg-[hsl(var(--lavender-200))] hover:border-[hsl(var(--primary))] 
                 transition-all duration-300
             ">
                 <div className="flex flex-col items-center">

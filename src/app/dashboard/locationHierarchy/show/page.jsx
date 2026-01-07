@@ -13,7 +13,7 @@ export default function ShowHierarchyPage() {
            to make the pure white cards pop. Added a max-width container 
            for better readability on ultra-wide monitors.
         */
-        <div className="min-h-screen bg-[#F8FAFB] pb-20">
+        <div className="min-h-screen bg-white dark:bg-background pb-20">
             <div className="max-w-[1600px] mx-auto p-6 space-y-8">
 
                 {/* Header Section */}

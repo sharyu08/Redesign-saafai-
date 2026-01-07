@@ -2,7 +2,38 @@ This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-
 
 ## Getting Started
 
-First, run the development server:
+### Prerequisites
+
+1. Node.js 18+ installed
+2. Google Maps API Key (for map functionality)
+
+### Environment Setup
+
+1. Create a `.env.local` file in the root directory:
+
+```bash
+NEXT_PUBLIC_GOOGLE_MAPS_API_KEY=your_google_maps_api_key_here
+```
+
+2. **Get a Google Maps API Key:**
+   - Go to [Google Cloud Console](https://console.cloud.google.com/)
+   - Create a new project or select an existing one
+   - Enable the **Maps JavaScript API**
+   - Create credentials (API Key)
+   - **Important:** Enable billing on your Google Cloud project (required for Maps API)
+   - Add your domain to API key restrictions (optional but recommended)
+
+3. Install dependencies:
+
+```bash
+npm install
+# or
+yarn install
+# or
+pnpm install
+```
+
+4. Run the development server:
 
 ```bash
 npm run dev
@@ -16,9 +47,17 @@ bun dev
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
-You can start editing the page by modifying `app/page.js`. The page auto-updates as you edit the file.
+### Google Maps API Setup
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+If you encounter `ApiProjectMapError`, ensure:
+
+1. ✅ **API Key is set** in `.env.local` as `NEXT_PUBLIC_GOOGLE_MAPS_API_KEY`
+2. ✅ **Maps JavaScript API is enabled** in Google Cloud Console
+3. ✅ **Billing is enabled** on your Google Cloud project
+4. ✅ **API key restrictions** allow your domain (if restrictions are set)
+5. ✅ **Restart your dev server** after adding the API key
+
+**Note:** The Maps API requires a billing account, but Google provides $200 in free credits monthly, which covers most usage.
 
 ## Learn More
 

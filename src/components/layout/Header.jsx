@@ -8,31 +8,28 @@ import { ThemeToggle } from "@/components/theme/ThemeToggle";
 export default function Header({ onMenuClick }) {
   const router = useRouter();
 
-  // Function to handle Sign Out logic
   const handleLogout = () => {
-    // 1. Clear session and local storage data
     localStorage.clear();
     sessionStorage.clear();
 
-    // 2. Clear authentication cookies (if applicable)
     document.cookie.split(";").forEach((c) => {
       document.cookie = c
         .replace(/^ +/, "")
         .replace(/=.*/, "=;expires=" + new Date().toUTCString() + ";path=/");
     });
 
-    // 3. Redirect the user back to the login page
     router.push("auth/login");
   };
 
   return (
-    <header className="sticky top-0 z-20 border-b border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 shadow-sm">
+    <header className="header-main sticky top-2 z-[100] mx-4 md:mx-8 rounded-[28px] bg-white border border-[#e0f2f1] shadow-[0_20px_60px_rgba(0,0,0,0.08)]">
       <div className="flex h-16 items-center justify-between px-4 md:px-8">
+
         {/* Left side */}
         <div className="flex items-center gap-3">
           <button
             onClick={onMenuClick}
-            className="inline-flex h-10 w-10 items-center justify-center rounded-lg border border-slate-200 dark:border-slate-600 bg-white dark:bg-slate-700 text-slate-700 dark:text-white shadow-sm transition hover:bg-slate-50 dark:hover:bg-slate-600 hover:shadow md:hidden"
+            className="btn-icon md:hidden"
             aria-label="Open navigation"
           >
             <Menu className="h-5 w-5" />
@@ -45,12 +42,10 @@ export default function Header({ onMenuClick }) {
 
         {/* Right side */}
         <div className="flex items-center gap-3">
-          {/* Theme Toggle */}
           <ThemeToggle />
 
-          <div className="h-4 w-[1px] bg-slate-200 dark:bg-slate-600 mx-1 hidden md:block" />
+          <div className="h-4 w-[1px] bg-[#e0f2f1] mx-1 hidden md:block" />
 
-          {/* PROFILE LINK */}
           <Link
             href="/dashboard/profile"
             className="flex items-center gap-3 group cursor-pointer hover:opacity-80 transition-all"
@@ -58,20 +53,19 @@ export default function Header({ onMenuClick }) {
             <img
               src="https://api.dicebear.com/7.x/avataaars/svg?seed=TestIntern"
               alt="User Avatar"
-              className="h-9 w-9 rounded-full border-2 border-white dark:border-slate-700 bg-white dark:bg-slate-600 group-hover:ring-2 group-hover:ring-[#58BECF]/30 transition-all"
+              className="h-9 w-9 rounded-full border-2 border-[#e0f2f1] bg-card group-hover:ring-2 group-hover:ring-[#e0f2f1]/40 transition-all"
             />
 
-            <p className="hidden text-sm font-bold text-slate-900 md:block group-hover:text-[#007C85] transition-colors dark:text-white">
+            <p className="hidden text-sm font-bold text-foreground md:block group-hover:text-slate-700 transition-colors">
               Test Intern
             </p>
           </Link>
 
-          <div className="h-4 w-[1px] bg-slate-200 dark:bg-slate-600 mx-1 hidden md:block" />
+          <div className="h-4 w-[1px] bg-[#e0f2f1] mx-1 hidden md:block" />
 
-          {/* Logout Button */}
           <button
             onClick={handleLogout}
-            className="inline-flex h-9 w-9 items-center justify-center rounded-full border border-slate-200 dark:border-slate-600 bg-white dark:bg-slate-700 text-slate-700 dark:text-white shadow-sm transition hover:bg-rose-50 hover:text-rose-600 hover:border-rose-100 hover:shadow active:scale-90 dark:hover:bg-rose-900/30 dark:hover:text-rose-400"
+            className="btn-icon rounded-full h-9 w-9 hover:bg-slate-100 hover:text-slate-700 active:scale-90 transition-all"
             aria-label="Logout"
           >
             <LogOut className="h-4 w-4" />

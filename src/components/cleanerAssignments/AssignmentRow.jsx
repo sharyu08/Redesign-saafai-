@@ -15,31 +15,17 @@ function Avatar({ name, role }) {
 }
 
 function RolePill({ role }) {
-  const base =
-    "inline-flex px-3 py-1 rounded-full text-[10px] font-medium capitalize";
-  if (role === "supervisor") {
-    return (
-      <span className={`${base} bg-[#E6F6F7] text-[#2DB7C4]`}>{role}</span>
-    );
-  }
   return (
-    <span className={`${base} bg-[#E6F0FF] text-[#4F7FD9]`}>{role}</span>
+    <span className={`badge-role ${role}`}>
+      {role}
+    </span>
   );
 }
 
 function StatusPill({ status }) {
-  const base =
-    "inline-flex items-center gap-1 px-3 py-1 rounded-full text-[10px] font-medium capitalize";
-  if (status === "assigned") {
-    return (
-      <span className={`${base} bg-[#E6F6F7] text-[#2DB7C4]`}>
-        <span>●</span> assigned
-      </span>
-    );
-  }
   return (
-    <span className={`${base} bg-[#FEF3E6] text-[#F4B740]`}>
-      <span>●</span> unassigned
+    <span className={`badge-status ${status}`}>
+      <span>●</span> {status}
     </span>
   );
 }
@@ -53,56 +39,57 @@ export default function AssignmentRow({
   onDelete,
 }) {
   return (
-    <tr className="border-b border-slate-50 hover:bg-slate-50/60">
-      <td className="px-4 py-3">
+    <tr className="table-row">
+      <td className="table-cell">
         <input
           type="checkbox"
           checked={checked}
           onChange={onToggleSelect}
+          className="rounded border-border text-primary-light focus:ring-primary-light"
         />
       </td>
-      <td className="px-2 py-3 text-slate-500">{index}</td>
-      <td className="px-4 py-3">
+      <td className="table-cell text-muted-foreground">{index}</td>
+      <td className="table-cell">
         <div className="flex items-center gap-2">
           <Avatar name={row.cleanerName} role={row.role} />
           <div>
-            <div className="text-xs font-medium text-slate-900">
+            <div>
               {row.cleanerName}
             </div>
             {row.cleanerEmail && (
-              <div className="text-[11px] text-slate-500">
+              <div className="text-[10px] text-muted-foreground">
                 {row.cleanerEmail}
               </div>
             )}
           </div>
         </div>
       </td>
-      <td className="px-4 py-3">
-        <div className="flex items-center gap-1 text-xs text-slate-700">
+      <td className="table-cell">
+        <div className="flex items-center gap-1">
           <span>📍</span>
           <span>{row.locationName}</span>
         </div>
       </td>
-      <td className="px-4 py-3">
+      <td className="table-cell">
         <RolePill role={row.role} />
       </td>
-      <td className="px-4 py-3">
+      <td className="table-cell">
         <StatusPill status={row.status} />
       </td>
-      <td className="px-4 py-3 text-xs text-slate-600">
+      <td className="table-cell text-muted-foreground">
         {row.assignedOn || "-"}
       </td>
-      <td className="px-4 py-3 text-right">
+      <td className="table-cell table-cell-right">
         <div className="inline-flex items-center gap-2">
           <button
             onClick={onToggleAssign}
-            className="px-3 py-1 rounded-md border border-slate-200 text-[11px] hover:bg-slate-100"
+            className="btn-secondary btn-sm"
           >
             {row.status === "assigned" ? "Mark Unassigned" : "Assign"}
           </button>
           <button
             onClick={onDelete}
-            className="text-rose-600 hover:text-rose-700 text-lg leading-none"
+            className="btn-icon text-accent-red hover:bg-accent-red hover:text-white"
           >
             🗑
           </button>

@@ -56,7 +56,7 @@ export default function GeneratedReport() {
   ];
 
   return (
-    <div className="min-h-screen bg-[#F8FAFB] py-8 px-8 space-y-8 w-full text-left">
+    <div className="min-h-screen bg-white dark:bg-background py-8 px-8 space-y-8 w-full text-left">
 
       {/* 1. Branded Header Section */}
       <div className="w-full">
@@ -76,8 +76,7 @@ export default function GeneratedReport() {
           </div>
           <div className="flex items-center gap-3">
             <button
-              style={{ background: 'linear-gradient(to right, #58BECF, #6D9CDC)' }}
-              className="flex items-center gap-2 px-6 py-2.5 rounded-xl text-white text-[10px] font-black uppercase tracking-widest shadow-lg shadow-cyan-500/20 hover:brightness-105 active:scale-95 transition-all"
+              className="btn btn-gradient flex items-center gap-2 px-6 py-2.5 text-xs-standard uppercase tracking-widest active:scale-95"
             >
               <Download className="h-4 w-4 text-white" /> Download PDF
             </button>
@@ -118,43 +117,42 @@ export default function GeneratedReport() {
       </div>
 
       {/* 3. Main Data Table */}
-      <div className="bg-white rounded-[32px] border border-slate-100 shadow-xl shadow-slate-200/20 overflow-hidden">
+      <div className="table-container">
         <div className="overflow-x-auto">
-          <table className="min-w-full border-separate border-spacing-0">
-            <thead>
-              {/* Table Header Row with Theme Color */}
-              <tr className="bg-[#E6F7F9]">
-                <th className="px-8 py-5 text-left text-[10px] font-black uppercase tracking-[0.15em] text-[#007C85] border-b border-[#D1F0F2]">
+          <table className="table min-w-full">
+            <thead className="table-header">
+              <tr>
+                <th>
                   <div className="flex items-center gap-2">
                     <Users size={14} className="text-[#58BECF]" strokeWidth={2.5} />
                     <span>Cleaner</span>
                   </div>
                 </th>
-                <th className="px-8 py-5 text-left text-[10px] font-black uppercase tracking-[0.15em] text-[#007C85] border-b border-[#D1F0F2]">
+                <th>
                   <div className="flex items-center gap-2">
                     <MapPin size={14} className="text-[#58BECF]" strokeWidth={2.5} />
                     <span>Location</span>
                   </div>
                 </th>
-                <th className="px-8 py-5 text-left text-[10px] font-black uppercase tracking-[0.15em] text-[#007C85] border-b border-[#D1F0F2]">
+                <th>
                   <div className="flex items-center gap-2">
                     <Calendar size={14} className="text-[#58BECF]" strokeWidth={2.5} />
                     <span>Registry Date</span>
                   </div>
                 </th>
-                <th className="px-8 py-5 text-left text-[10px] font-black uppercase tracking-[0.15em] text-[#007C85] border-b border-[#D1F0F2]">
+                <th>
                   <div className="flex items-center gap-2">
                     <Activity size={14} className="text-[#58BECF]" strokeWidth={2.5} />
                     <span>Status</span>
                   </div>
                 </th>
-                <th className="px-8 py-5 text-left text-[10px] font-black uppercase tracking-[0.15em] text-[#007C85] border-b border-[#D1F0F2]">
+                <th>
                   <div className="flex items-center gap-2">
                     <Zap size={14} className="text-[#58BECF]" strokeWidth={2.5} />
                     <span>AI Score</span>
                   </div>
                 </th>
-                <th className="px-8 py-5 text-right text-[10px] font-black uppercase tracking-[0.15em] text-[#007C85] border-b border-[#D1F0F2]">
+                <th className="table-cell-right">
                   <div className="flex items-center justify-end gap-2">
                     <Settings size={14} className="text-[#58BECF]" strokeWidth={2.5} />
                     <span>Action</span>
@@ -162,26 +160,26 @@ export default function GeneratedReport() {
                 </th>
               </tr>
             </thead>
-            <tbody className="divide-y divide-slate-50 bg-white">
+            <tbody className="table-body">
               {reportData.map((item) => (
-                <tr key={item.id} className="hover:bg-[#F4FBFC]/40 transition-colors">
-                  <td className="px-8 py-6">
+                <tr key={item.id} className="table-row">
+                  <td className="table-cell">
                     <div className="flex items-center gap-4">
                       <div className="h-10 w-10 rounded-full bg-[#E6F7F9] text-[#007C85] flex items-center justify-center font-bold text-[11px] shadow-sm border border-[#D1F0F2]">
                         {item.cleaner.split(' ').map(n => n[0]).join('')}
                       </div>
-                      <p className="text-sm font-bold text-slate-700">{item.cleaner}</p>
+                      <p>{item.cleaner}</p>
                     </div>
                   </td>
-                  <td className="px-8 py-6">
-                    <p className="text-sm font-bold text-[#007C85] tracking-tight">{item.location}</p>
-                    <p className="text-[10px] font-medium text-slate-400 uppercase tracking-widest">{item.zone}</p>
+                  <td className="table-cell">
+                    <p>{item.location}</p>
+                    <p className="text-[10px] text-muted-foreground">{item.zone}</p>
                   </td>
-                  <td className="px-8 py-6 text-sm font-medium text-slate-400">
-                    <div className="font-bold text-slate-600">{item.date}</div>
-                    <div className="text-[10px] text-slate-400 uppercase">{item.time}</div>
+                  <td className="table-cell">
+                    <div>{item.date}</div>
+                    <div className="text-[10px] text-muted-foreground">{item.time}</div>
                   </td>
-                  <td className="px-8 py-6">
+                  <td className="table-cell">
                     <span className={`px-3 py-1 rounded-lg text-[9px] font-black uppercase tracking-widest border ${item.status === 'Completed'
                         ? 'bg-emerald-50 border-emerald-100 text-emerald-500'
                         : 'bg-amber-50 border-amber-100 text-amber-500'
@@ -189,15 +187,15 @@ export default function GeneratedReport() {
                       {item.status}
                     </span>
                   </td>
-                  <td className="px-8 py-6">
+                  <td className="table-cell">
                     <div className="flex items-center gap-2">
                       <div className="h-1.5 w-16 bg-slate-100 rounded-full overflow-hidden">
-                        <div className="h-full bg-[#2DB7C4]" style={{ width: `${item.score}%` }}></div>
+                        <div className="h-full bg-primary-medium" style={{ width: `${item.score}%` }}></div>
                       </div>
-                      <span className="text-sm font-black text-[#2DB7C4]">{item.score}%</span>
+                      <span>{item.score}%</span>
                     </div>
                   </td>
-                  <td className="px-8 py-6 text-right">
+                  <td className="table-cell table-cell-right">
                     <button className="text-[#58BECF] hover:text-[#4F7FD9] text-[10px] font-black uppercase tracking-widest transition-colors">
                       View Details
                     </button>
@@ -209,7 +207,7 @@ export default function GeneratedReport() {
         </div>
 
         {/* 4. Footer/Pagination */}
-        <div className="bg-[#F8FAFB]/50 px-8 py-4 border-t border-slate-100 flex items-center justify-between">
+        <div className="bg-white dark:bg-background px-8 py-4 border-t border-slate-100 dark:border-border flex items-center justify-between">
           <p className="text-[10px] font-bold text-slate-300 uppercase tracking-widest">
             Audit Records <span className="text-slate-400 ml-2">1-10 of 24 entries</span>
           </p>

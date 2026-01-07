@@ -35,7 +35,7 @@ export default function CleanerFilters() {
 
                 <button
                     title="Reset Filters"
-                    className="p-2.5 rounded-xl border border-[hsl(var(--border))] text-[hsl(var(--muted-foreground))] hover:bg-[#F4FBFC] hover:text-[hsl(var(--primary))] transition-all"
+                    className="p-2.5 rounded-xl border border-[hsl(var(--border))] text-[hsl(var(--muted-foreground))] hover:bg-[hsl(var(--lavender-200))] hover:text-[hsl(var(--primary))] transition-all"
                 >
                     <RotateCcw size={16} />
                 </button>

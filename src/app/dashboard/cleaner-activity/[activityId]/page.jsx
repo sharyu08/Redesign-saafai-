@@ -7,8 +7,7 @@ import VisualEvidence from "@/components/cleanerReview/VisualEvidence";
 
 export default function CleanerReviewPage() {
     return (
-        /* UI UPDATE: Background switched to soft gray #F8FAFB to allow cards to pop */
-        <div className="min-h-screen bg-[#F8FAFB] transition-colors duration-300">
+        <div className="min-h-screen bg-white dark:bg-background transition-colors duration-300">
             <div className="max-w-[1600px] mx-auto p-4 md:p-8 space-y-6">
 
                 {/* 1. Header Section */}

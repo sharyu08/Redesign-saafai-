@@ -1,58 +1,45 @@
 import Link from "next/link";
 
+import { MapPin } from "lucide-react";
+
 export default function WashroomHeader() {
     return (
-        <div className="washroom-header
-      flex flex-col md:flex-row justify-between items-start md:items-center
-      rounded-[var(--radius)]
-      px-8 py-6
-      shadow-[0_4px_20px_-5px_rgba(0,0,0,0.1)]
-      relative
-      overflow-hidden
-    ">
-            {/* Subtle Background Accent Decor */}
-            <div className="absolute top-0 right-0 -mt-4 -mr-4 w-32 h-32 bg-white opacity-[0.05] rounded-full" />
+        <div className="page-header">
+            <div className="page-header-content">
+                {/* Left content: Icon, Title & Metadata */}
+                <div className="page-header-title-section">
+                    <div className="page-header-icon">
+                        <MapPin className="h-6 w-6" strokeWidth={2.5} />
+                    </div>
 
-            {/* Left content: Icon, Title & Metadata */}
-            <div className="z-10 flex items-center gap-4">
-                <div className="hidden sm:flex p-2.5 bg-white/10 rounded-xl backdrop-blur-md border border-white/20 shadow-inner">
-                    <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        className="h-6 w-6 text-white"
-                        fill="none" viewBox="0 0 24 24" stroke="currentColor"
-                    >
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
-                    </svg>
+                    <div>
+                        <h1 className="page-header-title text-2xl">
+                            Washroom Locations
+                        </h1>
+                        <p className="page-header-subtitle mt-0.5">
+                            <span className="w-1.5 h-1.5 rounded-full bg-accent-green animate-pulse"></span>
+                            Overview of details, assignments, and facility ratings
+                        </p>
+                    </div>
                 </div>
 
-                <div>
-                    <h1 className="text-2xl font-extrabold tracking-tight text-white">
-                        Washroom Locations
-                    </h1>
-                    <p className="mt-0.5 text-sm font-medium text-teal-100/80 flex items-center gap-2">
-                        <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span>
-                        Overview of details, assignments, and facility ratings
-                    </p>
+                {/* Right Content: Styled Action Buttons */}
+                <div className="page-header-actions mt-5 md:mt-0 flex items-center gap-3">
+                    {/* ADD LOCATION */}
+                    <Link href="/dashboard/washrooms/add-washroom">
+                        <button className="btn btn-primary group flex items-center gap-2 px-6 py-2.5 text-xs-standard uppercase tracking-widest active:scale-95">
+                            <span className="text-lg group-hover:rotate-90 transition-transform">+</span>
+                            Add Location
+                        </button>
+                    </Link>
+
+                    {/* ASSIGN */}
+                    <Link href="/dashboard/cleaner-assignments/add">
+                        <button className="btn btn-primary flex items-center gap-2 px-6 py-2.5 text-xs-standard uppercase tracking-widest active:scale-95">
+                            Assign
+                        </button>
+                    </Link>
                 </div>
-            </div>
-
-            {/* Right Content: Styled Action Buttons */}
-            <div className="flex items-center gap-4 mt-5 md:mt-0 z-10">
-                {/* ADD LOCATION */}
-                <Link href="/dashboard/washrooms/add-washroom">
-                    <button className="btn-action group flex items-center gap-2">
-                        <span className="text-lg group-hover:rotate-90 transition-transform">+</span>
-                        Add Location
-                    </button>
-                </Link>
-
-                {/* ASSIGN */}
-                <Link href="/dashboard/cleaner-assignments/add">
-                    <button className="btn-assign flex items-center gap-2">
-                        Assign
-                    </button>
-                </Link>
             </div>
         </div>
     );

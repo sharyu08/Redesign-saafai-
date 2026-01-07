@@ -17,7 +17,7 @@ export default function EditUserPage() {
     };
 
     return (
-        <div className="min-h-screen bg-[#F8FAFB] p-8 flex flex-col items-center">
+        <div className="min-h-screen bg-white dark:bg-background p-8 flex flex-col items-center">
             <div className="w-full max-w-xl mb-8 space-y-6">
                 <button
                     onClick={handleGoBack}

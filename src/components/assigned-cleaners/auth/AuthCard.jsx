@@ -9,7 +9,7 @@ export default function AuthCard({ title, subtitle, logoUrl = "/globe.svg", chil
       <div className="w-full max-w-md bg-white rounded-2xl shadow-lg py-10 px-8 border border-gray-100">
         <div className="flex flex-col items-center mb-6">
           {/* logo circle */}
-          <div className="w-16 h-16 rounded-full bg-gradient-to-br from-purple-600 to-indigo-500 flex items-center justify-center mb-4 shadow-sm">
+          <div className="w-16 h-16 rounded-full bg-gradient-to-br from-[#FF9F1C] to-[#2EC4B6] flex items-center justify-center mb-4 shadow-sm">
             {/* replace with your svg, keeps white icon */}
             <img src={logoUrl} alt="portal logo" className="w-10 h-10 filter brightness-0 invert" />
           </div>

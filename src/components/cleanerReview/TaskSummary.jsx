@@ -9,7 +9,7 @@ export default function TaskSummary() {
             {/* TASK DETAILS CARD */}
             <div className="rounded-[var(--radius)] bg-[hsl(var(--card))] border border-[hsl(var(--border))] shadow-sm p-6 transition-all hover:shadow-md">
                 <div className="flex items-center gap-3 mb-4">
-                    <div className="p-2 bg-[#E0F7FA] rounded-lg">
+                    <div className="p-2 bg-[hsl(var(--lavender-100))] rounded-lg">
                         <HiOutlineClipboardList className="text-[hsl(var(--primary))] text-xl" />
                     </div>
                     <h3 className="font-extrabold tracking-tight text-[hsl(var(--foreground))]">

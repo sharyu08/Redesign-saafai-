@@ -73,31 +73,27 @@ async function handleSubmit(e) {
   }
 }
 
-  const inputStyles = "w-full rounded-xl border border-slate-200 dark:border-slate-600 pl-11 pr-4 py-3.5 bg-[#F8FAFB] dark:bg-slate-800 text-slate-900 dark:text-white placeholder:text-slate-400 focus:bg-white dark:focus:bg-slate-700 focus:outline-none focus:ring-4 focus:ring-cyan-50 dark:focus:ring-cyan-900/20 focus:border-[#58BECF] transition-all font-bold text-sm shadow-sm";
-  const labelStyles = "text-[10px] font-black uppercase tracking-[0.2em] text-[#007C85] dark:text-[#58BECF] ml-1";
-  const iconStyles = "absolute left-4 top-1/2 -translate-y-1/2 text-slate-300 dark:text-slate-500 group-focus-within:text-[#58BECF] transition-colors";
+  const inputStyles = "w-full rounded-lg border border-gray-300 pl-11 pr-4 py-2.5 bg-white text-gray-900 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 text-sm shadow-sm";
+  const labelStyles = "block text-sm font-medium text-gray-700 mb-1.5";
+  const iconStyles = "absolute left-3 top-1/2 -translate-y-1/2 text-gray-400";
 
   if (!mounted) return null;
 
   return (
-    <div className="relative min-h-screen flex items-center justify-center bg-[#F8FAFB] dark:bg-slate-900 overflow-hidden py-10">
-      {/* Background Ambience */}
-      <div className="absolute top-0 left-0 w-[500px] h-[500px] bg-[#E0F7FA]/50 dark:bg-cyan-900/30 blur-[120px] rounded-full -ml-48 -mt-48 pointer-events-none" />
-      <div className="absolute bottom-0 right-0 w-[500px] h-[500px] bg-[#E6F7F9]/60 dark:bg-cyan-800/20 blur-[120px] rounded-full -mr-48 -mb-48 pointer-events-none" />
-
+    <div className="relative min-h-screen flex items-center justify-center bg-muted overflow-hidden py-10">
       <AuthCard
         title="SAFAI PORTAL"
         subtitle="Initialize an encrypted session to manage your workspace."
 
         customLogo={
-          <div className="h-16 w-16 rounded-2xl bg-[#E6F7F9] dark:bg-cyan-900/30 border border-[#D1F0F2] dark:border-cyan-800 flex items-center justify-center shadow-sm mx-auto mb-4">
-            <ShieldCheck className="h-9 w-9 text-[#58BECF]" strokeWidth={2} />
+          <div className="h-16 w-16 rounded-2xl bg-blue-50 border border-blue-100 flex items-center justify-center shadow-sm mx-auto mb-4">
+            <ShieldCheck className="h-9 w-9 text-blue-600" strokeWidth={2} />
           </div>
         }
         footer={
-          <p className="text-[10px] font-bold text-slate-400 dark:text-slate-500 uppercase tracking-widest">
+          <p className="text-sm text-gray-600">
             New administrator?{" "}
-            <Link href="/auth/sign-in" className="text-[#58BECF] font-black hover:text-[#007C85] dark:hover:text-[#58BECF] transition-colors ml-1 uppercase tracking-widest">
+            <Link href="/auth/sign-in" className="font-medium text-blue-600 hover:text-blue-800 transition-colors">
               Request Portal Access
             </Link>
           </p>
@@ -106,14 +102,14 @@ async function handleSubmit(e) {
         <form onSubmit={handleSubmit} className="space-y-6 text-left" noValidate>
           {/* Success Notification */}
           {justSignedUp && (
-            <div className="animate-in fade-in slide-in-from-top-2 flex items-center gap-3 rounded-xl bg-emerald-50 dark:bg-emerald-900/30 p-4 text-[10px] font-black uppercase tracking-wide text-emerald-600 dark:text-emerald-400 border border-emerald-100 dark:border-emerald-800 mb-2">
-              <CheckCircle2 size={16} />
-              Account Created. Please sign in to verify.
+            <div className="animate-in fade-in slide-in-from-top-2 flex items-center gap-3 rounded-lg bg-green-50 p-4 text-sm text-green-700 border border-green-100">
+              <CheckCircle2 size={18} className="flex-shrink-0 text-green-500" />
+              <span>Account created. Please sign in to verify.</span>
             </div>
           )}
 
           {/* Identity/Phone Field */}
-          <div className="space-y-1">
+          <div className="space-y-1.5">
             <label htmlFor="phone" className={labelStyles}>
               Identification Number
             </label>
@@ -134,12 +130,12 @@ async function handleSubmit(e) {
           </div>
 
           {/* Access Key/Password Field */}
-          <div className="space-y-1">
+          <div className="space-y-1.5">
             <label htmlFor="password" className="flex items-center justify-between">
               <span className={labelStyles}>Access Key</span>
               <Link
                 href="/auth/forgot-password"
-                className="text-[10px] font-black text-[#58BECF] hover:text-[#007C85] dark:hover:text-[#58BECF] transition-colors"
+                className="text-xs font-medium text-blue-600 hover:text-blue-800 transition-colors"
               >
                 Forgot Key?
               </Link>
@@ -162,21 +158,22 @@ async function handleSubmit(e) {
 
           {/* Error Message */}
           {error && (
-            <div className="animate-in fade-in zoom-in-95 flex items-center gap-2 rounded-xl bg-rose-50 p-3 text-[10px] font-black uppercase tracking-wide text-rose-500 border border-rose-100">
-              <AlertCircle size={14} strokeWidth={3} />
-              {error}
+            <div className="animate-in fade-in zoom-in-95 flex items-start gap-3 rounded-lg bg-red-50 p-4 text-sm text-red-700 border border-red-100">
+              <AlertCircle size={18} className="flex-shrink-0 text-red-500 mt-0.5" />
+              <span>{error}</span>
             </div>
           )}
 
           {/* Submit Action */}
-          <button
-            type="submit"
-            disabled={loading}
-            className="w-full py-3.5 px-6 bg-gradient-to-r from-[#007C85] to-[#58BECF] text-white font-bold rounded-xl shadow-md hover:shadow-lg hover:opacity-95 transition-all focus:outline-none focus:ring-4 focus:ring-cyan-100 dark:focus:ring-cyan-800/30 disabled:opacity-70 disabled:cursor-not-allowed flex items-center justify-center gap-2"
-          >
+          <div className="pt-1">
+            <button
+              type="submit"
+              disabled={loading}
+              className="w-full bg-blue-600 hover:bg-blue-700 text-white font-medium py-2.5 px-4 rounded-lg flex items-center justify-center gap-2 transition-colors focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 disabled:opacity-70 disabled:cursor-not-allowed"
+            >
             {loading ? (
               <>
-                <svg className="animate-spin -ml-1 mr-2 h-4 w-4 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                <svg className="animate-spin h-4 w-4 text-white mr-2" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
                   <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
                   <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
                 </svg>
@@ -189,6 +186,7 @@ async function handleSubmit(e) {
               </>
             )}
           </button>
+          </div>
         </form>
       </AuthCard>
     </div>

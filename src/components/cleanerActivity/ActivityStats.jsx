@@ -17,7 +17,7 @@ export default function ActivityStats() {
                 <div className="p-1.5 bg-[#E0F7FA] rounded-lg">
                     <HiOutlineChartBar className="text-[hsl(var(--primary))] text-lg" />
                 </div>
-                <h3 className="text-lg font-extrabold tracking-tight text-[hsl(var(--foreground))]">
+                <h3 className="text-lg font-normal tracking-tight text-[hsl(var(--foreground))]">
                     Activity Overview
                 </h3>
             </div>

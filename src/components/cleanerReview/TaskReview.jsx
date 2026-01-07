@@ -8,7 +8,7 @@ export default function TaskReview() {
         <div className="rounded-[var(--radius)] bg-[hsl(var(--card))] border border-[hsl(var(--border))] shadow-sm p-6 space-y-5">
             {/* Section Header */}
             <div className="flex items-center gap-3 mb-2">
-                <div className="p-2 bg-[#E0F7FA] rounded-lg shadow-sm">
+                <div className="p-2 bg-[hsl(var(--lavender-100))] rounded-lg shadow-sm">
                     <HiOutlineClipboardCheck className="text-[hsl(var(--primary))] text-xl" />
                 </div>
                 <h3 className="text-lg font-extrabold tracking-tight text-[hsl(var(--foreground))]">
@@ -17,7 +17,7 @@ export default function TaskReview() {
             </div>
 
             {/* Score & Status Card */}
-            <div className="flex justify-between items-center bg-[#F4FBFC] border border-[hsl(var(--primary)/0.1)] rounded-2xl p-5">
+            <div className="flex justify-between items-center bg-[hsl(var(--lavender-200))] border border-[hsl(var(--primary)/0.1)] rounded-2xl p-5">
                 <div>
                     <p className="text-xs font-bold uppercase tracking-widest text-[hsl(var(--muted-foreground))] mb-1">
                         Cleaning Status

@@ -24,41 +24,43 @@ export default function PreviewModal({ open, onClose, users = [], locations = []
   if (!open) return null;
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/30 p-6">
-      <div className="bg-white rounded-lg w-full max-w-3xl shadow-xl overflow-hidden">
-        <div className="px-6 py-4 flex items-center justify-between border-b">
-          <h3 className="text-lg font-semibold">Preview Assignments</h3>
-          <div className="text-sm text-slate-500">{previewList.length} assignments</div>
+    <div className="form-overlay">
+      <div className="form-container form-container-xl">
+        <div className="form-header">
+          <div>
+            <h3 className="form-header-title">Preview Assignments</h3>
+            <div className="text-sm text-muted-foreground mt-1">{previewList.length} assignments</div>
+          </div>
         </div>
 
-        <div className="p-4 max-h-96 overflow-auto">
-          <div className="text-sm text-slate-600 mb-3">Start date: {startDate || "Immediate"}</div>
+        <div className="form-body max-h-96 overflow-auto">
+          <div className="text-sm text-foreground mb-3">Start date: {startDate || "Immediate"}</div>
 
-          <table className="w-full text-sm">
-            <thead className="text-xs text-slate-500 border-b">
+          <table className="table">
+            <thead className="table-header">
               <tr>
                 <th className="text-left pb-2">Cleaner</th>
                 <th className="text-left pb-2">Location</th>
               </tr>
             </thead>
-            <tbody>
+            <tbody className="table-body">
               {previewList.slice(0, 100).map((p, idx) => (
-                <tr key={idx} className="border-b hover:bg-slate-50">
-                  <td className="py-2">{p.user.name} <div className="text-[11px] text-slate-400">{p.user.email}</div></td>
-                  <td className="py-2">{p.location.name} <div className="text-[11px] text-slate-400">{p.location.ward}</div></td>
+                <tr key={idx} className="table-row">
+                  <td className="table-cell py-2">{p.user.name} <div className="text-[11px] text-muted-foreground">{p.user.email}</div></td>
+                  <td className="table-cell py-2">{p.location.name} <div className="text-[11px] text-muted-foreground">{p.location.ward}</div></td>
                 </tr>
               ))}
             </tbody>
           </table>
 
           {previewList.length > 100 && (
-            <div className="text-xs text-slate-500 mt-2">Showing first 100</div>
+            <div className="text-xs text-muted-foreground mt-2">Showing first 100</div>
           )}
         </div>
 
-        <div className="px-6 py-4 border-t flex items-center justify-end gap-3">
-          <button onClick={onClose} className="px-3 py-1.5 rounded border">Cancel</button>
-          <button onClick={onConfirm} className="px-4 py-2 rounded bg-indigo-600 text-white">Create Assignments</button>
+        <div className="form-actions">
+          <button onClick={onClose} className="btn btn-secondary">Cancel</button>
+          <button onClick={onConfirm} className="btn btn-gradient">Create Assignments</button>
         </div>
       </div>
     </div>

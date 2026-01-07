@@ -19,12 +19,12 @@ export default function ActivityCard({ activity }) {
 
     return (
         <>
-            <div className="flex flex-col justify-between rounded-[24px] bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 shadow-sm hover:shadow-md hover:-translate-y-1 p-5 h-[380px] transition-all duration-300 group">
+            <div className="flex flex-col justify-between rounded-2xl bg-white shadow-[0_4px_20px_rgba(0,0,0,0.05)] hover:shadow-[0_8px_30px_rgba(0,0,0,0.08)] hover:-translate-y-0.5 p-5 h-[380px] transition-all duration-300 group border-0">
                 <div className="space-y-3">
                     <div className="flex items-start justify-between">
                         <div className="flex items-center gap-3">
-                            <div className="h-10 w-10 rounded-full bg-[#E0F7FA] border border-cyan-100 flex items-center justify-center">
-                                <User className="h-5 w-5 text-[#007C85]" />
+                            <div className="h-10 w-10 rounded-full bg-[#FDF9F2] flex items-center justify-center">
+                                <User className="h-5 w-5 text-[#FF9F1C]" />
                             </div>
                             <div>
                                 <h3 className="text-sm font-bold text-slate-900 leading-none mb-1">
@@ -35,7 +35,7 @@ export default function ActivityCard({ activity }) {
                                 </span>
                             </div>
                         </div>
-                        <span className="rounded-lg bg-emerald-50 dark:bg-emerald-900/30 border border-emerald-100 dark:border-emerald-800/50 px-2.5 py-1 text-[10px] font-black uppercase tracking-widest text-emerald-600 dark:text-emerald-400">
+                        <span className="rounded-full bg-emerald-50 border border-emerald-100 px-2.5 py-1 text-[10px] font-bold uppercase tracking-wider text-emerald-600">
                             Completed
                         </span>
                     </div>
@@ -51,7 +51,7 @@ export default function ActivityCard({ activity }) {
                                 <button
                                     key={i}
                                     onClick={() => setIsGalleryOpen(true)}
-                                    className="h-12 w-12 rounded-full border-2 border-white bg-slate-100 overflow-hidden shadow-sm relative hover:z-30 hover:scale-110 transition-all cursor-pointer"
+                                    className="h-14 w-14 rounded-full overflow-hidden relative hover:z-30 hover:scale-105 transition-all cursor-pointer shadow-sm hover:shadow-md border-2 border-white"
                                     style={{ zIndex: 10 - i }}
                                 >
                                     <img
@@ -69,7 +69,7 @@ export default function ActivityCard({ activity }) {
                             {activity.images?.length > 4 && (
                                 <button
                                     onClick={() => setIsGalleryOpen(true)}
-                                    className="flex h-12 w-12 items-center justify-center rounded-full border-2 border-white bg-[#007C85] text-[11px] font-black text-white shadow-sm z-20 hover:bg-[#58BECF] transition-colors cursor-pointer active:scale-95"
+                                    className="flex h-14 w-14 items-center justify-center rounded-full bg-[#FF9F1C] text-xs font-black text-white shadow-sm z-20 hover:bg-[#5A52E0] transition-all cursor-pointer active:scale-95 border-2 border-white"
                                 >
                                     +{activity.images.length - 4}
                                 </button>
@@ -78,17 +78,17 @@ export default function ActivityCard({ activity }) {
                     </div>
                 </div>
 
-                <div className="bg-[#F4FBFC] dark:bg-slate-700/50 rounded-2xl p-4 space-y-2.5">
-                    <div className="flex items-center gap-2 text-xs font-bold text-slate-800 dark:text-slate-200">
-                        <MapPin className="h-3.5 w-3.5 text-[#58BECF]" />
+                <div className="bg-[#FAFAFF] rounded-2xl p-4 space-y-2.5 border border-[#FDF9F2]">
+                    <div className="flex items-center gap-2 text-xs font-bold text-slate-800">
+                        <MapPin className="h-3.5 w-3.5 text-[#FF9F1C]" />
                         <span className="truncate">{activity.location}</span>
                     </div>
-                    <div className="flex flex-col gap-1.5 pl-5 border-l-2 border-[#58BECF]/20">
-                        <div className="flex items-center gap-2 text-[11px] text-slate-500 dark:text-slate-400 font-bold">
-                            <Clock className="h-3 w-3" />
+                    <div className="flex flex-col gap-1.5 pl-4 border-l-2 border-[#CBF3F0]">
+                        <div className="flex items-center gap-2 text-[11px] text-slate-500 font-medium">
+                            <Clock className="h-3 w-3 text-[#8A84FF]" />
                             <span>Finished: {activity.finishedAt}</span>
                         </div>
-                        <p className="text-[11px] font-black text-emerald-600 dark:text-emerald-400 uppercase tracking-widest">
+                        <p className="text-[11px] font-black text-emerald-600 bg-emerald-50 px-2 py-1 rounded-full w-fit uppercase tracking-widest">
                             Validated • 1m
                         </p>
                     </div>
@@ -97,7 +97,7 @@ export default function ActivityCard({ activity }) {
                 <div className="pt-2">
                     <Link
                         href={`/dashboard/cleaner-activity/${activity.id}`}
-                        className="flex items-center justify-center gap-2 w-full py-2.5 rounded-xl bg-white border border-slate-200 text-xs font-black uppercase tracking-widest text-[#007C85] hover:bg-[#007C85] hover:text-white hover:border-[#007C85] hover:shadow-lg transition-all duration-300 active:scale-95"
+                        className="flex items-center justify-center gap-2 w-full py-2.5 rounded-xl text-xs font-bold text-[#FF9F1C] hover:bg-[#FDF9F2] transition-all duration-300 active:scale-95 border border-[#CBF3F0]"
                     >
                         Detailed Report
                         <ArrowRight className="h-3.5 w-3.5" />
@@ -110,9 +110,9 @@ export default function ActivityCard({ activity }) {
                 <div className="fixed inset-0 z-[999] flex items-center justify-center p-4 bg-slate-900/60 backdrop-blur-sm animate-in fade-in duration-200">
                     <div className="bg-white w-full max-w-4xl rounded-[32px] overflow-hidden shadow-2xl flex flex-col max-h-[90vh]">
                         {/* Modal Header */}
-                        <div className="p-6 border-b border-slate-100 flex justify-between items-center bg-white sticky top-0">
+                                <div className="p-6 border-b border-slate-100 flex justify-between items-center bg-white sticky top-0">
                             <div>
-                                <h2 className="text-xl font-black text-[#007C85] uppercase tracking-tight">Full Evidence Log</h2>
+                                        <h2 className="text-xl font-black text-[hsl(var(--primary))] uppercase tracking-tight">Full Evidence Log</h2>
                                 <p className="text-[10px] font-bold text-slate-400 uppercase tracking-widest">{activity.cleanerName} • {activity.location}</p>
                             </div>
                             <button
@@ -142,10 +142,10 @@ export default function ActivityCard({ activity }) {
                         </div>
 
                         {/* Modal Footer */}
-                        <div className="p-6 border-t border-slate-100 flex justify-end bg-slate-50">
+                            <div className="p-6 border-t border-slate-100 flex justify-end bg-slate-50">
                             <button
                                 onClick={() => setIsGalleryOpen(false)}
-                                className="px-8 py-3 bg-[#007C85] text-white rounded-2xl font-black text-[10px] uppercase tracking-widest hover:bg-[#58BECF] transition-all active:scale-95"
+                                className="btn-primary px-8 py-3 rounded-2xl font-black text-[10px] uppercase tracking-widest active:scale-95"
                             >
                                 Close Gallery
                             </button>

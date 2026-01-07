@@ -98,8 +98,8 @@ export default function WashroomFilters({
                         type="button"
                         onClick={() => onAssignmentFilterChange("assigned")}
                         className={`px-3 py-1 rounded-lg text-[10px] font-bold uppercase tracking-wider transition-all flex items-center gap-1 ${assignmentFilter === "assigned"
-                            ? "bg-[#E0F7FA] text-emerald-700 shadow-sm"
-                            : "text-[hsl(var(--muted-foreground))] hover:text-emerald-600"
+                            ? `bg-[hsl(var(--lavender-100))] text-[hsl(var(--text-body))] shadow-sm`
+                            : "text-[hsl(var(--muted-foreground))] hover:text-[hsl(var(--text-body))]"
                             }`}
                     >
                         <CheckCircle2 className="h-3 w-3" />
@@ -109,8 +109,8 @@ export default function WashroomFilters({
                         type="button"
                         onClick={() => onAssignmentFilterChange("unassigned")}
                         className={`px-3 py-1 rounded-lg text-[10px] font-bold uppercase tracking-wider transition-all flex items-center gap-1 ${assignmentFilter === "unassigned"
-                            ? "bg-amber-50 text-amber-700 shadow-sm"
-                            : "text-[hsl(var(--muted-foreground))] hover:text-amber-600"
+                            ? `bg-[hsl(var(--subtle-sep))] text-[hsl(var(--text-body))] shadow-sm`
+                            : "text-[hsl(var(--muted-foreground))] hover:text-[hsl(var(--text-body))]"
                             }`}
                     >
                         <UserMinus className="h-3 w-3" />

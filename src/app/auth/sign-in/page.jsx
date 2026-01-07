@@ -54,28 +54,24 @@ export default function SignInPage() {
     }
   }
 
-  const inputStyles = "w-full rounded-xl border border-slate-200 pl-11 pr-4 py-3 bg-[#F8FAFB] text-slate-900 placeholder:text-slate-400 focus:bg-white focus:outline-none focus:ring-4 focus:ring-cyan-50 focus:border-[#58BECF] transition-all font-bold text-sm shadow-sm";
-  const labelStyles = "text-[10px] font-black uppercase tracking-[0.2em] text-[#007C85] ml-1";
-  const iconStyles = "absolute left-4 top-1/2 -translate-y-1/2 text-slate-300 group-focus-within:text-[#58BECF] transition-colors";
+  const inputStyles = "w-full rounded-xl border border-border pl-11 pr-4 py-3 bg-muted text-foreground placeholder:text-muted-foreground focus:bg-card focus:outline-none focus:ring-4 focus:ring-primary-light/20 focus:border-primary-light transition-all font-bold text-sm shadow-sm";
+  const labelStyles = "text-[10px] font-black uppercase tracking-[0.2em] text-primary-dark ml-1";
+  const iconStyles = "absolute left-4 top-1/2 -translate-y-1/2 text-muted-foreground group-focus-within:text-primary-light transition-colors";
 
   return (
-    <div className="relative min-h-screen flex items-center justify-center bg-[#F8FAFB] overflow-hidden py-10">
-      {/* Decorative background glows */}
-      <div className="absolute top-0 left-0 w-[500px] h-[500px] bg-[#E0F7FA]/50 blur-[120px] rounded-full -ml-48 -mt-48 pointer-events-none" />
-      <div className="absolute bottom-0 right-0 w-[500px] h-[500px] bg-[#E6F7F9]/60 blur-[120px] rounded-full -mr-48 -mb-48 pointer-events-none" />
-
+    <div className="relative min-h-screen flex items-center justify-center bg-muted overflow-hidden py-10">
       <AuthCard
         title="SAFAI PORTAL"
         subtitle="Create your administrator account to manage workspaces."
         customLogo={
-          <div className="h-16 w-16 rounded-2xl bg-[#E6F7F9] border border-[#D1F0F2] flex items-center justify-center shadow-sm mx-auto mb-4">
-            <UserPlus className="h-9 w-9 text-[#58BECF]" strokeWidth={2} />
+          <div className="h-16 w-16 rounded-2xl bg-[hsl(var(--bg-very-light-cyan))] border border-border flex items-center justify-center shadow-sm mx-auto mb-4">
+            <UserPlus className="h-9 w-9 text-primary-light" strokeWidth={2} />
           </div>
         }
         footer={
-          <p className="text-[10px] font-bold text-slate-400 uppercase tracking-widest">
+            <p className="text-[10px] font-bold text-muted-foreground uppercase tracking-widest">
             Existing user?{" "}
-            <Link href="/auth/login" className="text-[#58BECF] font-black hover:text-[#007C85] transition-colors ml-1 uppercase">
+            <Link href="/auth/login" className="text-primary-light font-black hover:text-primary-dark transition-colors ml-1 uppercase">
               Sign In to Portal
             </Link>
           </p>
@@ -159,8 +155,7 @@ export default function SignInPage() {
           <button
             type="submit"
             disabled={loading}
-            style={{ background: 'linear-gradient(to right, #58BECF, #6D9CDC)' }}
-            className="mt-4 group relative w-full overflow-hidden rounded-xl py-4 font-black text-[11px] uppercase tracking-[0.2em] text-white shadow-lg shadow-cyan-500/20 transition-all hover:brightness-105 active:scale-[0.98] disabled:opacity-70 disabled:cursor-not-allowed"
+            className="w-full btn btn-cta mt-4 group relative overflow-hidden text-xs-standard uppercase tracking-widest active:scale-[0.98] disabled:opacity-70 disabled:cursor-not-allowed"
           >
             <div className="relative flex items-center justify-center gap-2">
               {loading ? (

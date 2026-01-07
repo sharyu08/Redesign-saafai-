@@ -18,9 +18,9 @@ export default function DashboardShell({ children }) {
           onToggleCollapse={() => setCollapsed((v) => !v)}
         />
 
-        <div className="flex flex-1 flex-col">
+        <div className="flex flex-1 flex-col overflow-hidden">
           <Header onMenuClick={() => setSidebarOpen(true)} />
-          <main className="flex-1 px-4 py-6 md:px-8 bg-background">
+          <main className="flex-1 overflow-y-auto px-4 py-6 md:px-8 bg-background">
             {children}
           </main>
         </div>

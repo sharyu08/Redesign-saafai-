@@ -50,22 +50,22 @@ function StatCard({ title, value, trend, isUp, percentage, icon, type }) {
             trend: "bg-slate-200 text-slate-700"
         },
         teal: {
-            bg: "bg-gradient-to-br from-teal-50 to-[#E0F7FA]",
-            text: "text-teal-900",
-            label: "text-teal-600",
-            border: "border-teal-200/60",
-            iconBg: "bg-teal-600 text-white",
-            bar: "bg-teal-500",
-            trend: "bg-teal-200/50 text-teal-700"
+            bg: `bg-gradient-to-br from-white to-[hsl(var(--lavender-200))]`,
+            text: "text-[hsl(var(--text-body))]",
+            label: "text-[hsl(var(--text-muted))]",
+            border: "border-[hsl(var(--border))]",
+            iconBg: "bg-[hsl(var(--primary-deep))] text-white",
+            bar: "bg-[hsl(var(--primary))]",
+            trend: "bg-[hsl(var(--lavender-100))]/50 text-[hsl(var(--text-body))]"
         },
         indigo: {
-            bg: "bg-gradient-to-br from-indigo-50 to-blue-50",
-            text: "text-indigo-900",
-            label: "text-indigo-500",
-            border: "border-indigo-100",
-            iconBg: "bg-indigo-600 text-white",
-            bar: "bg-indigo-500",
-            trend: "bg-indigo-200/50 text-indigo-700"
+            bg: `bg-gradient-to-br from-white to-[hsl(var(--lavender-100))]`,
+            text: "text-[hsl(var(--text-body))]",
+            label: "text-[hsl(var(--text-muted))]",
+            border: "border-[hsl(var(--border))]",
+            iconBg: "bg-[hsl(var(--primary-dark))] text-white",
+            bar: "bg-[hsl(var(--primary-dark))]",
+            trend: "bg-[hsl(var(--lavender-100))]/50 text-[hsl(var(--text-body))]"
         }
     };
 

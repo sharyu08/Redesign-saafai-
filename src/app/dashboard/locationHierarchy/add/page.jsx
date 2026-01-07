@@ -7,8 +7,8 @@ import {
 } from "@/components/locationHierarchyAdd";
 
 export default function AddHierarchyPage() {
-    return (
-        <div className="min-h-screen bg-[#F8FAFB] pb-12 transition-all duration-300">
+  return (
+    <div className="min-h-screen bg-white dark:bg-background pb-12 transition-all duration-300">
             <div className="max-w-[1600px] mx-auto p-4 md:p-8 flex flex-col gap-8">
 
                 {/* 1. Header Section - Acts as a floating white command bar */}
@@ -22,11 +22,11 @@ export default function AddHierarchyPage() {
                     {/* Form Column - Left */}
                     <div className="relative group">
                         {/* Decorative branded glow */}
-                        <div className="absolute -inset-1 bg-gradient-to-r from-[#58BECF]/10 to-[#6D9CDC]/10 rounded-[32px] blur-xl opacity-0 group-hover:opacity-100 transition duration-700" />
+                        <div className="absolute -inset-1 bg-gradient-to-r from-[hsl(var(--primary))/0.08] to-[hsl(var(--primary-accent))/0.08] rounded-[32px] blur-xl opacity-0 group-hover:opacity-100 transition duration-700" />
 
                         <div className="relative bg-white rounded-[32px] shadow-sm border border-slate-100 overflow-hidden">
                             {/* Branded accent line */}
-                            <div className="h-1.5 w-full bg-gradient-to-r from-[#58BECF] to-[#6D9CDC]" />
+                            <div className="h-1.5 w-full bg-gradient-to-r from-[hsl(var(--primary))] to-[hsl(var(--primary-accent))]" />
                             <CreateHierarchyForm />
                         </div>
                     </div>

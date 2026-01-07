@@ -85,7 +85,7 @@ export default function WashroomsPage() {
   };
 
   return (
-    <div className="min-h-screen bg-[#F8FAFB] pb-12 transition-colors duration-300">
+    <div className="min-h-screen bg-white dark:bg-background pb-12 transition-colors duration-300">
       <div className="max-w-full mx-auto p-4 md:p-8 space-y-6">
 
         {/* 1. Header Section */}

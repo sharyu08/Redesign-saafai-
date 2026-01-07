@@ -65,7 +65,7 @@ export default function FilterBar({
 
         <button
           onClick={onClearFilters}
-          className="px-4 py-2 rounded-lg border border-[#D1E0E2] bg-white text-[#2F3A45] hover:bg-[#F8FAFB] transition-colors flex items-center gap-1.5 text-sm font-medium"
+          className="px-4 py-2 rounded-lg border border-[hsl(var(--border))] bg-white text-[hsl(var(--text-body))] hover:bg-[hsl(var(--bg-light-gray))] transition-colors flex items-center gap-1.5 text-sm font-medium"
         >
           <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
             <path d="M4 8H12" stroke="#2F3A45" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>

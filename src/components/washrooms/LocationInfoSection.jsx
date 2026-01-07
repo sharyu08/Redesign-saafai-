@@ -5,7 +5,7 @@ export default function LocationInfoSection() {
         <div className="space-y-6">
             {/* Section Header */}
             <div className="flex items-center gap-3 mb-2">
-                <div className="p-2 bg-[#E0F7FA] rounded-lg shadow-sm">
+                <div className="p-2 bg-[hsl(var(--lavender-100))] rounded-lg shadow-sm">
                     <HiOutlineLocationMarker className="text-[hsl(var(--primary))] text-xl" />
                 </div>
                 <h2 className="text-xl font-extrabold tracking-tight text-[hsl(var(--foreground))]">

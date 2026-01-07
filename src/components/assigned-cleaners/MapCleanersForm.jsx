@@ -34,7 +34,7 @@ export default function MapCleanersForm({ washroomName = "Abhyankar Nagar Garden
     <div className="max-w-4xl mx-auto space-y-6 pb-12">
       {/* HEADER: Updated to Deep Forest Teal */}
       <div className="rounded-[24px] border border-slate-200 bg-white shadow-xl overflow-hidden">
-        <div className="bg-[#0D4D4D] text-white px-8 py-6 flex items-center justify-between relative overflow-hidden">
+        <div className="bg-primary-dark text-white px-8 py-6 flex items-center justify-between relative overflow-hidden">
           {/* Decorative Background Element */}
           <div className="absolute right-0 top-0 w-64 h-64 bg-teal-400/10 rounded-full -mr-32 -mt-32 blur-3xl" />
 
@@ -57,19 +57,19 @@ export default function MapCleanersForm({ washroomName = "Abhyankar Nagar Garden
           </Link>
         </div>
 
-        {/* SEARCH & FILTERS BAR - Kept as is */}
-        <div className="px-8 py-4 bg-slate-50 border-b border-slate-200 flex items-center justify-between gap-4">
-          <div className="relative flex-1">
-            <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-slate-400" />
+        {/* SEARCH & FILTERS BAR */}
+        <div className="px-8 py-4 bg-muted border-b border-border flex items-center justify-between gap-4 dark:bg-muted">
+          <div className="form-input-wrapper flex-1">
+            <Search className="form-input-icon h-4 w-4" />
             <input
               type="text"
               placeholder="Search staff by name..."
-              className="w-full pl-10 pr-4 py-2 bg-white border border-slate-200 rounded-xl text-sm focus:ring-2 focus:ring-teal-600 outline-none transition-all"
+              className="form-input"
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
             />
           </div>
-          <div className="text-[10px] font-black uppercase text-slate-400 tracking-widest whitespace-nowrap">
+          <div className="text-[10px] font-black uppercase text-muted-foreground tracking-widest whitespace-nowrap">
             {selectedIds.length} Staff Selected
           </div>
         </div>
@@ -128,14 +128,15 @@ export default function MapCleanersForm({ washroomName = "Abhyankar Nagar Garden
             </div>
           </div>
 
-          {/* SAVE BUTTON - Kept as is */}
+          {/* SAVE BUTTON */}
           <button
             disabled={selectedIds.length === 0}
             onClick={handleCreate}
-            className={`w-full py-4 rounded-2xl font-black text-sm uppercase tracking-widest transition-all duration-300 flex items-center justify-center gap-3 shadow-lg ${selectedIds.length > 0
-                ? "bg-[#0D4D4D] text-white hover:brightness-110 shadow-teal-900/20 active:scale-[0.98]"
-                : "bg-slate-100 text-slate-300 cursor-not-allowed"
-              }`}
+            className={`btn w-full py-4 text-sm uppercase tracking-widest flex items-center justify-center gap-3 ${
+              selectedIds.length > 0
+                ? "btn-primary"
+                : "btn-secondary cursor-not-allowed"
+            }`}
           >
             <Users size={18} />
             Initialize Assignment

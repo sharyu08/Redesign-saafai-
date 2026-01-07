@@ -26,7 +26,7 @@ export default function CleanerCard({ cleaner }) {
             {/* Left Section: Avatar and Info */}
             <div className="flex items-center gap-4">
                 {/* Themed Avatar */}
-                <div className="w-14 h-14 rounded-full bg-[#E0F7FA] border border-[hsl(var(--primary)/0.2)] flex items-center justify-center transition-transform group-hover:scale-105">
+                <div className="w-14 h-14 rounded-full bg-[hsl(var(--lavender-100))] border border-[hsl(var(--primary)/0.2)] flex items-center justify-center transition-transform group-hover:scale-105">
                     <User className="text-[hsl(var(--primary))] w-7 h-7" />
                 </div>
 

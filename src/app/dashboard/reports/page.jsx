@@ -67,44 +67,42 @@ export default function ReportsPage() {
   const [startDate, setStartDate] = useState(new Date());
   const [endDate, setEndDate] = useState(new Date());
 
-  // Shared button style to ensure consistency
-  const actionButtonStyle = "bg-gradient-to-r from-[#5bc4d4] to-[#6a82e5] hover:opacity-90 text-white font-black text-[11px] uppercase tracking-widest shadow-[0_10px_20px_-5px_rgba(106,130,229,0.3)] transition-all active:scale-95 flex items-center justify-center gap-2";
-
   return (
-    <div className="min-h-screen bg-[#f8fafc] p-4 md:p-8">
+    <div className="min-h-screen bg-[#f8fafc] dark:bg-background p-4 md:p-8">
       <div className="max-w-7xl mx-auto space-y-6">
         
-        {/* UPDATED: COMPACT HEADER SECTION */}
-        <div className="rounded-[20px] bg-[#e6f7f9] border border-[#cceef2] px-6 py-4 flex flex-col md:flex-row items-center justify-between gap-4 shadow-sm">
-          <div className="flex items-center gap-4">
-            {/* Smaller White Icon Box */}
-            <div className="h-12 w-12 rounded-xl bg-white border border-white shrink-0">
-              <FileText size={24} className="text-[#007b8a]" strokeWidth={2.5} />
+        {/* UPDATED: COMPACT HEADER SECTION - Using standardized page-header class */}
+        <div className="page-header">
+          <div className="page-header-content">
+            <div className="page-header-title-section">
+              <div className="page-header-icon">
+                <FileText size={24} strokeWidth={2.5} />
+              </div>
+              
+              <div>
+                <h1 className="page-header-title text-lg md:text-xl">
+                  Analytics Reports
+                </h1>
+                <p className="page-header-subtitle mt-1.5">
+                  * {reportConfigs[selectedReport].description}
+                </p>
+              </div>
             </div>
-            
-            <div>
-              <h1 className="text-lg md:text-xl font-black text-[#007b8a] uppercase tracking-tight leading-none">
-                Analytics Reports
-              </h1>
-              <p className="text-[9px] font-bold text-[#4a9ba6] uppercase tracking-widest mt-1.5">
-                * {reportConfigs[selectedReport].description}
-              </p>
-            </div>
-          </div>
 
-          <button className={`${actionButtonStyle} px-6 py-3 rounded-xl w-full md:w-auto`}>
-            <Download size={14} strokeWidth={3} />
-            Export All Reports
-          </button>
+            <button className="btn btn-primary px-6 py-3 w-full md:w-auto text-xs-standard uppercase tracking-widest active:scale-95 flex items-center justify-center gap-2">
+              <Download size={14} strokeWidth={3} />
+              Export All Reports
+            </button>
+          </div>
         </div>
 
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
           {/* LEFT: SELECTION PANEL */}
           <div className="lg:col-span-4">
-            <div className="rounded-[24px] bg-white border border-slate-200 p-5 shadow-sm sticky top-8">
+            <div className="rounded-[24px] bg-white dark:bg-card border border-slate-200 dark:border-border p-5 shadow-sm sticky top-8">
               <div className="flex items-center gap-2 mb-4 px-2">
-                <Filter size={16} className="text-[#007b8a]" />
-                <h2 className="text-[11px] font-black text-slate-400 uppercase tracking-widest">
+                <Filter size={16} className="text-[#FF9F1C] dark:text-primary-light" />
+                <h2 className="text-[11px] font-black text-slate-400 dark:text-muted-foreground uppercase tracking-widest">
                   Report Modules
                 </h2>
               </div>
@@ -115,8 +113,8 @@ export default function ReportsPage() {
                     onClick={() => setSelectedReport(report)}
                     className={`w-full group px-4 py-4 rounded-xl border transition-all flex items-center justify-between ${
                       selectedReport === report
-                        ? "bg-[#e6f7f9] border-[#cceef2] text-[#007b8a]"
-                        : "bg-transparent border-transparent text-slate-500 hover:bg-slate-50"
+                        ? "bg-[#FDF9F2] dark:bg-primary/20 border-[#CBF3F0] dark:border-primary/30 text-[#FF9F1C] dark:text-primary-light"
+                        : "bg-transparent border-transparent text-slate-500 dark:text-muted-foreground hover:bg-slate-50 dark:hover:bg-muted"
                     }`}
                   >
                     <span className="text-[12px] font-bold tracking-tight">{report}</span>
@@ -129,14 +127,14 @@ export default function ReportsPage() {
 
           {/* RIGHT: CONFIGURATION FORM */}
           <div className="lg:col-span-8">
-            <div className="rounded-[24px] bg-white border border-slate-200 p-6 md:p-8 shadow-sm">
-              <div className="flex items-center gap-3 mb-8 pb-6 border-b border-slate-100">
-                <Settings2 size={18} className="text-[#007b8a]" />
+            <div className="rounded-[24px] bg-white dark:bg-card border border-slate-200 dark:border-border p-6 md:p-8 shadow-sm">
+              <div className="flex items-center gap-3 mb-8 pb-6 border-b border-slate-100 dark:border-border">
+                <Settings2 size={18} className="text-[#FF9F1C] dark:text-primary-light" />
                 <div>
-                  <h2 className="text-[14px] font-black text-slate-800 uppercase">
+                  <h2 className="text-[14px] font-black text-slate-800 dark:text-foreground uppercase">
                     Configure {selectedReport}
                   </h2>
-                  <p className="text-[9px] font-bold text-[#4a9ba6] uppercase tracking-widest mt-0.5">
+                  <p className="text-[9px] font-bold text-[#FF9F1C] dark:text-primary-light/80 uppercase tracking-widest mt-0.5">
                     * {reportConfigs[selectedReport].description}
                   </p>
                 </div>
@@ -149,14 +147,14 @@ export default function ReportsPage() {
                     if (field.type === "select") {
                       return (
                         <div key={idx} className="space-y-2">
-                          <label className="text-[10px] font-black text-slate-400 uppercase tracking-widest ml-1 flex items-center gap-2">
-                            <MapPin size={10} className="text-[#007b8a]" /> {field.label}
+                          <label className="text-[10px] font-black text-slate-400 dark:text-muted-foreground uppercase tracking-widest ml-1 flex items-center gap-2">
+                            <MapPin size={10} className="text-[#FF9F1C] dark:text-primary-light" /> {field.label}
                           </label>
                           <div className="relative group">
-                            <select className="w-full appearance-none rounded-xl border border-slate-200 bg-slate-50/50 px-5 py-4 text-[13px] font-bold text-slate-700 outline-none focus:border-[#007b8a] transition-all cursor-pointer">
-                              {field.options?.map(opt => <option key={opt} value={opt} className="bg-white">{opt}</option>)}
+                            <select className="w-full appearance-none rounded-xl border border-slate-200 dark:border-border bg-slate-50/50 dark:bg-muted px-5 py-4 text-[13px] font-bold text-slate-700 dark:text-foreground outline-none focus:border-[#FF9F1C] dark:focus:border-primary transition-all cursor-pointer">
+                              {field.options?.map(opt => <option key={opt} value={opt} className="bg-white dark:bg-card">{opt}</option>)}
                             </select>
-                            <ChevronDown size={16} className="absolute right-5 top-1/2 -translate-y-1/2 text-slate-300 pointer-events-none" />
+                            <ChevronDown size={16} className="absolute right-5 top-1/2 -translate-y-1/2 text-slate-300 dark:text-muted-foreground pointer-events-none" />
                           </div>
                         </div>
                       );
@@ -164,18 +162,18 @@ export default function ReportsPage() {
                     if (field.type === "date-range" || field.type === "date-single") {
                        return (
                         <div key={idx} className="space-y-2">
-                          <label className="text-[10px] font-black text-slate-400 uppercase tracking-widest ml-1">
-                            {field.label} {field.description && <span className="text-[#e67e22] lowercase italic font-medium tracking-normal">{field.description}</span>}
+                          <label className="text-[10px] font-black text-slate-400 dark:text-muted-foreground uppercase tracking-widest ml-1">
+                            {field.label} {field.description && <span className="text-[#e67e22] dark:text-accent-gold lowercase italic font-medium tracking-normal">{field.description}</span>}
                           </label>
                           <div className="relative">
                             <DatePicker
                               selected={field.isEnd ? endDate : startDate}
                               onChange={(date) => field.isEnd ? setEndDate(date) : setStartDate(date)}
-                              className="w-full rounded-xl border border-slate-200 bg-slate-50/50 px-12 py-4 text-[13px] font-bold text-slate-700 outline-none focus:border-[#007b8a] transition-colors"
+                              className="w-full rounded-xl border border-slate-200 dark:border-border bg-slate-50/50 dark:bg-muted px-12 py-4 text-[13px] font-bold text-slate-700 dark:text-foreground outline-none focus:border-[#007b8a] dark:focus:border-primary transition-colors"
                               placeholderText="DD-MM-YYYY"
                               dateFormat="dd-MM-yyyy"
                             />
-                            <CalendarIcon size={16} className="absolute left-4 top-1/2 -translate-y-1/2 text-[#007b8a]" />
+                            <CalendarIcon size={16} className="absolute left-4 top-1/2 -translate-y-1/2 text-[#FF9F1C] dark:text-primary-light" />
                           </div>
                         </div>
                       );
@@ -184,13 +182,13 @@ export default function ReportsPage() {
                   })}
                 </div>
 
-                {/* FORM ACTIONS - Unified Colors */}
+                {/* FORM ACTIONS - Using standardized button classes */}
                 <div className="pt-6 flex flex-col md:flex-row gap-3">
-                  <button className={`${actionButtonStyle} flex-1 py-4 rounded-xl`}>
-                    <BarChart3 size={16} />
+                  <button className="btn btn-primary px-6 py-2.5 text-xs-standard uppercase tracking-widest flex items-center justify-center gap-2">
+                    <BarChart3 size={14} />
                     Generate Detailed Report
                   </button>
-                  <button className="px-8 py-4 bg-slate-50 border border-slate-200 text-slate-400 rounded-xl font-black text-[11px] uppercase tracking-widest hover:bg-slate-100 transition-all flex items-center justify-center gap-2">
+                  <button className="btn btn-secondary px-6 py-2.5 text-xs-standard uppercase tracking-widest flex items-center justify-center gap-2">
                     <RefreshCw size={14} />
                     Reset
                   </button>
@@ -202,7 +200,7 @@ export default function ReportsPage() {
 
         {/* SYSTEM FOOTER */}
         <div className="text-center pt-8 opacity-60 dark:opacity-40 transition-opacity">
-          <p className="text-[8px] font-black uppercase tracking-[0.5em] text-slate-500 dark:text-slate-400">
+          <p className="text-[8px] font-black uppercase tracking-[0.5em] text-slate-500 dark:text-muted-foreground">
             Safai Analytics Engine // Nagpur Municipal Corporation
           </p>
         </div>

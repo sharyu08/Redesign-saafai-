@@ -2,406 +2,2337 @@
 @tailwind components;
 @tailwind utilities;
 
-/* Glow animation */
-@keyframes glow {
-  0% {
-    box-shadow: 0 0 5px -5px rgba(45, 183, 196, 0.8);
-  }
-  50% {
-    box-shadow: 0 0 20px 0px rgba(45, 183, 196, 0.6);
-  }
-  100% {
-    box-shadow: 0 0 5px -5px rgba(45, 183, 196, 0.8);
-  }
-}
-
-/* Dark mode glow */
-@keyframes glow-dark {
-  0% {
-    box-shadow: 0 0 5px -5px rgba(73, 184, 211, 0.8);
-  }
-  50% {
-    box-shadow: 0 0 20px 0px rgba(73, 184, 211, 0.6);
-  }
-  100% {
-    box-shadow: 0 0 5px -5px rgba(73, 184, 211, 0.8);
-  }
-}
-
-@keyframes gradient {
-  0% {
-    background-position: 0% 50%;
-  }
-  50% {
-    background-position: 100% 50%;
-  }
-  100% {
-    background-position: 0% 50%;
-  }
-}
-
 /* =====================================================
    🌗 THEME TOKENS - ALL COLORS CENTRALIZED
 ===================================================== */
 @layer base {
   :root {
-    /* Base Colors */
-    --background: 0 0% 100%;
-    --foreground: 222 47% 11%;
+    /* === BASE PALETTE (LIGHT THEME) ======================= */
+    /* Page & card backgrounds */
+    --app-bg: 0 0% 100%;               /* #FFFFFF - Main app background */
+    --card: 0 0% 100%;                 /* #FFFFFF - Cards / panels */
+    --border: 210 16% 90%;             /* Soft gray borders */
+    --subtle-sep: 210 15% 88%;         /* Subtle separators */
 
-    --card: 0 0% 100%;
-    --card-foreground: 222 47% 11%;
+    /* Primary / accent oranges */
+    --primary: 34 100% 56%;            /* #FF9F1C */
+    --primary-accent: 34 100% 71%;     /* #FFBF69 */
+    --primary-deep: 29 100% 50%;       /* Deeper orange */
+    --primary-dark: 29 100% 45%;       /* Darker orange for text / borders */
+    --primary-light: 34 100% 80%;      /* Soft orange for hover */
+    --primary-medium: 34 100% 60%;     /* Default CTA tone */
+    --primary-secondary: 34 100% 71%;  /* Soft accent orange */
+    --primary-foreground: 0 0% 100%;   /* White on primary */
 
-    --border: 214 32% 91%;
-    --muted: 210 20% 98%;
-    --muted-foreground: 215 16% 47%;
+    /* Teal accents (sidebar / soft UI) */
+    --lavender-100: 175 40% 94%;       /* Very soft teal */
+    --lavender-200: 175 40% 90%;       /* #e0f2f1 */
+    --lavender-300: 173 65% 47%;       /* #2EC4B6 */
 
-    --primary: 190 84% 42%;          /* #2DB7C4 */
-    --primary-foreground: 0 0% 100%;
+    /* Text */
+    --text-heading: 220 14% 9%;        /* #111827 */
+    --text-body: 214 17% 36%;          /* #374151 */
+    --text-muted: 215 8% 45%;          /* #6B7280 */
+    --text-hint: 215 7% 62%;           /* #9CA3AF */
 
-    /* Primary Color Variants */
-    --primary-dark: 188 100% 26%;     /* #007C85 */
-    --primary-light: 188 65% 58%;     /* #58BECF */
-    --primary-medium: 188 75% 50%;    /* #2DB7C4 */
-    --primary-secondary: 188 55% 40%; /* #2D8E97 */
+    /* Chart-specific (light) – oranges + teal only */
+    --chart-income: 34 100% 56%;       /* #FF9F1C line */
+    --chart-expense: 34 100% 71%;      /* #FFBF69 line */
+    --chart-mid: 175 69% 88%;          /* #CBF3F0 fill */
+    --chart-bg-fill: 0 0% 100%;        /* White chart bg */
 
-    /* Background Colors */
-    --bg-light-cyan: 188 50% 95%;     /* #E6F7F9 */
-    --bg-very-light-cyan: 188 60% 96%; /* #E0F7FA */
-    --bg-light-cyan-alt: 188 55% 98%; /* #F4FBFC */
-    --bg-light-gray: 210 20% 98%;     /* #F8FAFB */
-    --bg-light-cyan-variant: 188 45% 97%; /* #EAF7F8 */
-    --bg-light-gray-alt: 210 15% 97%; /* #EAF2F5 */
-    --bg-very-light-cyan-alt: 188 70% 99%; /* #EAFBFD */
-    --bg-light-gray-variant: 188 40% 98%; /* #F0F9FA */
-    --bg-light-cyan-variant2: 188 50% 98%; /* #F0FAFB */
-    --bg-light-rose: 350 100% 98%;    /* #FFF5F7 */
+    /* Legacy-compatible tokens used by CSS */
+    --background: var(--app-bg);
+    --foreground: var(--text-heading);
+    --card-foreground: var(--text-body);
+    --muted: 230 9% 96%;
+    --muted-foreground: var(--text-muted);
+    --bg-light-gray: 0 0% 100%;                /* White body background */
+    --bg-light-gray-variant: 210 16% 98%;      /* Very light gray */
+    --bg-very-light-cyan: var(--lavender-100); /* Very soft teal */
+    --bg-light-cyan-variant: var(--lavender-200); /* #CBF3F0 header rows, chips */
 
-    /* Border Colors */
-    --border-light-cyan: 188 50% 85%; /* #D1F0F2 */
-    --border-primary-dark: 188 100% 26%; /* #007C85 */
+    --border-light-cyan: var(--border);
 
-    /* Text Colors */
-    --text-dark-gray: 220 15% 25%;    /* #2F3A45 */
-    --text-medium-gray: 215 16% 47%;  /* #6B7280 */
-    --text-light-gray: 215 10% 65%;   /* #9CA3AF */
+    /* Chart mapping */
+    --chart-primary: var(--chart-income);
+    --chart-primary-dark: var(--primary-deep);
+    --chart-secondary: var(--chart-expense);
+    --chart-accent: 173 65% 47%;       /* #2EC4B6 */
+    --chart-success: 142 71% 45%;
+    --chart-warning: 28 87% 62%;
+    --chart-error: 4 90% 58%;
 
-    /* Accent Colors */
-    --accent-gold: 48 100% 50%;       /* #F4B740 */
-    --accent-green: 142 71% 45%;      /* #28C76F */
-    --accent-red: 4 90% 58%;          /* #EA5455 */
-    --accent-gold-bright: 51 100% 50%; /* #FFD700 */
-    --accent-gold-dark: 48 100% 50%;  /* #FFC000 */
-    --accent-blue: 217 65% 65%;       /* #6D9CDC */
+    --chart-bg: var(--card);
+    --chart-border: 210 16% 90%;
+    --chart-grid: 210 20% 96%;
+    --chart-text: var(--text-hint);
+    --chart-text-dark: var(--text-heading);
+    --chart-text-body: var(--text-body);
 
-    /* Dark Mode Backgrounds */
-    --bg-dark-teal: 188 60% 15%;      /* #0E3D42 */
-    --border-dark-teal: 188 55% 22%;  /* #1A5C63 */
+    --chart-tooltip-bg: 0 0% 100%;
+    --chart-tooltip-border: 230 6% 91%;
+    --chart-tooltip-title: var(--text-heading);
+    --chart-tooltip-body: var(--text-body);
 
-    /* Sidebar Colors */
-    --sidebar-bg: 188 30% 92%;        /* #E8F4F5 */
-    --sidebar-border: 188 25% 88%;    /* #DEE9EB */
+    --chart-gradient-start: var(--primary);
+    --chart-gradient-end: var(--chart-mid);
+    --chart-gradient-opacity-start: 0.20;
+    --chart-gradient-opacity-end: 0.40;
+
+    /* Sidebar */
+    --sidebar-bg: 175 40% 90%;        /* #e0f2f1 - light teal sidebar */
+    --sidebar-border: var(--border);
+
+    /* Direct hex tokens for exact button / UI mapping */
+    --color-primary: #FF9F1C;         /* Primary button / brand */
+    --color-primary-hover: #E68900;   /* Hover */
+    --color-primary-active: #CC7A00;  /* Active / pressed */
+    --color-primary-accent: #FFBF69;  /* Accent */
+
+    --color-lavender-100: #CBF3F0;    /* Secondary button bg */
+    --color-lavender-200: #CBF3F0;    /* Secondary hover / focus ring */
+    --color-lavender-300: #CBF3F0;    /* Soft gradient mid */
+
+    --color-border: #E6E6EB;         /* Border / dividers */
+    --color-subtle: #DCDCE2;         /* Disabled bg */
+    --color-disabled-text: #9CA3AF;  /* Disabled text */
+
+    /* Typography - Roboto font for entire website */
+    --font-family: var(--font-roboto), 'Roboto', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    --font-mono: 'Courier New', Courier, monospace;
+    
+    /* Font Sizes */
+    --font-size-xs: 0.625rem;      /* 10px */
+    --font-size-sm: 0.75rem;       /* 12px */
+    --font-size-base: 0.875rem;    /* 14px */
+    --font-size-lg: 1rem;          /* 16px */
+    --font-size-xl: 1.125rem;      /* 18px */
+    --font-size-2xl: 1.25rem;      /* 20px */
+    --font-size-3xl: 1.5rem;       /* 24px */
+    
+    /* Font Weights */
+    --font-weight-normal: 400;
+    --font-weight-medium: 500;
+    --font-weight-semibold: 600;
+    --font-weight-bold: 700;
+    --font-weight-black: 800;
+
+    /* Spacing */
+    --radius: 0.5rem;
+    --radius-sm: 0.375rem;
+    --radius-md: 0.75rem;
+    --radius-lg: 1rem;
+    --radius-xl: 1.5rem;
+    --radius-2xl: 2rem;
+
+    /* Z-Index Layers */
+    --z-base: 0;
+    --z-dropdown: 1000;
+    --z-sticky: 1020;
+    --z-fixed: 1030;
+    --z-modal-backdrop: 1040;
+    --z-modal: 1050;
+    --z-popover: 1060;
+    --z-tooltip: 1070;
   }
 
-  /* 🌙 DARK MODE — FORCE SAFE */
+  /* 🌙 DARK MODE - Using new palette - Improved colors */
   .dark {
-    --background: 225 15% 7%;         /* #0D0E14 */
-    --foreground: 0 0% 100%;          /* white */
+    --background: 238 56% 8%;          /* █ #0C0E20 - Very dark navy */
+    --foreground: 178 50% 95%;         /* █ #DCF2F1 - Very light pale blue text */
 
-    --card: 230 18% 13%;              /* #1A1C26 */
-    --card-foreground: 0 0% 100%;
+    --card: 218 43% 15%;               /* █ #1F2B3F - Dark card background */
+    --card-foreground: 178 50% 95%;    /* █ #DCF2F1 - Light text */
 
-    --border: 230 16% 18%;           /* #252836 */
-    --muted: 230 18% 16%;
-    --muted-foreground: 220 10% 70%;  /* #9BA1B0 */
+    --border: 218 43% 22%;             /* █ #2E3F5A - Border in dark mode */
+    --muted: 218 43% 12%;              /* █ #18202E - Muted background */
+    --muted-foreground: 192 58% 70%;   /* █ #8CCFE0 - Medium light muted text */
 
-    --primary: 195 58% 55%;          /* #49B8D3 */
-    --primary-foreground: 0 0% 100%;
+    --primary: 192 58% 70%;            /* █ #8CCFE0 - Medium light sky blue */
+    --primary-foreground: 238 56% 8%;  /* █ #0C0E20 - Dark text on light primary */
 
     /* Primary Color Variants - Dark Mode */
-    --primary-dark: 188 65% 58%;      /* #58BECF */
-    --primary-light: 188 70% 65%;     /* Lighter for dark mode */
-    --primary-medium: 195 58% 55%;    /* #49B8D3 */
-    --primary-secondary: 188 55% 50%; /* Adjusted for dark mode */
+    --primary-dark: 192 58% 70%;       /* █ #8CCFE0 - Primary dark */
+    --primary-light: 192 58% 80%;      /* █ #B3E3F0 - Lighter sky blue */
+    --primary-medium: 192 58% 70%;     /* █ #8CCFE0 - Primary medium */
+    --primary-secondary: 192 58% 65%;  /* █ #7CC4D6 - Adjusted secondary */
 
-    /* Background Colors - Dark Mode */
-    --bg-light-cyan: 230 18% 13%;    /* Use card color */
-    --bg-very-light-cyan: 230 18% 13%;
-    --bg-light-cyan-alt: 230 18% 13%;
-    --bg-light-gray: 230 18% 13%;
-    --bg-light-cyan-variant: 230 18% 13%;
-    --bg-light-gray-alt: 230 18% 13%;
-    --bg-very-light-cyan-alt: 230 18% 13%;
-    --bg-light-gray-variant: 230 18% 13%;
-    --bg-light-cyan-variant2: 230 18% 13%;
-    --bg-light-rose: 230 18% 13%;
+    /* Secondary Color Palette - Dark Mode */
+    --secondary: 192 58% 70%;          /* █ #8CCFE0 - Brighter secondary */
+    --secondary-foreground: 238 56% 8%; /* █ #0C0E20 - Dark text */
+    --secondary-dark: 192 58% 60%;     /* █ #66B8CC - Darker secondary */
+    --secondary-light: 192 58% 85%;    /* █ #C4EBF6 - Lighter secondary */
+
+    /* Background Colors - Dark Mode - Better contrast */
+    --bg-light-cyan: 218 43% 15%;      /* █ #1F2B3F - Dark card color */
+    --bg-very-light-cyan: 218 43% 15%; /* █ #1F2B3F - Dark background */
+    --bg-light-cyan-alt: 218 43% 15%;  /* █ #1F2B3F - Dark background alt */
+    --bg-light-gray: 218 43% 15%;      /* █ #1F2B3F - Dark background */
+    --bg-light-cyan-variant: 218 43% 15%; /* █ #1F2B3F - Dark variant */
+    --bg-light-gray-alt: 218 43% 15%;  /* █ #1F2B3F - Dark gray alt */
+    --bg-very-light-cyan-alt: 218 43% 15%; /* █ #1F2B3F - Dark cyan alt */
+    --bg-light-gray-variant: 218 43% 15%; /* █ #1F2B3F - Dark gray variant */
+    --bg-light-cyan-variant2: 218 43% 15%; /* █ #1F2B3F - Dark variant 2 */
+    --bg-light-rose: 218 43% 15%;      /* █ #1F2B3F - Dark rose */
 
     /* Border Colors - Dark Mode */
-    --border-light-cyan: 230 16% 18%;
-    --border-primary-dark: 195 58% 55%;
+    --border-light-cyan: 218 43% 22%;  /* █ #2E3F5A - Dark cyan border */
+    --border-primary-dark: 192 58% 70%; /* █ #8CCFE0 - Light border */
 
-    /* Text Colors - Dark Mode */
-    --text-dark-gray: 0 0% 100%;
-    --text-medium-gray: 220 10% 70%;
-    --text-light-gray: 220 10% 60%;
+    /* Text Colors - Dark Mode - Better visibility */
+    --text-dark-gray: 178 50% 95%;     /* █ #DCF2F1 - Light text */
+    --text-medium-gray: 192 58% 75%;   /* █ #A5DBEB - Medium light text */
+    --text-light-gray: 192 58% 65%;    /* █ #7CC4D6 - Light gray text */
 
-    /* Accent Colors - Dark Mode (same, but may need adjustment) */
-    --accent-gold: 48 100% 50%;
-    --accent-green: 142 71% 45%;
-    --accent-red: 4 90% 58%;
-    --accent-gold-bright: 51 100% 50%;
-    --accent-gold-dark: 48 100% 50%;
-    --accent-blue: 217 65% 65%;
+    /* Accent Colors - Dark Mode */
+    --accent-gold: 48 100% 55%;        /* █ #F5C446 - Brighter gold */
+    --accent-green: 142 71% 50%;       /* █ #2FD579 - Brighter green */
+    --accent-red: 4 90% 63%;           /* █ #F25D68 - Brighter red */
+    --accent-gold-bright: 51 100% 55%; /* █ #FFDD44 - Bright gold */
+    --accent-gold-dark: 48 100% 55%;   /* █ #F5C446 - Dark gold */
+    --accent-blue: 192 58% 70%;        /* █ #8CCFE0 - Brighter sky blue */
+
+    /* Chart/Graph Colors - Dark Mode */
+    --chart-primary: 192 58% 70%;      /* █ #8CCFE0 - Brighter primary */
+    --chart-primary-dark: 192 58% 75%; /* █ #A5DBEB - Brighter dark chart */
+    --chart-secondary: 218 43% 25%;    /* █ #354966 - Darker secondary */
+    --chart-accent: 48 100% 55%;       /* █ #F5C446 - Brighter accent */
+    --chart-success: 142 71% 50%;      /* █ #2FD579 - Brighter success */
+    --chart-warning: 48 100% 55%;      /* █ #F5C446 - Brighter warning */
+    --chart-error: 4 90% 63%;          /* █ #F25D68 - Brighter error */
+    
+    /* Chart Background & UI Colors - Dark Mode */
+    --chart-bg: 218 43% 15%;           /* █ #1F2B3F - Dark card background */
+    --chart-border: 218 43% 22%;       /* █ #2E3F5A - Dark border */
+    --chart-grid: 218 43% 20%;         /* █ #2A3850 - Dark grid lines */
+    --chart-text: 192 58% 70%;         /* █ #8CCFE0 - Light text */
+    --chart-text-dark: 178 50% 95%;    /* █ #DCF2F1 - Very light text */
+    --chart-text-body: 192 58% 75%;    /* █ #A5DBEB - Light body text */
+    
+    /* Chart Tooltip Colors - Dark Mode */
+    --chart-tooltip-bg: 218 43% 15%;   /* █ #1F2B3F - Dark tooltip background */
+    --chart-tooltip-border: 218 43% 25%; /* █ #354966 - Dark tooltip border */
+    --chart-tooltip-title: 178 50% 95%; /* █ #DCF2F1 - Light tooltip title */
+    --chart-tooltip-body: 192 58% 75%; /* █ #A5DBEB - Light tooltip body */
+    
+    /* Chart Gradient Colors - Dark Mode */
+    --chart-gradient-start: 192 58% 70%;  /* █ #8CCFE0 - Gradient start */
+    --chart-gradient-end: 192 58% 75%;    /* █ #A5DBEB - Gradient end */
+    --chart-gradient-opacity-start: 0.3;  /* Gradient opacity start (30%) */
+    --chart-gradient-opacity-end: 0.5;    /* Gradient opacity end (50%) */
 
     /* Dark Mode Backgrounds */
-    --bg-dark-teal: 188 60% 15%;
-    --border-dark-teal: 188 55% 22%;
+    --bg-dark-teal: 238 56% 8%;        /* █ #0C0E20 - Very dark navy */
+    --border-dark-teal: 218 43% 22%;   /* █ #2E3F5A - Dark blue border */
 
     /* Sidebar Colors - Dark Mode */
-    --sidebar-bg: 225 15% 7%;
-    --sidebar-border: 230 16% 18%;
+    --sidebar-bg: 238 56% 8%;          /* █ #0C0E20 - Dark sidebar */
+    --sidebar-border: 218 43% 22%;     /* █ #2E3F5A - Dark border */
   }
 }
 
 /* =====================================================
-   🌍 BASE RESET
+   🌍 BASE RESET & TYPOGRAPHY
 ===================================================== */
 @layer base {
+  * {
+    border-color: hsl(var(--border));
+    font-family: var(--font-roboto), 'Roboto', var(--font-family), -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  }
+
   html,
   body {
+    font-family: var(--font-roboto), 'Roboto', var(--font-family), -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif !important;
     background-color: hsl(var(--background));
     color: hsl(var(--foreground));
     -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
   }
 
-  * {
-    border-color: hsl(var(--border));
+  /* Ensure all text elements use Roboto */
+  h1, h2, h3, h4, h5, h6, p, span, div, a, button, input, select, textarea, label, li, td, th {
+    font-family: var(--font-roboto), 'Roboto', var(--font-family), -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
   }
 
-  h1, h2, h3, h4, h5, h6,
-  p, span, label, small {
+  h1, h2, h3, h4, h5, h6 {
+    font-weight: var(--font-weight-bold);
     color: hsl(var(--foreground));
+    line-height: 1.2;
+  }
+
+  h1 {
+    font-size: var(--font-size-3xl);
+    font-weight: var(--font-weight-black);
+  }
+
+  h2 {
+    font-size: var(--font-size-2xl);
+  }
+
+  h3 {
+    font-size: var(--font-size-xl);
+  }
+
+  p, span, label, small, div {
+    color: hsl(var(--foreground));
+  }
+
+  /* Standardized text sizes */
+  .text-xs-standard {
+    font-size: var(--font-size-xs);
+    line-height: 1.5;
+  }
+
+  .text-sm-standard {
+    font-size: var(--font-size-sm);
+    line-height: 1.5;
+  }
+
+  .text-base-standard {
+    font-size: var(--font-size-base);
+    line-height: 1.5;
+  }
+
+  /* Placeholder styling: make placeholders a light grey across forms */
+  input::placeholder,
+  textarea::placeholder,
+  select::placeholder {
+    color: #9CA3AF; /* tailwind gray-400: readable light grey */
+    opacity: 1; /* ensure consistent contrast across browsers */
+  }
+
+  /* Vendor fallbacks for older browsers */
+  input::-webkit-input-placeholder,
+  textarea::-webkit-input-placeholder {
+    color: #9CA3AF;
+    opacity: 1;
+  }
+
+  input:-ms-input-placeholder,
+  textarea:-ms-input-placeholder {
+    color: #9CA3AF;
+    opacity: 1;
+  }
+
+  input::-ms-input-placeholder,
+  textarea::-ms-input-placeholder {
+    color: #9CA3AF;
+    opacity: 1;
+  }
+
+  /* Ensure full-page containers using `min-h-screen` match the theme background
+     so pages appear on the light cream in light mode and the dark background in dark mode. */
+  .min-h-screen {
+    background-color: hsl(var(--background)) !important;
+  }
+
+  .dark .min-h-screen {
+    background-color: hsl(var(--background)) !important;
   }
 }
 
 /* =====================================================
-   🧱 CORE COMPONENTS
+   🧱 CORE COMPONENTS - HEADERS
 ===================================================== */
 @layer components {
-  /* Summary Cards Dark Mode */
-  .dark .summary-card {
-    background: hsl(var(--card)) !important;
-    border: 1px solid hsl(var(--border)) !important;
+  /* Main Header */
+  .header-main {
+    background-color: hsl(var(--background));
+    color: hsl(var(--foreground));
+    border-bottom: 1px solid hsl(var(--border));
+    box-shadow: 0 1px 3px 0 rgb(0 0 0 / 0.1);
+    position: sticky;
+    top: 0;
+    z-index: 50;
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
   }
+
+  .dark .header-main {
+    border-bottom-color: hsl(var(--border));
+    background-color: hsl(var(--background) / 0.95);
+  }
+
+  /* =====================================================
+     🌐 GLOBAL SEMANTIC UTILITY CLASSES
+     Use these classes throughout the project for consistent styling
+     All values use CSS variables - change in :root to update globally
+  ===================================================== */
   
-  .dark .summary-card .card-text {
-    color: hsl(var(--foreground)) !important;
+  /* Global Header - Semantic utility class for all headers */
+  .header-global {
+    background-color: hsl(var(--background));
+    color: hsl(var(--foreground));
+    border-bottom: 1px solid hsl(var(--border));
+    box-shadow: 0 1px 3px 0 hsl(var(--primary-dark) / 0.1);
+    position: sticky;
+    top: 0;
+    z-index: 50;
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    padding: 1rem 1.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
   }
 
-  .dark .summary-card .card-label {
-    color: hsl(var(--muted-foreground)) !important;
+  .dark .header-global {
+    border-bottom-color: hsl(var(--border));
+    background-color: hsl(var(--background) / 0.95);
+    box-shadow: 0 1px 3px 0 hsl(var(--primary) / 0.2);
   }
 
-  /* Highlights Card Dark Mode */
-  .dark .highlights-card {
-    background: hsl(var(--card)) !important;
-    border-color: hsl(var(--border)) !important;
+  /* Page Header with Gradient */
+  .header-gradient {
+    background: linear-gradient(135deg, hsl(var(--primary-dark)) 0%, hsl(var(--primary-medium)) 100%);
+    color: white;
+    border-radius: var(--radius-xl);
+    padding: 1.5rem 2rem;
   }
 
-  .dark .highlights-card .location-name {
-    color: hsl(var(--foreground)) !important;
+  .dark .header-gradient {
+    background: linear-gradient(135deg, hsl(var(--bg-dark-teal)) 0%, hsl(var(--border-dark-teal)) 100%);
+    color: white;
   }
 
-  .dark .highlights-card .location-score {
-    color: hsl(var(--primary)) !important;
+  .header-gradient h1,
+  .header-gradient h2,
+  .header-gradient p {
+    color: white !important;
   }
 
-  /* Role and Status Cards in Cleaners Assignment Table */
-  .role-badge {
-    padding: 0.375rem 0.75rem;
-    font-size: 0.75rem;
-    font-weight: 500;
-    border-radius: 0.5rem;
-    border: 1px solid;
-    display: inline-block;
+  /* Header Decorative Line */
+  .header-decorative-line {
+    background: linear-gradient(to right, hsl(var(--primary-light)), hsl(var(--accent-blue)));
+    height: 0.375rem;
+    width: 100%;
   }
 
-  .role-badge.supervisor {
-    background-color: #e0f2fe;
-    border-color: #bfdbfe;
-    color: #2563eb;
+  /* =====================================================
+     📄 STANDARDIZED PAGE HEADER - ALL HEADERS USE THIS
+     Change colors here to update ALL page headers
+  ===================================================== */
+  .page-header {
+    background-color: white;
+    border: 1px solid hsl(var(--border-light-cyan));
+    border-radius: var(--radius-xl);
+    padding: 1.5rem 2rem;
+    box-shadow: 0 1px 3px 0 rgb(0 0 0 / 0.1);
+    overflow: hidden;
+    position: relative;
   }
 
-  .dark .role-badge.supervisor {
-    background-color: rgba(30, 58, 138, 0.3);
-    border-color: #1e40af;
-    color: #93c5fd;
+  .dark .page-header {
+    background-color: hsl(var(--card));
+    border-color: hsl(var(--border));
+    box-shadow: 0 14px 40px rgba(0, 0, 0, 0.65);
   }
 
-  .role-badge.cleaner {
+  /* ALL page headers inherit these colors - change here to update all */
+  .page-header {
+    --header-bg: 0 0% 100%;  /* White */
+    --header-border: var(--border-light-cyan);
+    --header-title-color: 220 14% 9%;  /* Black text, not orange */
+    --header-subtitle-color: 215 8% 45%;  /* Gray subtitle */
+    --header-icon-bg: white;
+    --header-icon-color: 220 14% 9%;  /* Black icon, not orange */
+  }
+
+  .dark .page-header {
+    --header-bg: var(--card);
+    --header-border: var(--border);
+    --header-title-color: var(--primary-light);
+    --header-subtitle-color: var(--muted-foreground);
+    --header-icon-bg: var(--muted);
+    --header-icon-color: var(--primary-light);
+  }
+
+  /* Page Header Decorative Background */
+  .page-header::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 12rem;
+    height: 12rem;
+    background: white;
+    opacity: 0.4;
+    filter: blur(3rem);
+    border-radius: 50%;
+    margin-right: -5rem;
+    margin-top: -5rem;
+    pointer-events: none;
+    transition: opacity 0.3s ease;
+  }
+
+  .page-header:hover::before {
+    opacity: 0.6;
+  }
+
+  .dark .page-header::before {
+    background: hsl(var(--primary-light));
+    opacity: 0.1;
+  }
+
+  /* Page Header Content Container */
+  .page-header-content {
+    position: relative;
+    z-index: 10;
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+  }
+
+  @media (min-width: 640px) {
+    .page-header-content {
+      flex-direction: row;
+      align-items: center;
+      justify-content: space-between;
+    }
+  }
+
+  /* Page Header Title Section */
+  .page-header-title-section {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+  }
+
+  /* Page Header Icon Container - Uses CSS variables for easy color changes */
+  .page-header-icon {
+    width: 3rem;
+    height: 3rem;
+    border-radius: var(--radius-md);
+    background-color: hsl(var(--header-icon-bg));
+    border: 1px solid hsl(var(--header-border));
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 1px 3px 0 rgb(0 0 0 / 0.1);
+  }
+
+  .page-header-icon svg,
+  .page-header-icon .icon {
+    color: hsl(var(--header-icon-color));
+  }
+
+  /* Page Header Text - Uses CSS variables for easy color changes */
+  .page-header-title {
+    font-size: var(--font-size-xl);
+    font-weight: var(--font-weight-black);
+    color: hsl(var(--header-title-color));
+    text-transform: uppercase;
+    letter-spacing: -0.025em;
+    line-height: 1.2;
+  }
+
+  .page-header-subtitle {
+    display: flex;
+    align-items: center;
+    gap: 0.375rem;
+    margin-top: 0.375rem;
+    font-size: var(--font-size-xs);
+    font-weight: var(--font-weight-bold);
+    color: hsl(var(--header-subtitle-color));
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    opacity: 0.7;
+  }
+
+  /* Page Header Actions */
+  .page-header-actions {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    flex-wrap: wrap;
+  }
+
+  /* Page Header Variant: White Background - Still uses same color variables */
+  .page-header-white {
+    background-color: hsl(var(--card));
+    border: 1px solid hsl(var(--border));
+  }
+
+  .page-header-white .page-header-icon {
     background-color: hsl(var(--bg-very-light-cyan));
     border-color: hsl(var(--border-light-cyan));
+  }
+
+  /* Page Header Variant: Gradient Background - Still uses same color variables */
+  .page-header-gradient {
+    background: linear-gradient(135deg, hsl(var(--primary-dark)) 0%, hsl(var(--primary-medium)) 100%);
+    border: none;
+    --header-title-color: 0 0% 100%;
+    --header-subtitle-color: 0 0% 100%;
+    --header-icon-bg: rgba(255, 255, 255, 0.1);
+    --header-icon-color: 0 0% 100%;
+  }
+
+  .dark .page-header-gradient {
+    background: linear-gradient(135deg, hsl(var(--bg-dark-teal)) 0%, hsl(var(--border-dark-teal)) 100%);
+    --header-title-color: 0 0% 100%;
+    --header-subtitle-color: 0 0% 100%;
+    --header-icon-bg: rgba(255, 255, 255, 0.1);
+    --header-icon-color: 0 0% 100%;
+  }
+}
+
+/* =====================================================
+   🧱 CORE COMPONENTS - BUTTONS
+===================================================== */
+@layer components {
+  /* Base Button - All buttons */
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: var(--radius);
+    padding: 0.5rem 1rem;
+    font-size: 0.875rem;
+    font-weight: 500;
+    line-height: 1.5;
+    transition: all 0.2s ease-in-out;
+    cursor: pointer;
+    gap: 0.5rem;
+    border: none;
+  }
+
+  /* Primary Button */
+  .btn-primary {
+    background: linear-gradient(135deg, #FFBF69 0%, #FF9F1C 100%);
+    color: white;
+    box-shadow: 0 2px 4px rgba(159, 103, 255, 0.2);
+    position: relative;
+    overflow: hidden;
+  }
+
+  .btn-primary:hover:not(:disabled) {
+    background: linear-gradient(135deg, #FFBF69 0%, #E58600 100%);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(159, 103, 255, 0.3);
+  }
+
+  .btn-primary:active:not(:disabled) {
+    background: linear-gradient(135deg, #FF9F1C 0%, #CC7A00 100%);
+    transform: translateY(0);
+    box-shadow: 0 1px 2px rgba(159, 103, 255, 0.2);
+  }
+
+  .btn-primary:focus-visible {
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(199, 210, 254, 0.5);
+  }
+
+  /* Secondary Button - Enhanced Visibility */
+  .btn-secondary {
+    background: white !important;
+    color: #FF9F1C !important;
+    border: 2px solid #FF9F1C !important;
+    border-radius: 8px !important;
+    padding: 0.75rem 1.5rem !important;
+    font-weight: 600 !important;
+    font-size: 0.75rem !important;
+    text-transform: uppercase !important;
+    letter-spacing: 0.05em !important;
+    transition: all 0.2s ease-in-out !important;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05) !important;
+}
+.btn-secondary:hover:not(:disabled) {
+  background: #FFBF69;  /* Soft orange hover */
+  border-color: #FF9F1C;
+  color: #FFFFFF;
+}
+
+  /* Outline Button */
+  .btn-outline, .btn-neutral {
+    background: white;
+    border: 1px solid #CBF3F0;
+    color: #FF9F1C;
+    box-shadow: 0 2px 8px rgba(159, 103, 255, 0.1);
+    transition: all 0.2s ease-in-out;
+  }
+  
+  .btn-outline:hover:not(:disabled), .btn-neutral:hover:not(:disabled) {
+    background: #F8F5FF;
+    border-color: #FFBF69;
+    color: #E58600;
+  }
+
+  /* Gradient Button */
+  .btn-gradient {
+    background: linear-gradient(135deg, #FFBF69 0%, #FF9F1C 100%);
+    color: white;
+    border: none;
+    position: relative;
+    overflow: hidden;
+    z-index: 1;
+    box-shadow: 0 2px 4px rgba(159, 103, 255, 0.2);
+  }
+
+  .btn-gradient::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(135deg, #FFBF69 0%, #E58600 100%);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    z-index: -1;
+  }
+
+  .btn-gradient:hover:not(:disabled)::after {
+    opacity: 1;
+  }
+
+  .btn-gradient:active:not(:disabled) {
+    transform: translateY(1px);
+    box-shadow: 0 1px 2px rgba(159, 103, 255, 0.2);
+  }
+
+  /* Button Sizes */
+  .btn-sm {
+    padding: 0.5rem 1rem;
+    font-size: 0.75rem;
+    border-radius: 6px;
+  }
+
+  .btn-md {
+    padding: 0.625rem 1.25rem;
+    font-size: 0.875rem;
+    border-radius: 8px;
+  }
+
+  .btn-lg {
+    padding: 0.75rem 1.5rem;
+    font-size: 1rem;
+    border-radius: 10px;
+  }
+
+  /* Full Width Button */
+  .btn-block {
+    width: 100%;
+  }
+
+  /* Rounded Button */
+  .btn-rounded {
+    border-radius: 9999px;
+  }
+
+  /* Disabled button styles override */
+  .btn:disabled,
+  .btn-disabled {
+    background-color: var(--color-subtle) !important;
+    color: var(--color-disabled-text) !important;
+    border-color: var(--color-border) !important;
+    cursor: not-allowed;
+    box-shadow: none !important;
+    transform: none !important;
+    opacity: 1;
+  }
+
+  /* Focus Styles */
+  .btn:focus-visible {
+    outline: 2px solid #FFBF69;
+    outline-offset: 2px;
+    box-shadow: 0 0 0 4px rgba(214, 164, 255, 0.3);
+  }
+
+  /* Ripple Effect */
+  .btn-ripple {
+    position: relative;
+    overflow: hidden;
+  }
+
+  .btn-ripple:after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 5px;
+    height: 5px;
+    background: rgba(255, 255, 255, 0.5);
+    opacity: 0;
+    border-radius: 100%;
+    transform: scale(1, 1) translate(-50%, -50%);
+    transform-origin: 50% 50%;
+  }
+
+  .btn-ripple:focus:not(:active)::after {
+    animation: ripple 1s ease-out;
+  }
+
+  @keyframes ripple {
+    0% {
+      transform: scale(0, 0);
+      opacity: 0.5;
+    }
+    100% {
+      transform: scale(40, 40);
+      opacity: 0;
+    }
+  }
+
+  /* Action Button - Uses same primary color */
+  .btn-action {
+    background-color: white;
+    color: hsl(var(--primary-dark));
+    border: 1px solid hsl(var(--primary-dark) / 0.2);
+  }
+
+  .btn-action:hover:not(:disabled) {
+    background-color: hsl(var(--primary-dark));
+    color: hsl(var(--primary-foreground));
+    border-color: hsl(var(--primary-dark));
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px hsl(var(--primary-dark) / 0.3);
+  }
+
+  .dark .btn-action {
+    background-color: hsl(var(--card));
+    color: hsl(var(--primary-light));
+    border-color: hsl(var(--primary-light) / 0.3);
+  }
+
+  .dark .btn-action:hover:not(:disabled) {
+    background-color: hsl(var(--primary));
+    color: hsl(var(--primary-foreground));
+    border-color: hsl(var(--primary));
+  }
+
+  /* Assign Button - Uses primary color instead of gold */
+  .btn-assign {
+    background-color: hsl(var(--primary-dark));
+    color: hsl(var(--primary-foreground));
+    font-weight: var(--font-weight-normal);
+  }
+}
+
+  .btn-assign:hover:not(:disabled) {
+    background-color: hsl(var(--primary-medium));
+    box-shadow: 0 4px 12px hsl(var(--primary-dark) / 0.3);
+    transform: translateY(-1px);
+  }
+
+  .dark .btn-assign {
+    background-color: hsl(var(--primary));
+    color: hsl(var(--primary-foreground));
+  }
+
+  .dark .btn-assign:hover:not(:disabled) {
+    background-color: hsl(var(--primary-light));
+  }
+
+  /* Gradient Button - Uses primary colors */
+  .btn-gradient {
+  background: linear-gradient(135deg, #CBF3F0 0%, #CBF3F0 100%);
+  color: #FFFFFF; /* ✅ pure white text */
+  font-weight: var(--font-weight-normal);
+  box-shadow: 0 6px 20px rgba(230, 229, 255, 0.9);
+}
+
+
+
+  .btn-gradient:hover:not(:disabled) {
+    background: linear-gradient(135deg, #FFBF69 0%, #FF9F1C 100%);
+    filter: brightness(1.05);
+    box-shadow: 0 6px 24px rgba(159, 103, 255, 0.3);
+    transform: translateY(-1px);
+  }
+
+  .dark .btn-gradient {
+    background: linear-gradient(to right, hsl(var(--primary)), hsl(var(--primary-light)));
+  }
+
+  /* Icon Button - Rounded corners */
+  .btn-icon {
+    padding: 0.5rem;
+    border-radius: var(--radius-xl);  /* Rounded corners */
+    background-color: white;
+    border: 1px solid hsl(var(--border));
+    color: #000000;  /* Black icons, not orange */
+    transition: all 0.2s ease;
+  }
+
+  .btn-icon:hover:not(:disabled) {
+    background-color: #f3f4f6;  /* Light gray hover */
+    color: #000000;  /* Black on hover */
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  }
+
+  .dark .btn-icon {
+    background-color: hsl(var(--card));
+    border-color: hsl(var(--border));
+    color: hsl(var(--primary-light));
+  }
+
+  .dark .btn-icon:hover:not(:disabled) {
+    background-color: hsl(var(--primary));
+    color: white;
+  }
+
+  /* Danger/Warning Button */
+  .btn-danger, .btn-warning {
+    background: linear-gradient(to right, #FCA5A5, #F87171);
+    color: white;
+    box-shadow: 0 8px 24px rgba(248, 113, 113, 0.4);
+  }
+
+  .btn-danger:hover:not(:disabled), 
+  .btn-warning:hover:not(:disabled) {
+    background: linear-gradient(to right, #F87171, #EF4444);
+    transform: translateY(-2px);
+    box-shadow: 0 12px 28px rgba(248, 113, 113, 0.5);
+  }
+
+  .btn-danger:focus-visible, 
+  .btn-warning:focus-visible {
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(254, 202, 202, 0.5);
+  }
+  
+  .btn-danger:active:not(:disabled),
+  .btn-warning:active:not(:disabled) {
+    transform: translateY(0);
+    box-shadow: 0 4px 12px rgba(248, 113, 113, 0.3);
+  }
+
+  /* Button Sizes */
+  .btn-sm {
+    padding: 0.5rem 1rem;
+    font-size: var(--font-size-xs);
+  }
+
+  .btn-lg {
+    padding: 0.75rem 2rem;
+    font-size: var(--font-size-base);
+  }
+
+  /* Global Button - Semantic utility class for all buttons */
+  .btn-global {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 14px;
+    padding: 0.75rem 1.5rem;
+    font-size: 0.875rem;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    cursor: pointer;
+    border: none;
+    outline: none;
+    background: linear-gradient(to right, #E1E0FF, #DAD8FF);
+    color: #FFFFFF;
+    box-shadow: 0 8px 24px rgba(225, 224, 255, 0.9);
+    font-family: inherit;
+  }
+
+  .btn-global:hover:not(:disabled) {
+    background: linear-gradient(to right, #DAD8FF, #D1CFFF);
+    transform: translateY(-2px);
+    box-shadow: 0 12px 28px rgba(225, 224, 255, 1);
+  }
+
+  .btn-global:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+
+  .dark .btn-global {
+    background: linear-gradient(to right, #E1E0FF, #DAD8FF);
+    color: #FFFFFF;
+    box-shadow: 0 8px 24px rgba(225, 224, 255, 0.9);
+  }
+
+  .btn-global:hover:not(:disabled) {
+    background: linear-gradient(to right, #DAD8FF, #D1CFFF);
+    transform: translateY(-2px);
+    box-shadow: 0 12px 28px rgba(225, 224, 255, 1);
+  }
+
+  .btn-global:active:not(:disabled) {
+    transform: translateY(0);
+    box-shadow: 0 4px 12px rgba(225, 224, 255, 0.7);
+  }
+
+/* =====================================================
+   🧱 CORE COMPONENTS - TABLES
+   All tables use the same standardized model
+===================================================== */
+@layer components {
+  /* Table Container - Standardized for all tables */
+  .table-container {
+    background-color: hsl(var(--card));
+    border: 1px solid hsl(var(--border));
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+    box-shadow: 0 1px 3px 0 rgb(0 0 0 / 0.1);
+  }
+
+  .dark .table-container {
+    background-color: hsl(var(--card));
+    border-color: hsl(var(--border));
+    box-shadow: 0 14px 40px rgba(0, 0, 0, 0.65);
+  }
+
+  /* Table - Standardized model */
+  .table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    font-size: var(--font-size-sm);
+  }
+
+  /* Table Header - Standardized */
+  .table-header {
+    background-color: hsl(var(--bg-light-cyan-variant));
+    border-bottom: 1px solid hsl(var(--border-light-cyan));
+    position: sticky;
+    top: 0;
+    z-index: 10;
+  }
+
+  .dark .table-header {
+    background-color: hsl(var(--muted));
+    border-bottom-color: hsl(var(--border));
+  }
+
+  /* Table Header Cell (th) - STANDARDIZED - All table headers use this style */
+  .table-header th,
+  .table th {
+    padding: 1rem 1.25rem;
+    text-align: left;
+    font-weight: var(--font-weight-normal) !important; /* NOT bold */
+    font-size: var(--font-size-sm) !important; /* Increased from xs to sm for better readability */
+    text-transform: uppercase !important; /* Force uppercase */
+    letter-spacing: 0.05em;
+    color: #000000 !important; /* Black text, not orange */
+    border-bottom: 1px solid hsl(var(--border-light-cyan));
+    font-family: var(--font-family);
+  }
+
+  .dark .table-header th,
+  .dark .table th {
+    color: hsl(var(--primary-light)) !important;
+    border-bottom-color: hsl(var(--border));
+  }
+
+  /* Override any custom header styles to use standard */
+  .table-header th div,
+  .table-header th span,
+  .table th div,
+  .table th span {
+    font-weight: var(--font-weight-normal) !important;
+    font-size: var(--font-size-sm) !important; /* Increased from xs to sm for better readability */
+    text-transform: uppercase !important;
+    letter-spacing: 0.05em;
+  }
+
+  /* Table Header with Primary Background */
+  .table-header-primary {
+    background-color: hsl(var(--primary-dark));
+  }
+
+  .table-header-primary th {
+    color: white !important;
+    border-bottom-color: rgba(255, 255, 255, 0.1);
+    font-weight: var(--font-weight-normal) !important;
+    font-size: var(--font-size-sm) !important; /* Increased from xs to sm for better readability */
+    text-transform: uppercase !important;
+    letter-spacing: 0.05em;
+    font-family: var(--font-family);
+  }
+
+  .dark .table-header-primary {
+    background-color: hsl(var(--primary));
+  }
+
+  .dark .table-header-primary th {
+    color: white !important;
+    font-weight: var(--font-weight-normal) !important;
+    font-size: var(--font-size-sm) !important; /* Increased from xs to sm for better readability */
+    text-transform: uppercase !important;
+  }
+
+  /* Table Body - Standardized */
+  .table-body {
+    background-color: hsl(var(--card));
+  }
+
+  .dark .table-body {
+    background-color: hsl(var(--card));
+  }
+
+  /* Table Row - Standardized with hover effect */
+  .table-row {
+    border-bottom: 1px solid hsl(var(--border));
+    transition: background-color 0.2s ease;
+  }
+
+  .table-row:hover {
+    background-color: hsl(var(--bg-light-cyan-alt));
+  }
+
+  .dark .table-row {
+    border-bottom-color: hsl(var(--border));
+  }
+
+  .dark .table-row:hover {
+    background-color: hsl(var(--muted) / 0.5);
+  }
+
+  /* Table Cell (td) - STANDARDIZED - All table cells use this style */
+  .table-cell,
+  .table td {
+    padding: 1rem 1.25rem;
+    color: #000000 !important; /* Force black in light mode */
+    font-size: var(--font-size-base) !important; /* Increased from sm to base for better readability */
+    font-weight: var(--font-weight-normal) !important; /* NOT bold */
+    text-transform: none !important; /* Force normal case (not uppercase/lowercase) */
+    font-family: var(--font-family);
+  }
+
+  .dark .table-cell,
+  .dark .table td {
+    color: hsl(var(--foreground)) !important;
+  }
+
+  /* Table cell text - STANDARDIZED - All text inside cells uses this style */
+  .table-cell > *:not(.badge):not(.chip):not(.badge-status):not(.badge-role):not(.badge-score):not(.badge-primary),
+  .table td > *:not(.badge):not(.chip):not(.badge-status):not(.badge-role):not(.badge-score):not(.badge-primary),
+  .table-cell a:not(.badge):not(.chip),
+  .table td a:not(.badge):not(.chip),
+  .table-cell span:not(.badge):not(.chip):not(.badge-status):not(.badge-role):not(.badge-score):not(.badge-primary),
+  .table td span:not(.badge):not(.chip):not(.badge-status):not(.badge-role):not(.badge-score):not(.badge-primary),
+  .table-cell p:not(.badge):not(.chip),
+  .table td p:not(.badge):not(.chip),
+  .table-cell div:not(.badge):not(.chip):not(.badge-status):not(.badge-role):not(.badge-score):not(.badge-primary),
+  .table td div:not(.badge):not(.chip):not(.badge-status):not(.badge-role):not(.badge-score):not(.badge-primary) {
+    color: #000000 !important;
+    font-weight: var(--font-weight-normal) !important; /* NOT bold */
+    text-transform: none !important; /* Force normal case */
+    font-size: var(--font-size-sm) !important;
+  }
+
+  .dark .table-cell > *:not(.badge):not(.chip):not(.badge-status):not(.badge-role):not(.badge-score):not(.badge-primary),
+  .dark .table td > *:not(.badge):not(.chip):not(.badge-status):not(.badge-role):not(.badge-score):not(.badge-primary),
+  .dark .table-cell a:not(.badge):not(.chip),
+  .dark .table td a:not(.badge):not(.chip),
+  .dark .table-cell span:not(.badge):not(.chip):not(.badge-status):not(.badge-role):not(.badge-score):not(.badge-primary),
+  .dark .table td span:not(.badge):not(.chip):not(.badge-status):not(.badge-role):not(.badge-score):not(.badge-primary),
+  .dark .table-cell p:not(.badge):not(.chip),
+  .dark .table td p:not(.badge):not(.chip),
+  .dark .table-cell div:not(.badge):not(.chip):not(.badge-status):not(.badge-role):not(.badge-score):not(.badge-primary),
+  .dark .table td div:not(.badge):not(.chip):not(.badge-status):not(.badge-role):not(.badge-score):not(.badge-primary) {
+    color: hsl(var(--foreground)) !important;
+    font-weight: var(--font-weight-medium) !important;
+    text-transform: none !important;
+  }
+
+  /* Override text utility classes in table cells for light mode */
+  .table-cell.text-foreground,
+  .table-cell.text-muted-foreground,
+  .table-cell.text-primary-dark,
+  .table-cell.text-primary-medium {
+    color: #000000;
+  }
+
+  .dark .table-cell.text-foreground,
+  .dark .table-cell.text-muted-foreground {
+    color: hsl(var(--foreground));
+  }
+
+  .dark .table-cell.text-primary-dark,
+  .dark .table-cell.text-primary-medium {
+    color: hsl(var(--primary-light));
+  }
+
+  /* Links in table cells */
+  .table-cell a {
+    transition: color 0.2s ease;
+  }
+
+  .table-cell a:hover {
     color: hsl(var(--primary-dark));
   }
 
-  .dark .role-badge.cleaner {
+  .dark .table-cell a:hover {
+    color: hsl(var(--primary-light));
+  }
+
+  .table-cell-center {
+    text-align: center;
+  }
+
+  .table-cell-right {
+    text-align: right;
+  }
+
+  /* Table Footer - Standardized */
+  .table-footer {
+    padding: 0.75rem 1.5rem;
+    background-color: hsl(var(--bg-light-gray));
+    border-top: 1px solid hsl(var(--border));
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .dark .table-footer {
+    background-color: hsl(var(--card));
+    border-top-color: hsl(var(--border));
+  }
+
+  /* Global Table - Semantic utility class for all tables */
+  .table-global {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    font-size: var(--font-size-sm);
+    background-color: hsl(var(--card));
+    border: 1px solid hsl(var(--border));
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+    box-shadow: 0 1px 3px 0 hsl(var(--primary-dark) / 0.1);
+    font-family: var(--font-family);
+  }
+
+  .table-global thead {
+    background-color: hsl(var(--bg-light-cyan-variant));
+    border-bottom: 1px solid hsl(var(--border-light-cyan));
+    position: sticky;
+    top: 0;
+    z-index: 10;
+  }
+
+  .table-global thead th {
+    padding: 1rem 1.25rem;
+    text-align: left;
+    font-weight: var(--font-weight-normal) !important;
+    font-size: var(--font-size-sm) !important; /* Increased from xs to sm for better readability */
+    text-transform: uppercase !important;
+    letter-spacing: 0.05em;
+    color: #000000 !important; /* Black text, not orange */
+    border-bottom: 1px solid hsl(var(--border-light-cyan));
+    font-family: var(--font-family);
+  }
+
+  .table-global tbody {
+    background-color: hsl(var(--card));
+  }
+
+  .table-global tbody tr {
+    border-bottom: 1px solid hsl(var(--border));
+    transition: background-color 0.2s ease;
+  }
+
+  .table-global tbody tr:hover {
+    background-color: hsl(var(--bg-light-cyan-alt));
+  }
+
+  .table-global tbody td {
+    padding: 1rem 1.25rem;
+    color: #000000 !important;
+    font-size: var(--font-size-base) !important; /* Increased from sm to base for better readability */
+    font-weight: var(--font-weight-normal) !important;
+    text-transform: none !important;
+    font-family: var(--font-family);
+  }
+
+  .dark .table-global tbody td {
+    color: hsl(var(--foreground)) !important;
+  }
+
+  .dark .table-global {
+    border-color: hsl(var(--border));
+    box-shadow: 0 14px 40px hsl(var(--primary-dark) / 0.65);
+  }
+
+  .dark .table-global thead {
+    background-color: hsl(var(--muted));
+    border-bottom-color: hsl(var(--border));
+  }
+
+  .dark .table-global thead th {
+    color: hsl(var(--primary-light));
+    border-bottom-color: hsl(var(--border));
+  }
+
+  .dark .table-global tbody {
+    background-color: hsl(var(--card));
+  }
+
+  .dark .table-global tbody tr {
+    border-bottom-color: hsl(var(--border));
+  }
+
+  .dark .table-global tbody tr:hover {
+    background-color: hsl(var(--muted) / 0.5);
+  }
+
+  .dark .table-global tbody td {
+    color: hsl(var(--foreground)) !important;
+  }
+
+  /* Force all tables (even without .table class) to use standardized styles */
+  table thead th {
+    font-weight: var(--font-weight-normal) !important;
+    font-size: var(--font-size-sm) !important; /* Increased from xs to sm for better readability */
+    text-transform: uppercase !important;
+    letter-spacing: 0.05em;
+    font-family: var(--font-family);
+  }
+
+  table tbody td {
+    font-weight: var(--font-weight-normal) !important;
+    font-size: var(--font-size-base) !important; /* Increased from sm to base for better readability */
+    text-transform: none !important;
+    font-family: var(--font-family);
+  }
+
+  /* Override inline styles and custom classes in tables - ensure headers are uppercase and bold */
+  table thead th *,
+  .table-header th *,
+  .table th * {
+    font-weight: var(--font-weight-normal) !important;
+    text-transform: uppercase !important;
+    font-size: var(--font-size-sm) !important; /* Increased from xs to sm for better readability */
+  }
+
+  /* Ensure cell text content is normal case and medium weight */
+  table tbody td *:not(.badge):not(.chip):not(.badge-status):not(.badge-role):not(.badge-score):not(.badge-primary),
+  .table-cell *:not(.badge):not(.chip):not(.badge-status):not(.badge-role):not(.badge-score):not(.badge-primary),
+  .table td *:not(.badge):not(.chip):not(.badge-status):not(.badge-role):not(.badge-score):not(.badge-primary) {
+    font-weight: var(--font-weight-normal) !important;
+    text-transform: none !important;
+    font-size: var(--font-size-base) !important; /* Increased from sm to base for better readability */
+  }
+}
+
+/* =====================================================
+   🧱 CORE COMPONENTS - BADGES & CHIPS
+   All badges and chips have hover effects and dark theme support
+===================================================== */
+@layer components {
+  /* Base Badge - with hover effect */
+  .badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.375rem;
+    padding: 0.375rem 0.75rem;
+    font-size: var(--font-size-xs);
+    font-weight: var(--font-weight-semibold);
+    border-radius: var(--radius-md);
+    border: 1px solid;
+    transition: all 0.2s ease;
+    cursor: default;
+  }
+
+  .badge:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+  }
+
+  /* Primary Badge - with hover effect */
+  .badge-primary {
+    background-color: hsl(var(--bg-very-light-cyan));
+    border-color: hsl(var(--border-primary-dark) / 0.2);
+    color: hsl(var(--primary-dark));
+  }
+
+  .badge-primary:hover {
+    background-color: hsl(var(--primary-dark) / 0.1);
+    border-color: hsl(var(--primary-dark) / 0.3);
+    box-shadow: 0 2px 8px hsl(var(--primary-dark) / 0.2);
+  }
+
+  .dark .badge-primary {
     background-color: hsl(var(--bg-dark-teal));
     border-color: hsl(var(--border-dark-teal));
     color: hsl(var(--primary-light));
   }
 
-  .status-badge {
-    padding: 0.375rem 0.75rem;
-    font-size: 0.75rem;
-    font-weight: 500;
-    border-radius: 0.5rem;
-    border: 1px solid;
-    display: inline-block;
+  .dark .badge-primary:hover {
+    background-color: hsl(var(--primary) / 0.2);
+    border-color: hsl(var(--primary-light) / 0.4);
+    box-shadow: 0 2px 8px hsl(var(--primary) / 0.3);
   }
 
-  .status-badge.assigned {
+  /* Status Badges - with hover effects */
+  .badge-status {
+    padding: 0.375rem 0.75rem;
+    font-size: var(--font-size-xs);
+    font-weight: var(--font-weight-semibold);
+    border-radius: var(--radius-md);
+    border: 1px solid;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.375rem;
+    transition: all 0.2s ease;
+    cursor: default;
+  }
+
+  .badge-status:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+  }
+
+  .badge-status.active {
     background-color: #ecfdf5;
     border-color: #d1fae5;
     color: #059669;
   }
 
-  .dark .status-badge.assigned {
+  .badge-status.active:hover {
+    background-color: #d1fae5;
+    border-color: #a7f3d0;
+    box-shadow: 0 2px 8px rgba(5, 150, 105, 0.25);
+  }
+
+  .dark .badge-status.active {
     background-color: rgba(6, 78, 59, 0.3);
     border-color: #065f46;
     color: #6ee7b7;
   }
 
-  .status-badge.unassigned {
+  .dark .badge-status.active:hover {
+    background-color: rgba(6, 78, 59, 0.5);
+    border-color: #047857;
+    box-shadow: 0 2px 8px rgba(110, 231, 183, 0.3);
+  }
+
+  .badge-status.inactive {
+    background-color: #fef2f2;
+    border-color: #fecaca;
+    color: #dc2626;
+  }
+
+  .badge-status.inactive:hover {
+    background-color: #fecaca;
+    border-color: #fca5a5;
+    box-shadow: 0 2px 8px rgba(220, 38, 38, 0.25);
+  }
+
+  .dark .badge-status.inactive {
+    background-color: rgba(127, 29, 29, 0.3);
+    border-color: #991b1b;
+    color: #fca5a5;
+  }
+
+  .dark .badge-status.inactive:hover {
+    background-color: rgba(127, 29, 29, 0.5);
+    border-color: #b91c1c;
+    box-shadow: 0 2px 8px rgba(252, 165, 165, 0.3);
+  }
+
+  .badge-status.assigned {
+    background-color: #ecfdf5;
+    border-color: #d1fae5;
+    color: #059669;
+  }
+
+  .badge-status.assigned:hover {
+    background-color: #d1fae5;
+    border-color: #a7f3d0;
+    box-shadow: 0 2px 8px rgba(5, 150, 105, 0.25);
+  }
+
+  .dark .badge-status.assigned {
+    background-color: rgba(6, 78, 59, 0.3);
+    border-color: #065f46;
+    color: #6ee7b7;
+  }
+
+  .dark .badge-status.assigned:hover {
+    background-color: rgba(6, 78, 59, 0.5);
+    border-color: #047857;
+    box-shadow: 0 2px 8px rgba(110, 231, 183, 0.3);
+  }
+
+  .badge-status.unassigned {
     background-color: #fffbeb;
     border-color: #fef3c7;
     color: #d97706;
   }
 
-  .dark .status-badge.unassigned {
+  .badge-status.unassigned:hover {
+    background-color: #fef3c7;
+    border-color: #fde68a;
+    box-shadow: 0 2px 8px rgba(217, 119, 6, 0.25);
+  }
+
+  .dark .badge-status.unassigned {
     background-color: rgba(120, 53, 15, 0.3);
     border-color: #9a3412;
     color: #fcd34d;
   }
 
-  /* Amenities Chips */
-  .amenity-chip {
-    padding: 0.375rem 0.75rem;
-    font-size: 0.75rem;
-    font-weight: 500;
-    border-radius: 0.5rem;
-    border: 1px solid hsl(var(--border-light-cyan));
-    background-color: hsl(var(--bg-very-light-cyan));
-    color: hsl(var(--primary-dark));
-    transition: all 0.2s ease;
+  .dark .badge-status.unassigned:hover {
+    background-color: rgba(120, 53, 15, 0.5);
+    border-color: #b45309;
+    box-shadow: 0 2px 8px rgba(252, 211, 77, 0.3);
   }
 
-  .dark .amenity-chip {
-    background-color: hsl(var(--bg-dark-teal));
-    border-color: hsl(var(--border-dark-teal));
-    color: hsl(var(--primary-light));
-  }
-
-  /* User Role Badges */
-  .role-badge {
+  /* Role Badges - with hover effects */
+  .badge-role {
     padding: 0.375rem 1rem;
-    font-size: 0.625rem;
-    font-weight: 800;
-    border-radius: 0.75rem;
+    font-size: var(--font-size-xs);
+    font-weight: var(--font-weight-black);
+    border-radius: var(--radius-md);
     border: 1px solid;
     text-transform: uppercase;
     letter-spacing: 0.05em;
+    transition: all 0.2s ease;
+    cursor: default;
   }
 
-  .role-badge.admin {
+  .badge-role:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+  }
+
+  .badge-role.admin {
     background-color: #e0f2fe;
     border-color: #bfdbfe;
     color: #1d4ed8;
   }
 
-  .dark .role-badge.admin {
+  .badge-role.admin:hover {
+    background-color: #bfdbfe;
+    border-color: #93c5fd;
+    box-shadow: 0 2px 8px rgba(29, 78, 216, 0.25);
+  }
+
+  .dark .badge-role.admin {
     background-color: rgba(30, 58, 138, 0.3);
     border-color: rgba(37, 99, 235, 0.3);
     color: #93c5fd;
   }
 
-  .role-badge.supervisor {
+  .dark .badge-role.admin:hover {
+    background-color: rgba(30, 58, 138, 0.5);
+    border-color: rgba(37, 99, 235, 0.5);
+    box-shadow: 0 2px 8px rgba(147, 197, 253, 0.3);
+  }
+
+  .badge-role.supervisor {
     background-color: #f0fdfa;
     border-color: #ccfbf1;
     color: #0d9488;
   }
 
-  .dark .role-badge.supervisor {
+  .badge-role.supervisor:hover {
+    background-color: #ccfbf1;
+    border-color: #99f6e4;
+    box-shadow: 0 2px 8px rgba(13, 148, 136, 0.25);
+  }
+
+  .dark .badge-role.supervisor {
     background-color: rgba(13, 148, 136, 0.2);
     border-color: rgba(20, 184, 166, 0.3);
     color: #5eead4;
   }
 
-  .role-badge.cleaner {
-    background-color: #f8fafc;
-    border-color: #f1f5f9;
-    color: #475569;
+  .dark .badge-role.supervisor:hover {
+    background-color: rgba(13, 148, 136, 0.4);
+    border-color: rgba(20, 184, 166, 0.5);
+    box-shadow: 0 2px 8px rgba(94, 234, 212, 0.3);
   }
 
-  .dark .role-badge.cleaner {
-    background-color: rgba(30, 41, 59, 0.3);
-    border-color: rgba(51, 65, 85, 0.3);
-    color: #cbd5e1;
-  }
-
-  /* Current Score Badge in Washroom Table */
-  .current-score-badge {
-    padding: 0.375rem 0.75rem;
-    font-size: 0.75rem;
-    font-weight: 800;
-    border-radius: 0.5rem;
-    border: 1px solid;
-    display: inline-block;
+  .badge-role.cleaner {
     background-color: hsl(var(--bg-very-light-cyan));
-    border-color: hsl(var(--primary-dark) / 0.1);
+    border-color: hsl(var(--border-light-cyan));
     color: hsl(var(--primary-dark));
   }
 
-  .dark .current-score-badge {
+  .badge-role.cleaner:hover {
+    background-color: hsl(var(--primary-dark) / 0.1);
+    border-color: hsl(var(--primary-dark) / 0.3);
+    box-shadow: 0 2px 8px hsl(var(--primary-dark) / 0.2);
+  }
+
+  .dark .badge-role.cleaner {
     background-color: hsl(var(--bg-dark-teal));
     border-color: hsl(var(--border-dark-teal));
     color: hsl(var(--primary-light));
   }
 
-  /* Glow effect for dark mode */
-  .dark .summary-card:hover::before {
-    background: linear-gradient(
-      135deg,
-      rgba(73, 184, 211, 0.1) 0%,
-      rgba(25, 118, 210, 0.1) 100%
-    );
+  .dark .badge-role.cleaner:hover {
+    background-color: hsl(var(--primary) / 0.2);
+    border-color: hsl(var(--primary-light) / 0.4);
+    box-shadow: 0 2px 8px hsl(var(--primary) / 0.3);
   }
 
+  /* Score Badge - with hover effect */
+  .badge-score {
+    padding: 0.375rem 0.75rem;
+    font-size: var(--font-size-sm);
+    font-weight: var(--font-weight-black);
+    border-radius: var(--radius-md);
+    border: 1px solid;
+    display: inline-block;
+    background-color: hsl(var(--bg-very-light-cyan));
+    border-color: hsl(var(--primary-dark) / 0.1);
+    color: hsl(var(--primary-dark));
+    transition: all 0.2s ease;
+    cursor: default;
+  }
+
+  .badge-score:hover {
+    background-color: hsl(var(--primary-dark) / 0.1);
+    border-color: hsl(var(--primary-dark) / 0.3);
+    transform: translateY(-1px);
+    box-shadow: 0 2px 8px hsl(var(--primary-dark) / 0.2);
+  }
+
+  .dark .badge-score {
+    background-color: hsl(var(--bg-dark-teal));
+    border-color: hsl(var(--border-dark-teal));
+    color: hsl(var(--primary-light));
+  }
+
+  .dark .badge-score:hover {
+    background-color: hsl(var(--primary) / 0.2);
+    border-color: hsl(var(--primary-light) / 0.4);
+    box-shadow: 0 2px 8px hsl(var(--primary) / 0.3);
+  }
+
+  /* Amenity Chip - with hover effect */
+  .chip {
+    padding: 0.375rem 0.75rem;
+    font-size: var(--font-size-xs);
+    font-weight: var(--font-weight-medium);
+    border-radius: var(--radius-md);
+    border: 1px solid hsl(var(--border-light-cyan));
+    background-color: hsl(var(--bg-very-light-cyan));
+    color: hsl(var(--primary-dark));
+    transition: all 0.2s ease;
+    cursor: default;
+    display: inline-block;
+  }
+
+  .chip:hover {
+    background-color: hsl(var(--primary-dark) / 0.1);
+    border-color: hsl(var(--primary-dark) / 0.3);
+    transform: translateY(-1px);
+    box-shadow: 0 2px 8px hsl(var(--primary-dark) / 0.2);
+  }
+
+  .dark .chip {
+    background-color: hsl(var(--bg-dark-teal));
+    border-color: hsl(var(--border-dark-teal));
+    color: hsl(var(--primary-light));
+  }
+
+  .dark .chip:hover {
+    background-color: hsl(var(--primary) / 0.2);
+    border-color: hsl(var(--primary-light) / 0.4);
+    box-shadow: 0 2px 8px hsl(var(--primary) / 0.3);
+  }
+}
+
+/* =====================================================
+   🧱 CORE COMPONENTS - CARDS
+===================================================== */
+@layer components {
+  /* Base Card */
   .card {
     background-color: hsl(var(--card));
     color: hsl(var(--card-foreground));
     border: 1px solid hsl(var(--border));
-    border-radius: 14px;
+    border-radius: var(--radius-xl);
+    padding: 1.5rem;
+    box-shadow: 0 1px 3px 0 rgb(0 0 0 / 0.1);
   }
 
   .dark .card {
-    box-shadow: 0 14px 40px rgba(0,0,0,0.65);
+    box-shadow: 0 14px 40px rgba(0, 0, 0, 0.65);
   }
 
-  header,
-  .header,
-  .topbar {
-    background-color: hsl(var(--background));
+  /* Card Variants */
+  .card-primary {
+    background-color: hsl(var(--bg-very-light-cyan));
+    border: 1px solid hsl(var(--border-primary-dark) / 0.2);
+  }
+
+  .card-light {
+    background-color: hsl(var(--bg-light-cyan-alt));
+    border: 1px solid hsl(var(--primary-dark) / 0.1);
+  }
+
+  .card-gray {
+    background-color: hsl(var(--bg-light-gray));
+    border: 1px solid hsl(var(--border));
+  }
+
+  /* Auth Card */
+  .card-auth {
+    background-color: hsl(var(--card));
+    border: 1px solid hsl(var(--border));
+    border-radius: 2rem;
+    padding: 2.5rem 2rem;
+    box-shadow: 0 1px 3px 0 rgb(0 0 0 / 0.1);
+    position: relative;
+    overflow: hidden;
+  }
+
+  .dark .card-auth {
+    box-shadow: 0 14px 40px rgba(0, 0, 0, 0.65);
+  }
+
+  /* Global Card - Semantic utility class for all cards */
+  .card-global {
+    background-color: hsl(var(--card));
+    color: hsl(var(--card-foreground));
+    border: 1px solid hsl(var(--border));
+    border-radius: var(--radius-xl);
+    padding: 1.5rem;
+    box-shadow: 0 1px 3px 0 hsl(var(--primary-dark) / 0.1);
+    font-family: var(--font-family);
+    transition: all 0.2s ease;
+  }
+
+  .card-global:hover {
+    box-shadow: 0 4px 12px hsl(var(--primary-dark) / 0.15);
+    transform: translateY(-1px);
+  }
+
+  .dark .card-global {
+    border-color: hsl(var(--border));
+    box-shadow: 0 14px 40px hsl(var(--primary-dark) / 0.65);
+  }
+
+  .dark .card-global:hover {
+    box-shadow: 0 16px 48px hsl(var(--primary) / 0.7);
+  }
+}
+
+/* =====================================================
+   🧱 CORE COMPONENTS - INPUTS & FORMS
+===================================================== */
+@layer components {
+  .input {
+    background-color: hsl(var(--bg-light-gray));
+    border: 1px solid hsl(var(--border));
+    border-radius: var(--radius-lg);
+    padding: 1rem 1.25rem;
+    color: hsl(var(--foreground));
+    font-size: var(--font-size-sm);
+    transition: all 0.2s ease;
+    width: 100%;
+  }
+
+  .input:focus {
+    background-color: white;
+    outline: none;
+    border-color: hsl(var(--primary-light));
+    box-shadow: 0 0 0 4px hsl(var(--primary-light) / 0.1);
+  }
+
+  .dark .input {
+    background-color: hsl(var(--card));
+    border-color: hsl(var(--border));
     color: hsl(var(--foreground));
   }
 
-  .sidebar {
-    background-color: hsl(var(--sidebar-bg));
-    color: hsl(var(--foreground));
+  .dark .input:focus {
+    background-color: hsl(var(--card));
+    border-color: hsl(var(--primary-light));
+  }
+
+  .input::placeholder {
+    color: hsl(var(--muted-foreground));
+  }
   }
 
   /* =====================================================
-     🎨 UTILITY CLASSES - BACKGROUNDS
+   📝 CORE COMPONENTS - FORMS (Modals/Popups)
+   All forms use the same standardized classes
+   Change styles here to affect ALL forms
   ===================================================== */
+@layer components {
+  /* Form Overlay - Backdrop for modal forms */
+  .form-overlay {
+    position: fixed;
+    inset: 0;
+    background-color: rgba(0, 0, 0, 0.4);
+    backdrop-filter: blur(4px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 50;
+    padding: 1rem;
+    overflow-y: auto;
+  }
+
+  .dark .form-overlay {
+    background-color: rgba(0, 0, 0, 0.6);
+  }
+
+  /* Form Container - Main modal/popup container */
+  .form-container {
+    background-color: hsl(var(--card));
+    border: 1px solid hsl(var(--border));
+    border-radius: var(--radius-2xl);
+    box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+    width: 100%;
+    max-width: 28rem;
+    overflow: hidden;
+    animation: fadeIn 0.2s ease-in-out;
+  }
+
+  .form-container-lg {
+    max-width: 42rem;
+  }
+
+  .form-container-xl {
+    max-width: 56rem;
+  }
+
+  .dark .form-container {
+    background-color: hsl(var(--card));
+    border-color: hsl(var(--border));
+    box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.5);
+  }
+
+  /* Form Header - Header section of form */
+  .form-header {
+    background-color: hsl(var(--bg-very-light-cyan));
+    border-bottom: 1px solid hsl(var(--border));
+    padding: 1.25rem 1.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .dark .form-header {
+    background-color: hsl(var(--muted));
+    border-bottom-color: hsl(var(--border));
+  }
+
+  .form-header-title {
+    font-size: var(--font-size-base);
+    font-weight: var(--font-weight-black);
+    color: #000000;  /* Black text, not orange */
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+
+  .dark .form-header-title {
+    color: hsl(var(--primary-light));
+  }
+
+  .form-header-subtitle {
+    font-size: var(--font-size-xs);
+    font-weight: var(--font-weight-bold);
+    color: #6B7280;  /* Gray subtitle, not orange */
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    margin-top: 0.25rem;
+  }
+
+  .dark .form-header-subtitle {
+    color: hsl(var(--primary-light));
+  }
+
+  .form-header-close {
+    padding: 0.5rem;
+    border-radius: var(--radius-lg);
+    background-color: transparent;
+    color: hsl(var(--muted-foreground));
+    border: none;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .form-header-close:hover {
+    background-color: hsl(var(--bg-light-gray));
+    color: hsl(var(--accent-red));
+  }
+
+  .dark .form-header-close {
+    color: hsl(var(--muted-foreground));
+  }
+
+  .dark .form-header-close:hover {
+    background-color: hsl(var(--muted));
+    color: hsl(var(--accent-red));
+  }
+
+  /* Form Body - Main content area */
+  .form-body {
+    padding: 1.5rem;
+    background-color: hsl(var(--card));
+  }
+
+  .dark .form-body {
+    background-color: hsl(var(--card));
+  }
+
+  /* Form Group - Container for label + input */
+  .form-group {
+    margin-bottom: 1rem;
+  }
+
+  /* Form Label - Label for form inputs */
+  .form-label {
+    display: block;
+    font-size: var(--font-size-xs);
+    font-weight: var(--font-weight-black);
+    color: hsl(var(--muted-foreground));
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    margin-bottom: 0.5rem;
+    margin-left: 0.25rem;
+  }
+
+  .dark .form-label {
+    color: hsl(var(--muted-foreground));
+  }
+
+  .form-label-required {
+    color: hsl(var(--accent-red));
+    margin-left: 0.25rem;
+  }
+
+  /* Form Input - Standardized input styling */
+  .form-input {
+    width: 100%;
+    padding: 0.625rem 1rem;
+    padding-left: 2.75rem;
+    border-radius: var(--radius-xl);
+    border: 1px solid hsl(var(--border));
+    background-color: hsl(var(--bg-light-gray));
+    font-size: var(--font-size-sm);
+    font-weight: var(--font-weight-medium);
+    color: #000000;
+    outline: none;
+    transition: all 0.2s ease;
+  }
+
+  .form-input:focus {
+    border-color: hsl(var(--primary-medium));
+    box-shadow: 0 0 0 4px hsl(var(--primary-medium) / 0.1);
+    background-color: white;
+  }
+
+  .form-input::placeholder {
+    color: hsl(var(--muted-foreground));
+  }
+
+  .dark .form-input {
+    background-color: hsl(var(--muted));
+    border-color: hsl(var(--border));
+    color: hsl(var(--foreground));
+  }
+
+  .dark .form-input:focus {
+    border-color: hsl(var(--primary-light));
+    box-shadow: 0 0 0 4px hsl(var(--primary-light) / 0.1);
+    background-color: hsl(var(--card));
+  }
+
+  .form-input-error {
+    border-color: hsl(var(--accent-red));
+  }
+
+  .form-input-error:focus {
+    border-color: hsl(var(--accent-red));
+    box-shadow: 0 0 0 4px hsl(var(--accent-red) / 0.1);
+  }
+
+  /* Form Input with Icon */
+  .form-input-wrapper {
+    position: relative;
+    display: flex;
+    align-items: center;
+  }
+
+  .form-input-icon {
+    position: absolute;
+    left: 1rem;
+    color: hsl(var(--muted-foreground));
+    pointer-events: none;
+    z-index: 1;
+  }
+
+  /* Form Select - Standardized select styling */
+  .form-select {
+    width: 100%;
+    padding: 0.625rem 1rem;
+    padding-right: 2.5rem;
+    border-radius: var(--radius-xl);
+    border: 1px solid hsl(var(--border));
+    background-color: hsl(var(--bg-light-gray));
+    font-size: var(--font-size-sm);
+    font-weight: var(--font-weight-medium);
+    color: #000000;
+    outline: none;
+    cursor: pointer;
+    appearance: none;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%23666' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 1rem center;
+    transition: all 0.2s ease;
+  }
+
+  .form-select:focus {
+    border-color: hsl(var(--primary-medium));
+    box-shadow: 0 0 0 4px hsl(var(--primary-medium) / 0.1);
+    background-color: white;
+  }
+
+  .dark .form-select {
+    background-color: hsl(var(--muted));
+    border-color: hsl(var(--border));
+    color: hsl(var(--foreground));
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%23999' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
+  }
+
+  .dark .form-select:focus {
+    border-color: hsl(var(--primary-light));
+    box-shadow: 0 0 0 4px hsl(var(--primary-light) / 0.1);
+    background-color: hsl(var(--card));
+  }
+
+  .dark .form-select option {
+    background-color: hsl(var(--card));
+    color: hsl(var(--foreground));
+  }
+
+  /* Form Error Message */
+  .form-error {
+    margin-top: 0.5rem;
+    font-size: var(--font-size-xs);
+    color: hsl(var(--accent-red));
+    font-weight: var(--font-weight-medium);
+  }
+
+  /* Form Actions - Footer with buttons */
+  .form-actions {
+    padding: 1rem 1.5rem;
+    border-top: 1px solid hsl(var(--border));
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 0.75rem;
+    background-color: hsl(var(--card));
+  }
+
+  .form-actions-center {
+    justify-content: center;
+  }
+
+  .form-actions-between {
+    justify-content: space-between;
+  }
+
+  .form-actions-column {
+    flex-direction: column;
+  }
+
+  .dark .form-actions {
+    border-top-color: hsl(var(--border));
+    background-color: hsl(var(--card));
+  }
+
+  /* Form Icon Button - Icon buttons in form headers */
+  .form-icon-button {
+    width: 2.5rem;
+    height: 2.5rem;
+    border-radius: var(--radius-xl);
+    background-color: white;
+    border: 1px solid hsl(var(--border));
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #000000;  /* Black icon, not orange */
+    transition: all 0.2s ease;
+  }
+
+  .form-icon-button:hover {
+    background-color: hsl(var(--bg-light-gray));
+    border-color: hsl(var(--primary-medium));
+  }
+
+  .dark .form-icon-button {
+    background-color: hsl(var(--card));
+    border-color: hsl(var(--border));
+    color: hsl(var(--primary-light));
+  }
+
+  .dark .form-icon-button:hover {
+    background-color: hsl(var(--muted));
+    border-color: hsl(var(--primary-light));
+  }
+
+  /* Global Form Text Overrides - Ensure all text inside forms is not bold and is black */
+  .form-container input,
+  .form-container select,
+  .form-container textarea,
+  .form-body input,
+  .form-body select,
+  .form-body textarea {
+    font-weight: var(--font-weight-medium) !important;
+    color: #000000 !important;
+  }
+
+  .form-container input::placeholder,
+  .form-body input::placeholder,
+  .form-container textarea::placeholder,
+  .form-body textarea::placeholder {
+    color: #9CA3AF !important;
+  }
+
+  .dark .form-container input,
+  .dark .form-container select,
+  .dark .form-container textarea,
+  .dark .form-body input,
+  .dark .form-body select,
+  .dark .form-body textarea {
+    color: hsl(var(--foreground)) !important;
+  }
+
+  /* Override any bold classes inside forms */
+  .form-container .font-bold,
+  .form-container .font-black,
+  .form-container .font-semibold,
+  .form-body .font-bold,
+  .form-body .font-black,
+  .form-body .font-semibold {
+    font-weight: var(--font-weight-medium) !important;
+  }
+
+  /* Ensure form inputs and selects are not bold even with inline classes */
+  .form-container input[class*="font-bold"],
+  .form-container input[class*="font-black"],
+  .form-container input[class*="font-semibold"],
+  .form-container select[class*="font-bold"],
+  .form-container select[class*="font-black"],
+  .form-container select[class*="font-semibold"],
+  .form-body input[class*="font-bold"],
+  .form-body input[class*="font-black"],
+  .form-body input[class*="font-semibold"],
+  .form-body select[class*="font-bold"],
+  .form-body select[class*="font-black"],
+  .form-body select[class*="font-semibold"] {
+    font-weight: var(--font-weight-medium) !important;
+    color: #000000 !important;
+  }
+
+  .dark .form-container input[class*="font-bold"],
+  .dark .form-container input[class*="font-black"],
+  .dark .form-container input[class*="font-semibold"],
+  .dark .form-container select[class*="font-bold"],
+  .dark .form-container select[class*="font-black"],
+  .dark .form-container select[class*="font-semibold"],
+  .dark .form-body input[class*="font-bold"],
+  .dark .form-body input[class*="font-black"],
+  .dark .form-body input[class*="font-semibold"],
+  .dark .form-body select[class*="font-bold"],
+  .dark .form-body select[class*="font-black"],
+  .dark .form-body select[class*="font-semibold"] {
+    color: hsl(var(--foreground)) !important;
+  }
+
+  /* Global Form Input Overrides - Target ALL forms regardless of container class */
+  form input,
+  form select,
+  form textarea {
+    font-weight: var(--font-weight-medium) !important;
+    color: #000000 !important;
+  }
+
+  form input::placeholder,
+  form textarea::placeholder {
+    color: #9CA3AF !important;
+    font-weight: var(--font-weight-normal) !important;
+  }
+
+  .dark form input,
+  .dark form select,
+  .dark form textarea {
+    color: hsl(var(--foreground)) !important;
+  }
+
+  /* Override bold classes on ALL form inputs globally - Most aggressive rules */
+  input[class*="font-bold"],
+  input[class*="font-black"],
+  input[class*="font-semibold"],
+  select[class*="font-bold"],
+  select[class*="font-black"],
+  select[class*="font-semibold"],
+  textarea[class*="font-bold"],
+  textarea[class*="font-black"],
+  textarea[class*="font-semibold"] {
+    font-weight: var(--font-weight-medium) !important;
+    color: #000000 !important;
+  }
+
+  .dark input[class*="font-bold"],
+  .dark input[class*="font-black"],
+  .dark input[class*="font-semibold"],
+  .dark select[class*="font-bold"],
+  .dark select[class*="font-black"],
+  .dark select[class*="font-semibold"],
+  .dark textarea[class*="font-bold"],
+  .dark textarea[class*="font-black"],
+  .dark textarea[class*="font-semibold"] {
+    color: hsl(var(--foreground)) !important;
+  }
+
+  /* Override any input/select with bold utility classes */
+  input.font-bold,
+  input.font-black,
+  input.font-semibold,
+  select.font-bold,
+  select.font-black,
+  select.font-semibold,
+  textarea.font-bold,
+  textarea.font-black,
+  textarea.font-semibold {
+    font-weight: var(--font-weight-medium) !important;
+    color: #000000 !important;
+  }
+
+  .dark input.font-bold,
+  .dark input.font-black,
+  .dark input.font-semibold,
+  .dark select.font-bold,
+  .dark select.font-black,
+  .dark select.font-semibold,
+  .dark textarea.font-bold,
+  .dark textarea.font-black,
+  .dark textarea.font-semibold {
+    color: hsl(var(--foreground)) !important;
+  }
+  }
+
+  /* =====================================================
+   🧱 CORE COMPONENTS - SIDEBAR
+  ===================================================== */
+/* ====================================================
+   🧱 CORE COMPONENTS - SIDEBAR
+==================================================== */
+@layer components {
+  /* Sidebar Container - Applies to entire sidebar from top to bottom */
+  .sidebar {
+    background-color: hsl(var(--sidebar-bg));
+    color: hsl(var(--foreground));
+    border-right: 1px solid hsl(var(--border));
+  }
+
+  .dark .sidebar {
+    background-color: hsl(var(--sidebar-bg));
+    border-right-color: hsl(var(--border));
+  }
+  
+  /* Dark mode styles */
+  .dark .nav-item {
+    color: hsl(var(--muted-foreground));
+  }
+  
+  .dark .nav-item:hover {
+    background-color: rgba(107, 99, 255, 0.15);
+    color: hsl(var(--primary-light));
+  }
+  
+  .dark .nav-item-active {
+    background-color: rgba(107, 99, 255, 0.2) !important;
+    color: hsl(var(--primary-light)) !important;
+    border-left-color: hsl(var(--primary-light)) !important;
+  }
+  
+  /* Sidebar background utility - for consistent background */
+  .bg-sidebar-bg {
+    background-color: transparent;
+  }
+
+  .nav-item {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 0.5rem 1rem;
+    margin: 0.125rem 0.5rem;
+    color: hsl(var(--text-muted));
+    font-weight: 500;
+    font-size: 0.875rem;
+    border-radius: 0.5rem;
+    transition: all 0.2s ease;
+    text-decoration: none;
+    border-left: 3px solid transparent;
+  }
+  
+  /* Hover State */
+  .nav-item:hover {
+    background-color: rgba(107, 99, 255, 0.08);
+    color: hsl(var(--primary));
+  }
+  
+  /* Active State */
+  .nav-item-active {
+    background-color: rgba(255, 255, 255, 0.8) !important;
+    color: #000000 !important;
+    font-weight: 600 !important;
+    border-left: 3px solid #2EC4B6 !important;
+  }
+  
+  /* Active Icon Color */
+  .nav-item-active svg {
+    color: #000000 !important;
+  }
+  
+  .nav-item:focus {
+    outline: none;
+  }
+
+  .nav-item:hover {
+    background-color: hsl(var(--bg-light-gray-variant));
+  }
+
+  .dark .nav-item {
+    color: hsl(var(--text-light-gray));
+  }
+
+  .dark .nav-item:hover {
+    background-color: hsl(var(--muted));
+  }
+
+  .nav-item-active {
+    background-color: hsl(var(--bg-light-gray-variant));
+    color: hsl(var(--text-dark-gray));
+    border: none;
+    transition: all 0.15s ease;
+  }
+
+  .dark .nav-item-active {
+    background-color: hsl(var(--muted));
+    color: hsl(var(--text-light-gray));
+    border: none;
+  }
+
+  /* Make active item respond visually like hover */
+  .nav-item-active:hover {
+    background-color: hsl(var(--primary-medium));
+    color: hsl(var(--primary-foreground));
+  }
+
+  .dark .nav-item-active:hover {
+    background-color: hsl(var(--primary));
+    color: hsl(var(--primary-foreground));
+  }
+}
+
+/* =====================================================
+   🎨 UTILITY CLASSES
+===================================================== */
+@layer utilities {
+  /* Background Colors */
   .bg-primary-light {
     background-color: hsl(var(--bg-light-cyan));
   }
@@ -418,21 +2349,7 @@
     background-color: hsl(var(--bg-light-gray));
   }
 
-  .bg-light-cyan-variant {
-    background-color: hsl(var(--bg-light-cyan-variant));
-  }
-
-  .bg-light-gray-alt {
-    background-color: hsl(var(--bg-light-gray-alt));
-  }
-
-  .bg-light-rose {
-    background-color: hsl(var(--bg-light-rose));
-  }
-
-  /* =====================================================
-     🎨 UTILITY CLASSES - TEXT COLORS
-  ===================================================== */
+  /* Text Colors */
   .text-primary-dark {
     color: hsl(var(--primary-dark));
   }
@@ -457,17 +2374,7 @@
     color: hsl(var(--text-light-gray));
   }
 
-  .text-accent-gold {
-    color: hsl(var(--accent-gold));
-  }
-
-  .text-accent-green {
-    color: hsl(var(--accent-green));
-  }
-
-  /* =====================================================
-     🎨 UTILITY CLASSES - BORDERS
-  ===================================================== */
+  /* Border Colors */
   .border-primary-light {
     border-color: hsl(var(--border-light-cyan));
   }
@@ -476,96 +2383,11 @@
     border-color: hsl(var(--border-primary-dark));
   }
 
-  /* =====================================================
-     🎨 UTILITY CLASSES - BUTTONS
-  ===================================================== */
-  .btn-primary {
-    background-color: hsl(var(--primary-dark));
-    color: hsl(var(--primary-foreground));
-    border-radius: 0.75rem;
-    padding: 0.625rem 1.5rem;
-    font-weight: 600;
-    transition: all 0.2s ease;
-  }
-
-  .btn-primary:hover {
-    background-color: hsl(var(--primary-medium));
-    transform: translateY(-1px);
-    box-shadow: 0 4px 12px hsl(var(--primary-dark) / 0.3);
-  }
-
-  .btn-secondary {
-    background-color: hsl(var(--bg-light-gray));
-    color: hsl(var(--primary-dark));
-    border: 1px solid hsl(var(--border));
-    border-radius: 0.75rem;
-    padding: 0.625rem 1.5rem;
-    font-weight: 600;
-    transition: all 0.2s ease;
-  }
-
-  .btn-secondary:hover {
-    background-color: hsl(var(--bg-light-cyan-variant));
-    border-color: hsl(var(--primary-light));
-  }
-
-  .btn-action {
-    background-color: white;
-    color: hsl(var(--primary-dark));
-    border-radius: 0.75rem;
-    padding: 0.625rem 1.25rem;
-    font-weight: 600;
-    transition: all 0.3s ease;
-  }
-
-  .btn-action:hover {
-    background-color: hsl(var(--bg-light-gray-variant));
-    transform: translateY(-1px);
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-  }
-
-  .btn-assign {
-    background-color: hsl(var(--accent-gold-bright));
-    color: #1a1a1a;
-    font-weight: bold;
-    border-radius: 0.75rem;
-    padding: 0.625rem 1.5rem;
-    transition: all 0.3s ease;
-  }
-
-  .btn-assign:hover {
-    background-color: hsl(var(--accent-gold-dark));
-    box-shadow: 0 4px 12px hsl(var(--accent-gold-bright) / 0.3);
-  }
-
-  /* =====================================================
-     🎨 UTILITY CLASSES - CARDS & CONTAINERS
-  ===================================================== */
-  .card-primary {
-    background-color: hsl(var(--bg-very-light-cyan));
-    border: 1px solid hsl(var(--border-primary-dark) / 0.2);
-    border-radius: 1rem;
-    padding: 1rem;
-  }
-
-  .card-light {
-    background-color: hsl(var(--bg-light-cyan-alt));
-    border: 1px solid hsl(var(--primary-dark) / 0.1);
-    border-radius: 1rem;
-    padding: 1rem;
-  }
-
-  .card-gray {
-    background-color: hsl(var(--bg-light-gray));
-    border: 1px solid hsl(var(--border));
-    border-radius: 1rem;
-    padding: 1rem;
-  }
-
+  /* Icon Container */
   .icon-container {
     background-color: hsl(var(--bg-very-light-cyan));
     border: 1px solid hsl(var(--border-primary-dark) / 0.2);
-    border-radius: 0.75rem;
+    border-radius: var(--radius-md);
     padding: 0.5rem;
     display: inline-flex;
     align-items: center;
@@ -575,142 +2397,79 @@
   .icon-container-light {
     background-color: hsl(var(--bg-light-cyan-variant));
     border: 1px solid hsl(var(--border-light-cyan));
-    border-radius: 0.75rem;
+    border-radius: var(--radius-md);
     padding: 0.5rem;
     display: inline-flex;
     align-items: center;
     justify-content: center;
   }
 
-  /* =====================================================
-     🎨 UTILITY CLASSES - HEADERS
-  ===================================================== */
-  .header-gradient {
-    background: linear-gradient(135deg, hsl(var(--primary-dark)) 0%, hsl(var(--primary-medium)) 100%);
-    color: white;
-    border-radius: 1.5rem;
-    padding: 1.5rem 2rem;
-  }
-
-  .dark .header-gradient {
-    background: linear-gradient(135deg, hsl(var(--bg-dark-teal)) 0%, hsl(var(--border-dark-teal)) 100%);
-    color: white;
-  }
-
-  /* =====================================================
-     🎨 UTILITY CLASSES - INPUTS & FORMS
-  ===================================================== */
-  .input-primary {
-    background-color: hsl(var(--bg-light-gray));
-    border: 1px solid hsl(var(--border));
-    border-radius: 1rem;
-    padding: 1rem 1.25rem;
-    color: hsl(var(--foreground));
-    transition: all 0.2s ease;
-  }
-
-  .input-primary:focus {
-    background-color: white;
-    outline: none;
-    border-color: hsl(var(--primary-light));
-    box-shadow: 0 0 0 4px hsl(var(--primary-light) / 0.1);
-  }
-
-  .dark .input-primary {
-    background-color: hsl(var(--card));
-    border-color: hsl(var(--border));
-    color: hsl(var(--foreground));
-  }
-
-  .dark .input-primary:focus {
-    background-color: hsl(var(--card));
-    border-color: hsl(var(--primary-light));
-  }
-
-  /* =====================================================
-     🎨 UTILITY CLASSES - TABLES
-  ===================================================== */
-  .table-header-primary {
-    background-color: hsl(var(--bg-light-cyan-variant));
-    border-bottom: 1px solid hsl(var(--border-light-cyan));
-  }
-
-  .table-row-hover {
-    transition: background-color 0.2s ease;
-  }
-
-  .table-row-hover:hover {
-    background-color: hsl(var(--bg-light-cyan-alt));
-  }
-
-  .dark .table-row-hover:hover {
-    background-color: hsl(var(--muted) / 0.5);
-  }
-
-  /* =====================================================
-     🎨 UTILITY CLASSES - BADGES & CHIPS
-  ===================================================== */
-  .badge-primary {
-    background-color: hsl(var(--bg-very-light-cyan));
-    border: 1px solid hsl(var(--border-primary-dark) / 0.2);
-    color: hsl(var(--primary-dark));
-    padding: 0.375rem 0.75rem;
-    border-radius: 0.5rem;
-    font-size: 0.75rem;
-    font-weight: 600;
-    display: inline-block;
-  }
-
-  .dark .badge-primary {
-    background-color: hsl(var(--bg-dark-teal));
-    border-color: hsl(var(--border-dark-teal));
-    color: hsl(var(--primary-light));
-  }
-
-  /* =====================================================
-     🎨 UTILITY CLASSES - SIDEBAR
-  ===================================================== */
-  .sidebar-bg {
-    background-color: hsl(var(--sidebar-bg));
-  }
-
-  .sidebar-border {
-    border-color: hsl(var(--sidebar-border));
-  }
-
-  .nav-item-active {
-    background-color: hsl(var(--bg-light-cyan-variant));
-    color: hsl(var(--primary-light));
-  }
-
-  .dark .nav-item-active {
-    background-color: hsl(var(--muted));
-    color: hsl(var(--primary-light));
-  }
-
-  .nav-item {
+  /* Ensure sidebar nav labels use consistent text color (exclude active items)
+     so active hover/selected states can set their own foreground for contrast */
+  .sidebar .nav-item:not(.nav-item-active),
+  .sidebar .nav-item:not(.nav-item-active) * {
     color: hsl(var(--text-dark-gray));
-    transition: all 0.2s ease;
   }
 
-  .nav-item:hover {
-    background-color: hsl(var(--bg-light-gray-variant));
-  }
-
-  .dark .nav-item {
+  .dark .sidebar .nav-item:not(.nav-item-active),
+  .dark .sidebar .nav-item:not(.nav-item-active) * {
     color: hsl(var(--text-light-gray));
   }
 
-  .dark .nav-item:hover {
-    background-color: hsl(var(--muted));
+  /* Gradient Icon Container */
+  .icon-container-gradient {
+    background: linear-gradient(135deg, hsl(var(--primary-medium)) 0%, hsl(var(--accent-blue)) 100%);
+    border-radius: 50%;
+    padding: 1rem;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  /* Standard button utilities */
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    padding: 0.75rem 1.25rem;
+    border-radius: var(--radius-md);
+    font-weight: var(--font-weight-bold);
+    color: hsl(var(--primary-foreground));
+    background-color: hsl(var(--primary-medium));
+    border: none;
+    box-shadow: 0 6px 20px rgba(38, 55, 75, 0.06);
+    transition: all 150ms ease;
+  }
+
+  .btn:focus {
+    outline: none;
+    box-shadow: 0 6px 30px hsl(var(--primary-medium) / 0.18);
+  }
+
+  .btn:disabled {
+    opacity: 0.7;
+    cursor: not-allowed;
+  }
+
+  /* Primary CTA that matches existing gradients used in auth pages */
+  .btn-cta {
+    background: linear-gradient(90deg, hsl(var(--primary-secondary)), hsl(var(--primary-medium)));
+    color: hsl(var(--primary-foreground));
+    padding: 0.875rem 1.5rem;
+    border-radius: 1rem;
+  }
+
+  .btn-ghost {
+    background: transparent;
+    color: hsl(var(--primary-medium));
+    border: 1px solid hsl(var(--primary-medium) / 0.12);
   }
 }
 
 /* =====================================================
-   🔥 FORCE DARK MODE CONSISTENCY (KEY FIX)
+   🔥 DARK MODE FORCE CONSISTENCY
 ===================================================== */
-
-/* Ensure all containers dark - Expanded coverage */
 .dark div,
 .dark section,
 .dark article,
@@ -720,184 +2479,293 @@
 .dark footer,
 .dark nav,
 .dark form,
-.dark fieldset,
-.dark dialog,
-.dark details,
-.dark summary {
+.dark fieldset {
   background-color: transparent;
   color: hsl(var(--foreground));
 }
 
-/* Washroom Header Styles */
-.washroom-header {
-  background: linear-gradient(135deg, hsl(var(--primary-dark)) 0%, hsl(var(--primary-medium)) 100%);
-  color: white;
-  border-radius: 24px;
-  margin: 0 16px;
-}
-
-.dark .washroom-header {
-  background: linear-gradient(135deg, hsl(var(--bg-dark-teal)) 0%, hsl(var(--border-dark-teal)) 100%);
-  color: white;
-}
-
-/* Ensure text is visible in light mode */
-.washroom-header h1,
-.washroom-header p {
-  color: white !important;
-}
-
-/* Adjust button styles for better visibility */
-.washroom-header .action-button {
-  background: white;
-  color: hsl(var(--primary-dark));
-  transition: all 0.3s ease;
-  border-radius: 12px;
-}
-
-.washroom-header .action-button:hover {
-  background: hsl(var(--bg-light-gray-variant));
-  transform: translateY(-1px);
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-}
-
-.washroom-header .assign-button {
-  background: hsl(var(--accent-gold-bright));
-  color: #1a1a1a;
-  font-weight: bold;
-  border-radius: 12px;
-  transition: all 0.3s ease;
-}
-
-.washroom-header .assign-button:hover {
-  background: hsl(var(--accent-gold-dark));
-  box-shadow: 0 4px 12px hsl(var(--accent-gold-bright) / 0.3);
-}
-
-.dark .washroom-header .action-button {
-  background: rgba(255, 255, 255, 0.9);
-  color: hsl(var(--bg-dark-teal));
-}
-
-.dark .washroom-header .assign-button {
-  background: white;
-  color: #1a1a1a;
-}
-
-/* Kill ALL light backgrounds - Expanded coverage */
+/* Force dark mode for common Tailwind classes */
 .dark .bg-white,
 .dark .bg-gray-50,
 .dark .bg-gray-100,
 .dark .bg-gray-200,
 .dark .bg-slate-50,
-.dark .bg-slate-100,
-.dark .bg-neutral-50,
-.dark .bg-neutral-100,
-.dark .bg-opacity-10,
-.dark [style*="background: #fff"],
-.dark [style*="background-color: #fff"],
-.dark [style*="background: #f8fafc"],
-.dark [style*="background-color: #f8fafc"],
-.dark [style*="background:#EAFBFD"] {
+.dark .bg-slate-100 {
   background-color: hsl(var(--card)) !important;
 }
 
-/* Fix text colors - Enhanced for better visibility */
-.dark .text-black,
+/* =====================================================
+   ⚪ LIGHT MODE - FORCE WHITE BACKGROUNDS
+   Remove all greyish containers in light mode - make them white
+   Dark theme remains unchanged
+===================================================== */
+/* Force all grey Tailwind background classes to white in light mode */
+:root .bg-gray-50,
+:root .bg-gray-100,
+:root .bg-gray-200,
+:root .bg-slate-50,
+:root .bg-slate-100,
+:root .bg-slate-200 {
+  background-color: #FFFFFF !important;
+}
+
+/* Force specific hex grey backgrounds to white in light mode */
+:root .bg-\[#F8FAFB\] {
+  background-color: #FFFFFF !important;
+}
+
+:root .bg-\[#F8FAFB\]\/50 {
+  background-color: #FFFFFF !important;
+  opacity: 1 !important;
+}
+
+:root .bg-\[#F8FAFB\]\/80 {
+  background-color: #FFFFFF !important;
+  opacity: 1 !important;
+}
+
+/* Force muted backgrounds to white in light mode */
+:root .bg-muted {
+  background-color: #FFFFFF !important;
+}
+
+/* Override any light grey/cyan backgrounds to white */
+:root .bg-light-gray,
+:root .bg-primary-light,
+:root .bg-primary-very-light,
+:root .bg-primary-light-alt {
+  background-color: #FFFFFF !important;
+}
+
+/* =====================================================
+   📝 STANDARDIZED TEXT STYLES - Dashboard page style
+   Use these classes across all pages for consistency
+===================================================== */
+@layer utilities {
+  /* Page Title - Main heading (like "Dashboard") */
+  .text-page-title {
+    font-size: 1.5rem; /* text-2xl */
+    font-weight: 700; /* font-bold */
+    color: hsl(var(--foreground));
+  }
+
+  .dark .text-page-title {
+    color: hsl(var(--foreground));
+  }
+
+  /* Page Subtitle - Description text */
+  .text-page-subtitle {
+    font-size: 0.875rem; /* text-sm */
+    color: hsl(var(--muted-foreground));
+  }
+
+  .dark .text-page-subtitle {
+    color: hsl(var(--muted-foreground));
+  }
+
+  /* Section Title - Card/component headings */
+  .text-section-title {
+    font-size: 1rem; /* text-base */
+    font-weight: 600; /* font-semibold */
+    color: hsl(var(--foreground));
+  }
+
+  .dark .text-section-title {
+    color: hsl(var(--foreground));
+  }
+
+  /* Section Description - Small descriptive text */
+  .text-section-desc {
+    font-size: 0.75rem; /* text-xs */
+    color: hsl(var(--muted-foreground));
+  }
+
+  .dark .text-section-desc {
+    color: hsl(var(--muted-foreground));
+  }
+
+  /* Label Text - Small labels */
+  .text-label {
+    font-size: 0.875rem; /* text-sm */
+    font-weight: 600; /* font-semibold */
+    color: hsl(var(--primary-dark));
+  }
+
+  .dark .text-label {
+    color: hsl(var(--primary-light));
+  }
+
+  /* Body Text - Regular content */
+  .text-body {
+    font-size: 0.875rem; /* text-sm */
+    color: hsl(var(--foreground));
+  }
+
+  .dark .text-body {
+    color: hsl(var(--foreground));
+  }
+
+  /* Muted Text - Secondary information */
+  .text-muted {
+    font-size: 0.875rem; /* text-sm */
+    color: hsl(var(--muted-foreground));
+  }
+
+  .dark .text-muted {
+    color: hsl(var(--muted-foreground));
+  }
+
+  /* Override gray text colors for dark theme - Ensure all text is visible */
 .dark .text-gray-900,
 .dark .text-gray-800,
 .dark .text-gray-700,
-.dark .text-gray-600,
-.dark .text-muted-foreground,
+  .dark .text-gray-600 {
+    color: hsl(var(--foreground)) !important;
+  }
+
 .dark .text-gray-500,
 .dark .text-gray-400,
-.dark .text-slate-500,
-.dark .text-slate-400 {
+  .dark .text-gray-300 {
   color: hsl(var(--muted-foreground)) !important;
 }
 
-/* Force specific text colors for better visibility */
-.dark h1, .dark h2, .dark h3, .dark h4, .dark h5, .dark h6,
-.dark p, .dark span, .dark div, .dark label,
-.dark .text-foreground,
-.dark .text-primary-foreground {
+  /* Override slate colors for dark theme */
+  .dark .text-slate-900,
+  .dark .text-slate-800,
+  .dark .text-slate-700,
+  .dark .text-slate-600 {
   color: hsl(var(--foreground)) !important;
 }
 
-/* Inputs & forms - Enhanced for better visibility */
-.dark input,
+  .dark .text-slate-500,
+  .dark .text-slate-400,
+  .dark .text-slate-300 {
+    color: hsl(var(--muted-foreground)) !important;
+  }
+
+  /* Ensure select and input text is visible in dark theme */
 .dark select,
-.dark textarea,
-.dark .input,
-.dark .form-input,
-.dark .form-select,
-.dark .form-textarea {
+  .dark input,
+  .dark textarea {
+  color: hsl(var(--foreground)) !important;
+  }
+
+  .dark select option {
   background-color: hsl(var(--card)) !important;
   color: hsl(var(--foreground)) !important;
-  border-color: hsl(var(--border)) !important;
-  caret-color: hsl(var(--primary)) !important;
-}
+  }
 
-/* Placeholder text */
-.dark ::placeholder,
-.dark :-ms-input-placeholder,
-.dark ::-ms-input-placeholder {
-  color: hsl(var(--muted-foreground) / 0.8) !important;
-  opacity: 1;
-}
-
-/* Tables - Enhanced for better visibility */
-.dark table,
-.dark thead,
-.dark tbody,
-.dark tr,
-.dark th,
-.dark td,
-.dark .table,
-.dark .table th,
-.dark .table td {
-  background-color: hsl(var(--card)) !important;
+  /* Ensure headings have proper color in dark theme */
+  .dark h1, .dark h2, .dark h3, .dark h4, .dark h5, .dark h6 {
   color: hsl(var(--foreground)) !important;
-  border-color: hsl(var(--border)) !important;
-}
+  }
 
-/* Table headers */
-.dark th,
-.dark thead th,
-.dark thead td {
-  background-color: hsl(var(--muted)) !important;
+  /* Ensure body text has proper color in dark theme */
+  .dark p, .dark span, .dark div, .dark label {
   color: hsl(var(--foreground)) !important;
-  font-weight: 600;
-}
+  }
 
-/* Table rows */
-.dark tr:hover,
-.dark tbody tr:hover {
-  background-color: hsl(var(--muted) / 0.5) !important;
-}
+  /* =====================================================
+   📝 GLOBAL FORM INPUT STYLES - FORCE ALL FORMS TO HAVE NON-BOLD BLACK TEXT
+   These rules apply to ALL inputs/selects regardless of container
+   ===================================================== */
+  
+  /* Force ALL form inputs to be medium weight and black (light mode) */
+  input:not([type="submit"]):not([type="button"]):not([type="reset"]),
+  select,
+  textarea {
+    font-weight: var(--font-weight-medium) !important;
+    color: #000000 !important;
+  }
 
-/* Buttons - Enhanced for better visibility */
-.dark button,
-.dark .btn,
-.dark .button {
-  color: hsl(var(--foreground)) !important;
-  background-color: hsl(var(--card)) !important;
-  border-color: hsl(var(--border)) !important;
-}
+  input::placeholder,
+  textarea::placeholder {
+    color: #9CA3AF !important;
+    font-weight: var(--font-weight-normal) !important;
+  }
 
-.dark button.primary,
-.dark .btn-primary,
-.dark .button-primary {
-  background-color: hsl(var(--primary)) !important;
-  color: hsl(var(--primary-foreground)) !important;
-  border-color: hsl(var(--primary)) !important;
-}
+  /* Dark mode - use theme colors */
+  .dark input:not([type="submit"]):not([type="button"]):not([type="reset"]),
+  .dark select,
+  .dark textarea {
+    color: hsl(var(--foreground)) !important;
+  }
 
-.dark button:hover,
-.dark .btn:hover,
-.dark .button:hover {
-  opacity: 0.9;
-  background-color: hsl(var(--muted)) !important;
+  /* Override ANY bold classes on inputs/selects - Most aggressive */
+  input[class*="font-bold"]:not([type="submit"]):not([type="button"]):not([type="reset"]),
+  input[class*="font-black"]:not([type="submit"]):not([type="button"]):not([type="reset"]),
+  input[class*="font-semibold"]:not([type="submit"]):not([type="button"]):not([type="reset"]),
+  select[class*="font-bold"],
+  select[class*="font-black"],
+  select[class*="font-semibold"],
+  textarea[class*="font-bold"],
+  textarea[class*="font-black"],
+  textarea[class*="font-semibold"] {
+    font-weight: var(--font-weight-medium) !important;
+    color: #000000 !important;
+  }
+
+  .dark input[class*="font-bold"]:not([type="submit"]):not([type="button"]):not([type="reset"]),
+  .dark input[class*="font-black"]:not([type="submit"]):not([type="button"]):not([type="reset"]),
+  .dark input[class*="font-semibold"]:not([type="submit"]):not([type="button"]):not([type="reset"]),
+  .dark select[class*="font-bold"],
+  .dark select[class*="font-black"],
+  .dark select[class*="font-semibold"],
+  .dark textarea[class*="font-bold"],
+  .dark textarea[class*="font-black"],
+  .dark textarea[class*="font-semibold"] {
+    color: hsl(var(--foreground)) !important;
+  }
+
+  /* Override direct bold utility classes */
+  input.font-bold:not([type="submit"]):not([type="button"]):not([type="reset"]),
+  input.font-black:not([type="submit"]):not([type="button"]):not([type="reset"]),
+  input.font-semibold:not([type="submit"]):not([type="button"]):not([type="reset"]),
+  select.font-bold,
+  select.font-black,
+  select.font-semibold,
+  textarea.font-bold,
+  textarea.font-black,
+  textarea.font-semibold {
+    font-weight: var(--font-weight-medium) !important;
+    color: #000000 !important;
+  }
+
+  .dark input.font-bold:not([type="submit"]):not([type="button"]):not([type="reset"]),
+  .dark input.font-black:not([type="submit"]):not([type="button"]):not([type="reset"]),
+  .dark input.font-semibold:not([type="submit"]):not([type="button"]):not([type="reset"]),
+  .dark select.font-bold,
+  .dark select.font-black,
+  .dark select.font-semibold,
+  .dark textarea.font-bold,
+  .dark textarea.font-black,
+  .dark textarea.font-semibold {
+    color: hsl(var(--foreground)) !important;
+  }
+
+  /* =====================================================
+   🔘 GLOBAL BUTTON TEXT STYLES - FORCE ALL BUTTONS TO HAVE NORMAL FONT WEIGHT
+   ===================================================== */
+  
+  /* Force ALL buttons to have normal font weight (not bold) */
+  button,
+  .btn,
+  .btn-primary,
+  .btn-secondary,
+  .btn-action,
+  .btn-assign,
+  .btn-gradient,
+  .btn-icon,
+  .btn-danger,
+  .btn-global,
+  button[class*="font-bold"],
+  button[class*="font-black"],
+  button[class*="font-semibold"],
+  .btn[class*="font-bold"],
+  .btn[class*="font-black"],
+  .btn[class*="font-semibold"] {
+    font-weight: var(--font-weight-normal) !important;
+  }
 }
 
 /* =====================================================
@@ -905,19 +2773,64 @@
 ===================================================== */
 ::-webkit-scrollbar {
   width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: hsl(var(--bg-light-gray));
 }
 
 ::-webkit-scrollbar-thumb {
-  background: rgba(255,255,255,0.25);
+  background: hsl(var(--border));
   border-radius: 6px;
 }
 
+::-webkit-scrollbar-thumb:hover {
+  background: hsl(var(--muted-foreground));
+}
+
+.dark ::-webkit-scrollbar-track {
+  background: hsl(var(--card));
+}
+
+.dark ::-webkit-scrollbar-thumb {
+  background: hsl(var(--border));
+}
+
 /* =====================================================
-   ✨ ANIMATION
+   ✨ ANIMATIONS
 ===================================================== */
+@keyframes glow {
+  0% {
+    box-shadow: 0 0 5px -5px rgba(45, 183, 196, 0.8);
+  }
+  50% {
+    box-shadow: 0 0 20px 0px rgba(45, 183, 196, 0.6);
+  }
+  100% {
+    box-shadow: 0 0 5px -5px rgba(45, 183, 196, 0.8);
+  }
+}
+
+@keyframes glow-dark {
+  0% {
+    box-shadow: 0 0 5px -5px rgba(73, 184, 211, 0.8);
+  }
+  50% {
+    box-shadow: 0 0 20px 0px rgba(73, 184, 211, 0.6);
+  }
+  100% {
+    box-shadow: 0 0 5px -5px rgba(73, 184, 211, 0.8);
+  }
+}
+
 @keyframes fadeIn {
-  from { opacity: 0; }
-  to { opacity: 1; }
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
 }
 
 .animate-fade-in {

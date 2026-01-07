@@ -24,7 +24,7 @@ export default function EditProfilePage() {
     };
 
     return (
-        <div className="min-h-screen bg-[#F8FAFB] pb-12 transition-colors duration-300">
+        <div className="min-h-screen bg-white dark:bg-background pb-12 transition-colors duration-300">
             <div className="max-w-[800px] mx-auto p-4 md:p-8 space-y-6">
 
                 {/* 1. HEADER WITH BACK ACTION */}
@@ -70,7 +70,7 @@ export default function EditProfilePage() {
                                         type="text"
                                         value={formData.name}
                                         onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                                        className="w-full pl-12 pr-4 py-3 bg-[#F8FAFB] border border-slate-200 rounded-2xl text-sm font-bold text-slate-700 focus:bg-white focus:ring-4 focus:ring-[#58BECF]/10 focus:border-[#58BECF] transition-all outline-none"
+                                        className="w-full pl-12 pr-4 py-3 bg-white dark:bg-background border border-slate-200 dark:border-border rounded-2xl text-sm font-bold text-slate-700 dark:text-foreground focus:bg-white dark:focus:bg-background focus:ring-4 focus:ring-[#58BECF]/10 dark:focus:ring-primary/20 focus:border-[#58BECF] dark:focus:border-primary transition-all outline-none"
                                     />
                                 </div>
                             </div>
@@ -83,7 +83,7 @@ export default function EditProfilePage() {
                                         type="email"
                                         value={formData.email}
                                         onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                                        className="w-full pl-12 pr-4 py-3 bg-[#F8FAFB] border border-slate-200 rounded-2xl text-sm font-bold text-slate-700 focus:bg-white focus:ring-4 focus:ring-[#58BECF]/10 focus:border-[#58BECF] transition-all outline-none"
+                                        className="w-full pl-12 pr-4 py-3 bg-white dark:bg-background border border-slate-200 dark:border-border rounded-2xl text-sm font-bold text-slate-700 dark:text-foreground focus:bg-white dark:focus:bg-background focus:ring-4 focus:ring-[#58BECF]/10 dark:focus:ring-primary/20 focus:border-[#58BECF] dark:focus:border-primary transition-all outline-none"
                                     />
                                 </div>
                             </div>
@@ -96,7 +96,7 @@ export default function EditProfilePage() {
                                         type="text"
                                         value={formData.phone}
                                         onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
-                                        className="w-full pl-12 pr-4 py-3 bg-[#F8FAFB] border border-slate-200 rounded-2xl text-sm font-bold text-slate-700 focus:bg-white focus:ring-4 focus:ring-[#58BECF]/10 focus:border-[#58BECF] transition-all outline-none"
+                                        className="w-full pl-12 pr-4 py-3 bg-white dark:bg-background border border-slate-200 dark:border-border rounded-2xl text-sm font-bold text-slate-700 dark:text-foreground focus:bg-white dark:focus:bg-background focus:ring-4 focus:ring-[#58BECF]/10 dark:focus:ring-primary/20 focus:border-[#58BECF] dark:focus:border-primary transition-all outline-none"
                                     />
                                 </div>
                             </div>
@@ -117,7 +117,7 @@ export default function EditProfilePage() {
                     </div>
 
                     {/* Form Footer Actions */}
-                    <div className="px-8 py-6 bg-[#F8FAFB] border-t border-slate-100 flex justify-end gap-3">
+                    <div className="px-8 py-6 bg-white dark:bg-background border-t border-slate-100 dark:border-border flex justify-end gap-3">
                         <Link
                             href="/dashboard/profile"
                             className="px-6 py-3 rounded-2xl font-black text-[10px] uppercase tracking-widest text-slate-400 hover:text-slate-600 transition-colors"
