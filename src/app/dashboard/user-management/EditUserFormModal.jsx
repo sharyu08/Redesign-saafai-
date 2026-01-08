@@ -39,7 +39,7 @@ const EditUserFormModal = ({ onClose, onSubmit, initialUser }) => {
     const roleOptions = ['Admin', 'Supervisor', 'Cleaner'];
 
     return (
-        <div className="form-overlay" style={{ zIndex: 70 }}>
+        <div className="form-overlay z-index-70">
             <div className="form-container">
                 {/* Header */}
                 <div className="form-header">

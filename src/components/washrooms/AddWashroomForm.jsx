@@ -24,26 +24,13 @@ export default function AddWashroomForm() {
         alert(`Location submitted with coordinates: ${location.lat}, ${location.lng}`);
     };
 
-    // Shared gradient using primary palette
-    const gradientButtonStyle = {
-        background: 'linear-gradient(to right, hsl(var(--primary)), hsl(var(--primary-accent)))',
-        color: '#FFFFFF'
-    };
-
     return (
         <div className="max-w-7xl mx-auto space-y-8 pb-10">
             {/* Title Section */}
-            <div className="w-full rounded-[var(--radius)] bg-[hsl(var(--lavender-100))] border border-[hsl(var(--primary)/0.2)] px-8 py-6 shadow-sm">
-                <div className="flex items-center justify-between gap-4">
-                    <div>
-                        <h1 className="text-2xl font-extrabold tracking-tight text-[hsl(var(--primary-dark))]">
-                            Add New Washroom
-                        </h1>
-                        <p className="mt-1 text-sm font-medium text-[hsl(var(--muted-foreground))]">
-                            Enter the facility details, category, and precise coordinates
-                        </p>
-                    </div>
-                </div>
+            <div className="w-full">
+                <h1 className="text-2xl font-extrabold tracking-tight text-black">
+                    Add New Washroom
+                </h1>
             </div>
 
             {/* Form Layout Grid */}
@@ -120,8 +107,7 @@ export default function AddWashroomForm() {
                 </button>
                 <button
                     onClick={handleSubmit}
-                    style={gradientButtonStyle}
-                    className="px-10 py-3 rounded-xl text-sm font-bold shadow-lg hover:brightness-110 active:scale-95 transition-all uppercase tracking-wider"
+                    className="btn-gradient-primary px-10 py-3 rounded-xl text-sm font-bold shadow-lg hover:brightness-110 active:scale-95 transition-all uppercase tracking-wider"
                 >
                     + Create Location
                 </button>

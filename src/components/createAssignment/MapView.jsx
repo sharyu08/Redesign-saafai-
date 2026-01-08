@@ -73,5 +73,5 @@ export default function MapView({ locations = [], selected = [], onToggle }) {
     });
   }, [locations, selected, onToggle]);
 
-  return <div ref={mapContainerRef} style={{ width: "100%", height: "100%" }} />;
+  return <div ref={mapContainerRef} className="map-container-full-size" />;
 }

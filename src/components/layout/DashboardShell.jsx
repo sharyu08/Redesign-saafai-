@@ -3,6 +3,7 @@
 import { useState } from "react";
 import Header from "./Header";
 import Sidebar from "./Sidebar";
+import Footer from "./Footer";
 
 export default function DashboardShell({ children }) {
   const [sidebarOpen, setSidebarOpen] = useState(false);
@@ -10,22 +11,30 @@ export default function DashboardShell({ children }) {
 
   return (
     <div className="min-h-screen bg-background text-foreground">
-      <div className="flex min-h-screen">
-        <Sidebar
-          open={sidebarOpen}
-          onClose={() => setSidebarOpen(false)}
-          collapsed={collapsed}
-          onToggleCollapse={() => setCollapsed((v) => !v)}
-        />
+      {/* Fixed Sidebar */}
+      <Sidebar
+        open={sidebarOpen}
+        onClose={() => setSidebarOpen(false)}
+        collapsed={collapsed}
+        onToggleCollapse={() => setCollapsed((v) => !v)}
+      />
 
-        <div className="flex flex-1 flex-col overflow-hidden">
-          <Header onMenuClick={() => setSidebarOpen(true)} />
-          <main className="flex-1 overflow-y-auto px-4 py-6 md:px-8 bg-background">
-            {children}
-          </main>
-        </div>
-      </div>
+      {/* Fixed Header */}
+      <Header onMenuClick={() => setSidebarOpen(true)} collapsed={collapsed} />
 
+      {/* Main Content Area - Scrollable */}
+      <main 
+        className={`overflow-y-auto bg-background transition-all duration-200 pt-16 pb-20 px-4 md:px-8 py-6 min-h-[calc(100vh-64px)] ${
+          collapsed ? 'md:ml-20' : 'md:ml-72'
+        }`}
+      >
+        {children}
+      </main>
+
+      {/* Fixed Footer */}
+      <Footer collapsed={collapsed} />
+
+      {/* Mobile Overlay */}
       <div
         onClick={() => setSidebarOpen(false)}
         className={`fixed inset-0 z-30 bg-black/50 transition-opacity duration-200 md:hidden ${

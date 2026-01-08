@@ -85,7 +85,7 @@ export default function SaafAIMap({
     // Loading state - show map container with loading indicator
     if (!isLoaded) {
         return (
-            <div className="relative w-full" style={{ height: '100%', minHeight: '600px' }}>
+            <div className="relative w-full map-container-full">
                 <div className="absolute inset-0 flex items-center justify-center bg-slate-100 dark:bg-slate-800">
                     <div className="text-center">
                         <div className="h-10 w-10 border-4 border-primary-light/20 border-t-primary-dark dark:border-t-primary-light rounded-full animate-spin mx-auto mb-3"></div>
@@ -99,7 +99,7 @@ export default function SaafAIMap({
     }
 
     return (
-        <div className="relative w-full h-full" style={{ height: '100%', minHeight: '600px' }}>
+        <div className="relative w-full h-full map-container-full">
             {/* GOOGLE MAP */}
             <GoogleMap
                 mapContainerStyle={{ width: '100%', height: '100%', minHeight: '600px' }}

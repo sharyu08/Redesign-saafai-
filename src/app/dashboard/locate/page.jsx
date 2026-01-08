@@ -60,13 +60,7 @@ function MapContent() {
       </div>
 
       {/* Map Container */}
-      <div 
-        className="flex-1 relative bg-slate-50 dark:bg-slate-900"
-        style={{ 
-          height: 'calc(100vh - 80px)',
-          minHeight: '500px'
-        }}
-      >
+      <div className="flex-1 relative bg-slate-50 dark:bg-slate-900 map-container-height">
         <SaafAIMap
           selectedLocation={selectedLocation}
           onSelectLocation={setSelectedLocation}

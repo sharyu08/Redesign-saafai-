@@ -5,7 +5,7 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { ThemeToggle } from "@/components/theme/ThemeToggle";
 
-export default function Header({ onMenuClick }) {
+export default function Header({ onMenuClick, collapsed }) {
   const router = useRouter();
 
   const handleLogout = () => {
@@ -22,7 +22,9 @@ export default function Header({ onMenuClick }) {
   };
 
   return (
-    <header className="header-main sticky top-2 z-[100] mx-4 md:mx-8 rounded-[28px] bg-white border border-[#e0f2f1] shadow-[0_20px_60px_rgba(0,0,0,0.08)]">
+    <header className={`header-main fixed top-0 z-[100] right-0 bg-white border-b border-[#e0f2f1] shadow-[0_20px_60px_rgba(0,0,0,0.08)] transition-all duration-200 ${
+      collapsed ? 'md:left-20' : 'md:left-72'
+    } left-0`}>
       <div className="flex h-16 items-center justify-between px-4 md:px-8">
 
         {/* Left side */}

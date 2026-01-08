@@ -106,15 +106,13 @@ export default function Sidebar({ open, onClose, collapsed, onToggleCollapse }) 
 
   return (
     <aside
-      className={`fixed inset-y-4 left-4 z-50 flex
+      className={`fixed inset-y-0 left-0 z-50 flex
         ${collapsed ? "w-20" : "w-72"}
         flex-col
         bg-[#e0f2f1]                         /* light teal sidebar */
-        rounded-[28px]
-        border border-[#e0f2f1]
+        border-r border-[#d0e8e6]
         shadow-[0_20px_60px_rgba(0,0,0,0.08)]
-        transition-transform duration-200
-        md:static md:ml-4 md:mt-2
+        transition-all duration-200
         ${open ? "translate-x-0" : "-translate-x-full md:translate-x-0"}`}
     >
       {/* HEADER */}

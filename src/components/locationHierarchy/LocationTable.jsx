@@ -109,7 +109,7 @@ export default function LocationTable() {
                                         <button
                                             onClick={() => router.push(`/dashboard/locationHierarchy/edit/${loc.id}`)}
                                             title="Edit Zone Information"
-                                            className="btn-icon text-black hover:bg-slate-100"
+                                            className="btn-icon btn-icon-edit"
                                         >
                                             <Edit3 size={16} strokeWidth={2.5} />
                                         </button>
@@ -117,7 +117,7 @@ export default function LocationTable() {
                                         <button
                                             onClick={() => handleDelete(loc.id)}
                                             title="Permanently Delete Zone"
-                                            className="btn-icon text-black hover:bg-slate-100"
+                                            className="btn-icon btn-icon-delete"
                                         >
                                             <Trash2 size={16} strokeWidth={2.5} />
                                         </button>

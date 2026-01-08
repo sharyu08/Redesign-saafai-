@@ -206,16 +206,16 @@ export default function AddUserFullPage() {
             <button
               type="button"
               onClick={handleGoBack}
-              className="flex-1 px-4 py-4 rounded-2xl border-2 border-slate-50 text-[11px] font-black uppercase tracking-widest text-slate-400 hover:text-rose-500 transition-all flex items-center justify-center gap-2"
+              className="flex-1 px-3 py-3 rounded-2xl border-2 border-slate-50 text-[10px] font-black uppercase tracking-widest text-slate-400 hover:text-rose-500 transition-all flex items-center justify-center gap-2"
             >
-              <X size={14} strokeWidth={3} /> Discard
+              <X size={12} strokeWidth={3} /> Discard
             </button>
 
             <button
               type="submit"
-              className="btn-gradient flex-[1.5] px-4 py-4 rounded-2xl uppercase tracking-widest active:scale-95 flex items-center justify-center gap-2"
+              className="bg-[#FF9F1C] hover:bg-[#FF8C00] text-white flex-[1.5] px-3 py-3 rounded-2xl text-[10px] uppercase tracking-widest active:scale-95 flex items-center justify-center gap-2 transition-colors"
             >
-              <Check size={18} strokeWidth={3} /> Initialize Staff
+              <Check size={14} strokeWidth={3} /> Initialize Staff
             </button>
           </div>
         </form>

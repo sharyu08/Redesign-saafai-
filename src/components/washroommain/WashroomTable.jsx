@@ -9,62 +9,62 @@ export default function WashroomTable({ items }) {
     return (
         <div className="table-container">
             {/* Scrollable Container with Custom Scrollbar Styling */}
-            <div className="overflow-x-auto overflow-y-auto max-h-[500px]">
+            <div className="overflow-x-auto overflow-y-auto max-h-[600px]">
                 <table className="table min-w-[1200px]">
                     <thead className="table-header">
                         <tr>
                             <th>
                                 <div className="flex items-center gap-2">
-                                    <Hash className="w-3.5 h-3.5" />
-                                    Sr No
+                                    <Hash className="w-4 h-4" />
+                                    <span>SR NO</span>
                                 </div>
                             </th>
                             <th>
                                 <div className="flex items-center gap-2">
-                                    <List className="w-3.5 h-3.5" />
-                                    Washroom Name
+                                    <List className="w-4 h-4" />
+                                    <span>WASHROOM NAME</span>
                                 </div>
                             </th>
                             <th>
                                 <div className="flex items-center gap-2">
-                                    <MapPin className="w-3.5 h-3.5" />
-                                    Zone
+                                    <MapPin className="w-4 h-4" />
+                                    <span>ZONE</span>
                                 </div>
                             </th>
                             <th>
                                 <div className="flex items-center gap-2">
-                                    <Star className="w-3.5 h-3.5" />
-                                    Current Score
+                                    <Star className="w-4 h-4" />
+                                    <span>CURRENT SCORE</span>
                                 </div>
                             </th>
                             <th>
                                 <div className="flex items-center gap-2">
-                                    <Star className="w-3.5 h-3.5" />
-                                    Avg Rating
+                                    <Star className="w-4 h-4 star-rating" />
+                                    <span>AVG RATING</span>
                                 </div>
                             </th>
                             <th>
                                 <div className="flex items-center gap-2">
-                                    <User className="w-3.5 h-3.5" />
-                                    Cleaner
+                                    <User className="w-4 h-4" />
+                                    <span>CLEANER</span>
                                 </div>
                             </th>
                             <th>
                                 <div className="flex items-center gap-2">
-                                    <Building2 className="w-3.5 h-3.5" />
-                                    Facility
+                                    <Building2 className="w-4 h-4" />
+                                    <span>FACILITY</span>
                                 </div>
                             </th>
                             <th>
                                 <div className="flex items-center gap-2">
-                                    <Activity className="w-3.5 h-3.5" />
-                                    Status
+                                    <Activity className="w-4 h-4" />
+                                    <span>STATUS</span>
                                 </div>
                             </th>
                             <th className="table-cell-right">
                                 <div className="flex items-center justify-end gap-2">
-                                    <Settings className="w-3.5 h-3.5" />
-                                    Action
+                                    <Settings className="w-4 h-4" />
+                                    <span>ACTION</span>
                                 </div>
                             </th>
                         </tr>
@@ -100,6 +100,12 @@ export default function WashroomTable({ items }) {
                 <p className="text-xs-standard font-bold text-muted-foreground uppercase tracking-widest">
                     Showing {rows.length} Total Facilities
                 </p>
+                <div className="flex items-center gap-2">
+                    <div className="h-1.5 w-1.5 rounded-full bg-green-500 animate-pulse" />
+                    <span className="text-xs-standard font-bold text-primary-dark uppercase tracking-widest">
+                        System Active
+                    </span>
+                </div>
             </div>
         </div>
     );

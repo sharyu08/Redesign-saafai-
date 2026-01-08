@@ -109,7 +109,7 @@ function StatCard({ title, value, trend, isUp, percentage, icon, type }) {
                     </div>
                     <div className="h-2 w-full bg-white/60 rounded-full overflow-hidden border border-black/[0.03]">
                         <div
-                            className={`h-full rounded-full transition-all duration-1000 ease-out ${style.bar}`}
+                            className={`progress-bar rounded-full transition-all duration-1000 ease-out ${style.bar}`}
                             style={{ width: `${percentage}%` }}
                         />
                     </div>

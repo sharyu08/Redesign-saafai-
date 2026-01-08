@@ -114,7 +114,7 @@ export default function WashroomsPage() {
         <div className="relative group">
           <div className="absolute -inset-1 bg-gradient-to-r from-[#58BECF]/5 to-[#6D9CDC]/5 rounded-[32px] blur-xl opacity-0 group-hover:opacity-100 transition duration-700" />
 
-          <div className="relative bg-white border border-slate-100 rounded-[28px] shadow-[0_8px_30px_rgb(0,0,0,0.04)] overflow-hidden">
+          <div className="relative bg-white rounded-[28px] shadow-[0_8px_30px_rgb(0,0,0,0.04)] overflow-hidden">
             {/* The 1.5px blue gradient line has been removed to achieve the clean look */}
             <div className="p-2 overflow-x-auto">
               <WashroomTable items={filtered} />

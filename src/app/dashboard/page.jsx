@@ -141,7 +141,7 @@ const HighlightsCard = ({ locations }) => {
             className={`group flex items-center justify-between p-4 rounded-xl ${rankStyles[i].border} ${rankStyles[i].bg} transition-all duration-300 hover:shadow-md hover:-translate-y-0.5`}
           >
             <div className="flex items-center gap-4">
-              <div className={`h-10 w-10 rounded-full flex items-center justify-center text-black text-lg font-extrabold ${rankStyles[i].rankBg} ${rankStyles[i].rankShadow}`} style={{ textShadow: '0 1px 2px rgba(255,255,255,0.5)' }}>
+              <div className={`h-10 w-10 rounded-full flex items-center justify-center text-black text-lg font-extrabold ${rankStyles[i].rankBg} ${rankStyles[i].rankShadow} text-shadow-white`}>
                 {i + 1}
               </div>
               <div>

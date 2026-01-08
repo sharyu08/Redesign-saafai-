@@ -37,7 +37,7 @@ export default function WashroomOverview({ washroom = MOCK_WASHROOM }) {
   return (
     <div className="space-y-6 pb-10">
       {/* Top card with image and details */}
-      <div className="bg-white rounded-[var(--radius)] shadow-sm border border-[hsl(var(--border))] overflow-hidden">
+      <div className="bg-white rounded-xl shadow-sm border border-[hsl(var(--border))] overflow-hidden">
         <div className="grid grid-cols-1 md:grid-cols-[300px_minmax(0,1fr)] gap-0">
           <div className="relative h-64 md:h-full min-h-[250px] bg-[hsl(var(--muted))]">
             <Image
@@ -51,22 +51,22 @@ export default function WashroomOverview({ washroom = MOCK_WASHROOM }) {
           <div className="p-6 space-y-6">
             <div className="flex flex-wrap items-start justify-between gap-4">
               <div className="space-y-1">
-                <h1 className="text-2xl md:text-3xl font-extrabold tracking-tight text-gray-800">
+                <h1 className="text-2xl font-bold tracking-tight text-[hsl(var(--foreground))]">
                   {washroom.name}
                 </h1>
                 <div className="flex items-center gap-2 text-sm font-medium text-[hsl(var(--muted-foreground))]">
-                  <MapPin className="h-4 w-4 text-blue-600" />
+                  <MapPin className="h-4 w-4 text-[hsl(var(--primary))]" />
                   <span>{washroom.subtitle}</span>
                 </div>
               </div>
             </div>
 
             <div className="flex flex-wrap gap-4">
-              <div className="rounded-xl border border-blue-200 bg-blue-50 px-4 py-3">
-                <div className="text-[10px] font-bold uppercase tracking-widest text-gray-800 mb-1">
+              <div className="rounded-xl border border-[hsl(var(--border))] bg-[hsl(var(--muted))] px-4 py-3">
+                <div className="text-xs font-medium text-[hsl(var(--muted-foreground))] mb-1">
                   Location Hierarchy / Zone
                 </div>
-                <div className="text-sm font-bold text-gray-800">
+                <div className="text-sm font-semibold text-[hsl(var(--foreground))]">
                   {washroom.zone}
                 </div>
               </div>
@@ -79,25 +79,29 @@ export default function WashroomOverview({ washroom = MOCK_WASHROOM }) {
                   { label: "Created", value: washroom.createdOn },
                 ].map((item) => (
                   <div key={item.label} className="text-xs">
-                    <span className="text-[hsl(var(--muted-foreground))] font-bold uppercase tracking-tighter mr-1">{item.label}:</span>
-                    <span className="text-[hsl(var(--foreground))] font-semibold">{item.value}</span>
+                    <span className="text-[hsl(var(--muted-foreground))] font-bold uppercase tracking-tighter mr-1">
+                      {item.label}:
+                    </span>
+                    <span className="text-[hsl(var(--foreground))] font-semibold">
+                      {item.value}
+                    </span>
                   </div>
                 ))}
               </div>
             </div>
 
-            <div className="flex flex-wrap gap-3 pt-2">
-                <button
+            <div className="flex flex-wrap items-center gap-3 pt-2">
+              <button
                 type="button"
                 onClick={handleLocate}
-                className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl border border-blue-200 bg-white text-gray-800 text-sm font-bold hover:bg-blue-100 transition-all active:scale-95 shadow-sm"
+                className="inline-flex items-center gap-2 px-4 py-2 rounded-xl border border-[hsl(var(--border))] bg-white text-[hsl(var(--foreground))] text-sm font-bold hover:bg-[hsl(var(--muted))] transition-all active:scale-95"
               >
                 <Map className="h-4 w-4" />
                 Locate on Map
               </button>
 
-              <Link href={`/dashboard/washrooms/${washroom.id}/edit`}>
-                <button className="inline-flex items-center gap-2 px-6 py-2.5 rounded-xl bg-blue-600 text-white text-sm font-bold hover:brightness-110 transition-all active:scale-95 shadow-md">
+              <Link href={`/dashboard/washrooms/${washroom.id}/edit`} className="inline-block">
+                <button className="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-[hsl(var(--primary))] text-white text-sm font-bold hover:opacity-90 transition-all active:scale-95">
                   <Pencil className="h-4 w-4" />
                   Edit Details
                 </button>
@@ -106,7 +110,7 @@ export default function WashroomOverview({ washroom = MOCK_WASHROOM }) {
               <button
                 type="button"
                 onClick={handleDelete}
-                className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl border border-rose-200 bg-white text-rose-600 text-sm font-bold hover:bg-rose-50 transition-all active:scale-95"
+                className="inline-flex items-center gap-2 px-4 py-2 rounded-xl border border-[hsl(var(--border))] bg-white text-[hsl(var(--destructive))] text-sm font-bold hover:bg-[hsl(var(--muted))] transition-all active:scale-95"
               >
                 <Trash2 className="h-4 w-4" />
                 Delete
@@ -117,7 +121,7 @@ export default function WashroomOverview({ washroom = MOCK_WASHROOM }) {
       </div>
 
       {/* Amenities section */}
-      <div className="bg-white rounded-[var(--radius)] border border-[hsl(var(--border))] shadow-sm p-6 space-y-4">
+      <div className="bg-white rounded-xl border border-[hsl(var(--border))] shadow-sm p-6 space-y-4">
         <h2 className="text-sm font-extrabold uppercase tracking-widest text-[hsl(var(--muted-foreground))] flex items-center gap-2">
           <CheckCircle className="h-4 w-4 text-blue-600" />
           Amenities & Features
@@ -147,7 +151,7 @@ export default function WashroomOverview({ washroom = MOCK_WASHROOM }) {
         </div>
 
         {/* Review statistics */}
-        <div className="bg-white rounded-[var(--radius)] border border-[hsl(var(--border))] shadow-sm p-6 space-y-4">
+        <div className="bg-white rounded-xl border border-[hsl(var(--border))] shadow-sm p-6 space-y-4">
           <h2 className="text-sm font-extrabold uppercase tracking-widest text-[hsl(var(--muted-foreground))]">Review Statistics</h2>
             <div className="grid grid-cols-2 gap-4">
             <div className="rounded-xl bg-blue-100 border border-[hsl(var(--primary)/0.1)] p-4">

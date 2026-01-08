@@ -31,14 +31,20 @@ export default function WashroomRow({ washroom, index }) {
                 <td className="table-cell">
                     <Link
                         href={`/dashboard/washrooms/${washroom.id}`}
-                        className="text-primary-dark hover:text-primary transition-colors"
+                        className="font-medium text-gray-900 dark:text-gray-100 hover:text-primary-dark dark:hover:text-primary-light transition-colors"
                     >
                         {washroom.name}
                     </Link>
                 </td>
 
                 <td className="table-cell">
-                    {washroom.location_types?.name || "N/A"}
+                    {washroom.location_types?.name ? (
+                        <span className="chip chip-zone">
+                            {washroom.location_types.name}
+                        </span>
+                    ) : (
+                        <span className="text-muted-foreground">N/A</span>
+                    )}
                 </td>
 
                 <td className="table-cell">
@@ -48,22 +54,24 @@ export default function WashroomRow({ washroom, index }) {
                 </td>
 
                 <td className="table-cell">
-                    <div className="flex items-center gap-1.5 text-accent-gold">
-                        <Star className="w-3.5 h-3.5 fill-current" />
-                        <span>{washroom.averageRating ? washroom.averageRating.toFixed(1) : "0.0"}</span>
+                    <div className="rating-display">
+                        <Star className="star w-4 h-4" />
+                        <span className="rating-value">
+                            {washroom.averageRating ? washroom.averageRating.toFixed(1) : "0.0"}
+                        </span>
                     </div>
                 </td>
 
                 {/* UPDATED CLEANER COLUMN */}
                 <td className="table-cell">
                     <div className="flex items-center gap-2">
-                        <div className={`w-2 h-2 rounded-full ${assignments.length > 0 ? 'bg-accent-green' : 'bg-muted-foreground'}`}></div>
-                        <span className="text-primary-dark">{primaryCleaner}</span>
+                        <div className={`w-2 h-2 rounded-full ${assignments.length > 0 ? 'bg-green-500' : 'bg-gray-400'}`}></div>
+                        <span className="text-gray-800 dark:text-gray-200 font-medium">{primaryCleaner}</span>
 
                         {extraCount > 0 && (
                             <button
                                 onClick={() => setIsModalOpen(true)}
-                                className="text-accent-blue hover:text-primary-dark transition-colors ml-1"
+                                className="text-blue-600 dark:text-blue-400 hover:text-blue-800 dark:hover:text-blue-300 transition-colors ml-1 text-sm font-medium"
                             >
                                 +{extraCount} more
                             </button>
@@ -71,8 +79,10 @@ export default function WashroomRow({ washroom, index }) {
                     </div>
                 </td>
 
-                <td className="table-cell text-muted-foreground">
-                    {washroom.facility_companies?.name || "N/A"}
+                <td className="table-cell">
+                    <span className="text-gray-600 dark:text-gray-400">
+                        {washroom.facility_companies?.name || "N/A"}
+                    </span>
                 </td>
 
                 <td className="table-cell">

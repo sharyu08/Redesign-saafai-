@@ -137,70 +137,70 @@
     --z-tooltip: 1070;
   }
 
-  /* 🌙 DARK MODE - Using new palette - Improved colors */
+  /* 🌙 DARK MODE - Updated to match design */
   .dark {
-    --background: 238 56% 8%;          /* █ #0C0E20 - Very dark navy */
-    --foreground: 178 50% 95%;         /* █ #DCF2F1 - Very light pale blue text */
+    --background: 222 47% 11%;         /* Dark blue background */
+    --foreground: 0 0% 100%;           /* White text */
 
-    --card: 218 43% 15%;               /* █ #1F2B3F - Dark card background */
-    --card-foreground: 178 50% 95%;    /* █ #DCF2F1 - Light text */
+    --card: 222 47% 15%;               /* Slightly lighter blue for cards */
+    --card-foreground: 0 0% 100%;      /* White text on cards */
 
-    --border: 218 43% 22%;             /* █ #2E3F5A - Border in dark mode */
-    --muted: 218 43% 12%;              /* █ #18202E - Muted background */
-    --muted-foreground: 192 58% 70%;   /* █ #8CCFE0 - Medium light muted text */
+    --border: 222 47% 20%;             /* Border color */
+    --muted: 222 47% 18%;              /* Muted background */
+    --muted-foreground: 0 0% 80%;      /* Light gray for muted text */
 
-    --primary: 192 58% 70%;            /* █ #8CCFE0 - Medium light sky blue */
-    --primary-foreground: 238 56% 8%;  /* █ #0C0E20 - Dark text on light primary */
+    --primary: 34 100% 56%;            /* Orange primary color */
+    --primary-foreground: 0 0% 100%;   /* White text on primary */
 
     /* Primary Color Variants - Dark Mode */
-    --primary-dark: 192 58% 70%;       /* █ #8CCFE0 - Primary dark */
-    --primary-light: 192 58% 80%;      /* █ #B3E3F0 - Lighter sky blue */
-    --primary-medium: 192 58% 70%;     /* █ #8CCFE0 - Primary medium */
-    --primary-secondary: 192 58% 65%;  /* █ #7CC4D6 - Adjusted secondary */
+    --primary-dark: 34 100% 45%;       /* Darker orange */
+    --primary-light: 34 100% 65%;      /* Lighter orange */
+    --primary-medium: 34 100% 56%;     /* Main orange */
+    --primary-secondary: 34 100% 50%;  /* Slightly darker orange */
 
     /* Secondary Color Palette - Dark Mode */
-    --secondary: 192 58% 70%;          /* █ #8CCFE0 - Brighter secondary */
-    --secondary-foreground: 238 56% 8%; /* █ #0C0E20 - Dark text */
-    --secondary-dark: 192 58% 60%;     /* █ #66B8CC - Darker secondary */
-    --secondary-light: 192 58% 85%;    /* █ #C4EBF6 - Lighter secondary */
+    --secondary: 34 100% 56%;          /* Orange secondary */
+    --secondary-foreground: 0 0% 100%; /* White text */
+    --secondary-dark: 34 100% 45%;     /* Darker secondary */
+    --secondary-light: 34 100% 65%;    /* Lighter secondary */
 
-    /* Background Colors - Dark Mode - Better contrast */
-    --bg-light-cyan: 218 43% 15%;      /* █ #1F2B3F - Dark card color */
-    --bg-very-light-cyan: 218 43% 15%; /* █ #1F2B3F - Dark background */
-    --bg-light-cyan-alt: 218 43% 15%;  /* █ #1F2B3F - Dark background alt */
-    --bg-light-gray: 218 43% 15%;      /* █ #1F2B3F - Dark background */
-    --bg-light-cyan-variant: 218 43% 15%; /* █ #1F2B3F - Dark variant */
-    --bg-light-gray-alt: 218 43% 15%;  /* █ #1F2B3F - Dark gray alt */
-    --bg-very-light-cyan-alt: 218 43% 15%; /* █ #1F2B3F - Dark cyan alt */
-    --bg-light-gray-variant: 218 43% 15%; /* █ #1F2B3F - Dark gray variant */
-    --bg-light-cyan-variant2: 218 43% 15%; /* █ #1F2B3F - Dark variant 2 */
-    --bg-light-rose: 218 43% 15%;      /* █ #1F2B3F - Dark rose */
+    /* Background Colors - Dark Mode */
+    --bg-light-cyan: 222 47% 15%;      /* Card background */
+    --bg-very-light-cyan: 222 47% 11%; /* Main background */
+    --bg-light-cyan-alt: 222 47% 18%;  /* Alternate background */
+    --bg-light-gray: 222 47% 15%;      /* Gray background */
+    --bg-light-cyan-variant: 222 47% 20%; /* Variant background */
+    --bg-light-gray-alt: 222 47% 18%;  /* Alternate gray */
+    --bg-very-light-cyan-alt: 222 47% 15%; /* Alternate cyan */
+    --bg-light-gray-variant: 222 47% 20%; /* Gray variant */
+    --bg-light-cyan-variant2: 222 47% 18%; /* Second variant */
+    --bg-light-rose: 222 47% 20%;      /* Rose background */
 
     /* Border Colors - Dark Mode */
-    --border-light-cyan: 218 43% 22%;  /* █ #2E3F5A - Dark cyan border */
-    --border-primary-dark: 192 58% 70%; /* █ #8CCFE0 - Light border */
+    --border-light-cyan: 222 47% 25%;  /* Border color */
+    --border-primary-dark: 34 100% 45%; /* Darker orange border */
 
-    /* Text Colors - Dark Mode - Better visibility */
-    --text-dark-gray: 178 50% 95%;     /* █ #DCF2F1 - Light text */
-    --text-medium-gray: 192 58% 75%;   /* █ #A5DBEB - Medium light text */
-    --text-light-gray: 192 58% 65%;    /* █ #7CC4D6 - Light gray text */
+    /* Text Colors - Dark Mode */
+    --text-dark-gray: 0 0% 100%;       /* White text */
+    --text-medium-gray: 0 0% 80%;      /* Light gray text */
+    --text-light-gray: 0 0% 60%;       /* Lighter gray text */
 
     /* Accent Colors - Dark Mode */
-    --accent-gold: 48 100% 55%;        /* █ #F5C446 - Brighter gold */
-    --accent-green: 142 71% 50%;       /* █ #2FD579 - Brighter green */
-    --accent-red: 4 90% 63%;           /* █ #F25D68 - Brighter red */
-    --accent-gold-bright: 51 100% 55%; /* █ #FFDD44 - Bright gold */
-    --accent-gold-dark: 48 100% 55%;   /* █ #F5C446 - Dark gold */
-    --accent-blue: 192 58% 70%;        /* █ #8CCFE0 - Brighter sky blue */
+    --accent-gold: 34 100% 56%;        /* Orange gold */
+    --accent-green: 142 71% 50%;       /* Green */
+    --accent-red: 4 90% 63%;           /* Red */
+    --accent-gold-bright: 34 100% 56%; /* Bright orange */
+    --accent-gold-dark: 34 100% 45%;   /* Darker orange */
+    --accent-blue: 207 90% 61%;        /* Blue */
 
     /* Chart/Graph Colors - Dark Mode */
-    --chart-primary: 192 58% 70%;      /* █ #8CCFE0 - Brighter primary */
-    --chart-primary-dark: 192 58% 75%; /* █ #A5DBEB - Brighter dark chart */
-    --chart-secondary: 218 43% 25%;    /* █ #354966 - Darker secondary */
-    --chart-accent: 48 100% 55%;       /* █ #F5C446 - Brighter accent */
-    --chart-success: 142 71% 50%;      /* █ #2FD579 - Brighter success */
-    --chart-warning: 48 100% 55%;      /* █ #F5C446 - Brighter warning */
-    --chart-error: 4 90% 63%;          /* █ #F25D68 - Brighter error */
+    --chart-primary: 34 100% 56%;      /* Orange primary */
+    --chart-primary-dark: 34 100% 45%; /* Darker orange */
+    --chart-secondary: 222 47% 25%;    /* Dark blue secondary */
+    --chart-accent: 207 90% 61%;       /* Blue accent */
+    --chart-success: 142 71% 50%;      /* Green success */
+    --chart-warning: 34 100% 56%;      /* Orange warning */
+    --chart-error: 4 90% 63%;          /* Red error */
     
     /* Chart Background & UI Colors - Dark Mode */
     --chart-bg: 218 43% 15%;           /* █ #1F2B3F - Dark card background */
@@ -223,12 +223,12 @@
     --chart-gradient-opacity-end: 0.5;    /* Gradient opacity end (50%) */
 
     /* Dark Mode Backgrounds */
-    --bg-dark-teal: 238 56% 8%;        /* █ #0C0E20 - Very dark navy */
-    --border-dark-teal: 218 43% 22%;   /* █ #2E3F5A - Dark blue border */
+    --bg-dark-teal: 222 47% 11%;       /* Dark blue background */
+    --border-dark-teal: 222 47% 20%;   /* Blue border */
 
     /* Sidebar Colors - Dark Mode */
-    --sidebar-bg: 238 56% 8%;          /* █ #0C0E20 - Dark sidebar */
-    --sidebar-border: 218 43% 22%;     /* █ #2E3F5A - Dark border */
+    --sidebar-bg: 222 47% 11%;         /* Dark blue sidebar */
+    --sidebar-border: 222 47% 20%;     /* Blue border */
   }
 }
 
@@ -602,7 +602,7 @@
   .btn-primary {
     background: linear-gradient(135deg, #FFBF69 0%, #FF9F1C 100%);
     color: white;
-    box-shadow: 0 2px 4px rgba(159, 103, 255, 0.2);
+    box-shadow: 0 2px 4px rgba(193, 235, 25, 0.2);
     position: relative;
     overflow: hidden;
   }
@@ -995,8 +995,8 @@
   }
 
   .dark .table-header {
-    background-color: hsl(var(--muted));
-    border-bottom-color: hsl(var(--border));
+    background-color: hsl(var(--bg-dark-teal));
+    border-bottom-color: hsl(var(--border-dark-teal));
   }
 
   /* Table Header Cell (th) - STANDARDIZED - All table headers use this style */
@@ -1015,8 +1015,10 @@
 
   .dark .table-header th,
   .dark .table th {
-    color: hsl(var(--primary-light)) !important;
-    border-bottom-color: hsl(var(--border));
+    color: hsl(var(--foreground)) !important;
+    background-color: hsl(var(--bg-dark-teal));
+    border-bottom-color: hsl(var(--border-dark-teal));
+    font-weight: 500 !important;
   }
 
   /* Override any custom header styles to use standard */
@@ -1046,12 +1048,13 @@
   }
 
   .dark .table-header-primary {
-    background-color: hsl(var(--primary));
+    background-color: hsl(var(--bg-dark-teal));
   }
 
   .dark .table-header-primary th {
-    color: white !important;
-    font-weight: var(--font-weight-normal) !important;
+    color: hsl(var(--foreground)) !important;
+    background-color: hsl(var(--bg-dark-teal));
+    font-weight: 500 !important;
     font-size: var(--font-size-sm) !important; /* Increased from xs to sm for better readability */
     text-transform: uppercase !important;
   }
@@ -1100,32 +1103,38 @@
   }
 
   /* Table cell text - STANDARDIZED - All text inside cells uses this style */
-  .table-cell > *:not(.badge):not(.chip):not(.badge-status):not(.badge-role):not(.badge-score):not(.badge-primary),
-  .table td > *:not(.badge):not(.chip):not(.badge-status):not(.badge-role):not(.badge-score):not(.badge-primary),
+  .table-cell > *:not(.badge):not(.badge-status):not(.badge-role):not(.badge-score):not(.badge-primary),
+  .table td > *:not(.badge):not(.badge-status):not(.badge-role):not(.badge-score):not(.badge-primary),
   .table-cell a:not(.badge):not(.chip),
   .table td a:not(.badge):not(.chip),
-  .table-cell span:not(.badge):not(.chip):not(.badge-status):not(.badge-role):not(.badge-score):not(.badge-primary),
-  .table td span:not(.badge):not(.chip):not(.badge-status):not(.badge-role):not(.badge-score):not(.badge-primary),
+  .table-cell span:not(.badge):not(.badge-status):not(.badge-role):not(.badge-score):not(.badge-primary),
+  .table td span:not(.badge):not(.badge-status):not(.badge-role):not(.badge-score):not(.badge-primary),
   .table-cell p:not(.badge):not(.chip),
   .table td p:not(.badge):not(.chip),
-  .table-cell div:not(.badge):not(.chip):not(.badge-status):not(.badge-role):not(.badge-score):not(.badge-primary),
-  .table td div:not(.badge):not(.chip):not(.badge-status):not(.badge-role):not(.badge-score):not(.badge-primary) {
+  .table-cell div:not(.badge):not(.badge-status):not(.badge-role):not(.badge-score):not(.badge-primary),
+  .table td div:not(.badge):not(.badge-status):not(.badge-role):not(.badge-score):not(.badge-primary),
+  /* Chip text color */
+  .table .chip,
+  .table-cell .chip {
     color: #000000 !important;
     font-weight: var(--font-weight-normal) !important; /* NOT bold */
     text-transform: none !important; /* Force normal case */
     font-size: var(--font-size-sm) !important;
   }
 
-  .dark .table-cell > *:not(.badge):not(.chip):not(.badge-status):not(.badge-role):not(.badge-score):not(.badge-primary),
-  .dark .table td > *:not(.badge):not(.chip):not(.badge-status):not(.badge-role):not(.badge-score):not(.badge-primary),
+  .dark .table-cell > *:not(.badge):not(.badge-status):not(.badge-role):not(.badge-score):not(.badge-primary),
+  .dark .table td > *:not(.badge):not(.badge-status):not(.badge-role):not(.badge-score):not(.badge-primary),
   .dark .table-cell a:not(.badge):not(.chip),
   .dark .table td a:not(.badge):not(.chip),
-  .dark .table-cell span:not(.badge):not(.chip):not(.badge-status):not(.badge-role):not(.badge-score):not(.badge-primary),
-  .dark .table td span:not(.badge):not(.chip):not(.badge-status):not(.badge-role):not(.badge-score):not(.badge-primary),
+  .dark .table-cell span:not(.badge):not(.badge-status):not(.badge-role):not(.badge-score):not(.badge-primary),
+  .dark .table td span:not(.badge):not(.badge-status):not(.badge-role):not(.badge-score):not(.badge-primary),
   .dark .table-cell p:not(.badge):not(.chip),
   .dark .table td p:not(.badge):not(.chip),
-  .dark .table-cell div:not(.badge):not(.chip):not(.badge-status):not(.badge-role):not(.badge-score):not(.badge-primary),
-  .dark .table td div:not(.badge):not(.chip):not(.badge-status):not(.badge-role):not(.badge-score):not(.badge-primary) {
+  .dark .table-cell div:not(.badge):not(.badge-status):not(.badge-role):not(.badge-score):not(.badge-primary),
+  .dark .table td div:not(.badge):not(.badge-status):not(.badge-role):not(.badge-score):not(.badge-primary),
+  /* Dark mode chip text color */
+  .dark .table .chip,
+  .dark .table-cell .chip {
     color: hsl(var(--foreground)) !important;
     font-weight: var(--font-weight-medium) !important;
     text-transform: none !important;
@@ -1251,13 +1260,15 @@
   }
 
   .dark .table-global thead {
-    background-color: hsl(var(--muted));
-    border-bottom-color: hsl(var(--border));
+    background-color: hsl(var(--bg-dark-teal));
+    border-bottom-color: hsl(var(--border-dark-teal));
   }
 
   .dark .table-global thead th {
-    color: hsl(var(--primary-light));
-    border-bottom-color: hsl(var(--border));
+    color: hsl(var(--foreground)) !important;
+    background-color: hsl(var(--bg-dark-teal));
+    border-bottom-color: hsl(var(--border-dark-teal));
+    font-weight: 500 !important;
   }
 
   .dark .table-global tbody {
@@ -1630,6 +1641,99 @@
     background-color: hsl(var(--primary) / 0.2);
     border-color: hsl(var(--primary-light) / 0.4);
     box-shadow: 0 2px 8px hsl(var(--primary) / 0.3);
+  }
+
+  /* Zone Chip - Enhanced styling for zone display */
+  .chip-zone {
+    padding: 0.5rem 0.875rem;
+    font-size: var(--font-size-sm);
+    font-weight: var(--font-weight-medium);
+    border-radius: var(--radius-md);
+    border: 1px solid hsl(var(--border-light-cyan));
+    background-color: hsl(var(--bg-very-light-cyan));
+    color: hsl(var(--primary-dark));
+    transition: all 0.2s ease;
+    cursor: default;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.375rem;
+  }
+
+  .chip-zone:hover {
+    background-color: hsl(var(--primary-dark) / 0.1);
+    border-color: hsl(var(--primary-dark) / 0.3);
+    transform: translateY(-1px);
+    box-shadow: 0 2px 8px hsl(var(--primary-dark) / 0.2);
+  }
+
+  .dark .chip-zone {
+    background-color: hsl(var(--bg-dark-teal));
+    border-color: hsl(var(--border-dark-teal));
+    color: hsl(var(--primary-light));
+  }
+
+  .dark .chip-zone:hover {
+    background-color: hsl(var(--primary) / 0.2);
+    border-color: hsl(var(--primary-light) / 0.4);
+    box-shadow: 0 2px 8px hsl(var(--primary) / 0.3);
+  }
+
+  /* Golden Star Rating - For average ratings */
+  .star-rating {
+    color: #fbbf24; /* Amber-400 - Golden color */
+    fill: #fbbf24;
+  }
+
+  .star-rating-filled {
+    color: #f59e0b; /* Amber-500 - Darker gold */
+    fill: #f59e0b;
+  }
+
+  /* Rating Display Container */
+  .rating-display {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
+  .rating-display .star {
+    color: #fbbf24;
+    fill: #fbbf24;
+  }
+
+  .rating-display .rating-value {
+    font-weight: var(--font-weight-semibold);
+    color: hsl(var(--text-heading));
+  }
+
+  .dark .rating-display .rating-value {
+    color: hsl(var(--foreground));
+  }
+
+  /* Enhanced Table Row Styling for Washroom Table */
+  .table-row {
+    transition: all 0.2s ease;
+  }
+
+  .table-row:hover {
+    background-color: hsl(var(--bg-light-cyan-alt)) !important;
+    transform: translateY(-1px);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+  }
+
+  .dark .table-row:hover {
+    background-color: hsl(var(--muted) / 0.5) !important;
+  }
+
+  /* Better spacing for table cells */
+  .table-cell {
+    vertical-align: middle;
+  }
+
+  /* Enhanced badge score styling */
+  .badge-score {
+    font-weight: var(--font-weight-semibold);
+    padding: 0.5rem 0.75rem;
   }
 }
 
@@ -2766,6 +2870,238 @@
   .btn[class*="font-semibold"] {
     font-weight: var(--font-weight-normal) !important;
   }
+
+  /* =====================================================
+     🎯 UTILITY CLASSES FOR INLINE STYLES REPLACEMENT
+     Use these classes instead of inline styles
+  ===================================================== */
+  
+  /* Z-Index Utilities */
+  .z-index-60 {
+    z-index: 60;
+  }
+
+  .z-index-70 {
+    z-index: 70;
+  }
+
+  .z-index-100 {
+    z-index: 100;
+  }
+
+  /* Link Colors */
+  .link-blue {
+    color: #2563eb;
+  }
+
+  .link-blue:hover {
+    color: #1e40af;
+  }
+
+  /* Text Shadow Utilities */
+  .text-shadow-white {
+    text-shadow: 0 1px 2px rgba(255, 255, 255, 0.5);
+  }
+
+  /* Map Container Heights */
+  .map-container-height {
+    height: calc(100vh - 80px);
+    min-height: 500px;
+  }
+
+  .map-container-full {
+    height: 100%;
+    min-height: 600px;
+  }
+
+  /* Progress Bar Full Width */
+  .progress-bar-full {
+    width: 100%;
+  }
+
+  /* Dynamic Width - Use inline style for dynamic values, but provide base class */
+  .progress-bar {
+    height: 100%;
+  }
+
+  /* Gradient Button using Primary Colors */
+  .btn-gradient-primary {
+    background: linear-gradient(to right, hsl(var(--primary)), hsl(var(--primary-accent)));
+    color: #FFFFFF;
+  }
+
+  /* Map Container Full Size */
+  .map-container-full-size {
+    width: 100%;
+    height: 100%;
+  }
+
+  /* Z-Index Utilities for Stacking */
+  .z-stack-10 { z-index: 10; }
+  .z-stack-9 { z-index: 9; }
+  .z-stack-8 { z-index: 8; }
+  .z-stack-7 { z-index: 7; }
+
+  /* =====================================================
+     🎨 TABLE ACTION ICONS - GLOBAL STYLES
+     Edit icons: Blue, Delete icons: Red
+     These classes apply to all tables automatically
+  ===================================================== */
+  
+  /* Edit Icon Button - Blue */
+  .btn-icon-edit,
+  .table .btn-icon-edit,
+  .table-cell .btn-icon-edit,
+  button.btn-icon[title*="Edit"],
+  button.btn-icon[title*="edit"] {
+    color: #2563eb !important; /* Blue-600 */
+    transition: all 0.2s ease;
+  }
+
+  .btn-icon-edit:hover,
+  .table .btn-icon-edit:hover,
+  .table-cell .btn-icon-edit:hover,
+  button.btn-icon[title*="Edit"]:hover,
+  button.btn-icon[title*="edit"]:hover {
+    color: #1e40af !important; /* Blue-700 */
+    background-color: #dbeafe !important; /* Blue-50 */
+  }
+
+  .btn-icon-edit svg,
+  .table .btn-icon-edit svg,
+  .table-cell .btn-icon-edit svg {
+    color: #2563eb !important;
+  }
+
+  .btn-icon-edit:hover svg {
+    color: #1e40af !important;
+  }
+
+  /* Delete Icon Button - Red */
+  .btn-icon-delete,
+  .table .btn-icon-delete,
+  .table-cell .btn-icon-delete,
+  button.btn-icon[title*="Delete"],
+  button.btn-icon[title*="delete"] {
+    color: #dc2626 !important; /* Red-600 */
+    transition: all 0.2s ease;
+  }
+
+  .btn-icon-delete:hover,
+  .table .btn-icon-delete:hover,
+  .table-cell .btn-icon-delete:hover,
+  button.btn-icon[title*="Delete"]:hover,
+  button.btn-icon[title*="delete"]:hover {
+    color: #b91c1c !important; /* Red-700 */
+    background-color: #fee2e2 !important; /* Red-50 */
+  }
+
+  .btn-icon-delete svg,
+  .table .btn-icon-delete svg,
+  .table-cell .btn-icon-delete svg {
+    color: #dc2626 !important;
+  }
+
+  .btn-icon-delete:hover svg {
+    color: #b91c1c !important;
+  }
+
+  /* View/Eye Icon Button - Primary Color */
+  .btn-icon-view,
+  .table .btn-icon-view,
+  .table-cell .btn-icon-view,
+  button.btn-icon[title*="View"],
+  button.btn-icon[title*="view"] {
+    color: hsl(var(--primary-dark)) !important;
+    transition: all 0.2s ease;
+  }
+
+  .btn-icon-view:hover,
+  .table .btn-icon-view:hover,
+  .table-cell .btn-icon-view:hover,
+  button.btn-icon[title*="View"]:hover,
+  button.btn-icon[title*="view"]:hover {
+    color: hsl(var(--primary-medium)) !important;
+    background-color: hsl(var(--bg-very-light-cyan)) !important;
+  }
+
+  .btn-icon-view svg,
+  .table .btn-icon-view svg,
+  .table-cell .btn-icon-view svg {
+    color: hsl(var(--primary-dark)) !important;
+  }
+
+  .btn-icon-view:hover svg {
+    color: hsl(var(--primary-medium)) !important;
+  }
+
+  /* =====================================================
+     🎨 TABLE HEADER ICONS - COLORED
+     All icons in table headers should have primary color
+  ===================================================== */
+  
+  .table-header th svg,
+  .table-header th .icon,
+  .table th svg,
+  .table th .icon,
+  .table-header th div svg,
+  .table th div svg {
+    color: hsl(var(--primary-dark)) !important;
+    transition: color 0.2s ease;
+  }
+
+  .dark .table-header th svg,
+  .dark .table-header th .icon,
+  .dark .table th svg,
+  .dark .table th .icon,
+  .dark .table-header th div svg,
+  .dark .table th div svg {
+    color: hsl(var(--primary-light)) !important;
+  }
+
+  /* Override black text color for header icons */
+  .table-header th,
+  .table th {
+    --header-icon-color: hsl(var(--primary-dark));
+  }
+
+  .dark .table-header th,
+  .dark .table th {
+    --header-icon-color: hsl(var(--primary-light));
+  }
+
+  /* Specific icon colors in headers for better visual distinction */
+  .table-header th svg[class*="Hash"],
+  .table-header th svg[class*="hash"],
+  .table th svg[class*="Hash"],
+  .table th svg[class*="hash"] {
+    color: #6366f1 !important; /* Indigo */
+  }
+
+  .table-header th svg[class*="Map"],
+  .table-header th svg[class*="map"],
+  .table-header th svg[class*="MapPin"],
+  .table-header th svg[class*="mappin"],
+  .table th svg[class*="Map"],
+  .table th svg[class*="map"],
+  .table th svg[class*="MapPin"],
+  .table th svg[class*="mappin"] {
+    color: #059669 !important; /* Green */
+  }
+
+  .table-header th svg[class*="Activity"],
+  .table-header th svg[class*="activity"],
+  .table th svg[class*="Activity"],
+  .table th svg[class*="activity"] {
+    color: #f59e0b !important; /* Amber */
+  }
+
+  .table-header th svg[class*="Navigation"],
+  .table-header th svg[class*="navigation"],
+  .table th svg[class*="Navigation"],
+  .table th svg[class*="navigation"] {
+    color: #3b82f6 !important; /* Blue */
+  }
 }
 
 /* =====================================================
@@ -2795,6 +3131,89 @@
 
 .dark ::-webkit-scrollbar-thumb {
   background: hsl(var(--border));
+}
+
+/* =====================================================
+   🏷️ TABLE STYLES
+===================================================== */
+.table-container {
+  background-color: white;
+  border-radius: 0.5rem;
+  box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+  border: 1px solid #e5e7eb;
+  overflow: hidden;
+}
+
+.table {
+  min-width: 100%;
+  border-collapse: collapse;
+}
+
+.table thead th {
+  padding: 0.75rem 1.5rem;
+  background-color: #f9fafb;
+  text-align: left;
+  font-size: 0.75rem;
+  font-weight: 500;
+  color: #6b7280;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.table tbody {
+  background-color: white;
+}
+
+.table tbody tr {
+  border-bottom: 1px solid #e5e7eb;
+}
+
+.table td {
+  padding: 1rem 1.5rem;
+  white-space: nowrap;
+  font-size: 0.875rem;
+  color: #111827;
+  vertical-align: middle;
+}
+
+/* Action Buttons */
+.btn-edit {
+  color: #2563eb;
+  margin-right: 1rem;
+  text-decoration: none;
+  font-weight: 500;
+}
+
+.btn-edit:hover {
+  color: #1e40af;
+}
+
+.btn-delete {
+  color: #dc2626;
+  text-decoration: none;
+  font-weight: 500;
+}
+
+.btn-delete:hover {
+  color: #b91c1c;
+}
+
+/* Status Badge */
+.badge-active {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.25rem 0.5rem;
+  font-size: 0.75rem;
+  font-weight: 600;
+  line-height: 1.25rem;
+  color: #065f46;
+  background-color: #d1fae5;
+  border-radius: 9999px;
+}
+
+/* Hover Effect */
+.table tbody tr:hover {
+  background-color: #f9fafb;
 }
 
 /* =====================================================

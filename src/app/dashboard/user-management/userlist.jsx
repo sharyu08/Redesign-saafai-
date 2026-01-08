@@ -2,7 +2,7 @@
 
 import React, { useState } from 'react';
 import { useRouter } from 'next/navigation';
-import { Search, Plus, Eye, Edit3, Trash2, MapPin, Mail, Phone, Shield, AlertTriangle } from 'lucide-react';
+import { Search, Plus, Eye, Edit3, Trash2, MapPin, Mail, Phone, Shield, AlertTriangle, Users, Filter } from 'lucide-react';
 
 // --- MOCK DATA ---
 const initialUserRows = [
@@ -33,7 +33,7 @@ const getRoleStyle = (role) => {
 
 // --- DELETE CONFIRMATION MODAL ---
 const DeleteConfirmModal = ({ user, onClose, onConfirm }) => (
-    <div className="form-overlay" style={{ zIndex: 100 }}>
+    <div className="form-overlay z-index-100">
         <div className="form-container">
             <div className="bg-rose-50 dark:bg-rose-950/20 p-8 flex flex-col items-center text-center border-b border-border">
                 <div className="w-16 h-16 bg-rose-100 dark:bg-rose-900/50 rounded-2xl flex items-center justify-center mb-4">
@@ -60,7 +60,7 @@ const DeleteConfirmModal = ({ user, onClose, onConfirm }) => (
 const UserDetailCard = ({ user, onClose }) => {
     const activeLocations = user.locations.filter(l => l.active).length;
     return (
-        <div className="form-overlay" style={{ zIndex: 60 }}>
+        <div className="form-overlay z-index-60">
             <div className="form-container form-container-xl">
                 <div className="form-header flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
                     <div className="flex items-center gap-5">
@@ -110,16 +110,30 @@ const UserList = () => {
     const router = useRouter();
     const [userRows, setUserRows] = useState(initialUserRows);
     const [searchTerm, setSearchTerm] = useState("");
+    const [roleFilter, setRoleFilter] = useState("all");
     const [viewingUser, setViewingUser] = useState(null);
     const [deletingUser, setDeletingUser] = useState(null);
 
+    // Calculate stats
+    const stats = {
+        total: userRows.length,
+        admin: userRows.filter(u => u.role === 'Admin').length,
+        supervisor: userRows.filter(u => u.role === 'Supervisor').length,
+        cleaner: userRows.filter(u => u.role === 'Cleaner').length,
+        zonalAdmin: userRows.filter(u => u.role === 'Zonal Admin').length,
+        facilitySupervisor: userRows.filter(u => u.role === 'Facility Supervisor').length,
+        facilityAdmin: userRows.filter(u => u.role === 'Facility Admin').length,
+    };
+
     const filteredUsers = userRows.filter(user => {
         const term = searchTerm.toLowerCase();
-        return (
+        const matchesSearch = (
             user.name.toLowerCase().includes(term) ||
             user.email.toLowerCase().includes(term) ||
             user.phone.toLowerCase().includes(term)
         );
+        const matchesRole = roleFilter === "all" || user.role === roleFilter;
+        return matchesSearch && matchesRole;
     });
 
     const handleDeleteUser = (id) => {
@@ -143,10 +157,10 @@ const UserList = () => {
                             </div>
                             <div className="text-left">
                                 <h1 className="page-header-title">
-                                    User Directory
+                                    User Management
                                 </h1>
                                 <p className="page-header-subtitle">
-                                    Manage access levels and mapping
+                                    Manage all user roles and permissions
                                 </p>
                             </div>
                         </div>
@@ -163,6 +177,163 @@ const UserList = () => {
                     </div>
                 </div>
 
+                {/* Stats Cards */}
+                <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-7 gap-4">
+                    {/* Total Users Card - Highlighted */}
+                    <button
+                        onClick={() => setRoleFilter("all")}
+                        className={`rounded-2xl p-5 shadow-lg transition-all duration-200 hover:scale-105 hover:shadow-xl cursor-pointer text-left ${
+                            roleFilter === "all"
+                                ? "bg-gradient-to-br from-[hsl(var(--primary))] to-[hsl(var(--primary-dark))] text-white"
+                                : "bg-white dark:bg-card border border-border text-foreground hover:border-[hsl(var(--primary))]/50"
+                        }`}
+                    >
+                        <div className="flex items-center justify-between mb-2">
+                            <p className={`text-xs font-bold uppercase tracking-wider ${
+                                roleFilter === "all" ? "opacity-90" : "text-muted-foreground"
+                            }`}>Total Users</p>
+                            <Users className={`h-5 w-5 ${
+                                roleFilter === "all" ? "opacity-80" : "text-muted-foreground"
+                            }`} />
+                        </div>
+                        <p className={`text-3xl font-black ${
+                            roleFilter === "all" ? "text-white" : "text-foreground"
+                        }`}>{stats.total}</p>
+                    </button>
+
+                    {/* Admin Card */}
+                    <button
+                        onClick={() => setRoleFilter("Admin")}
+                        className={`rounded-2xl p-5 border shadow-sm transition-all duration-200 hover:scale-105 hover:shadow-md cursor-pointer text-left ${
+                            roleFilter === "Admin"
+                                ? "bg-[hsl(var(--primary))] border-[hsl(var(--primary-dark))] text-white"
+                                : "bg-white dark:bg-card border-border text-foreground hover:border-[hsl(var(--primary))]/50"
+                        }`}
+                    >
+                        <div className="flex items-center justify-between mb-2">
+                            <p className={`text-xs font-bold uppercase tracking-wider ${
+                                roleFilter === "Admin" ? "opacity-90" : "text-muted-foreground"
+                            }`}>Admin</p>
+                            <Shield className={`h-5 w-5 ${
+                                roleFilter === "Admin" ? "opacity-80" : "text-muted-foreground"
+                            }`} />
+                        </div>
+                        <p className={`text-2xl font-black ${
+                            roleFilter === "Admin" ? "text-white" : "text-foreground"
+                        }`}>{stats.admin}</p>
+                    </button>
+
+                    {/* Supervisor Card */}
+                    <button
+                        onClick={() => setRoleFilter("Supervisor")}
+                        className={`rounded-2xl p-5 border shadow-sm transition-all duration-200 hover:scale-105 hover:shadow-md cursor-pointer text-left ${
+                            roleFilter === "Supervisor"
+                                ? "bg-[hsl(var(--lavender-300))] border-[hsl(var(--lavender-300))] text-white"
+                                : "bg-white dark:bg-card border-border text-foreground hover:border-[hsl(var(--lavender-300))]/50"
+                        }`}
+                    >
+                        <div className="flex items-center justify-between mb-2">
+                            <p className={`text-xs font-bold uppercase tracking-wider ${
+                                roleFilter === "Supervisor" ? "opacity-90" : "text-muted-foreground"
+                            }`}>Supervisor</p>
+                            <Shield className={`h-5 w-5 ${
+                                roleFilter === "Supervisor" ? "opacity-80" : "text-muted-foreground"
+                            }`} />
+                        </div>
+                        <p className={`text-2xl font-black ${
+                            roleFilter === "Supervisor" ? "text-white" : "text-foreground"
+                        }`}>{stats.supervisor}</p>
+                    </button>
+
+                    {/* Cleaner Card */}
+                    <button
+                        onClick={() => setRoleFilter("Cleaner")}
+                        className={`rounded-2xl p-5 border shadow-sm transition-all duration-200 hover:scale-105 hover:shadow-md cursor-pointer text-left ${
+                            roleFilter === "Cleaner"
+                                ? "bg-[hsl(var(--primary-accent))] border-[hsl(var(--primary-medium))] text-white"
+                                : "bg-white dark:bg-card border-border text-foreground hover:border-[hsl(var(--primary-accent))]/50"
+                        }`}
+                    >
+                        <div className="flex items-center justify-between mb-2">
+                            <p className={`text-xs font-bold uppercase tracking-wider ${
+                                roleFilter === "Cleaner" ? "opacity-90" : "text-muted-foreground"
+                            }`}>Cleaner</p>
+                            <Users className={`h-5 w-5 ${
+                                roleFilter === "Cleaner" ? "opacity-80" : "text-muted-foreground"
+                            }`} />
+                        </div>
+                        <p className={`text-2xl font-black ${
+                            roleFilter === "Cleaner" ? "text-white" : "text-foreground"
+                        }`}>{stats.cleaner}</p>
+                    </button>
+
+                    {/* Zonal Admin Card */}
+                    <button
+                        onClick={() => setRoleFilter("Zonal Admin")}
+                        className={`rounded-2xl p-5 border shadow-sm transition-all duration-200 hover:scale-105 hover:shadow-md cursor-pointer text-left ${
+                            roleFilter === "Zonal Admin"
+                                ? "bg-[hsl(var(--lavender-300))] border-[hsl(var(--lavender-300))] text-white"
+                                : "bg-white dark:bg-card border-border text-foreground hover:border-[hsl(var(--lavender-300))]/50"
+                        }`}
+                    >
+                        <div className="flex items-center justify-between mb-2">
+                            <p className={`text-xs font-bold uppercase tracking-wider ${
+                                roleFilter === "Zonal Admin" ? "opacity-90" : "text-muted-foreground"
+                            }`}>Zonal Admin</p>
+                            <MapPin className={`h-5 w-5 ${
+                                roleFilter === "Zonal Admin" ? "opacity-80" : "text-muted-foreground"
+                            }`} />
+                        </div>
+                        <p className={`text-2xl font-black ${
+                            roleFilter === "Zonal Admin" ? "text-white" : "text-foreground"
+                        }`}>{stats.zonalAdmin}</p>
+                    </button>
+
+                    {/* Facility Supervisor Card */}
+                    <button
+                        onClick={() => setRoleFilter("Facility Supervisor")}
+                        className={`rounded-2xl p-5 border shadow-sm transition-all duration-200 hover:scale-105 hover:shadow-md cursor-pointer text-left ${
+                            roleFilter === "Facility Supervisor"
+                                ? "bg-[hsl(var(--lavender-200))] border-[hsl(var(--lavender-300))] text-[hsl(var(--primary-dark))]"
+                                : "bg-white dark:bg-card border-border text-foreground hover:border-[hsl(var(--lavender-300))]/50"
+                        }`}
+                    >
+                        <div className="flex items-center justify-between mb-2">
+                            <p className={`text-xs font-bold uppercase tracking-wider ${
+                                roleFilter === "Facility Supervisor" ? "text-[hsl(var(--primary-dark))]" : "text-muted-foreground"
+                            }`}>Facility Supervisor</p>
+                            <Users className={`h-5 w-5 ${
+                                roleFilter === "Facility Supervisor" ? "text-[hsl(var(--primary-dark))]" : "text-muted-foreground"
+                            }`} />
+                        </div>
+                        <p className={`text-2xl font-black ${
+                            roleFilter === "Facility Supervisor" ? "text-[hsl(var(--primary-dark))]" : "text-foreground"
+                        }`}>{stats.facilitySupervisor}</p>
+                    </button>
+
+                    {/* Facility Admin Card */}
+                    <button
+                        onClick={() => setRoleFilter("Facility Admin")}
+                        className={`rounded-2xl p-5 border shadow-sm transition-all duration-200 hover:scale-105 hover:shadow-md cursor-pointer text-left ${
+                            roleFilter === "Facility Admin"
+                                ? "bg-[hsl(var(--lavender-200))] border-[hsl(var(--lavender-300))] text-[hsl(var(--primary-dark))]"
+                                : "bg-white dark:bg-card border-border text-foreground hover:border-[hsl(var(--lavender-300))]/50"
+                        }`}
+                    >
+                        <div className="flex items-center justify-between mb-2">
+                            <p className={`text-xs font-bold uppercase tracking-wider ${
+                                roleFilter === "Facility Admin" ? "text-[hsl(var(--primary-dark))]" : "text-muted-foreground"
+                            }`}>Facility Admin</p>
+                            <Shield className={`h-5 w-5 ${
+                                roleFilter === "Facility Admin" ? "text-[hsl(var(--primary-dark))]" : "text-muted-foreground"
+                            }`} />
+                        </div>
+                        <p className={`text-2xl font-black ${
+                            roleFilter === "Facility Admin" ? "text-[hsl(var(--primary-dark))]" : "text-foreground"
+                        }`}>{stats.facilityAdmin}</p>
+                    </button>
+                </div>
+
                 {/* Search Bar */}
                 <div className="relative group max-w-2xl text-left">
                     <Search className="absolute left-4 top-1/2 -translate-y-1/2 text-muted-foreground group-focus-within:text-primary-dark transition-colors" size={20} />
@@ -170,9 +341,99 @@ const UserList = () => {
                         type="text"
                         value={searchTerm}
                         onChange={(e) => setSearchTerm(e.target.value)}
-                        placeholder="SEARCH BY NAME, EMAIL, OR STAFF ID..."
+                        placeholder="Search t"
                         className="w-full pl-12 pr-6 py-4 rounded-2xl border border-border bg-card text-xs font-bold uppercase tracking-widest outline-none focus:ring-4 focus:ring-primary-light/20 focus:border-primary-medium transition-all shadow-sm"
                     />
+                </div>
+
+                {/* Filter Chips */}
+                <div className="flex flex-wrap items-center gap-3">
+                    <span className="text-xs font-bold text-muted-foreground uppercase tracking-wider flex items-center gap-2">
+                        <Filter className="h-4 w-4" />
+                        Filter:
+                    </span>
+                    <button
+                        onClick={() => setRoleFilter("all")}
+                        className={`px-4 py-2 rounded-xl text-xs font-bold uppercase tracking-wider transition-all ${
+                            roleFilter === "all"
+                                ? "bg-[hsl(var(--primary))] text-white shadow-md"
+                                : "bg-white dark:bg-card border border-border text-muted-foreground hover:bg-[hsl(var(--bg-very-light-cyan))] dark:hover:bg-slate-800 hover:border-[hsl(var(--primary))]/50"
+                        }`}
+                    >
+                        All Users
+                    </button>
+                    {stats.admin > 0 && (
+                        <button
+                            onClick={() => setRoleFilter("Admin")}
+                            className={`px-4 py-2 rounded-xl text-xs font-bold uppercase tracking-wider transition-all ${
+                                roleFilter === "Admin"
+                                    ? "bg-[hsl(var(--primary))] text-white shadow-md"
+                                    : "bg-white dark:bg-card border border-border text-muted-foreground hover:bg-[hsl(var(--bg-very-light-cyan))] dark:hover:bg-slate-800 hover:border-[hsl(var(--primary))]/50"
+                            }`}
+                        >
+                            Admins {stats.admin}
+                        </button>
+                    )}
+                    {stats.supervisor > 0 && (
+                        <button
+                            onClick={() => setRoleFilter("Supervisor")}
+                            className={`px-4 py-2 rounded-xl text-xs font-bold uppercase tracking-wider transition-all ${
+                                roleFilter === "Supervisor"
+                                    ? "bg-[hsl(var(--lavender-300))] text-white shadow-md"
+                                    : "bg-white dark:bg-card border border-border text-muted-foreground hover:bg-[hsl(var(--bg-very-light-cyan))] dark:hover:bg-slate-800 hover:border-[hsl(var(--lavender-300))]/50"
+                            }`}
+                        >
+                            Supervisors {stats.supervisor}
+                        </button>
+                    )}
+                    {stats.cleaner > 0 && (
+                        <button
+                            onClick={() => setRoleFilter("Cleaner")}
+                            className={`px-4 py-2 rounded-xl text-xs font-bold uppercase tracking-wider transition-all ${
+                                roleFilter === "Cleaner"
+                                    ? "bg-[hsl(var(--primary-accent))] text-white shadow-md"
+                                    : "bg-white dark:bg-card border border-border text-muted-foreground hover:bg-[hsl(var(--bg-very-light-cyan))] dark:hover:bg-slate-800 hover:border-[hsl(var(--primary-accent))]/50"
+                            }`}
+                        >
+                            Cleaners {stats.cleaner}
+                        </button>
+                    )}
+                    {stats.zonalAdmin > 0 && (
+                        <button
+                            onClick={() => setRoleFilter("Zonal Admin")}
+                            className={`px-4 py-2 rounded-xl text-xs font-bold uppercase tracking-wider transition-all ${
+                                roleFilter === "Zonal Admin"
+                                    ? "bg-[hsl(var(--lavender-300))] text-white shadow-md"
+                                    : "bg-white dark:bg-card border border-border text-muted-foreground hover:bg-[hsl(var(--bg-very-light-cyan))] dark:hover:bg-slate-800 hover:border-[hsl(var(--lavender-300))]/50"
+                            }`}
+                        >
+                            Zonal Admins {stats.zonalAdmin}
+                        </button>
+                    )}
+                    {stats.facilitySupervisor > 0 && (
+                        <button
+                            onClick={() => setRoleFilter("Facility Supervisor")}
+                            className={`px-4 py-2 rounded-xl text-xs font-bold uppercase tracking-wider transition-all ${
+                                roleFilter === "Facility Supervisor"
+                                    ? "bg-[hsl(var(--lavender-200))] text-[hsl(var(--primary-dark))] border border-[hsl(var(--lavender-300))] shadow-md"
+                                    : "bg-white dark:bg-card border border-border text-muted-foreground hover:bg-[hsl(var(--bg-very-light-cyan))] dark:hover:bg-slate-800 hover:border-[hsl(var(--lavender-300))]/50"
+                            }`}
+                        >
+                            Facility Supervisors {stats.facilitySupervisor}
+                        </button>
+                    )}
+                    {stats.facilityAdmin > 0 && (
+                        <button
+                            onClick={() => setRoleFilter("Facility Admin")}
+                            className={`px-4 py-2 rounded-xl text-xs font-bold uppercase tracking-wider transition-all ${
+                                roleFilter === "Facility Admin"
+                                    ? "bg-[hsl(var(--lavender-200))] text-[hsl(var(--primary-dark))] border border-[hsl(var(--lavender-300))] shadow-md"
+                                    : "bg-white dark:bg-card border border-border text-muted-foreground hover:bg-[hsl(var(--bg-very-light-cyan))] dark:hover:bg-slate-800 hover:border-[hsl(var(--lavender-300))]/50"
+                            }`}
+                        >
+                            Facility Admins {stats.facilityAdmin}
+                        </button>
+                    )}
                 </div>
 
                 {/* Table View - Using standardized table classes */}
@@ -221,21 +482,21 @@ const UserList = () => {
                                                 <div className="flex justify-end gap-2">
                                                     <button
                                                         onClick={() => setViewingUser(user)}
-                                                        className="btn-icon"
+                                                        className="btn-icon btn-icon-view"
                                                         title="View Profile"
                                                     >
                                                         <Eye size={16} />
                                                     </button>
                                                     <button
                                                         onClick={() => router.push(`/dashboard/user-management/edit/${user.id}`)}
-                                                        className="btn-icon"
+                                                        className="btn-icon btn-icon-edit"
                                                         title="Edit Account"
                                                     >
                                                         <Edit3 size={16} />
                                                     </button>
                                                     <button
                                                         onClick={() => setDeletingUser(user)}
-                                                        className="btn-icon text-accent-red hover:bg-accent-red hover:text-white"
+                                                        className="btn-icon btn-icon-delete"
                                                         title="Delete User"
                                                     >
                                                         <Trash2 size={16} />
@@ -247,6 +508,13 @@ const UserList = () => {
                                 )}
                             </tbody>
                         </table>
+                    </div>
+                    
+                    {/* Table Footer */}
+                    <div className="table-footer">
+                        <p className="text-xs font-medium text-muted-foreground">
+                            Showing <span className="font-bold text-foreground">{filteredUsers.length}</span> of <span className="font-bold text-foreground">{userRows.length}</span> users
+                        </p>
                     </div>
                 </div>
             </div>

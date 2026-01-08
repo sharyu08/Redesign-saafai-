@@ -6,7 +6,7 @@ export default function AssignedCleanersModal({ cleaners, onClose }) {
     if (!cleaners) return null;
 
     return (
-        <div className="form-overlay" style={{ zIndex: 100 }}>
+        <div className="form-overlay z-index-100">
             <div className="form-container">
                 {/* Header */}
                 <div className="form-header">

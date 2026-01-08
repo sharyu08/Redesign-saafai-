@@ -32,9 +32,9 @@ export default function WashroomFilters({
 
                 {/* 2. COMPACT SELECTS */}
                 <div className="flex items-center gap-2">
-                    <div className="relative">
+                    <div className="relative group">
                         <select
-                            className="appearance-none bg-[hsl(var(--input))] border border-[hsl(var(--border))] rounded-xl pl-3 pr-8 py-2 text-xs font-bold text-[hsl(var(--foreground))] focus:ring-2 focus:ring-[hsl(var(--primary))] outline-none cursor-pointer"
+                            className="appearance-none bg-[hsl(var(--input))] border border-[hsl(var(--border))] rounded-xl pl-3 pr-8 py-2 text-xs font-bold text-[hsl(var(--foreground))] focus:ring-2 focus:ring-[hsl(var(--primary))] hover:ring-2 hover:ring-[hsl(var(--primary))]/30 hover:border-[hsl(var(--primary))]/50 outline-none cursor-pointer transition-all"
                             value={typeFilter}
                             onChange={(e) => onTypeFilterChange(e.target.value)}
                         >
@@ -50,25 +50,25 @@ export default function WashroomFilters({
                             <option value="Nagpur Ruaral">Nagpur Ruaral</option>
                             <option value="Butobori">Butobori</option>
                         </select>
-                        <Filter className="absolute right-2.5 top-1/2 -translate-y-1/2 h-3 w-3 text-[hsl(var(--muted-foreground))] pointer-events-none" />
+                        <Filter className="absolute right-2.5 top-1/2 -translate-y-1/2 h-3 w-3 text-[hsl(var(--muted-foreground))] group-hover:text-[hsl(var(--primary))] pointer-events-none transition-colors" />
                     </div>
 
-                    <div className="relative">
+                    <div className="relative group">
                         <select
-                            className="appearance-none bg-[hsl(var(--input))] border border-[hsl(var(--border))] rounded-xl pl-3 pr-8 py-2 text-xs font-bold text-[hsl(var(--foreground))] focus:ring-2 focus:ring-[hsl(var(--primary))] outline-none cursor-pointer"
+                            className="appearance-none bg-[hsl(var(--input))] border border-[hsl(var(--border))] rounded-xl pl-3 pr-8 py-2 text-xs font-bold text-[hsl(var(--foreground))] focus:ring-2 focus:ring-[hsl(var(--primary))] hover:ring-2 hover:ring-[hsl(var(--primary))]/30 hover:border-[hsl(var(--primary))]/50 outline-none cursor-pointer transition-all"
                             value={companyFilter}
                             onChange={(e) => onCompanyFilterChange(e.target.value)}
                         >
                             <option value="all">All Facility Companies</option>
                             <option value="N/A">Unassigned</option>
                         </select>
-                        <Building2 className="absolute right-2.5 top-1/2 -translate-y-1/2 h-3 w-3 text-[hsl(var(--muted-foreground))] pointer-events-none" />
+                        <Building2 className="absolute right-2.5 top-1/2 -translate-y-1/2 h-3 w-3 text-[hsl(var(--muted-foreground))] group-hover:text-[hsl(var(--primary))] pointer-events-none transition-colors" />
                     </div>
 
                     {/* RATING SELECT - Values match the logic below */}
-                    <div className="relative">
+                    <div className="relative group">
                         <select
-                            className="appearance-none bg-[hsl(var(--input))] border border-[hsl(var(--border))] rounded-xl pl-3 pr-8 py-2 text-xs font-bold text-[hsl(var(--foreground))] focus:ring-2 focus:ring-[hsl(var(--primary))] outline-none cursor-pointer"
+                            className="appearance-none bg-[hsl(var(--input))] border border-[hsl(var(--border))] rounded-xl pl-3 pr-8 py-2 text-xs font-bold text-[hsl(var(--foreground))] focus:ring-2 focus:ring-[hsl(var(--primary))] hover:ring-2 hover:ring-[hsl(var(--primary))]/30 hover:border-[hsl(var(--primary))]/50 outline-none cursor-pointer transition-all"
                             value={ratingFilter}
                             onChange={(e) => onRatingFilterChange(e.target.value)}
                         >
@@ -78,7 +78,7 @@ export default function WashroomFilters({
                             <option value="7plus">7.0+ Stars</option>
                             <option value="below5">Below 5.0</option>
                         </select>
-                        <Star className="absolute right-2.5 top-1/2 -translate-y-1/2 h-3 w-3 text-[hsl(var(--muted-foreground))] pointer-events-none" />
+                        <Star className="absolute right-2.5 top-1/2 -translate-y-1/2 h-3 w-3 text-[hsl(var(--muted-foreground))] group-hover:text-[hsl(var(--primary))] pointer-events-none transition-colors" />
                     </div>
                 </div>
 

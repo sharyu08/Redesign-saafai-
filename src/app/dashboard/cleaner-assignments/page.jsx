@@ -119,7 +119,7 @@ export default function CleanerAssignmentsPage() {
     </div>
     <div className="mt-3 h-2 bg-gray-100 rounded-full overflow-hidden">
       <div 
-        className="h-full bg-[#FF9F1C] rounded-full" 
+        className="progress-bar bg-[#FF9F1C] rounded-full" 
         style={{ 
           width: `${(assignments.filter(a => a.status === "Unassigned").length / assignments.length) * 100}%` 
         }}
@@ -142,7 +142,7 @@ export default function CleanerAssignmentsPage() {
     </div>
     <div className="mt-3 h-2 bg-gray-100 rounded-full overflow-hidden">
       <div 
-        className="h-full bg-[#22C55E] rounded-full"
+        className="progress-bar bg-[#22C55E] rounded-full"
         style={{ 
           width: `${(assignments.filter(a => a.status === "Assigned").length / assignments.length) * 100}%` 
         }}
@@ -164,7 +164,7 @@ export default function CleanerAssignmentsPage() {
       </div>
     </div>
     <div className="mt-3 h-2 bg-gray-100 rounded-full overflow-hidden">
-      <div className="h-full bg-[#3B82F6] rounded-full" style={{ width: '100%' }}></div>
+      <div className="progress-bar bg-[#3B82F6] rounded-full progress-bar-full"></div>
     </div>
   </div>
 </div>
@@ -238,7 +238,7 @@ export default function CleanerAssignmentsPage() {
                         <div className="flex justify-end">
                           <button
                             onClick={() => handleDelete(item.id)}
-                            className="btn-icon text-accent-red hover:bg-accent-red hover:text-white"
+                            className="btn-icon btn-icon-delete"
                             title="Delete Assignment"
                           >
                             <Trash2 size={18} strokeWidth={2} />

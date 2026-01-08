@@ -190,7 +190,7 @@ export default function GeneratedReport() {
                   <td className="table-cell">
                     <div className="flex items-center gap-2">
                       <div className="h-1.5 w-16 bg-slate-100 rounded-full overflow-hidden">
-                        <div className="h-full bg-primary-medium" style={{ width: `${item.score}%` }}></div>
+                        <div className="progress-bar bg-primary-medium" style={{ width: `${item.score}%` }}></div>
                       </div>
                       <span>{item.score}%</span>
                     </div>

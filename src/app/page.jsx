@@ -16,7 +16,7 @@ export default function RootPage() {
     <div className="p-8">
       <h1>Safai Dashboard</h1>
       <p>
-        Go to <a href="/dashboard" style={{ color: 'blue' }}>Dashboard</a>
+        Go to <a href="/dashboard" className="link-blue">Dashboard</a>
       </p>
     </div>
   );
