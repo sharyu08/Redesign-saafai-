@@ -1,211 +1,139 @@
 "use client";
 
 import React, { useState, useEffect } from 'react';
-import Link from 'next/link';
-import { Search, Plus, Eye, Edit2, Trash2 } from 'lucide-react';
-import EditUserFormModal from './EditUserFormModal';
-import AddUserForm from './add-user/adduserform';
+import { useRouter } from 'next/navigation';
 import { createPortal } from 'react-dom';
+import { Search, Plus, Eye, Edit2, Trash2, Shield, ShieldCheck, AlertTriangle, MapPin, Calendar, Fingerprint, Users } from 'lucide-react';
+import EditUserFormModal from './EditUserFormModal';
+import AddUserForm from './AddUserForm';
 
 const initialUserRows = [
-  { 
-    id: 103, 
-    name: 'Rajesh Sahani - Narendra square', 
-    phone: '8955596876', 
-    email: 'rajesh@example.com', 
-    role: 'Cleaner', 
+  {
+    id: 103,
+    name: 'Rajesh Sahani - Narendra square',
+    phone: '8955596876',
+    email: 'rajesh@example.com',
+    role: 'Cleaner',
     userId: 182,
     status: 'active',
     lastActive: '2 hours ago',
     joinDate: '15 Jan 2023',
     locations: [
-      { name: 'Narendra nagar square', assignedDate: '20 Nov 2025', active: true, coordinates: '21.10769962728607, 79.07983507777436' },
-      { name: 'New Manish Nagar Chowk', assignedDate: '8 Dec 2025', active: true, coordinates: '21.08506067326107, 79.08774520874023' }
+      { name: 'Narendra nagar square', assignedDate: '20 Nov 2025', active: true, coordinates: '21.107, 79.079' },
+      { name: 'New Manish Nagar Chowk', assignedDate: '8 Dec 2025', active: true, coordinates: '21.085, 79.087' }
     ]
   },
-  { 
-    id: 101, 
-    name: 'Test Admin', 
-    phone: '9356150564', 
-    email: 'admin@example.com', 
-    role: 'Admin', 
-    userId: 180,
-    status: 'active',
-    lastActive: '30 mins ago',
-    joinDate: '10 Jan 2023',
-    locations: []
+  {
+    id: 101, name: 'Test Admin', phone: '9356150564', email: 'admin@example.com', role: 'Admin', userId: 180, status: 'active', lastActive: '30 mins ago', joinDate: '10 Jan 2023', locations: []
   },
-  { 
-    id: 102, 
-    name: 'Omkar Supervisor', 
-    phone: '3333333333', 
-    email: 'supervisor@example.com', 
-    role: 'Supervisor', 
-    userId: 181,
-    status: 'active',
-    lastActive: '1 hour ago',
-    joinDate: '12 Jan 2023',
-    locations: [
-      { name: 'Narendra nagar square', assignedDate: '20 Nov 2025', active: true, coordinates: '21.107, 79.079' }
-    ]
+  {
+    id: 102, name: 'Omkar Supervisor', phone: '3333333333', email: 'supervisor@example.com', role: 'Supervisor', userId: 181, status: 'active', lastActive: '1 hour ago', joinDate: '12 Jan 2023', locations: [{ name: 'Narendra nagar square', assignedDate: '20 Nov 2025', active: true, coordinates: '21.107, 79.079' }]
   }
 ];
 
-const getRoleStyle = (role) => {
-  switch (role) {
-    case 'Admin': return 'bg-teal-100 text-teal-800';
-    case 'Supervisor': return 'bg-blue-100 text-blue-800';
-    case 'Cleaner': return 'bg-amber-100 text-amber-800';
-    default: return 'bg-gray-100 text-gray-800';
-  }
-};
-
-const getStatusStyle = (status) => {
-  return status === 'active' 
-    ? 'bg-green-100 text-green-800' 
-    : 'bg-gray-100 text-gray-800';
-};
-
+// --- DELETE CONFIRMATION MODAL ---
 const DeleteConfirmModal = ({ user, onClose, onConfirm }) => {
   if (!user) return null;
-  
-  return (
-    <div className="fixed inset-0 bg-gray-300 bg-opacity-75 flex items-center justify-center z-50">
-      <div className="bg-white p-6 rounded-2xl shadow-lg w-full max-w-sm mx-4 border border-red-100">
-        <h2 className="text-xl font-bold mb-4 text-red-600">Confirm Deletion</h2>
-        <p className="mb-6">
-          Are you sure you want to delete user: <span className="font-semibold">{user.name}</span>? This action cannot be undone.
-        </p>
-        <div className="flex justify-end space-x-3">
-          <button 
-            onClick={onClose} 
-            className="px-4 py-2 border border-gray-300 rounded-lg text-gray-600 hover:bg-gray-50 transition-colors"
-          >
+  return createPortal(
+    <div className="form-overlay" style={{ zIndex: "var(--z-modal)" }}>
+      <div className="form-container max-w-sm">
+        <div className="bg-rose-50/50 dark:bg-rose-950/10 p-8 flex flex-col items-center text-center border-b border-slate-100 dark:border-slate-800">
+          <div className="w-16 h-16 bg-rose-100 dark:bg-rose-900/30 rounded-[22px] flex items-center justify-center mb-5 shadow-sm border border-rose-200/50">
+            <AlertTriangle className="h-8 w-8 text-rose-600 dark:text-rose-400" />
+          </div>
+          <h2 className="text-sm font-black text-slate-800 dark:text-rose-200 uppercase tracking-[0.2em]">Confirm Deletion</h2>
+          <p className="text-[10px] font-bold text-slate-500 dark:text-rose-300/60 mt-3 leading-relaxed uppercase tracking-widest">
+            Are you sure you want to remove <span className="text-rose-600 dark:text-rose-400 font-black">{user.name}</span>?
+            <br />This action is permanent.
+          </p>
+        </div>
+        <div className="form-actions gap-3 p-4">
+          <button onClick={onClose} className="btn-icon flex-1 py-3 text-[10px] font-black uppercase tracking-widest border-none hover:bg-slate-50">
             Cancel
           </button>
-          <button 
-            onClick={() => onConfirm(user)} 
-            className="px-4 py-2 bg-red-600 text-white rounded-lg hover:bg-red-700 transition-colors"
-          >
-            Delete
+          <button onClick={() => onConfirm(user)} className="btn-danger flex-1 py-3 text-[10px] font-black uppercase tracking-widest rounded-xl">
+            Delete Account
           </button>
         </div>
       </div>
-    </div>
+    </div>,
+    document.body
   );
 };
 
+// --- LOCATION CARD ---
 const LocationAssignmentCard = ({ location }) => (
-  <div className="border border-gray-100 p-4 rounded-xl flex flex-col justify-between bg-white shadow-sm hover:shadow-md transition-shadow">
-    <div className="flex justify-between items-start mb-2">
-      <h3 className="font-semibold text-gray-800 flex items-center">
-        <span className="text-blue-500 mr-2">📍</span>{location?.name || 'Unnamed Location'}
+  <div className="bg-slate-50/50 dark:bg-slate-800/20 border border-slate-100 dark:border-slate-800 p-4 rounded-2xl transition-all hover:bg-white dark:hover:bg-slate-800 hover:shadow-sm">
+    <div className="flex justify-between items-start mb-3">
+      <h3 className="text-xs font-black text-slate-700 dark:text-slate-200 uppercase tracking-tight flex items-center gap-2">
+        <MapPin size={14} className="text-cyan-600" /> {location?.name}
       </h3>
-      <span className={`text-xs font-medium px-2.5 py-1 rounded-full ${
-        location?.active 
-          ? 'bg-green-50 text-green-700 border border-green-100' 
-          : 'bg-gray-50 text-gray-500 border border-gray-100'
-      }`}>
+      <span className={`badge-status text-[9px] font-black uppercase tracking-widest ${location?.active ? 'active' : 'inactive'}`}>
         {location?.active ? 'Active' : 'Inactive'}
       </span>
     </div>
-    <p className="text-xs text-gray-500 mb-2">
-      <span className="block text-gray-700 font-medium">Nagpur, Maharashtra</span>
-      <span className="text-gray-400">{location?.coordinates || 'Coordinates not available'}</span>
+    <p className="text-[10px] font-bold text-slate-400 uppercase tracking-widest leading-relaxed">
+      Nagpur, Maharashtra <br />
+      <span className="font-mono text-[9px] opacity-60 lowercase">{location?.coordinates}</span>
     </p>
-    <div className="text-xs text-gray-500 mt-2 pt-2 border-t border-gray-100">
-      <span className="flex items-center">
-        <svg className="w-3.5 h-3.5 mr-1 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
-        </svg>
-        Assigned on {location?.assignedDate || 'N/A'}
-      </span>
+    <div className="mt-4 pt-3 border-t border-slate-100 dark:border-slate-800 flex items-center gap-2 text-[9px] font-black text-slate-400 uppercase tracking-widest">
+      <Calendar size={12} className="text-cyan-600/50" />
+      Assigned {location?.assignedDate}
     </div>
   </div>
 );
 
+// --- USER DETAIL CARD ---
 const UserDetailCard = ({ user, onClose }) => {
   if (!user) return null;
-  
   const activeLocations = user.locations?.filter(l => l.active).length || 0;
-  const totalLocations = user.locations?.length || 0;
 
   return createPortal(
-    <div 
-      className="fixed inset-0 bg-gray-300 bg-opacity-75 flex items-start justify-center overflow-y-auto z-50 py-10"
-      onClick={(e) => e.target === e.currentTarget && onClose()}
-    >
-      <div className="bg-white rounded-lg shadow-2xl w-full max-w-4xl mx-4 my-8">
-        <div className="p-6 border-b border-gray-200">
-          <button 
-            onClick={onClose} 
-            className="text-blue-600 hover:text-blue-800 text-sm mb-4 flex items-center"
-          >
-            ← Back to Users
+    <div className="form-overlay" style={{ zIndex: "var(--z-modal)" }}>
+      <div className="form-container max-w-4xl">
+        <div className="form-header">
+          <div className="flex items-center gap-4">
+            <div className="w-14 h-14 bg-gradient-to-br from-slate-800 to-slate-900 dark:from-cyan-600 dark:to-blue-600 text-white flex items-center justify-center rounded-2xl text-xl font-black shadow-lg border-2 border-white dark:border-slate-800">
+              {user.name.charAt(0)}
+            </div>
+            <div className="text-left">
+              <h2 className="form-header-title text-xl tracking-tight">{user.name}</h2>
+              <div className={`badge-role ${user.role.toLowerCase()} mt-1`}>
+                <Shield className="w-3 h-3" /> {user.role}
+              </div>
+            </div>
+          </div>
+          <button onClick={onClose} className="btn-icon text-[10px] font-black uppercase tracking-widest">
+            Back to Registry
           </button>
-          <div className="flex items-center">
-            <div className="w-16 h-16 bg-teal-600 text-white flex items-center justify-center rounded-full text-2xl font-bold mr-4">
-              {user.name?.charAt(0) || 'U'}
-            </div>
-            <div>
-              <h1 className="text-2xl font-bold">{user.name || 'Unnamed User'}</h1>
-              <p className="text-sm text-gray-500">
-                <span className={`px-2.5 py-0.5 rounded-full text-xs font-medium ${getRoleStyle(user.role)}`}>
-                  {user.role || 'N/A'}
-                </span>
-              </p>
-            </div>
-          </div>
         </div>
 
-        <div className="p-6 border-b grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          <div>
-            <p className="text-xs font-medium text-gray-500">📧 EMAIL</p>
-            <p className="mt-1">{user.email || 'N/A'}</p>
-          </div>
-          <div>
-            <p className="text-xs font-medium text-gray-500">📞 PHONE</p>
-            <p className="mt-1">{user.phone || 'N/A'}</p>
-          </div>
-          <div>
-            <p className="text-xs font-medium text-gray-500">👤 USER ID</p>
-            <p className="mt-1">{user.userId || 'N/A'}</p>
-          </div>
-          <div>
-            <p className="text-xs font-medium text-gray-500">STATUS</p>
-            <span className={`mt-1 inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium ${getStatusStyle(user.status)}`}>
-              {user.status ? user.status.charAt(0).toUpperCase() + user.status.slice(1) : 'N/A'}
-            </span>
-          </div>
-          <div>
-            <p className="text-xs font-medium text-gray-500">LAST ACTIVE</p>
-            <p className="mt-1">{user.lastActive || 'N/A'}</p>
-          </div>
-          <div>
-            <p className="text-xs font-medium text-gray-500">JOIN DATE</p>
-            <p className="mt-1">{user.joinDate || 'N/A'}</p>
-          </div>
+        <div className="form-body grid grid-cols-1 md:grid-cols-3 gap-8 py-8 border-b border-slate-100 dark:border-slate-800">
+          <div className="space-y-1"><p className="form-label">Email</p><p className="text-sm font-black text-slate-700 dark:text-slate-200 lowercase">{user.email}</p></div>
+          <div className="space-y-1"><p className="form-label">Phone</p><p className="text-sm font-black text-slate-700 dark:text-slate-200">{user.phone}</p></div>
+          <div className="space-y-1"><p className="form-label">Staff ID</p><p className="font-mono text-sm font-black text-cyan-600">#{user.userId}</p></div>
+          <div className="space-y-1"><p className="form-label">Status</p><span className={`badge-status uppercase text-[9px] font-black ${user.status === 'active' ? 'active' : 'inactive'}`}>{user.status}</span></div>
+          <div className="space-y-1"><p className="form-label">Last Active</p><p className="text-[10px] font-bold text-slate-500 uppercase tracking-widest">{user.lastActive}</p></div>
+          <div className="space-y-1"><p className="form-label">Joined</p><p className="text-[10px] font-bold text-slate-500 uppercase tracking-widest">{user.joinDate}</p></div>
         </div>
 
-        <div className="p-6">
-          <div className="flex justify-between items-center mb-4">
-            <h2 className="text-xl font-semibold flex items-center">
-              <span className="text-teal-600 mr-2">📍</span> Assigned Locations
+        <div className="p-8">
+          <div className="flex justify-between items-center mb-6">
+            <h2 className="text-xs font-black text-slate-800 dark:text-slate-100 uppercase tracking-[0.2em] flex items-center gap-2">
+              <MapPin className="text-cyan-600" size={16} /> Assigned Locations
             </h2>
-            <span className="text-sm text-gray-500">
-              {activeLocations} active • {totalLocations} total
+            <span className="text-[10px] font-bold text-slate-400 uppercase tracking-widest">
+              {activeLocations} Active • {user.locations?.length || 0} Total
             </span>
           </div>
 
-          {totalLocations > 0 ? (
+          {user.locations?.length > 0 ? (
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-              {user.locations.map((location, index) => (
-                <LocationAssignmentCard key={`${user.id}-${index}`} location={location} />
-              ))}
+              {user.locations.map((loc, i) => <LocationAssignmentCard key={i} location={loc} />)}
             </div>
           ) : (
-            <div className="text-center py-8 bg-gray-50 rounded-lg">
-              <p className="text-gray-500">No locations assigned to this user.</p>
+            <div className="text-center py-12 bg-slate-50/50 dark:bg-slate-800/10 rounded-2xl border-2 border-dashed border-slate-100 dark:border-slate-800">
+              <p className="text-xs font-black text-slate-400 uppercase tracking-widest">No spatial assignments found</p>
             </div>
           )}
         </div>
@@ -224,218 +152,107 @@ const UserList = () => {
   const [isAddingUser, setIsAddingUser] = useState(false);
   const [isMounted, setIsMounted] = useState(false);
 
-  useEffect(() => {
-    setIsMounted(true);
-    return () => setIsMounted(false);
-  }, []);
+  useEffect(() => { setIsMounted(true); }, []);
 
-  const filteredUsers = users.filter(user => {
-    if (!searchTerm) return true;
+  const filteredUsers = users.filter(u => {
     const term = searchTerm.toLowerCase();
-    return (
-      user.name?.toLowerCase().includes(term) ||
-      user.email?.toLowerCase().includes(term) ||
-      user.phone?.includes(term) ||
-      user.role?.toLowerCase().includes(term) ||
-      user.userId?.toString().includes(term)
-    );
+    return u.name.toLowerCase().includes(term) || u.email.toLowerCase().includes(term) || u.userId.toString().includes(term);
   });
-
-  const handleAddUser = (newUser) => {
-    const newUserWithId = {
-      ...newUser,
-      id: Math.max(...users.map(u => u.id), 0) + 1,
-      userId: Math.max(...users.map(u => u.userId), 0) + 1,
-      status: 'active',
-      lastActive: 'Just now',
-      joinDate: new Date().toLocaleDateString('en-US', { 
-        day: 'numeric', 
-        month: 'short', 
-        year: 'numeric' 
-      }),
-      locations: []
-    };
-    setUsers([newUserWithId, ...users]);
-    setIsAddingUser(false);
-  };
-
-  const handleEditUser = (updatedUser) => {
-    setUsers(users.map(user => 
-      user.id === updatedUser.id ? { ...user, ...updatedUser } : user
-    ));
-    setEditingUser(null);
-  };
-
-  const handleDeleteUser = (userToDelete) => {
-    setUsers(users.filter(user => user.id !== userToDelete.id));
-    setDeletingUser(null);
-  };
 
   if (!isMounted) return null;
 
   return (
-    <div className="p-6 bg-white min-h-screen">
-      {/* Header */}
-      <div className="flex flex-col md:flex-row md:items-center md:justify-between mb-6">
-        <div>
-          <h1 className="text-2xl font-bold text-gray-900">User Management</h1>
-          <p className="text-sm text-gray-500">Manage user accounts and permissions</p>
+    <div className="p-8 max-w-7xl mx-auto space-y-8 min-h-screen">
+
+      {/* Page Header Component Pattern */}
+      <div className="page-header">
+        <div className="page-header-content">
+          <div className="page-header-title-section">
+            <div className="page-header-icon"><Fingerprint className="h-6 w-6" strokeWidth={2.5} /></div>
+            <div className="text-left">
+              <h1 className="page-header-title">User Management</h1>
+              <p className="page-header-subtitle">System access levels and personnel mapping</p>
+            </div>
+          </div>
+          <button onClick={() => setIsAddingUser(true)} className="btn-primary flex items-center gap-2 px-8 py-3 rounded-xl text-xs font-black uppercase tracking-[0.15em] shadow-lg shadow-orange-500/20">
+            <Plus size={16} strokeWidth={3} /> Add New User
+          </button>
         </div>
-        <button
-          onClick={() => setIsAddingUser(true)}
-          className="mt-4 md:mt-0 flex items-center justify-center px-4 py-2 border border-transparent rounded-lg shadow-sm text-sm font-medium text-white bg-teal-600 hover:bg-teal-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-teal-500"
-        >
-          <Plus className="h-4 w-4 mr-2" />
-          Add New User
-        </button>
       </div>
 
-      {/* Search */}
-      <div className="mb-6">
-        <div className="relative">
-          <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-            <Search className="h-5 w-5 text-gray-400" />
-          </div>
+      {/* Search using form-input-wrapper pattern */}
+      <div className="form-group max-w-2xl text-left">
+        <div className="form-input-wrapper">
+          <Search className="form-input-icon" size={18} />
           <input
             type="text"
-            className="block w-full pl-10 pr-3 py-2 border border-gray-300 rounded-lg bg-white shadow-sm focus:ring-teal-500 focus:border-teal-500 sm:text-sm text-gray-900 placeholder-gray-500"
-            placeholder="Search users..."
+            className="form-input py-4 pl-12 text-[10px] font-black uppercase tracking-[0.2em] shadow-sm"
+            placeholder="Search by Name, Email or ID..."
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
           />
         </div>
       </div>
 
-      {/* Users Table */}
-      <div className="bg-white shadow-sm rounded-xl overflow-hidden border border-gray-200">
+      {/* Standardized Table View */}
+      <div className="table-container">
         <div className="overflow-x-auto">
-          <table className="min-w-full divide-y divide-gray-200">
-            <thead className="bg-gray-50">
+          <table className="table">
+            <thead className="table-header">
               <tr>
-                <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                  User
-                </th>
-                <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                  Role
-                </th>
-                <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                  Status
-                </th>
-                <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                  Last Active
-                </th>
-                <th scope="col" className="relative px-6 py-3">
-                  <span className="sr-only">Actions</span>
-                </th>
+                <th className="tracking-[0.15em]">Staff Registry</th>
+                <th className="tracking-[0.15em]">Role Architecture</th>
+                <th className="tracking-[0.15em]">Status</th>
+                <th className="tracking-[0.15em]">Last Activity</th>
+                <th className="table-cell-right tracking-[0.15em]">Operations</th>
               </tr>
             </thead>
-            <tbody className="bg-white divide-y divide-gray-200">
+            <tbody className="table-body">
               {filteredUsers.map((user) => (
-                <tr key={user.id} className="hover:bg-gray-50">
-                  <td className="px-6 py-4 whitespace-nowrap">
-                    <div className="flex items-center">
-                      <div className="flex-shrink-0 h-10 w-10 rounded-full bg-teal-100 flex items-center justify-center text-teal-600 font-semibold">
-                        {user.name?.charAt(0) || 'U'}
+                <tr key={user.id} className="table-row group">
+                  <td className="table-cell">
+                    <div className="flex items-center gap-4">
+                      <div className="w-10 h-10 rounded-xl bg-slate-50 dark:bg-slate-800 border border-slate-100 dark:border-slate-700 text-slate-800 dark:text-cyan-400 flex items-center justify-center font-black text-xs group-hover:scale-110 transition-transform">
+                        {user.name.charAt(0)}
                       </div>
-                      <div className="ml-4">
-                        <div className="text-sm font-medium text-gray-900">{user.name}</div>
-                        <div className="text-sm text-gray-500">{user.email}</div>
+                      <div>
+                        <div className="font-black text-slate-800 dark:text-slate-200 uppercase tracking-tight">{user.name}</div>
+                        <div className="text-[10px] text-slate-400 font-bold lowercase">{user.email}</div>
                       </div>
                     </div>
                   </td>
-                  <td className="px-6 py-4 whitespace-nowrap">
-                    <span className={`px-2.5 py-0.5 rounded-full text-xs font-medium ${getRoleStyle(user.role)}`}>
-                      {user.role}
+                  <td className="table-cell">
+                    <span className={`badge-role ${user.role.toLowerCase()}`}>{user.role}</span>
+                  </td>
+                  <td className="table-cell">
+                    <span className={`badge-status uppercase text-[9px] font-black tracking-widest ${user.status === 'active' ? 'active' : 'inactive'}`}>
+                      {user.status}
                     </span>
                   </td>
-                  <td className="px-6 py-4 whitespace-nowrap">
-                    <span className={`px-2.5 py-0.5 rounded-full text-xs font-medium ${getStatusStyle(user.status)}`}>
-                      {user.status?.charAt(0).toUpperCase() + user.status?.slice(1)}
-                    </span>
+                  <td className="table-cell text-[10px] font-bold text-slate-500 uppercase tracking-widest">
+                    {user.lastActive}
                   </td>
-                  <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                    {user.lastActive || 'N/A'}
-                  </td>
-                  <td className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
-                    <div className="flex justify-end space-x-2">
-                      <button
-                        onClick={() => setViewingUser(user)}
-                        className="text-blue-600 hover:text-blue-900 p-1.5 rounded-full hover:bg-blue-50"
-                        title="View details"
-                      >
-                        <Eye className="h-4 w-4" />
-                      </button>
-                      <button
-                        onClick={() => setEditingUser(user)}
-                        className="text-amber-600 hover:text-amber-900 p-1.5 rounded-full hover:bg-amber-50"
-                        title="Edit user"
-                      >
-                        <Edit2 className="h-4 w-4" />
-                      </button>
-                      <button
-                        onClick={() => setDeletingUser(user)}
-                        className="text-red-600 hover:text-red-900 p-1.5 rounded-full hover:bg-red-50"
-                        title="Delete user"
-                      >
-                        <Trash2 className="h-4 w-4" />
-                      </button>
+                  <td className="table-cell table-cell-right">
+                    <div className="flex justify-end gap-2">
+                      <button onClick={() => setViewingUser(user)} className="btn-icon"><Eye size={15} /></button>
+                      <button onClick={() => setEditingUser(user)} className="btn-icon"><Edit2 size={15} /></button>
+                      <button onClick={() => setDeletingUser(user)} className="btn-icon text-rose-500 border-rose-100 hover:bg-rose-50"><Trash2 size={15} /></button>
                     </div>
                   </td>
                 </tr>
               ))}
-              {filteredUsers.length === 0 && (
-                <tr>
-                  <td colSpan="5" className="px-6 py-8 text-center text-gray-500">
-                    No users found. {searchTerm ? 'Try a different search term.' : 'Add a new user to get started.'}
-                  </td>
-                </tr>
-              )}
             </tbody>
           </table>
         </div>
       </div>
 
-      {/* User Count */}
-      <div className="mt-4 text-sm text-gray-500">
-        Showing <span className="font-medium">{filteredUsers.length}</span> of <span className="font-medium">{users.length}</span> users
-      </div>
-
-      {/* Modals */}
-      {isMounted && (
-        <>
-          {isAddingUser && (
-            <AddUserForm
-              onClose={() => setIsAddingUser(false)}
-              onSubmit={handleAddUser}
-            />
-          )}
-          
-          {editingUser && (
-            <EditUserFormModal
-              user={editingUser}
-              onClose={() => setEditingUser(null)}
-              onSubmit={handleEditUser}
-            />
-          )}
-          
-          {deletingUser && (
-            <DeleteConfirmModal
-              user={deletingUser}
-              onClose={() => setDeletingUser(null)}
-              onConfirm={handleDeleteUser}
-            />
-          )}
-          
-          {viewingUser && (
-            <UserDetailCard
-              user={viewingUser}
-              onClose={() => setViewingUser(null)}
-            />
-          )}
-        </>
-      )}
+      {/* Conditional Modals */}
+      {isAddingUser && <AddUserForm onClose={() => setIsAddingUser(false)} onSubmit={(u) => setUsers([u, ...users])} />}
+      {editingUser && <EditUserFormModal initialUser={editingUser} onClose={() => setEditingUser(null)} onSubmit={(u) => setUsers(users.map(row => row.id === u.id ? u : row))} />}
+      {deletingUser && <DeleteConfirmModal user={deletingUser} onClose={() => setDeletingUser(null)} onConfirm={(u) => setUsers(users.filter(row => row.id !== u.id))} />}
+      {viewingUser && <UserDetailCard user={viewingUser} onClose={() => setViewingUser(null)} />}
     </div>
   );
 };
 
-export default UserList;
+export default UserListFixed;

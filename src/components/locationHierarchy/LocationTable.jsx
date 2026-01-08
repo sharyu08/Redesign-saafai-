@@ -62,7 +62,6 @@ export default function LocationTable() {
                                     <Activity size={14} strokeWidth={3} /> Parent Hierarchy
                                 </div>
                             </th>
-                            {/* NEW COLUMN: Locate on Map */}
                             <th className="table-cell-center">
                                 <div className="flex items-center justify-center gap-2">
                                     <Map size={14} strokeWidth={3} /> Map view
@@ -88,12 +87,11 @@ export default function LocationTable() {
                                 </td>
 
                                 <td className="table-cell">
-                                    <div className="chip">
+                                    <div className="inline-flex items-center px-4 py-1.5 bg-cyan-50 dark:bg-cyan-900/30 rounded-lg text-sm font-medium text-cyan-700 dark:text-cyan-300 border border-cyan-200 dark:border-cyan-800/50">
                                         {getParentName(loc.parent_id)}
                                     </div>
                                 </td>
 
-                                {/* LOCATE ON MAP BUTTON */}
                                 <td className="table-cell table-cell-center">
                                     <button
                                         onClick={() => router.push(`/dashboard/locate?zoneId=${loc.id}`)}
@@ -131,7 +129,7 @@ export default function LocationTable() {
 
             <div className="table-footer">
                 <p className="text-xs-standard font-black text-muted-foreground uppercase tracking-widest">
-                    Safai Portal Architecture Overview
+                    Safai Portal
                 </p>
                 <div className="flex items-center gap-2">
                     <div className="h-1.5 w-1.5 rounded-full bg-primary-light animate-pulse" />

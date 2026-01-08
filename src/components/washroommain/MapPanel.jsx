@@ -1,10 +1,11 @@
 "use client";
 
 import { GoogleMap, Marker, useLoadScript } from "@react-google-maps/api";
+import { Map as MapIcon, Info, ShieldAlert } from "lucide-react";
 
 export default function MapPanel({ locations }) {
     const apiKey = process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY || '';
-    
+
     const { isLoaded, loadError } = useLoadScript({
         googleMapsApiKey: apiKey,
         libraries: ["places"],
@@ -20,94 +21,53 @@ export default function MapPanel({ locations }) {
         default: "http://maps.google.com/mapfiles/ms/icons/blue-dot.png",
     };
 
-    // Handle missing API key
-    if (!apiKey) {
-        return (
-            <div className="bg-white rounded-2xl shadow-lg p-4 h-[720px] border border-[var(--border-subtle)] flex flex-col">
-                <div className="mb-3 flex items-center justify-between">
-                    <div>
-                        <h3 className="text-lg font-semibold text-[var(--navy)]">Washroom Locations</h3>
-                        <p className="text-xs text-slate-500">
-                            View active, inactive and review locations on the city map
-                        </p>
-                    </div>
+    // UI Helper for Errors/Loading states
+    const StatusPlaceholder = ({ title, subtitle, isError }) => (
+        <div className="card-global h-[720px] flex flex-col">
+            <div className="flex items-center gap-3 mb-5 border-b border-slate-100 dark:border-slate-800 pb-4">
+                <div className="h-10 w-10 rounded-xl bg-cyan-400/10 flex items-center justify-center border border-cyan-500/10 shadow-sm">
+                    {isError ? <ShieldAlert className="text-rose-500" /> : <MapIcon className="text-cyan-600 animate-pulse" />}
                 </div>
-                <div className="flex-1 rounded-xl overflow-hidden border border-[var(--border-subtle)] shadow-inner bg-slate-100 dark:bg-slate-800 flex items-center justify-center">
-                    <div className="text-center p-4">
-                        <p className="text-sm font-medium text-muted-foreground">
-                            Google Maps API key required
-                        </p>
-                        <p className="text-xs text-muted-foreground mt-1">
-                            Please add NEXT_PUBLIC_GOOGLE_MAPS_API_KEY to your .env.local file
-                        </p>
-                    </div>
+                <div className="text-left">
+                    <h3 className="text-sm font-black text-slate-800 dark:text-white uppercase tracking-[0.2em] leading-none">{title}</h3>
+                    <p className="text-[9px] font-bold text-slate-400 uppercase tracking-widest mt-1.5 opacity-70">{subtitle}</p>
                 </div>
             </div>
-        );
-    }
+            <div className={`flex-1 rounded-[24px] overflow-hidden border border-slate-100 dark:border-slate-800 flex items-center justify-center ${isError ? 'bg-rose-50/30' : 'bg-slate-50/50'}`}>
+                <div className="text-center p-6">
+                    {!isError && <div className="h-10 w-10 border-4 border-cyan-500/10 border-t-cyan-500 rounded-full animate-spin mx-auto mb-4"></div>}
+                    <p className={`text-xs font-black uppercase tracking-widest ${isError ? 'text-rose-600' : 'text-slate-500'}`}>{title}</p>
+                    <p className="text-[10px] text-slate-400 italic mt-2 max-w-[200px] mx-auto">{subtitle}</p>
+                </div>
+            </div>
+        </div>
+    );
 
-    // Handle API load errors
-    if (loadError) {
-        return (
-            <div className="bg-white rounded-2xl shadow-lg p-4 h-[720px] border border-[var(--border-subtle)] flex flex-col">
-                <div className="mb-3 flex items-center justify-between">
-                    <div>
-                        <h3 className="text-lg font-semibold text-[var(--navy)]">Washroom Locations</h3>
-                        <p className="text-xs text-slate-500">
-                            View active, inactive and review locations on the city map
-                        </p>
-                    </div>
-                </div>
-                <div className="flex-1 rounded-xl overflow-hidden border border-red-200 dark:border-red-800 shadow-inner bg-red-50 dark:bg-red-900/20 flex items-center justify-center">
-                    <div className="text-center p-4">
-                        <p className="text-sm font-medium text-red-600 dark:text-red-400">
-                            Failed to load map
-                        </p>
-                        <p className="text-xs text-red-500 dark:text-red-500 mt-1">
-                            Check API key configuration
-                        </p>
-                    </div>
-                </div>
-            </div>
-        );
-    }
-
-    // Loading state
-    if (!isLoaded) {
-        return (
-            <div className="bg-white rounded-2xl shadow-lg p-4 h-[720px] border border-[var(--border-subtle)] flex flex-col">
-                <div className="mb-3 flex items-center justify-between">
-                    <div>
-                        <h3 className="text-lg font-semibold text-[var(--navy)]">Washroom Locations</h3>
-                        <p className="text-xs text-slate-500">
-                            View active, inactive and review locations on the city map
-                        </p>
-                    </div>
-                </div>
-                <div className="flex-1 rounded-xl overflow-hidden border border-[var(--border-subtle)] shadow-inner bg-slate-100 dark:bg-slate-800 flex items-center justify-center">
-                    <div className="text-center">
-                        <div className="h-10 w-10 border-4 border-primary-light/20 border-t-primary-dark dark:border-t-primary-light rounded-full animate-spin mx-auto mb-3"></div>
-                        <p className="text-xs font-medium text-muted-foreground">
-                            Loading map...
-                        </p>
-                    </div>
-                </div>
-            </div>
-        );
-    }
+    if (!apiKey) return <StatusPlaceholder title="API Key Required" subtitle="Please update your .env.local with NEXT_PUBLIC_GOOGLE_MAPS_API_KEY" isError />;
+    if (loadError) return <StatusPlaceholder title="Map Load Failed" subtitle={loadError.message || "Check API configuration in your dashboard"} isError />;
+    if (!isLoaded) return <StatusPlaceholder title="Initialising Grid" subtitle="Retrieving spatial data coordinates..." />;
 
     return (
-        <div className="bg-white rounded-2xl shadow-lg p-4 h-[720px] border border-[var(--border-subtle)] flex flex-col">
-            <div className="mb-3 flex items-center justify-between">
-                <div>
-                    <h3 className="text-lg font-semibold text-[var(--navy)]">Washroom Locations</h3>
-                    <p className="text-xs text-slate-500">
-                        View active, inactive and review locations on the city map
+        /* Using .card-global for consistent rounding and Oceanic Blue shadow */
+        <div className="card-global h-[720px] flex flex-col">
+
+            {/* Header synced with Page Header tokens */}
+            <div className="flex items-center gap-3 mb-5 border-b border-slate-100 dark:border-slate-800 pb-4">
+                <div className="h-10 w-10 rounded-xl bg-cyan-400/10 flex items-center justify-center border border-cyan-500/10 shadow-sm">
+                    <MapIcon className="text-cyan-600 dark:text-cyan-400" size={20} strokeWidth={2.5} />
+                </div>
+                <div className="text-left">
+                    <h3 className="text-sm font-black text-slate-800 dark:text-slate-100 uppercase tracking-[0.2em] leading-none">
+                        Washroom Locations
+                    </h3>
+                    <p className="text-[9px] font-bold text-slate-400 uppercase tracking-widest mt-1.5 opacity-70">
+                        Spatial Live Intelligence Feed
                     </p>
                 </div>
             </div>
 
-            <div className="flex-1 rounded-xl overflow-hidden border border-[var(--border-subtle)] shadow-inner">
+            {/* Map Container utilizing the faint border logic */}
+            <div className="flex-1 rounded-[24px] overflow-hidden border border-slate-100 dark:border-slate-800 shadow-inner relative">
                 <GoogleMap
                     mapContainerStyle={{ width: "100%", height: "100%" }}
                     center={center}
@@ -125,6 +85,16 @@ export default function MapPanel({ locations }) {
                         />
                     ))}
                 </GoogleMap>
+
+                {/* Branded Info Overlay */}
+                <div className="absolute bottom-4 left-4 right-4">
+                    <div className="bg-white/80 dark:bg-slate-900/80 backdrop-blur-md border border-white dark:border-slate-700 p-3 rounded-xl flex items-center gap-3 shadow-lg">
+                        <Info size={14} className="text-cyan-500" />
+                        <p className="text-[9px] font-black text-slate-600 dark:text-slate-300 uppercase tracking-widest leading-tight">
+                            Showing {(locations || []).length} facilities in current radius
+                        </p>
+                    </div>
+                </div>
             </div>
         </div>
     );

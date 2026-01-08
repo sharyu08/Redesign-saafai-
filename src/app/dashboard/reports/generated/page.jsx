@@ -100,12 +100,12 @@ export default function GeneratedReport() {
           </div>
           <FileText size={24} className="text-[#F4B740] opacity-50" />
         </div>
-        <div className="bg-[#F0FDF4] p-6 rounded-[24px] border border-[#DCFCE7] flex items-center justify-between shadow-sm">
+        <div className="bg-[#F0FDF4] dark:bg-[#0C0E20] p-6 rounded-[24px] border border-[#DCFCE7] dark:border-[#2E3F5A] flex items-center justify-between shadow-sm">
           <div>
-            <p className="text-[10px] font-black text-[#15803D] uppercase tracking-widest leading-none">Validated Tasks</p>
-            <h3 className="text-3xl font-black text-slate-800 mt-2">18</h3>
+            <p className="text-[10px] font-black text-[#15803D] dark:text-[#8CCFE0] uppercase tracking-widest leading-none">Validated Tasks</p>
+            <h3 className="text-3xl font-black text-slate-800 dark:text-white mt-2">18</h3>
           </div>
-          <CheckCircle2 size={24} className="text-[#15803D] opacity-50" />
+          <CheckCircle2 size={24} className="text-[#15803D] dark:text-[#8CCFE0] opacity-50" />
         </div>
         <div className="bg-[#F0F9FF] p-6 rounded-[24px] border border-[#D1E9FF] flex items-center justify-between shadow-sm">
           <div>
@@ -181,8 +181,8 @@ export default function GeneratedReport() {
                   </td>
                   <td className="table-cell">
                     <span className={`px-3 py-1 rounded-lg text-[9px] font-black uppercase tracking-widest border ${item.status === 'Completed'
-                        ? 'bg-emerald-50 border-emerald-100 text-emerald-500'
-                        : 'bg-amber-50 border-amber-100 text-amber-500'
+                      ? 'bg-emerald-50 border-emerald-100 text-emerald-500'
+                      : 'bg-amber-50 border-amber-100 text-amber-500'
                       }`}>
                       {item.status}
                     </span>

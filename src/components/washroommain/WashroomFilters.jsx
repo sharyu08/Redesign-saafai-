@@ -1,6 +1,6 @@
 "use client";
 
-import { Search, Filter, Building2, Star, XCircle, CheckCircle2, UserMinus } from "lucide-react";
+import { Search, Filter, Building2, Star, XCircle, CheckCircle2, UserMinus, ChevronDown } from "lucide-react";
 
 export default function WashroomFilters({
     search,
@@ -16,21 +16,24 @@ export default function WashroomFilters({
     onClear,
 }) {
     return (
-        <div className="bg-white rounded-[var(--radius)] shadow-sm p-3 border border-[hsl(var(--border))]">
+        /* Using .card-global for standard dashboard panel styling */
+        <div className="card-global p-3 shadow-sm border border-slate-100 dark:border-slate-800">
             <div className="flex flex-wrap items-center gap-3">
 
-                {/* 1. COMPACT SEARCH */}
+                {/* 1. COMPACT SEARCH - Using .form-input-wrapper logic */}
                 <div className="relative group min-w-[240px] flex-1">
-                    <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-3.5 w-3.5 text-[hsl(var(--muted-foreground))] group-focus-within:text-[hsl(var(--primary))]" />
-                    <input
-                        className="w-full pl-9 pr-4 py-2 bg-[hsl(var(--input))] border border-[hsl(var(--border))] rounded-xl text-sm focus:ring-2 focus:ring-[hsl(var(--primary))] focus:border-transparent outline-none transition-all font-medium"
-                        placeholder="Search washrooms..."
-                        value={search}
-                        onChange={(e) => onSearchChange(e.target.value)}
-                    />
+                    <div className="form-input-wrapper">
+                        <Search className="form-input-icon h-4 w-4" />
+                        <input
+                            className="form-input py-2 pl-10 text-xs"
+                            placeholder="Search facility name or ID..."
+                            value={search}
+                            onChange={(e) => onSearchChange(e.target.value)}
+                        />
+                    </div>
                 </div>
 
-                {/* 2. COMPACT SELECTS */}
+                {/* 2. COMPACT SELECTS - Using standardized .form-select and Roboto weights */}
                 <div className="flex items-center gap-2">
                     <div className="relative group">
                         <select
@@ -38,17 +41,10 @@ export default function WashroomFilters({
                             value={typeFilter}
                             onChange={(e) => onTypeFilterChange(e.target.value)}
                         >
-                            <option value="all">All Types</option>
+                            <option value="all">Types: All</option>
                             <option value="Nagpur Urban">Nagpur Urban</option>
                             <option value="Dharampeth Zone">Dharampeth Zone</option>
-                            <option value="Nehru Nagar Zone">Nehru Nagar Zone</option>
-                            <option value="Dhantoli">Dhantoli</option>
-                            <option value="Sadar Zone">Sadar Zone</option>
                             <option value="Nagpur East">Nagpur East</option>
-                            <option value="Manish Nagar Zone">Manish Nagar Zone</option>
-                            <option value="Shanti Nagar">Shanti Nagar</option>
-                            <option value="Nagpur Ruaral">Nagpur Ruaral</option>
-                            <option value="Butobori">Butobori</option>
                         </select>
                         <Filter className="absolute right-2.5 top-1/2 -translate-y-1/2 h-3 w-3 text-[hsl(var(--muted-foreground))] group-hover:text-[hsl(var(--primary))] pointer-events-none transition-colors" />
                     </div>
@@ -59,7 +55,7 @@ export default function WashroomFilters({
                             value={companyFilter}
                             onChange={(e) => onCompanyFilterChange(e.target.value)}
                         >
-                            <option value="all">All Facility Companies</option>
+                            <option value="all">Company: All</option>
                             <option value="N/A">Unassigned</option>
                         </select>
                         <Building2 className="absolute right-2.5 top-1/2 -translate-y-1/2 h-3 w-3 text-[hsl(var(--muted-foreground))] group-hover:text-[hsl(var(--primary))] pointer-events-none transition-colors" />
@@ -72,57 +68,45 @@ export default function WashroomFilters({
                             value={ratingFilter}
                             onChange={(e) => onRatingFilterChange(e.target.value)}
                         >
-                            <option value="all">All Ratings</option>
+                            <option value="all">Rating: All</option>
                             <option value="9plus">9.0+ Stars</option>
                             <option value="8plus">8.0+ Stars</option>
-                            <option value="7plus">7.0+ Stars</option>
                             <option value="below5">Below 5.0</option>
                         </select>
                         <Star className="absolute right-2.5 top-1/2 -translate-y-1/2 h-3 w-3 text-[hsl(var(--muted-foreground))] group-hover:text-[hsl(var(--primary))] pointer-events-none transition-colors" />
                     </div>
                 </div>
 
-                {/* 3. SEGMENTED ASSIGNMENT CONTROL */}
-                <div className="flex bg-[hsl(var(--muted))] p-1 rounded-xl border border-[hsl(var(--border))]">
-                    <button
-                        type="button"
-                        onClick={() => onAssignmentFilterChange("all")}
-                        className={`px-3 py-1 rounded-lg text-[10px] font-bold uppercase tracking-wider transition-all ${assignmentFilter === "all"
-                            ? "bg-white text-[hsl(var(--primary-dark))] shadow-sm"
-                            : "text-[hsl(var(--muted-foreground))] hover:text-[hsl(var(--foreground))]"
-                            }`}
-                    >
-                        All
-                    </button>
-                    <button
-                        type="button"
-                        onClick={() => onAssignmentFilterChange("assigned")}
-                        className={`px-3 py-1 rounded-lg text-[10px] font-bold uppercase tracking-wider transition-all flex items-center gap-1 ${assignmentFilter === "assigned"
-                            ? `bg-[hsl(var(--lavender-100))] text-[hsl(var(--text-body))] shadow-sm`
-                            : "text-[hsl(var(--muted-foreground))] hover:text-[hsl(var(--text-body))]"
-                            }`}
-                    >
-                        <CheckCircle2 className="h-3 w-3" />
-                        Assigned
-                    </button>
-                    <button
-                        type="button"
-                        onClick={() => onAssignmentFilterChange("unassigned")}
-                        className={`px-3 py-1 rounded-lg text-[10px] font-bold uppercase tracking-wider transition-all flex items-center gap-1 ${assignmentFilter === "unassigned"
-                            ? `bg-[hsl(var(--subtle-sep))] text-[hsl(var(--text-body))] shadow-sm`
-                            : "text-[hsl(var(--muted-foreground))] hover:text-[hsl(var(--text-body))]"
-                            }`}
-                    >
-                        <UserMinus className="h-3 w-3" />
-                        None
-                    </button>
+                {/* 3. SEGMENTED ASSIGNMENT CONTROL - Using .muted and hover tokens */}
+                <div className="flex bg-slate-50 dark:bg-slate-800 p-1 rounded-xl border border-slate-100 dark:border-slate-700 shadow-inner">
+                    {[
+                        { id: "all", label: "All", icon: null },
+                        { id: "assigned", label: "Assigned", icon: <CheckCircle2 size={10} /> },
+                        { id: "unassigned", label: "None", icon: <UserMinus size={10} /> }
+                    ].map((btn) => (
+                        <button
+                            key={btn.id}
+                            type="button"
+                            onClick={() => onAssignmentFilterChange(btn.id)}
+                            className={`
+                                px-4 py-1.5 rounded-lg text-[9px] font-black uppercase tracking-[0.15em] transition-all flex items-center gap-1.5
+                                ${assignmentFilter === btn.id
+                                    ? "bg-white dark:bg-slate-700 text-cyan-600 dark:text-cyan-400 shadow-sm border border-slate-100 dark:border-slate-600"
+                                    : "text-slate-400 hover:text-slate-600 dark:hover:text-slate-200"
+                                }
+                            `}
+                        >
+                            {btn.icon}
+                            {btn.label}
+                        </button>
+                    ))}
                 </div>
 
-                {/* 4. CLEAR ACTION */}
+                {/* 4. CLEAR ACTION - Using recorded .btn-icon logic */}
                 <button
                     type="button"
                     onClick={onClear}
-                    className="p-2 text-[hsl(var(--muted-foreground))] hover:text-rose-500 hover:bg-rose-50 rounded-xl transition-all"
+                    className="p-2 text-slate-400 hover:text-rose-500 hover:bg-rose-50 dark:hover:bg-rose-900/20 rounded-xl transition-all"
                     title="Clear All Filters"
                 >
                     <XCircle className="h-5 w-5" />

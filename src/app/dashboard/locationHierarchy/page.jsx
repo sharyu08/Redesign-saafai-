@@ -34,22 +34,7 @@ export default function LocationHierarchyPage() {
             />
           </div>
 
-          {/* Buttons */}
-          <div className="flex flex-row items-center gap-3 w-full lg:w-auto">
 
-            {/* Filter */}
-            <button className="flex flex-1 lg:flex-none items-center justify-center gap-2 px-5 py-3.5 bg-white border border-slate-200 rounded-2xl text-[#FF9F1C] text-[10px] font-black uppercase tracking-widest hover:bg-slate-50 shadow-sm active:scale-95">
-              <SlidersHorizontal size={14} strokeWidth={3} />
-              <span className="hidden sm:inline">Filter</span>
-            </button>
-
-            {/* Add New Zone */}
-            <button className="btn btn-primary flex-[2] lg:flex-none flex items-center justify-center gap-2 px-6 py-3.5 rounded-2xl text-[10px] font-black uppercase tracking-widest shadow-lg active:scale-95 transition-all text-white">
-              <Plus size={16} strokeWidth={3} className="text-white" />
-              <span className="whitespace-nowrap text-white">Add New Zone</span>
-            </button>
-
-          </div>
         </div>
 
         {/* Table */}
@@ -62,16 +47,6 @@ export default function LocationHierarchyPage() {
           </div>
         </div>
 
-        {/* Footer */}
-        <div className="flex flex-col sm:flex-row justify-between items-center px-4 gap-2 mt-2">
-          <p className="text-[9px] md:text-[10px] font-black text-slate-400 uppercase tracking-[0.3em]">
-            Data Integrity Verified
-          </p>
-          <div className="flex items-center gap-2 text-[10px] font-black text-[#FF9F1C] uppercase tracking-widest opacity-80">
-            <span>System Stable</span>
-            <div className="h-1.5 w-1.5 rounded-full bg-[#28C76F]" />
-          </div>
-        </div>
 
       </div>
     </div>

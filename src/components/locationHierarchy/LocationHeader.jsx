@@ -24,18 +24,20 @@ export default function LocationHeader() {
                 </div>
 
                 {/* Action Buttons */}
-                <div className="page-header-actions">
+                <div className="page-header-actions flex items-center gap-3">
+                    {/* Show Hierarchy - Thin Amber Border */}
                     <Link href="/dashboard/locationHierarchy/show">
-                        <button className="btn btn-secondary flex items-center gap-2 px-5 py-2.5 text-xs-standard uppercase tracking-widest active:scale-95">
-                            <LayoutGrid size={16} />
-                            Show Hierarchy
+                        <button className="flex items-center justify-center gap-2 px-5 py-2.5 min-w-[160px] h-[42px] rounded-xl bg-amber-500/[0.03] border border-amber-500/30 text-amber-600 dark:text-amber-400 text-[10px] font-black uppercase tracking-[0.15em] hover:bg-amber-500 hover:text-white transition-all duration-300 active:scale-95 shadow-sm">
+                            <LayoutGrid size={16} strokeWidth={2.5} />
+                            <span className="whitespace-nowrap">Show Hierarchy</span>
                         </button>
                     </Link>
 
+                    {/* Add Tree Hierarchy - Matching Size with Oceanic Gradient */}
                     <Link href="/dashboard/locationHierarchy/add">
                         <button className="btn btn-primary flex items-center gap-2 px-6 py-3 text-xs-standard uppercase tracking-widest active:scale-95">
                             <Plus size={18} strokeWidth={3} />
-                            Add Tree Hierarchy
+                            <span className="whitespace-nowrap">Add Tree Hierarchy</span>
                         </button>
                     </Link>
                 </div>

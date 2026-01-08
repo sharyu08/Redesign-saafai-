@@ -9,37 +9,60 @@
   :root {
     /* === BASE PALETTE (LIGHT THEME) ======================= */
     /* Page & card backgrounds */
-    --app-bg: 0 0% 100%;               /* #FFFFFF - Main app background */
-    --card: 0 0% 100%;                 /* #FFFFFF - Cards / panels */
-    --border: 210 16% 90%;             /* Soft gray borders */
-    --subtle-sep: 210 15% 88%;         /* Subtle separators */
+    --app-bg: 0 0% 100%;
+    /* #FFFFFF - Main app background */
+    --card: 0 0% 100%;
+    /* #FFFFFF - Cards / panels */
+    --border: 210 16% 90%;
+    /* Soft gray borders */
+    --subtle-sep: 210 15% 88%;
+    /* Subtle separators */
 
     /* Primary / accent oranges */
-    --primary: 34 100% 56%;            /* #FF9F1C */
-    --primary-accent: 34 100% 71%;     /* #FFBF69 */
-    --primary-deep: 29 100% 50%;       /* Deeper orange */
-    --primary-dark: 29 100% 45%;       /* Darker orange for text / borders */
-    --primary-light: 34 100% 80%;      /* Soft orange for hover */
-    --primary-medium: 34 100% 60%;     /* Default CTA tone */
-    --primary-secondary: 34 100% 71%;  /* Soft accent orange */
-    --primary-foreground: 0 0% 100%;   /* White on primary */
+    --primary: 34 100% 56%;
+    /* #FF9F1C */
+    --primary-accent: 34 100% 71%;
+    /* #FFBF69 */
+    --primary-deep: 29 100% 50%;
+    /* Deeper orange */
+    --primary-dark: 29 100% 45%;
+    /* Darker orange for text / borders */
+    --primary-light: 34 100% 80%;
+    /* Soft orange for hover */
+    --primary-medium: 34 100% 60%;
+    /* Default CTA tone */
+    --primary-secondary: 34 100% 71%;
+    /* Soft accent orange */
+    --primary-foreground: 0 0% 100%;
+    /* White on primary */
 
     /* Teal accents (sidebar / soft UI) */
-    --lavender-100: 175 40% 94%;       /* Very soft teal */
-    --lavender-200: 175 40% 90%;       /* #e0f2f1 */
-    --lavender-300: 173 65% 47%;       /* #2EC4B6 */
+    --lavender-100: 175 40% 94%;
+    /* Very soft teal */
+    --lavender-200: 175 40% 90%;
+    /* #e0f2f1 */
+    --lavender-300: 173 65% 47%;
+    /* #2EC4B6 */
 
     /* Text */
-    --text-heading: 220 14% 9%;        /* #111827 */
-    --text-body: 214 17% 36%;          /* #374151 */
-    --text-muted: 215 8% 45%;          /* #6B7280 */
-    --text-hint: 215 7% 62%;           /* #9CA3AF */
+    --text-heading: 220 14% 9%;
+    /* #111827 */
+    --text-body: 214 17% 36%;
+    /* #374151 */
+    --text-muted: 215 8% 45%;
+    /* #6B7280 */
+    --text-hint: 215 7% 62%;
+    /* #9CA3AF */
 
     /* Chart-specific (light) – oranges + teal only */
-    --chart-income: 34 100% 56%;       /* #FF9F1C line */
-    --chart-expense: 34 100% 71%;      /* #FFBF69 line */
-    --chart-mid: 175 69% 88%;          /* #CBF3F0 fill */
-    --chart-bg-fill: 0 0% 100%;        /* White chart bg */
+    --chart-income: 34 100% 56%;
+    /* #FF9F1C line */
+    --chart-expense: 34 100% 71%;
+    /* #FFBF69 line */
+    --chart-mid: 175 69% 88%;
+    /* #CBF3F0 fill */
+    --chart-bg-fill: 0 0% 100%;
+    /* White chart bg */
 
     /* Legacy-compatible tokens used by CSS */
     --background: var(--app-bg);
@@ -47,10 +70,14 @@
     --card-foreground: var(--text-body);
     --muted: 230 9% 96%;
     --muted-foreground: var(--text-muted);
-    --bg-light-gray: 0 0% 100%;                /* White body background */
-    --bg-light-gray-variant: 210 16% 98%;      /* Very light gray */
-    --bg-very-light-cyan: var(--lavender-100); /* Very soft teal */
-    --bg-light-cyan-variant: var(--lavender-200); /* #CBF3F0 header rows, chips */
+    --bg-light-gray: 0 0% 100%;
+    /* White body background */
+    --bg-light-gray-variant: 210 16% 98%;
+    /* Very light gray */
+    --bg-very-light-cyan: var(--lavender-100);
+    /* Very soft teal */
+    --bg-light-cyan-variant: var(--lavender-200);
+    /* #CBF3F0 header rows, chips */
 
     --border-light-cyan: var(--border);
 
@@ -58,7 +85,8 @@
     --chart-primary: var(--chart-income);
     --chart-primary-dark: var(--primary-deep);
     --chart-secondary: var(--chart-expense);
-    --chart-accent: 173 65% 47%;       /* #2EC4B6 */
+    --chart-accent: 173 65% 47%;
+    /* #2EC4B6 */
     --chart-success: 142 71% 45%;
     --chart-warning: 28 87% 62%;
     --chart-error: 4 90% 58%;
@@ -81,36 +109,54 @@
     --chart-gradient-opacity-end: 0.40;
 
     /* Sidebar */
-    --sidebar-bg: 175 40% 90%;        /* #e0f2f1 - light teal sidebar */
+    --sidebar-bg: 175 40% 90%;
+    /* #e0f2f1 - light teal sidebar */
     --sidebar-border: var(--border);
 
     /* Direct hex tokens for exact button / UI mapping */
-    --color-primary: #FF9F1C;         /* Primary button / brand */
-    --color-primary-hover: #E68900;   /* Hover */
-    --color-primary-active: #CC7A00;  /* Active / pressed */
-    --color-primary-accent: #FFBF69;  /* Accent */
+    --color-primary: #FF9F1C;
+    /* Primary button / brand */
+    --color-primary-hover: #E68900;
+    /* Hover */
+    --color-primary-active: #CC7A00;
+    /* Active / pressed */
+    --color-primary-accent: #FFBF69;
+    /* Accent */
 
-    --color-lavender-100: #CBF3F0;    /* Secondary button bg */
-    --color-lavender-200: #CBF3F0;    /* Secondary hover / focus ring */
-    --color-lavender-300: #CBF3F0;    /* Soft gradient mid */
+    --color-lavender-100: #CBF3F0;
+    /* Secondary button bg */
+    --color-lavender-200: #CBF3F0;
+    /* Secondary hover / focus ring */
+    --color-lavender-300: #CBF3F0;
+    /* Soft gradient mid */
 
-    --color-border: #E6E6EB;         /* Border / dividers */
-    --color-subtle: #DCDCE2;         /* Disabled bg */
-    --color-disabled-text: #9CA3AF;  /* Disabled text */
+    --color-border: #E6E6EB;
+    /* Border / dividers */
+    --color-subtle: #DCDCE2;
+    /* Disabled bg */
+    --color-disabled-text: #9CA3AF;
+    /* Disabled text */
 
     /* Typography - Roboto font for entire website */
     --font-family: var(--font-roboto), 'Roboto', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
     --font-mono: 'Courier New', Courier, monospace;
-    
+
     /* Font Sizes */
-    --font-size-xs: 0.625rem;      /* 10px */
-    --font-size-sm: 0.75rem;       /* 12px */
-    --font-size-base: 0.875rem;    /* 14px */
-    --font-size-lg: 1rem;          /* 16px */
-    --font-size-xl: 1.125rem;      /* 18px */
-    --font-size-2xl: 1.25rem;      /* 20px */
-    --font-size-3xl: 1.5rem;       /* 24px */
-    
+    --font-size-xs: 0.625rem;
+    /* 10px */
+    --font-size-sm: 0.75rem;
+    /* 12px */
+    --font-size-base: 0.875rem;
+    /* 14px */
+    --font-size-lg: 1rem;
+    /* 16px */
+    --font-size-xl: 1.125rem;
+    /* 18px */
+    --font-size-2xl: 1.25rem;
+    /* 20px */
+    --font-size-3xl: 1.5rem;
+    /* 24px */
+
     /* Font Weights */
     --font-weight-normal: 400;
     --font-weight-medium: 500;
@@ -139,96 +185,159 @@
 
   /* 🌙 DARK MODE - Updated to match design */
   .dark {
-    --background: 222 47% 11%;         /* Dark blue background */
-    --foreground: 0 0% 100%;           /* White text */
+    --background: 222 47% 11%;
+    /* Dark blue background */
+    --foreground: 0 0% 100%;
+    /* White text */
 
-    --card: 222 47% 15%;               /* Slightly lighter blue for cards */
-    --card-foreground: 0 0% 100%;      /* White text on cards */
+    --card: 222 47% 15%;
+    /* Slightly lighter blue for cards */
+    --card-foreground: 0 0% 100%;
+    /* White text on cards */
 
-    --border: 222 47% 20%;             /* Border color */
-    --muted: 222 47% 18%;              /* Muted background */
-    --muted-foreground: 0 0% 80%;      /* Light gray for muted text */
+    --border: 222 47% 20%;
+    /* Border color */
+    --muted: 222 47% 18%;
+    /* Muted background */
+    --muted-foreground: 0 0% 80%;
+    /* Light gray for muted text */
 
-    --primary: 34 100% 56%;            /* Orange primary color */
-    --primary-foreground: 0 0% 100%;   /* White text on primary */
+    --primary: 34 100% 56%;
+    /* Orange primary color */
+    --primary-foreground: 0 0% 100%;
+    /* White text on primary */
 
     /* Primary Color Variants - Dark Mode */
-    --primary-dark: 34 100% 45%;       /* Darker orange */
-    --primary-light: 34 100% 65%;      /* Lighter orange */
-    --primary-medium: 34 100% 56%;     /* Main orange */
-    --primary-secondary: 34 100% 50%;  /* Slightly darker orange */
+    --primary-dark: 34 100% 45%;
+    /* Darker orange */
+    --primary-light: 34 100% 65%;
+    /* Lighter orange */
+    --primary-medium: 34 100% 56%;
+    /* Main orange */
+    --primary-secondary: 34 100% 50%;
+    /* Slightly darker orange */
 
     /* Secondary Color Palette - Dark Mode */
-    --secondary: 34 100% 56%;          /* Orange secondary */
-    --secondary-foreground: 0 0% 100%; /* White text */
-    --secondary-dark: 34 100% 45%;     /* Darker secondary */
-    --secondary-light: 34 100% 65%;    /* Lighter secondary */
+    --secondary: 34 100% 56%;
+    /* Orange secondary */
+    --secondary-foreground: 0 0% 100%;
+    /* White text */
+    --secondary-dark: 34 100% 45%;
+    /* Darker secondary */
+    --secondary-light: 34 100% 65%;
+    /* Lighter secondary */
 
     /* Background Colors - Dark Mode */
-    --bg-light-cyan: 222 47% 15%;      /* Card background */
-    --bg-very-light-cyan: 222 47% 11%; /* Main background */
-    --bg-light-cyan-alt: 222 47% 18%;  /* Alternate background */
-    --bg-light-gray: 222 47% 15%;      /* Gray background */
-    --bg-light-cyan-variant: 222 47% 20%; /* Variant background */
-    --bg-light-gray-alt: 222 47% 18%;  /* Alternate gray */
-    --bg-very-light-cyan-alt: 222 47% 15%; /* Alternate cyan */
-    --bg-light-gray-variant: 222 47% 20%; /* Gray variant */
-    --bg-light-cyan-variant2: 222 47% 18%; /* Second variant */
-    --bg-light-rose: 222 47% 20%;      /* Rose background */
+    --bg-light-cyan: 222 47% 15%;
+    /* Card background */
+    --bg-very-light-cyan: 222 47% 11%;
+    /* Main background */
+    --bg-light-cyan-alt: 222 47% 18%;
+    /* Alternate background */
+    --bg-light-gray: 222 47% 15%;
+    /* Gray background */
+    --bg-light-cyan-variant: 222 47% 20%;
+    /* Variant background */
+    --bg-light-gray-alt: 222 47% 18%;
+    /* Alternate gray */
+    --bg-very-light-cyan-alt: 222 47% 15%;
+    /* Alternate cyan */
+    --bg-light-gray-variant: 222 47% 20%;
+    /* Gray variant */
+    --bg-light-cyan-variant2: 222 47% 18%;
+    /* Second variant */
+    --bg-light-rose: 222 47% 20%;
+    /* Rose background */
 
     /* Border Colors - Dark Mode */
-    --border-light-cyan: 222 47% 25%;  /* Border color */
-    --border-primary-dark: 34 100% 45%; /* Darker orange border */
+    --border-light-cyan: 222 47% 25%;
+    /* Border color */
+    --border-primary-dark: 34 100% 45%;
+    /* Darker orange border */
 
     /* Text Colors - Dark Mode */
-    --text-dark-gray: 0 0% 100%;       /* White text */
-    --text-medium-gray: 0 0% 80%;      /* Light gray text */
-    --text-light-gray: 0 0% 60%;       /* Lighter gray text */
+    --text-dark-gray: 0 0% 100%;
+    /* White text */
+    --text-medium-gray: 0 0% 80%;
+    /* Light gray text */
+    --text-light-gray: 0 0% 60%;
+    /* Lighter gray text */
 
     /* Accent Colors - Dark Mode */
-    --accent-gold: 34 100% 56%;        /* Orange gold */
-    --accent-green: 142 71% 50%;       /* Green */
-    --accent-red: 4 90% 63%;           /* Red */
-    --accent-gold-bright: 34 100% 56%; /* Bright orange */
-    --accent-gold-dark: 34 100% 45%;   /* Darker orange */
-    --accent-blue: 207 90% 61%;        /* Blue */
+    --accent-gold: 34 100% 56%;
+    /* Orange gold */
+    --accent-green: 142 71% 50%;
+    /* Green */
+    --accent-red: 4 90% 63%;
+    /* Red */
+    --accent-gold-bright: 34 100% 56%;
+    /* Bright orange */
+    --accent-gold-dark: 34 100% 45%;
+    /* Darker orange */
+    --accent-blue: 207 90% 61%;
+    /* Blue */
 
     /* Chart/Graph Colors - Dark Mode */
-    --chart-primary: 34 100% 56%;      /* Orange primary */
-    --chart-primary-dark: 34 100% 45%; /* Darker orange */
-    --chart-secondary: 222 47% 25%;    /* Dark blue secondary */
-    --chart-accent: 207 90% 61%;       /* Blue accent */
-    --chart-success: 142 71% 50%;      /* Green success */
-    --chart-warning: 34 100% 56%;      /* Orange warning */
-    --chart-error: 4 90% 63%;          /* Red error */
-    
+    --chart-primary: 34 100% 56%;
+    /* Orange primary */
+    --chart-primary-dark: 34 100% 45%;
+    /* Darker orange */
+    --chart-secondary: 222 47% 25%;
+    /* Dark blue secondary */
+    --chart-accent: 207 90% 61%;
+    /* Blue accent */
+    --chart-success: 142 71% 50%;
+    /* Green success */
+    --chart-warning: 34 100% 56%;
+    /* Orange warning */
+    --chart-error: 4 90% 63%;
+    /* Red error */
+
     /* Chart Background & UI Colors - Dark Mode */
-    --chart-bg: 218 43% 15%;           /* █ #1F2B3F - Dark card background */
-    --chart-border: 218 43% 22%;       /* █ #2E3F5A - Dark border */
-    --chart-grid: 218 43% 20%;         /* █ #2A3850 - Dark grid lines */
-    --chart-text: 192 58% 70%;         /* █ #8CCFE0 - Light text */
-    --chart-text-dark: 178 50% 95%;    /* █ #DCF2F1 - Very light text */
-    --chart-text-body: 192 58% 75%;    /* █ #A5DBEB - Light body text */
-    
+    --chart-bg: 218 43% 10%;
+    /* Slightly darker card background */
+    --chart-border: 218 43% 22%;
+    /* █ #2E3F5A - Dark border */
+    --chart-grid: 218 43% 20%;
+    /* █ #2A3850 - Dark grid lines */
+    --chart-text: 192 58% 70%;
+    /* █ #8CCFE0 - Light text */
+    --chart-text-dark: 178 50% 95%;
+    /* █ #DCF2F1 - Very light text */
+    --chart-text-body: 192 58% 75%;
+    /* █ #A5DBEB - Light body text */
+
     /* Chart Tooltip Colors - Dark Mode */
-    --chart-tooltip-bg: 218 43% 15%;   /* █ #1F2B3F - Dark tooltip background */
-    --chart-tooltip-border: 218 43% 25%; /* █ #354966 - Dark tooltip border */
-    --chart-tooltip-title: 178 50% 95%; /* █ #DCF2F1 - Light tooltip title */
-    --chart-tooltip-body: 192 58% 75%; /* █ #A5DBEB - Light tooltip body */
-    
+    --chart-tooltip-bg: 218 43% 10%;
+    /* Slightly darker tooltip background */
+    --chart-tooltip-border: 218 43% 25%;
+    /* █ #354966 - Dark tooltip border */
+    --chart-tooltip-title: 178 50% 95%;
+    /* █ #DCF2F1 - Light tooltip title */
+    --chart-tooltip-body: 192 58% 75%;
+    /* █ #A5DBEB - Light tooltip body */
+
     /* Chart Gradient Colors - Dark Mode */
-    --chart-gradient-start: 192 58% 70%;  /* █ #8CCFE0 - Gradient start */
-    --chart-gradient-end: 192 58% 75%;    /* █ #A5DBEB - Gradient end */
-    --chart-gradient-opacity-start: 0.3;  /* Gradient opacity start (30%) */
-    --chart-gradient-opacity-end: 0.5;    /* Gradient opacity end (50%) */
+    --chart-gradient-start: 192 58% 70%;
+    /* █ #8CCFE0 - Gradient start */
+    --chart-gradient-end: 192 58% 75%;
+    /* █ #A5DBEB - Gradient end */
+    --chart-gradient-opacity-start: 0.3;
+    /* Gradient opacity start (30%) */
+    --chart-gradient-opacity-end: 0.5;
+    /* Gradient opacity end (50%) */
 
     /* Dark Mode Backgrounds */
-    --bg-dark-teal: 222 47% 11%;       /* Dark blue background */
-    --border-dark-teal: 222 47% 20%;   /* Blue border */
+    --bg-dark-teal: 222 47% 11%;
+    /* Dark blue background */
+    --border-dark-teal: 222 47% 20%;
+    /* Blue border */
 
     /* Sidebar Colors - Dark Mode */
-    --sidebar-bg: 222 47% 11%;         /* Dark blue sidebar */
-    --sidebar-border: 222 47% 20%;     /* Blue border */
+    --sidebar-bg: 222 47% 11%;
+    /* Dark blue sidebar */
+    --sidebar-border: 222 47% 20%;
+    /* Blue border */
   }
 }
 
@@ -251,11 +360,33 @@
   }
 
   /* Ensure all text elements use Roboto */
-  h1, h2, h3, h4, h5, h6, p, span, div, a, button, input, select, textarea, label, li, td, th {
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6,
+  p,
+  span,
+  div,
+  a,
+  button,
+  input,
+  select,
+  textarea,
+  label,
+  li,
+  td,
+  th {
     font-family: var(--font-roboto), 'Roboto', var(--font-family), -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
   }
 
-  h1, h2, h3, h4, h5, h6 {
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
     font-weight: var(--font-weight-bold);
     color: hsl(var(--foreground));
     line-height: 1.2;
@@ -274,7 +405,11 @@
     font-size: var(--font-size-xl);
   }
 
-  p, span, label, small, div {
+  p,
+  span,
+  label,
+  small,
+  div {
     color: hsl(var(--foreground));
   }
 
@@ -298,8 +433,10 @@
   input::placeholder,
   textarea::placeholder,
   select::placeholder {
-    color: #9CA3AF; /* tailwind gray-400: readable light grey */
-    opacity: 1; /* ensure consistent contrast across browsers */
+    color: #9CA3AF;
+    /* tailwind gray-400: readable light grey */
+    opacity: 1;
+    /* ensure consistent contrast across browsers */
   }
 
   /* Vendor fallbacks for older browsers */
@@ -336,6 +473,7 @@
    🧱 CORE COMPONENTS - HEADERS
 ===================================================== */
 @layer components {
+
   /* Main Header */
   .header-main {
     background-color: hsl(var(--background));
@@ -359,7 +497,7 @@
      Use these classes throughout the project for consistent styling
      All values use CSS variables - change in :root to update globally
   ===================================================== */
-  
+
   /* Global Header - Semantic utility class for all headers */
   .header-global {
     background-color: hsl(var(--background));
@@ -431,12 +569,16 @@
 
   /* ALL page headers inherit these colors - change here to update all */
   .page-header {
-    --header-bg: 0 0% 100%;  /* White */
+    --header-bg: 0 0% 100%;
+    /* White */
     --header-border: var(--border-light-cyan);
-    --header-title-color: 220 14% 9%;  /* Black text, not orange */
-    --header-subtitle-color: 215 8% 45%;  /* Gray subtitle */
+    --header-title-color: 220 14% 9%;
+    /* Black text, not orange */
+    --header-subtitle-color: 215 8% 45%;
+    /* Gray subtitle */
     --header-icon-bg: white;
-    --header-icon-color: 220 14% 9%;  /* Black icon, not orange */
+    --header-icon-color: 220 14% 9%;
+    /* Black icon, not orange */
   }
 
   .dark .page-header {
@@ -582,6 +724,7 @@
    🧱 CORE COMPONENTS - BUTTONS
 ===================================================== */
 @layer components {
+
   /* Base Button - All buttons */
   .btn {
     display: inline-flex;
@@ -637,23 +780,27 @@
     letter-spacing: 0.05em !important;
     transition: all 0.2s ease-in-out !important;
     box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05) !important;
-}
-.btn-secondary:hover:not(:disabled) {
-  background: #FFBF69;  /* Soft orange hover */
-  border-color: #FF9F1C;
-  color: #FFFFFF;
-}
+  }
+
+  .btn-secondary:hover:not(:disabled) {
+    background: #FFBF69;
+    /* Soft orange hover */
+    border-color: #FF9F1C;
+    color: #FFFFFF;
+  }
 
   /* Outline Button */
-  .btn-outline, .btn-neutral {
+  .btn-outline,
+  .btn-neutral {
     background: white;
     border: 1px solid #CBF3F0;
     color: #FF9F1C;
     box-shadow: 0 2px 8px rgba(159, 103, 255, 0.1);
     transition: all 0.2s ease-in-out;
   }
-  
-  .btn-outline:hover:not(:disabled), .btn-neutral:hover:not(:disabled) {
+
+  .btn-outline:hover:not(:disabled),
+  .btn-neutral:hover:not(:disabled) {
     background: #F8F5FF;
     border-color: #FFBF69;
     color: #E58600;
@@ -769,6 +916,7 @@
       transform: scale(0, 0);
       opacity: 0.5;
     }
+
     100% {
       transform: scale(40, 40);
       opacity: 0;
@@ -810,158 +958,169 @@
   }
 }
 
-  .btn-assign:hover:not(:disabled) {
-    background-color: hsl(var(--primary-medium));
-    box-shadow: 0 4px 12px hsl(var(--primary-dark) / 0.3);
-    transform: translateY(-1px);
-  }
-
-  .dark .btn-assign {
-    background-color: hsl(var(--primary));
-    color: hsl(var(--primary-foreground));
-  }
-
-  .dark .btn-assign:hover:not(:disabled) {
-    background-color: hsl(var(--primary-light));
-  }
-
-  /* Gradient Button - Uses primary colors */
-  .btn-gradient {
-  background: linear-gradient(135deg, #CBF3F0 0%, #CBF3F0 100%);
-  color: #FFFFFF; /* ✅ pure white text */
-  font-weight: var(--font-weight-normal);
-  box-shadow: 0 6px 20px rgba(230, 229, 255, 0.9);
+.btn-assign:hover:not(:disabled) {
+  background-color: hsl(var(--primary-medium));
+  box-shadow: 0 4px 12px hsl(var(--primary-dark) / 0.3);
+  transform: translateY(-1px);
 }
 
+.dark .btn-assign {
+  background-color: hsl(var(--primary));
+  color: hsl(var(--primary-foreground));
+}
 
+.dark .btn-assign:hover:not(:disabled) {
+  background-color: hsl(var(--primary-light));
+}
 
-  .btn-gradient:hover:not(:disabled) {
-    background: linear-gradient(135deg, #FFBF69 0%, #FF9F1C 100%);
-    filter: brightness(1.05);
-    box-shadow: 0 6px 24px rgba(159, 103, 255, 0.3);
-    transform: translateY(-1px);
-  }
+/* Gradient Button - Uses primary colors */
+.btn-gradient {
+  background: linear-gradient(135deg, hsl(var(--primary-light)) 0%, hsl(var(--primary)) 100%);
+  color: #FFFFFF;
+  font-weight: var(--font-weight-normal);
+  box-shadow: 0 6px 20px rgba(230, 229, 255, 0.2);
+  transition: all 0.2s ease;
+}
 
-  .dark .btn-gradient {
-    background: linear-gradient(to right, hsl(var(--primary)), hsl(var(--primary-light)));
-  }
+/* Dark mode variant */
+.dark .btn-gradient {
+  background: linear-gradient(135deg, hsl(var(--primary-dark)) 0%, hsl(var(--primary)) 100%);
+  color: hsl(var(--primary-foreground));
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+}
 
-  /* Icon Button - Rounded corners */
-  .btn-icon {
-    padding: 0.5rem;
-    border-radius: var(--radius-xl);  /* Rounded corners */
-    background-color: white;
-    border: 1px solid hsl(var(--border));
-    color: #000000;  /* Black icons, not orange */
-    transition: all 0.2s ease;
-  }
+/* Hover state */
+.btn-gradient:hover:not(:disabled) {
+  transform: translateY(-1px);
+  box-shadow: 0 8px 25px rgba(230, 229, 255, 0.3);
+}
 
-  .btn-icon:hover:not(:disabled) {
-    background-color: #f3f4f6;  /* Light gray hover */
-    color: #000000;  /* Black on hover */
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-  }
+.dark .btn-gradient:hover:not(:disabled) {
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.4);
+}
 
-  .dark .btn-icon {
-    background-color: hsl(var(--card));
-    border-color: hsl(var(--border));
-    color: hsl(var(--primary-light));
-  }
+/* Icon Button - Rounded corners */
+.btn-icon {
+  padding: 0.5rem;
+  border-radius: var(--radius-xl);
+  /* Rounded corners */
+  background-color: white;
+  border: 1px solid hsl(var(--border));
+  color: #000000;
+  /* Black icons, not orange */
+  transition: all 0.2s ease;
+}
 
-  .dark .btn-icon:hover:not(:disabled) {
-    background-color: hsl(var(--primary));
-    color: white;
-  }
+.btn-icon:hover:not(:disabled) {
+  background-color: #f3f4f6;
+  /* Light gray hover */
+  color: #000000;
+  /* Black on hover */
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
 
-  /* Danger/Warning Button */
-  .btn-danger, .btn-warning {
-    background: linear-gradient(to right, #FCA5A5, #F87171);
-    color: white;
-    box-shadow: 0 8px 24px rgba(248, 113, 113, 0.4);
-  }
+.dark .btn-icon {
+  background-color: hsl(var(--card));
+  border-color: hsl(var(--border));
+  color: hsl(var(--primary-light));
+}
 
-  .btn-danger:hover:not(:disabled), 
-  .btn-warning:hover:not(:disabled) {
-    background: linear-gradient(to right, #F87171, #EF4444);
-    transform: translateY(-2px);
-    box-shadow: 0 12px 28px rgba(248, 113, 113, 0.5);
-  }
+.dark .btn-icon:hover:not(:disabled) {
+  background-color: hsl(var(--primary));
+  color: white;
+}
 
-  .btn-danger:focus-visible, 
-  .btn-warning:focus-visible {
-    outline: none;
-    box-shadow: 0 0 0 3px rgba(254, 202, 202, 0.5);
-  }
-  
-  .btn-danger:active:not(:disabled),
-  .btn-warning:active:not(:disabled) {
-    transform: translateY(0);
-    box-shadow: 0 4px 12px rgba(248, 113, 113, 0.3);
-  }
+/* Danger/Warning Button */
+.btn-danger,
+.btn-warning {
+  background: linear-gradient(to right, #FCA5A5, #F87171);
+  color: white;
+  box-shadow: 0 8px 24px rgba(248, 113, 113, 0.4);
+}
 
-  /* Button Sizes */
-  .btn-sm {
-    padding: 0.5rem 1rem;
-    font-size: var(--font-size-xs);
-  }
+.btn-danger:hover:not(:disabled),
+.btn-warning:hover:not(:disabled) {
+  background: linear-gradient(to right, #F87171, #EF4444);
+  transform: translateY(-2px);
+  box-shadow: 0 12px 28px rgba(248, 113, 113, 0.5);
+}
 
-  .btn-lg {
-    padding: 0.75rem 2rem;
-    font-size: var(--font-size-base);
-  }
+.btn-danger:focus-visible,
+.btn-warning:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(254, 202, 202, 0.5);
+}
 
-  /* Global Button - Semantic utility class for all buttons */
-  .btn-global {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    border-radius: 14px;
-    padding: 0.75rem 1.5rem;
-    font-size: 0.875rem;
-    font-weight: 600;
-    transition: all 0.3s ease;
-    cursor: pointer;
-    border: none;
-    outline: none;
-    background: linear-gradient(to right, #E1E0FF, #DAD8FF);
-    color: #FFFFFF;
-    box-shadow: 0 8px 24px rgba(225, 224, 255, 0.9);
-    font-family: inherit;
-  }
+.btn-danger:active:not(:disabled),
+.btn-warning:active:not(:disabled) {
+  transform: translateY(0);
+  box-shadow: 0 4px 12px rgba(248, 113, 113, 0.3);
+}
 
-  .btn-global:hover:not(:disabled) {
-    background: linear-gradient(to right, #DAD8FF, #D1CFFF);
-    transform: translateY(-2px);
-    box-shadow: 0 12px 28px rgba(225, 224, 255, 1);
-  }
+/* Button Sizes */
+.btn-sm {
+  padding: 0.5rem 1rem;
+  font-size: var(--font-size-xs);
+}
 
-  .btn-global:disabled {
-    opacity: 0.5;
-    cursor: not-allowed;
-  }
+.btn-lg {
+  padding: 0.75rem 2rem;
+  font-size: var(--font-size-base);
+}
 
-  .dark .btn-global {
-    background: linear-gradient(to right, #E1E0FF, #DAD8FF);
-    color: #FFFFFF;
-    box-shadow: 0 8px 24px rgba(225, 224, 255, 0.9);
-  }
+/* Global Button - Semantic utility class for all buttons */
+.btn-global {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 14px;
+  padding: 0.75rem 1.5rem;
+  font-size: 0.875rem;
+  font-weight: 600;
+  transition: all 0.3s ease;
+  cursor: pointer;
+  border: none;
+  outline: none;
+  background: linear-gradient(to right, #E1E0FF, #DAD8FF);
+  color: #FFFFFF;
+  box-shadow: 0 8px 24px rgba(225, 224, 255, 0.9);
+  font-family: inherit;
+}
 
-  .btn-global:hover:not(:disabled) {
-    background: linear-gradient(to right, #DAD8FF, #D1CFFF);
-    transform: translateY(-2px);
-    box-shadow: 0 12px 28px rgba(225, 224, 255, 1);
-  }
+.btn-global:hover:not(:disabled) {
+  background: linear-gradient(to right, #DAD8FF, #D1CFFF);
+  transform: translateY(-2px);
+  box-shadow: 0 12px 28px rgba(225, 224, 255, 1);
+}
 
-  .btn-global:active:not(:disabled) {
-    transform: translateY(0);
-    box-shadow: 0 4px 12px rgba(225, 224, 255, 0.7);
-  }
+.btn-global:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.dark .btn-global {
+  background: linear-gradient(to right, #E1E0FF, #DAD8FF);
+  color: #FFFFFF;
+  box-shadow: 0 8px 24px rgba(225, 224, 255, 0.9);
+}
+
+.btn-global:hover:not(:disabled) {
+  background: linear-gradient(to right, #DAD8FF, #D1CFFF);
+  transform: translateY(-2px);
+  box-shadow: 0 12px 28px rgba(225, 224, 255, 1);
+}
+
+.btn-global:active:not(:disabled) {
+  transform: translateY(0);
+  box-shadow: 0 4px 12px rgba(225, 224, 255, 0.7);
+}
 
 /* =====================================================
    🧱 CORE COMPONENTS - TABLES
    All tables use the same standardized model
 ===================================================== */
 @layer components {
+
   /* Table Container - Standardized for all tables */
   .table-container {
     background-color: hsl(var(--card));
@@ -987,11 +1146,21 @@
 
   /* Table Header - Standardized */
   .table-header {
-    background-color: hsl(var(--bg-light-cyan-variant));
-    border-bottom: 1px solid hsl(var(--border-light-cyan));
+    /* Changed to a faint, cool Slate-Grey tint */
+    background-color: hsl(210, 20%, 96%);
+    /* Very light slate-grey */
+
+    /* Matches the faint grey border logic */
+    border-bottom: 1px solid hsl(210, 20%, 90%);
+
+    /* Maintained constants */
     position: sticky;
     top: 0;
     z-index: 10;
+
+    /* Added backdrop blur for the 'light transparent' look */
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
   }
 
   .dark .table-header {
@@ -1004,11 +1173,15 @@
   .table th {
     padding: 1rem 1.25rem;
     text-align: left;
-    font-weight: var(--font-weight-normal) !important; /* NOT bold */
-    font-size: var(--font-size-sm) !important; /* Increased from xs to sm for better readability */
-    text-transform: uppercase !important; /* Force uppercase */
+    font-weight: var(--font-weight-normal) !important;
+    /* NOT bold */
+    font-size: var(--font-size-sm) !important;
+    /* Increased from xs to sm for better readability */
+    text-transform: uppercase !important;
+    /* Force uppercase */
     letter-spacing: 0.05em;
-    color: #000000 !important; /* Black text, not orange */
+    color: #000000 !important;
+    /* Black text, not orange */
     border-bottom: 1px solid hsl(var(--border-light-cyan));
     font-family: var(--font-family);
   }
@@ -1027,7 +1200,8 @@
   .table th div,
   .table th span {
     font-weight: var(--font-weight-normal) !important;
-    font-size: var(--font-size-sm) !important; /* Increased from xs to sm for better readability */
+    font-size: var(--font-size-sm) !important;
+    /* Increased from xs to sm for better readability */
     text-transform: uppercase !important;
     letter-spacing: 0.05em;
   }
@@ -1041,7 +1215,8 @@
     color: white !important;
     border-bottom-color: rgba(255, 255, 255, 0.1);
     font-weight: var(--font-weight-normal) !important;
-    font-size: var(--font-size-sm) !important; /* Increased from xs to sm for better readability */
+    font-size: var(--font-size-sm) !important;
+    /* Increased from xs to sm for better readability */
     text-transform: uppercase !important;
     letter-spacing: 0.05em;
     font-family: var(--font-family);
@@ -1055,7 +1230,8 @@
     color: hsl(var(--foreground)) !important;
     background-color: hsl(var(--bg-dark-teal));
     font-weight: 500 !important;
-    font-size: var(--font-size-sm) !important; /* Increased from xs to sm for better readability */
+    font-size: var(--font-size-sm) !important;
+    /* Increased from xs to sm for better readability */
     text-transform: uppercase !important;
   }
 
@@ -1090,10 +1266,14 @@
   .table-cell,
   .table td {
     padding: 1rem 1.25rem;
-    color: #000000 !important; /* Force black in light mode */
-    font-size: var(--font-size-base) !important; /* Increased from sm to base for better readability */
-    font-weight: var(--font-weight-normal) !important; /* NOT bold */
-    text-transform: none !important; /* Force normal case (not uppercase/lowercase) */
+    color: #000000 !important;
+    /* Force black in light mode */
+    font-size: var(--font-size-base) !important;
+    /* Increased from sm to base for better readability */
+    font-weight: var(--font-weight-normal) !important;
+    /* NOT bold */
+    text-transform: none !important;
+    /* Force normal case (not uppercase/lowercase) */
     font-family: var(--font-family);
   }
 
@@ -1103,8 +1283,8 @@
   }
 
   /* Table cell text - STANDARDIZED - All text inside cells uses this style */
-  .table-cell > *:not(.badge):not(.badge-status):not(.badge-role):not(.badge-score):not(.badge-primary),
-  .table td > *:not(.badge):not(.badge-status):not(.badge-role):not(.badge-score):not(.badge-primary),
+  .table-cell>*:not(.badge):not(.badge-status):not(.badge-role):not(.badge-score):not(.badge-primary),
+  .table td>*:not(.badge):not(.badge-status):not(.badge-role):not(.badge-score):not(.badge-primary),
   .table-cell a:not(.badge):not(.chip),
   .table td a:not(.badge):not(.chip),
   .table-cell span:not(.badge):not(.badge-status):not(.badge-role):not(.badge-score):not(.badge-primary),
@@ -1117,13 +1297,15 @@
   .table .chip,
   .table-cell .chip {
     color: #000000 !important;
-    font-weight: var(--font-weight-normal) !important; /* NOT bold */
-    text-transform: none !important; /* Force normal case */
+    font-weight: var(--font-weight-normal) !important;
+    /* NOT bold */
+    text-transform: none !important;
+    /* Force normal case */
     font-size: var(--font-size-sm) !important;
   }
 
-  .dark .table-cell > *:not(.badge):not(.badge-status):not(.badge-role):not(.badge-score):not(.badge-primary),
-  .dark .table td > *:not(.badge):not(.badge-status):not(.badge-role):not(.badge-score):not(.badge-primary),
+  .dark .table-cell>*:not(.badge):not(.badge-status):not(.badge-role):not(.badge-score):not(.badge-primary),
+  .dark .table td>*:not(.badge):not(.badge-status):not(.badge-role):not(.badge-score):not(.badge-primary),
   .dark .table-cell a:not(.badge):not(.chip),
   .dark .table td a:not(.badge):not(.chip),
   .dark .table-cell span:not(.badge):not(.badge-status):not(.badge-role):not(.badge-score):not(.badge-primary),
@@ -1138,6 +1320,7 @@
     color: hsl(var(--foreground)) !important;
     font-weight: var(--font-weight-medium) !important;
     text-transform: none !important;
+    background-color: hsl(var(--card));
   }
 
   /* Override text utility classes in table cells for light mode */
@@ -1220,10 +1403,12 @@
     padding: 1rem 1.25rem;
     text-align: left;
     font-weight: var(--font-weight-normal) !important;
-    font-size: var(--font-size-sm) !important; /* Increased from xs to sm for better readability */
+    font-size: var(--font-size-sm) !important;
+    /* Increased from xs to sm for better readability */
     text-transform: uppercase !important;
     letter-spacing: 0.05em;
-    color: #000000 !important; /* Black text, not orange */
+    color: #000000 !important;
+    /* Black text, not orange */
     border-bottom: 1px solid hsl(var(--border-light-cyan));
     font-family: var(--font-family);
   }
@@ -1244,7 +1429,8 @@
   .table-global tbody td {
     padding: 1rem 1.25rem;
     color: #000000 !important;
-    font-size: var(--font-size-base) !important; /* Increased from sm to base for better readability */
+    font-size: var(--font-size-base) !important;
+    /* Increased from sm to base for better readability */
     font-weight: var(--font-weight-normal) !important;
     text-transform: none !important;
     font-family: var(--font-family);
@@ -1252,6 +1438,7 @@
 
   .dark .table-global tbody td {
     color: hsl(var(--foreground)) !important;
+    background-color: hsl(var(--card));
   }
 
   .dark .table-global {
@@ -1290,7 +1477,8 @@
   /* Force all tables (even without .table class) to use standardized styles */
   table thead th {
     font-weight: var(--font-weight-normal) !important;
-    font-size: var(--font-size-sm) !important; /* Increased from xs to sm for better readability */
+    font-size: var(--font-size-sm) !important;
+    /* Increased from xs to sm for better readability */
     text-transform: uppercase !important;
     letter-spacing: 0.05em;
     font-family: var(--font-family);
@@ -1298,7 +1486,8 @@
 
   table tbody td {
     font-weight: var(--font-weight-normal) !important;
-    font-size: var(--font-size-base) !important; /* Increased from sm to base for better readability */
+    font-size: var(--font-size-base) !important;
+    /* Increased from sm to base for better readability */
     text-transform: none !important;
     font-family: var(--font-family);
   }
@@ -1309,7 +1498,8 @@
   .table th * {
     font-weight: var(--font-weight-normal) !important;
     text-transform: uppercase !important;
-    font-size: var(--font-size-sm) !important; /* Increased from xs to sm for better readability */
+    font-size: var(--font-size-sm) !important;
+    /* Increased from xs to sm for better readability */
   }
 
   /* Ensure cell text content is normal case and medium weight */
@@ -1318,7 +1508,8 @@
   .table td *:not(.badge):not(.chip):not(.badge-status):not(.badge-role):not(.badge-score):not(.badge-primary) {
     font-weight: var(--font-weight-normal) !important;
     text-transform: none !important;
-    font-size: var(--font-size-base) !important; /* Increased from sm to base for better readability */
+    font-size: var(--font-size-base) !important;
+    /* Increased from sm to base for better readability */
   }
 }
 
@@ -1327,6 +1518,7 @@
    All badges and chips have hover effects and dark theme support
 ===================================================== */
 @layer components {
+
   /* Base Badge - with hover effect */
   .badge {
     display: inline-flex;
@@ -1356,6 +1548,7 @@
   .badge-primary:hover {
     background-color: hsl(var(--primary-dark) / 0.1);
     border-color: hsl(var(--primary-dark) / 0.3);
+    transform: translateY(-1px);
     box-shadow: 0 2px 8px hsl(var(--primary-dark) / 0.2);
   }
 
@@ -1541,15 +1734,15 @@
   }
 
   .dark .badge-role.supervisor {
-    background-color: rgba(13, 148, 136, 0.2);
-    border-color: rgba(20, 184, 166, 0.3);
-    color: #5eead4;
+    background-color: hsl(var(--card));
+    border-color: hsl(var(--border));
+    color: hsl(var(--primary-light));
   }
 
-  .dark .badge-role.supervisor:hover {
-    background-color: rgba(13, 148, 136, 0.4);
-    border-color: rgba(20, 184, 166, 0.5);
-    box-shadow: 0 2px 8px rgba(94, 234, 212, 0.3);
+  .badge-role.supervisor:hover {
+    background-color: #ccfbf1;
+    border-color: #99f6e4;
+    box-shadow: 0 2px 8px rgba(13, 148, 136, 0.25);
   }
 
   .badge-role.cleaner {
@@ -1680,12 +1873,14 @@
 
   /* Golden Star Rating - For average ratings */
   .star-rating {
-    color: #fbbf24; /* Amber-400 - Golden color */
+    color: #fbbf24;
+    /* Amber-400 - Golden color */
     fill: #fbbf24;
   }
 
   .star-rating-filled {
-    color: #f59e0b; /* Amber-500 - Darker gold */
+    color: #f59e0b;
+    /* Amber-500 - Darker gold */
     fill: #f59e0b;
   }
 
@@ -1741,6 +1936,7 @@
    🧱 CORE COMPONENTS - CARDS
 ===================================================== */
 @layer components {
+
   /* Base Card */
   .card {
     background-color: hsl(var(--card));
@@ -1841,22 +2037,18 @@
     color: hsl(var(--foreground));
   }
 
-  .dark .input:focus {
-    background-color: hsl(var(--card));
-    border-color: hsl(var(--primary-light));
-  }
-
   .input::placeholder {
     color: hsl(var(--muted-foreground));
   }
-  }
+}
 
-  /* =====================================================
+/* =====================================================
    📝 CORE COMPONENTS - FORMS (Modals/Popups)
    All forms use the same standardized classes
    Change styles here to affect ALL forms
   ===================================================== */
 @layer components {
+
   /* Form Overlay - Backdrop for modal forms */
   .form-overlay {
     position: fixed;
@@ -1919,7 +2111,8 @@
   .form-header-title {
     font-size: var(--font-size-base);
     font-weight: var(--font-weight-black);
-    color: #000000;  /* Black text, not orange */
+    color: #000000;
+    /* Black text, not orange */
     text-transform: uppercase;
     letter-spacing: 0.05em;
   }
@@ -1931,7 +2124,8 @@
   .form-header-subtitle {
     font-size: var(--font-size-xs);
     font-weight: var(--font-weight-bold);
-    color: #6B7280;  /* Gray subtitle, not orange */
+    color: #6B7280;
+    /* Gray subtitle, not orange */
     text-transform: uppercase;
     letter-spacing: 0.1em;
     margin-top: 0.25rem;
@@ -2155,7 +2349,8 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    color: #000000;  /* Black icon, not orange */
+    color: #000000;
+    /* Black icon, not orange */
     transition: all 0.2s ease;
   }
 
@@ -2315,15 +2510,16 @@
   .dark textarea.font-semibold {
     color: hsl(var(--foreground)) !important;
   }
-  }
+}
 
-  /* =====================================================
+/* =====================================================
    🧱 CORE COMPONENTS - SIDEBAR
   ===================================================== */
 /* ====================================================
    🧱 CORE COMPONENTS - SIDEBAR
 ==================================================== */
 @layer components {
+
   /* Sidebar Container - Applies to entire sidebar from top to bottom */
   .sidebar {
     background-color: hsl(var(--sidebar-bg));
@@ -2335,23 +2531,23 @@
     background-color: hsl(var(--sidebar-bg));
     border-right-color: hsl(var(--border));
   }
-  
+
   /* Dark mode styles */
   .dark .nav-item {
     color: hsl(var(--muted-foreground));
   }
-  
+
   .dark .nav-item:hover {
     background-color: rgba(107, 99, 255, 0.15);
     color: hsl(var(--primary-light));
   }
-  
+
   .dark .nav-item-active {
     background-color: rgba(107, 99, 255, 0.2) !important;
     color: hsl(var(--primary-light)) !important;
     border-left-color: hsl(var(--primary-light)) !important;
   }
-  
+
   /* Sidebar background utility - for consistent background */
   .bg-sidebar-bg {
     background-color: transparent;
@@ -2371,13 +2567,13 @@
     text-decoration: none;
     border-left: 3px solid transparent;
   }
-  
+
   /* Hover State */
   .nav-item:hover {
     background-color: rgba(107, 99, 255, 0.08);
     color: hsl(var(--primary));
   }
-  
+
   /* Active State */
   .nav-item-active {
     background-color: rgba(255, 255, 255, 0.8) !important;
@@ -2385,12 +2581,12 @@
     font-weight: 600 !important;
     border-left: 3px solid #2EC4B6 !important;
   }
-  
+
   /* Active Icon Color */
   .nav-item-active svg {
     color: #000000 !important;
   }
-  
+
   .nav-item:focus {
     outline: none;
   }
@@ -2436,6 +2632,7 @@
    🎨 UTILITY CLASSES
 ===================================================== */
 @layer utilities {
+
   /* Background Colors */
   .bg-primary-light {
     background-color: hsl(var(--bg-light-cyan));
@@ -2588,14 +2785,44 @@
   color: hsl(var(--foreground));
 }
 
+/* Force dark mode for common Tailwind classes and elements */
+.dark,
+.dark body,
+.dark #__next {
+  background-color: hsl(var(--background)) !important;
+  color: hsl(var(--foreground)) !important;
+}
+
 /* Force dark mode for common Tailwind classes */
 .dark .bg-white,
 .dark .bg-gray-50,
 .dark .bg-gray-100,
 .dark .bg-gray-200,
 .dark .bg-slate-50,
-.dark .bg-slate-100 {
+.dark .bg-slate-100,
+.dark .bg-gray-50,
+.dark .bg-slate-50 {
   background-color: hsl(var(--card)) !important;
+  color: hsl(var(--foreground)) !important;
+  border-color: hsl(var(--border)) !important;
+}
+
+/* Fix for form elements in dark mode */
+.dark input,
+.dark select,
+.dark textarea,
+.dark .form-input,
+.dark .form-select,
+.dark .form-textarea {
+  background-color: hsl(var(--card)) !important;
+  border-color: hsl(var(--border)) !important;
+  color: hsl(var(--foreground)) !important;
+}
+
+.dark input::placeholder,
+.dark textarea::placeholder {
+  color: hsl(var(--muted-foreground)) !important;
+  opacity: 0.7 !important;
 }
 
 /* =====================================================
@@ -2609,7 +2836,8 @@
 :root .bg-gray-200,
 :root .bg-slate-50,
 :root .bg-slate-100,
-:root .bg-slate-200 {
+:root .bg-gray-50,
+:root .bg-slate-50 {
   background-color: #FFFFFF !important;
 }
 
@@ -2641,15 +2869,35 @@
   background-color: #FFFFFF !important;
 }
 
+/* Override any light backgrounds to dark theme colors in dark mode */
+.dark .bg-light-gray,
+.dark .bg-primary-light,
+.dark .bg-primary-very-light,
+.dark .bg-primary-light-alt,
+.dark .bg-white,
+.dark .bg-slate-50,
+.dark .bg-gray-50,
+.dark .bg-slate-100,
+.dark .bg-gray-100,
+.dark .bg-muted,
+.dark .bg-card {
+  background-color: hsl(var(--card)) !important;
+  color: hsl(var(--foreground)) !important;
+  border-color: hsl(var(--border)) !important;
+}
+
 /* =====================================================
    📝 STANDARDIZED TEXT STYLES - Dashboard page style
    Use these classes across all pages for consistency
 ===================================================== */
 @layer utilities {
+
   /* Page Title - Main heading (like "Dashboard") */
   .text-page-title {
-    font-size: 1.5rem; /* text-2xl */
-    font-weight: 700; /* font-bold */
+    font-size: 1.5rem;
+    /* text-2xl */
+    font-weight: 700;
+    /* font-bold */
     color: hsl(var(--foreground));
   }
 
@@ -2659,7 +2907,8 @@
 
   /* Page Subtitle - Description text */
   .text-page-subtitle {
-    font-size: 0.875rem; /* text-sm */
+    font-size: 0.875rem;
+    /* text-sm */
     color: hsl(var(--muted-foreground));
   }
 
@@ -2669,8 +2918,10 @@
 
   /* Section Title - Card/component headings */
   .text-section-title {
-    font-size: 1rem; /* text-base */
-    font-weight: 600; /* font-semibold */
+    font-size: 1rem;
+    /* text-base */
+    font-weight: 600;
+    /* font-semibold */
     color: hsl(var(--foreground));
   }
 
@@ -2680,7 +2931,8 @@
 
   /* Section Description - Small descriptive text */
   .text-section-desc {
-    font-size: 0.75rem; /* text-xs */
+    font-size: 0.75rem;
+    /* text-xs */
     color: hsl(var(--muted-foreground));
   }
 
@@ -2690,8 +2942,10 @@
 
   /* Label Text - Small labels */
   .text-label {
-    font-size: 0.875rem; /* text-sm */
-    font-weight: 600; /* font-semibold */
+    font-size: 0.875rem;
+    /* text-sm */
+    font-weight: 600;
+    /* font-semibold */
     color: hsl(var(--primary-dark));
   }
 
@@ -2701,7 +2955,8 @@
 
   /* Body Text - Regular content */
   .text-body {
-    font-size: 0.875rem; /* text-sm */
+    font-size: 0.875rem;
+    /* text-sm */
     color: hsl(var(--foreground));
   }
 
@@ -2711,7 +2966,8 @@
 
   /* Muted Text - Secondary information */
   .text-muted {
-    font-size: 0.875rem; /* text-sm */
+    font-size: 0.875rem;
+    /* text-sm */
     color: hsl(var(--muted-foreground));
   }
 
@@ -2720,26 +2976,26 @@
   }
 
   /* Override gray text colors for dark theme - Ensure all text is visible */
-.dark .text-gray-900,
-.dark .text-gray-800,
-.dark .text-gray-700,
+  .dark .text-gray-900,
+  .dark .text-gray-800,
+  .dark .text-gray-700,
   .dark .text-gray-600 {
     color: hsl(var(--foreground)) !important;
   }
 
-.dark .text-gray-500,
-.dark .text-gray-400,
+  .dark .text-gray-500,
+  .dark .text-gray-400,
   .dark .text-gray-300 {
-  color: hsl(var(--muted-foreground)) !important;
-}
+    color: hsl(var(--muted-foreground)) !important;
+  }
 
   /* Override slate colors for dark theme */
   .dark .text-slate-900,
   .dark .text-slate-800,
   .dark .text-slate-700,
   .dark .text-slate-600 {
-  color: hsl(var(--foreground)) !important;
-}
+    color: hsl(var(--foreground)) !important;
+  }
 
   .dark .text-slate-500,
   .dark .text-slate-400,
@@ -2748,32 +3004,40 @@
   }
 
   /* Ensure select and input text is visible in dark theme */
-.dark select,
+  .dark select,
   .dark input,
   .dark textarea {
-  color: hsl(var(--foreground)) !important;
+    color: hsl(var(--foreground)) !important;
   }
 
   .dark select option {
-  background-color: hsl(var(--card)) !important;
-  color: hsl(var(--foreground)) !important;
+    background-color: hsl(var(--card)) !important;
+    color: hsl(var(--foreground)) !important;
   }
 
   /* Ensure headings have proper color in dark theme */
-  .dark h1, .dark h2, .dark h3, .dark h4, .dark h5, .dark h6 {
-  color: hsl(var(--foreground)) !important;
+  .dark h1,
+  .dark h2,
+  .dark h3,
+  .dark h4,
+  .dark h5,
+  .dark h6 {
+    color: hsl(var(--foreground)) !important;
   }
 
   /* Ensure body text has proper color in dark theme */
-  .dark p, .dark span, .dark div, .dark label {
-  color: hsl(var(--foreground)) !important;
+  .dark p,
+  .dark span,
+  .dark div,
+  .dark label {
+    color: hsl(var(--foreground)) !important;
   }
 
   /* =====================================================
    📝 GLOBAL FORM INPUT STYLES - FORCE ALL FORMS TO HAVE NON-BOLD BLACK TEXT
    These rules apply to ALL inputs/selects regardless of container
    ===================================================== */
-  
+
   /* Force ALL form inputs to be medium weight and black (light mode) */
   input:not([type="submit"]):not([type="button"]):not([type="reset"]),
   select,
@@ -2850,7 +3114,7 @@
   /* =====================================================
    🔘 GLOBAL BUTTON TEXT STYLES - FORCE ALL BUTTONS TO HAVE NORMAL FONT WEIGHT
    ===================================================== */
-  
+
   /* Force ALL buttons to have normal font weight (not bold) */
   button,
   .btn,
@@ -2875,7 +3139,7 @@
      🎯 UTILITY CLASSES FOR INLINE STYLES REPLACEMENT
      Use these classes instead of inline styles
   ===================================================== */
-  
+
   /* Z-Index Utilities */
   .z-index-60 {
     z-index: 60;
@@ -2937,24 +3201,36 @@
   }
 
   /* Z-Index Utilities for Stacking */
-  .z-stack-10 { z-index: 10; }
-  .z-stack-9 { z-index: 9; }
-  .z-stack-8 { z-index: 8; }
-  .z-stack-7 { z-index: 7; }
+  .z-stack-10 {
+    z-index: 10;
+  }
+
+  .z-stack-9 {
+    z-index: 9;
+  }
+
+  .z-stack-8 {
+    z-index: 8;
+  }
+
+  .z-stack-7 {
+    z-index: 7;
+  }
 
   /* =====================================================
      🎨 TABLE ACTION ICONS - GLOBAL STYLES
      Edit icons: Blue, Delete icons: Red
      These classes apply to all tables automatically
   ===================================================== */
-  
+
   /* Edit Icon Button - Blue */
   .btn-icon-edit,
   .table .btn-icon-edit,
   .table-cell .btn-icon-edit,
   button.btn-icon[title*="Edit"],
   button.btn-icon[title*="edit"] {
-    color: #2563eb !important; /* Blue-600 */
+    color: #2563eb !important;
+    /* Blue-600 */
     transition: all 0.2s ease;
   }
 
@@ -2963,8 +3239,10 @@
   .table-cell .btn-icon-edit:hover,
   button.btn-icon[title*="Edit"]:hover,
   button.btn-icon[title*="edit"]:hover {
-    color: #1e40af !important; /* Blue-700 */
-    background-color: #dbeafe !important; /* Blue-50 */
+    color: #1e40af !important;
+    /* Blue-700 */
+    background-color: #dbeafe !important;
+    /* Blue-50 */
   }
 
   .btn-icon-edit svg,
@@ -2983,7 +3261,8 @@
   .table-cell .btn-icon-delete,
   button.btn-icon[title*="Delete"],
   button.btn-icon[title*="delete"] {
-    color: #dc2626 !important; /* Red-600 */
+    color: #dc2626 !important;
+    /* Red-600 */
     transition: all 0.2s ease;
   }
 
@@ -2992,8 +3271,10 @@
   .table-cell .btn-icon-delete:hover,
   button.btn-icon[title*="Delete"]:hover,
   button.btn-icon[title*="delete"]:hover {
-    color: #b91c1c !important; /* Red-700 */
-    background-color: #fee2e2 !important; /* Red-50 */
+    color: #b91c1c !important;
+    /* Red-700 */
+    background-color: #fee2e2 !important;
+    /* Red-50 */
   }
 
   .btn-icon-delete svg,
@@ -3039,7 +3320,7 @@
      🎨 TABLE HEADER ICONS - COLORED
      All icons in table headers should have primary color
   ===================================================== */
-  
+
   .table-header th svg,
   .table-header th .icon,
   .table th svg,
@@ -3075,7 +3356,8 @@
   .table-header th svg[class*="hash"],
   .table th svg[class*="Hash"],
   .table th svg[class*="hash"] {
-    color: #6366f1 !important; /* Indigo */
+    color: #6366f1 !important;
+    /* Indigo */
   }
 
   .table-header th svg[class*="Map"],
@@ -3086,21 +3368,24 @@
   .table th svg[class*="map"],
   .table th svg[class*="MapPin"],
   .table th svg[class*="mappin"] {
-    color: #059669 !important; /* Green */
+    color: #059669 !important;
+    /* Green */
   }
 
   .table-header th svg[class*="Activity"],
   .table-header th svg[class*="activity"],
   .table th svg[class*="Activity"],
   .table th svg[class*="activity"] {
-    color: #f59e0b !important; /* Amber */
+    color: #f59e0b !important;
+    /* Amber */
   }
 
   .table-header th svg[class*="Navigation"],
   .table-header th svg[class*="navigation"],
   .table th svg[class*="Navigation"],
   .table th svg[class*="navigation"] {
-    color: #3b82f6 !important; /* Blue */
+    color: #3b82f6 !important;
+    /* Blue */
   }
 }
 
@@ -3223,9 +3508,11 @@
   0% {
     box-shadow: 0 0 5px -5px rgba(45, 183, 196, 0.8);
   }
+
   50% {
     box-shadow: 0 0 20px 0px rgba(45, 183, 196, 0.6);
   }
+
   100% {
     box-shadow: 0 0 5px -5px rgba(45, 183, 196, 0.8);
   }
@@ -3235,9 +3522,11 @@
   0% {
     box-shadow: 0 0 5px -5px rgba(73, 184, 211, 0.8);
   }
+
   50% {
     box-shadow: 0 0 20px 0px rgba(73, 184, 211, 0.6);
   }
+
   100% {
     box-shadow: 0 0 5px -5px rgba(73, 184, 211, 0.8);
   }
@@ -3247,6 +3536,7 @@
   from {
     opacity: 0;
   }
+
   to {
     opacity: 1;
   }

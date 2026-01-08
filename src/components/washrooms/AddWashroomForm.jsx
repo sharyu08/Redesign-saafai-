@@ -9,9 +9,9 @@ import AdditionalFeatures from "./AdditionalFeatures";
 import LocationImagesUpload from "./LocationImagesUpload";
 import AssignCleaners from "./AssignCleaners";
 import LocationSearchMap from "./LocationSearchMap";
+import { Plus, X, Building2, ClipboardList } from "lucide-react";
 
 export default function AddWashroomForm() {
-    // State to store coordinates from the Map component
     const [location, setLocation] = useState({ lat: 21.1458, lng: 79.0882 });
 
     const handleSubmit = () => {
@@ -19,7 +19,6 @@ export default function AddWashroomForm() {
             latitude: location.lat,
             longitude: location.lng,
         };
-
         console.log("Saving Washroom Data:", formData);
         alert(`Location submitted with coordinates: ${location.lat}, ${location.lng}`);
     };
@@ -33,83 +32,92 @@ export default function AddWashroomForm() {
                 </h1>
             </div>
 
-            {/* Form Layout Grid */}
+            {/* 2. Form Layout Grid */}
             <div className="grid grid-cols-1 xl:grid-cols-2 gap-8">
 
                 {/* Left Column: Categories & Features */}
                 <div className="space-y-8">
-                    <div className="bg-[hsl(var(--card))] border border-[hsl(var(--border))] rounded-[var(--radius)] p-6 shadow-sm">
+                    {/* Facility Details (Formerly WashroomDetailsForm) */}
+                    <WashroomDetailsForm />
+
+                    <div className="card-global">
                         <UsageCategory />
                     </div>
 
-                    {/* Men's Availability Card */}
-                    <div className="bg-[hsl(var(--card))] border border-[hsl(var(--border))] rounded-[var(--radius)] p-6 shadow-sm">
-                        <h3 className="text-lg font-bold text-[hsl(var(--foreground))] mb-4 flex items-center gap-2">
-                            <span className="w-2 h-2 rounded-full bg-[hsl(var(--primary))]"></span>
-                            Availability Details
-                        </h3>
-                        <div className="space-y-3">
-                            <label className="flex items-center gap-3 text-sm font-medium text-[hsl(var(--foreground))] hover:text-[hsl(var(--primary))] cursor-pointer transition-colors">
-                                <input type="checkbox" className="w-4 h-4 rounded border-[hsl(var(--border))] text-[hsl(var(--primary))] focus:ring-[hsl(var(--primary))]" />
-                                <span>Men's Section Available</span>
+                    {/* Availability Details Card - Using .form-group and standard label tokens */}
+                    <div className="card-global">
+                        <div className="flex items-center gap-3 mb-6 pb-4 border-b border-slate-100 dark:border-slate-800">
+                            <div className="h-8 w-8 rounded-lg bg-cyan-400/10 flex items-center justify-center">
+                                <ClipboardList size={16} className="text-cyan-600 dark:text-cyan-400" />
+                            </div>
+                            <h3 className="text-xs font-black text-slate-800 dark:text-slate-100 uppercase tracking-widest">
+                                Availability Details
+                            </h3>
+                        </div>
+
+                        <div className="space-y-4 mb-6">
+                            <label className="flex items-center gap-3 group cursor-pointer">
+                                <input type="checkbox" className="w-4 h-4 rounded border-slate-300 text-cyan-600 focus:ring-cyan-500/20" />
+                                <span className="text-sm font-bold text-slate-600 dark:text-slate-300 group-hover:text-cyan-600 transition-colors">Men's Section Available</span>
                             </label>
-                            <label className="flex items-center gap-3 text-sm font-medium text-[hsl(var(--foreground))] hover:text-[hsl(var(--primary))] cursor-pointer transition-colors">
-                                <input type="checkbox" className="w-4 h-4 rounded border-[hsl(var(--border))] text-[hsl(var(--primary))] focus:ring-[hsl(var(--primary))]" />
-                                <span>Family Room / Gender Neutral</span>
+                            <label className="flex items-center gap-3 group cursor-pointer">
+                                <input type="checkbox" className="w-4 h-4 rounded border-slate-300 text-cyan-600 focus:ring-cyan-500/20" />
+                                <span className="text-sm font-bold text-slate-600 dark:text-slate-300 group-hover:text-cyan-600 transition-colors">Family Room / Gender Neutral</span>
                             </label>
                         </div>
-                        <div className="mt-6">
-                            <label className="block text-xs font-bold text-[hsl(var(--muted-foreground))] uppercase tracking-wider mb-2 ml-1">
-                                Additional Notes
-                            </label>
+
+                        <div className="form-group mb-0 text-left">
+                            <label className="form-label mb-1.5 ml-1">Additional Metadata</label>
                             <textarea
-                                className="w-full px-4 py-3 bg-[hsl(var(--input))] border border-[hsl(var(--border))] rounded-xl text-sm focus:ring-2 focus:ring-[hsl(var(--primary))] focus:border-transparent outline-none transition-all min-h-[100px]"
+                                className="form-input min-h-[120px] py-3 pl-4 resize-none"
                                 placeholder="Describe specific details about the facility entrance or conditions..."
                             />
                         </div>
                     </div>
 
-                    <div className="bg-[hsl(var(--card))] border border-[hsl(var(--border))] rounded-[var(--radius)] p-6 shadow-sm">
+                    <div className="card-global">
                         <AccessAmenities />
                     </div>
 
-                    <div className="bg-[hsl(var(--card))] border border-[hsl(var(--border))] rounded-[var(--radius)] p-6 shadow-sm">
+                    <div className="card-global">
                         <AdditionalFeatures />
                     </div>
                 </div>
 
-                {/* Right Column: Map & Info */}
+                {/* Right Column: Map & Personnel */}
                 <div className="space-y-8">
                     <LocationSearchMap onLocationChange={setLocation} />
 
-                    <div className="bg-[hsl(var(--card))] border border-[hsl(var(--border))] rounded-[var(--radius)] p-6 shadow-sm">
+                    <div className="card-global">
                         <LocationInfoSection />
                     </div>
 
-                    <div className="grid grid-cols-1 gap-8">
-                        <div className="bg-[hsl(var(--card))] border border-[hsl(var(--border))] rounded-[var(--radius)] p-6 shadow-sm">
-                            <LocationImagesUpload />
-                        </div>
-                        <div className="bg-[hsl(var(--card))] border border-[hsl(var(--border))] rounded-[var(--radius)] p-6 shadow-sm">
-                            <AssignCleaners />
-                        </div>
+                    <div className="card-global">
+                        <LocationImagesUpload />
+                    </div>
+
+                    <div className="card-global">
+                        <AssignCleaners />
                     </div>
                 </div>
             </div>
 
-            {/* Footer Buttons */}
-            <div className="flex justify-end items-center gap-4 pt-4 border-t border-[hsl(var(--border))]">
+            {/* 3. Footer Actions - Synchronized with .form-actions and primary CTA tokens */}
+            <div className="flex flex-wrap justify-end items-center gap-4 pt-6 border-t border-slate-200 dark:border-slate-800">
                 <button
                     type="button"
-                    className="px-8 py-3 rounded-xl border border-[hsl(var(--border))] bg-white text-[hsl(var(--foreground))] text-sm font-bold hover:bg-[hsl(var(--muted))] transition-all active:scale-95"
+                    className="flex items-center gap-2 px-8 py-3 rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 text-slate-500 dark:text-slate-400 text-xs font-black uppercase tracking-widest hover:bg-slate-50 dark:hover:bg-slate-800 transition-all active:scale-95 shadow-sm"
                 >
-                    Cancel
+                    <X size={14} strokeWidth={3} />
+                    Cancel Creation
                 </button>
+
                 <button
                     onClick={handleSubmit}
                     className="btn-gradient-primary px-10 py-3 rounded-xl text-sm font-bold shadow-lg hover:brightness-110 active:scale-95 transition-all uppercase tracking-wider"
                 >
-                    + Create Location
+                    <Plus size={18} strokeWidth={3} />
+                    Initialise Location
                 </button>
             </div>
         </div>

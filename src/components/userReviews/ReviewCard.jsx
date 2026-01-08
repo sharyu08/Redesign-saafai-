@@ -15,83 +15,85 @@ export default function ReviewCard({ review, onToggleResolve, onMarkIssue }) {
   const isResolved = status === "resolved";
 
   return (
-    /* Reduced vertical footprint with tighter rounded corners and padding */
-    <div className="bg-white rounded-[24px] border-2 border-[hsl(var(--lavender-200))] shadow-sm hover:shadow-md transition-all overflow-hidden text-left mx-auto">
+    /* Standardized .card-global with hover shadow logic from global.css */
+    <div className="card-global overflow-hidden text-left mx-auto transition-all hover:shadow-md border-slate-100 dark:border-slate-800 p-0">
 
-      {/* 1. Slim Header */}
-      <div className="bg-[hsl(var(--lavender-100))] px-6 py-2.5 border-b-2 border-[hsl(var(--lavender-200))] flex justify-between items-center">
+      {/* 1. Slim Header - Using faint transparent Oceanic tokens */}
+      <div className="bg-slate-50 dark:bg-slate-800/50 px-6 py-2.5 border-b border-slate-100 dark:border-slate-800 flex justify-between items-center">
         <div className="flex items-center gap-2">
-          <MapPin size={14} className="text-[hsl(var(--primary))]" strokeWidth={2.5} />
+          <MapPin size={14} className="text-cyan-600 dark:text-cyan-400" strokeWidth={2.5} />
           <div className="flex items-center gap-2">
-            <span className="text-[10px] font-black text-[hsl(var(--primary))] uppercase tracking-widest">Node:</span>
-            <span className="text-sm font-bold text-slate-800">{washroomName}</span>
+            <span className="text-[10px] font-black text-cyan-600 dark:text-cyan-400 uppercase tracking-widest">Node:</span>
+            <span className="text-sm font-bold text-slate-800 dark:text-slate-100 uppercase tracking-tight">{washroomName}</span>
           </div>
         </div>
-        <span className="text-[10px] font-black text-slate-400 uppercase tracking-widest">
-          #00{id}
+        <span className="text-[10px] font-black text-slate-400 uppercase tracking-widest opacity-60">
+          ID: #00{id}
         </span>
       </div>
 
-      {/* 2. Compact Body with Large Font */}
-      <div className="px-6 py-4">
+      {/* 2. Compact Body with High-Weight Typography */}
+      <div className="px-6 py-5">
         <div className="flex flex-col md:flex-row md:items-start justify-between gap-4">
 
           <div className="flex gap-4">
-            {/* Avatar size slightly reduced to save vertical space */}
-            <div className="h-10 w-10 shrink-0 rounded-full bg-[hsl(var(--lavender-200))] border-2 border-[hsl(var(--lavender-200))] flex items-center justify-center text-[hsl(var(--primary))] font-black text-sm shadow-sm">
+            {/* Avatar using standardized .icon-container logic */}
+            <div className="h-11 w-11 shrink-0 rounded-2xl bg-cyan-400/10 border border-cyan-500/10 flex items-center justify-center text-cyan-600 dark:text-cyan-400 font-black text-base shadow-sm">
               {userName?.charAt(0)}
             </div>
 
-            <div className="space-y-1">
+            <div className="space-y-1.5">
               <div className="flex items-center gap-3">
-                {/* Kept the larger font size as requested */}
-                <h4 className="text-lg font-black text-slate-800 uppercase tracking-tight">
+                <h4 className="text-lg font-black text-slate-800 dark:text-slate-100 uppercase tracking-tight">
                   {userName}
                 </h4>
-                <div className="flex items-center gap-1">
+                <div className="flex items-center gap-0.5">
                   {[...Array(5)].map((_, i) => (
                     <Star
                       key={i}
                       size={14}
-                      className={i < rating ? "text-[#F4B740] fill-[#F4B740]" : "text-slate-100"}
+                      className={i < rating ? "text-orange-400 fill-orange-400" : "text-slate-100 dark:text-slate-800"}
                     />
                   ))}
                 </div>
               </div>
-              <p className="text-[15px] font-medium text-slate-600 leading-snug italic">
+              <p className="text-[14px] font-medium text-slate-600 dark:text-slate-400 leading-snug italic tracking-tight">
                 "{comment}"
               </p>
             </div>
           </div>
 
-          <div className="flex items-center gap-2 text-[10px] font-bold text-slate-300 uppercase tracking-widest shrink-0 md:pt-1">
-            <Calendar size={12} />
+          <div className="flex items-center gap-2 text-[9px] font-black text-slate-400 uppercase tracking-[0.2em] shrink-0 md:pt-1 opacity-70">
+            <Calendar size={12} strokeWidth={2.5} />
             {new Date(createdAt).toLocaleDateString('en-US', { month: 'short', day: 'numeric' })}
           </div>
         </div>
 
-        {/* 3. Streamlined Action Bar */}
-        <div className="mt-4 pt-4 border-t border-slate-50 flex items-center justify-between">
-          <div className="flex items-center gap-2">
+        {/* 3. Action Bar - Using .btn-primary and .btn-icon logic */}
+        <div className="mt-5 pt-5 border-t border-slate-50 dark:border-slate-800 flex items-center justify-between">
+          <div className="flex items-center gap-3">
             <button
               onClick={() => onToggleResolve?.(id)}
-              className={`${isResolved ? "bg-emerald-50 text-emerald-600 border border-emerald-100" : "btn btn-primary"} flex items-center gap-2 px-4 py-2 text-[10px] font-black uppercase tracking-widest`}
+              className={isResolved
+                ? "bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border border-emerald-500/20 px-4 py-2 rounded-xl text-[10px] font-black uppercase tracking-widest flex items-center gap-2"
+                : "btn-primary flex items-center gap-2 px-5 py-2 text-[10px] font-black uppercase tracking-widest active:scale-95"
+              }
             >
-              {isResolved && <CheckCircle2 size={12} strokeWidth={3} />}
+              {isResolved && <CheckCircle2 size={13} strokeWidth={3} />}
               {isResolved ? "Resolved" : "Mark Resolved"}
             </button>
 
             <button
               onClick={() => onMarkIssue?.(id)}
-              className="btn btn-secondary flex items-center gap-2 px-4 py-2 text-[10px] font-black uppercase tracking-widest"
+              className="btn-icon flex items-center gap-2 px-4 py-2 text-[10px] font-black uppercase tracking-widest text-slate-500 dark:text-slate-400"
             >
-              <AlertCircle size={12} />
-              Issue
+              <AlertCircle size={13} strokeWidth={2.5} className="text-rose-500" />
+              Flag Issue
             </button>
           </div>
 
-          <button className="flex items-center gap-1.5 text-[10px] font-black text-slate-400 hover:text-primary-dark uppercase tracking-widest transition-colors">
-            <MessageSquare size={14} /> Reply
+          <button className="flex items-center gap-1.5 text-[10px] font-black text-slate-400 dark:text-slate-500 hover:text-cyan-600 dark:hover:text-cyan-400 uppercase tracking-[0.15em] transition-all">
+            <MessageSquare size={14} strokeWidth={2.5} /> Internal Reply
           </button>
         </div>
       </div>

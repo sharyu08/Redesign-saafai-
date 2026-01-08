@@ -8,23 +8,26 @@ import { ThemeToggle } from "@/components/theme/ThemeToggle";
 export default function Header({ onMenuClick, collapsed }) {
   const router = useRouter();
 
+  // Function to handle Sign Out logic
   const handleLogout = () => {
+    // 1. Clear session and local storage data
     localStorage.clear();
     sessionStorage.clear();
 
+    // 2. Clear authentication cookies (if applicable)
     document.cookie.split(";").forEach((c) => {
       document.cookie = c
         .replace(/^ +/, "")
         .replace(/=.*/, "=;expires=" + new Date().toUTCString() + ";path=/");
     });
 
+    // 3. Redirect the user back to the login page
     router.push("auth/login");
   };
 
   return (
-    <header className={`header-main fixed top-0 z-[100] right-0 bg-white border-b border-[#e0f2f1] shadow-[0_20px_60px_rgba(0,0,0,0.08)] transition-all duration-200 ${
-      collapsed ? 'md:left-20' : 'md:left-72'
-    } left-0`}>
+    <header className={`header-main fixed top-0 z-[100] right-0 bg-white border-b border-[#e0f2f1] shadow-[0_20px_60px_rgba(0,0,0,0.08)] transition-all duration-200 ${collapsed ? 'md:left-20' : 'md:left-72'
+      } left-0`}>
       <div className="flex h-16 items-center justify-between px-4 md:px-8">
 
         {/* Left side */}
