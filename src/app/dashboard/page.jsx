@@ -74,6 +74,12 @@ const SummaryCards = () => {
 
 /* ------------------ HIGHLIGHTS (Top Rated) ------------------ */
 const HighlightsCard = ({ locations }) => {
+  const rankStyles = [
+    { rankBg: 'bg-gradient-to-br from-amber-400 to-amber-500', rankShadow: 'shadow-amber-400/30' },
+    { rankBg: 'bg-gradient-to-br from-slate-300 to-slate-400', rankShadow: 'shadow-slate-300/30' },
+    { rankBg: 'bg-gradient-to-br from-orange-300 to-orange-400', rankShadow: 'shadow-orange-300/30' },
+  ];
+
   return (
     <CardShell
       title="Top Rated Facilities"
@@ -173,7 +179,7 @@ export default function DashboardPage() {
               <TrendingUp size={18} />
             </div>
           </div>
-          <div className="h-[220px] w-full">
+          <div className="h-[320px] w-full">
             <WashroomCleanlinessChart />
           </div>
         </div>
@@ -187,7 +193,7 @@ export default function DashboardPage() {
               <Users size={18} />
             </div>
           </div>
-          <div className="h-[220px] w-full">
+          <div className="h-[320px] w-full">
             <CleanerPerformanceChart />
           </div>
         </div>
