@@ -46,71 +46,71 @@ export default function AddUserFullPage() {
   };
 
   return (
-    <div className="h-screen bg-white dark:bg-background w-full pt-6 pb-6 px-6 relative overflow-hidden flex flex-col items-center justify-center">
-
-      {/* Decorative Blur */}
-      <div className="absolute top-0 right-0 w-96 h-96 bg-[#CBF3F0] rounded-full blur-[100px] opacity-50 -mr-40 -mt-40 pointer-events-none" />
+    <div className="min-h-screen bg-white dark:bg-background w-full pt-8 pb-12 px-6 flex flex-col items-center relative overflow-hidden">
+      {/* Background Decorative Blur */}
+      <div className="absolute top-0 right-0 w-64 h-64 bg-[#CBF3F0] rounded-full blur-3xl opacity-50 -mr-20 -mt-20 pointer-events-none" />
 
       {/* Back Button */}
-      <div className="absolute top-6 left-8 z-20">
+      <div className="absolute top-8 left-8 z-20">
         <button
           onClick={handleGoBack}
-          className="group flex items-center gap-3 text-[11px] font-black uppercase tracking-[0.2em] text-slate-400 hover:text-[#FF9F1C] transition-all"
+          className="group flex items-center gap-3 text-[10px] font-black uppercase tracking-[0.2em] text-slate-400 hover:text-[#FF9F1C] transition-all"
         >
-          <div className="h-10 w-10 rounded-full bg-white shadow-sm border border-slate-100 flex items-center justify-center group-hover:border-[#CBF3F0] group-hover:shadow-md transition-all">
-            <ArrowLeft size={16} strokeWidth={3} />
+          <div className="h-9 w-9 rounded-full bg-white shadow-sm border border-slate-100 flex items-center justify-center group-hover:border-[#CBF3F0] group-hover:shadow-md transition-all">
+            <ArrowLeft size={16} strokeWidth={3} className="group-hover:-translate-x-1 transition-transform" />
           </div>
-          <span className="hidden lg:block">Back</span>
+          <span className="hidden lg:block">Return</span>
         </button>
       </div>
 
-      {/* Main Card */}
-      <div className="max-w-lg w-full bg-white rounded-[32px] shadow-2xl shadow-slate-200/50 border border-slate-100 overflow-hidden">
-
-        {/* Header */}
-        <div className="bg-[#CBF3F0] px-8 py-4 border-b border-[#CBF3F0] flex items-center justify-between">
+      {/* Main Card - Increased size and spacing */}
+      <div className="max-w-3xl w-full bg-white rounded-[32px] shadow-2xl shadow-slate-200/50 border border-slate-100 overflow-hidden animate-in fade-in slide-in-from-bottom-8 duration-1000 relative z-10">
+        {/* Card Header */}
+        <div className="bg-[#CBF3F0] px-8 py-5 border-b border-[#CBF3F1] flex justify-between items-center">
           <div className="flex items-center gap-3">
-            <div className="h-9 w-9 bg-white rounded-xl flex items-center justify-center shadow-sm">
-              <UserPlus size={18} />
-            </div>
-            <h2 className="font-black text-xs uppercase tracking-widest">
-              Account Configuration
-            </h2>
+            <UserPlus size={20} className="text-[#FF9F1C]" />
+            <h1 className="text-xl font-extrabold tracking-tight text-[#0f0f0f]">
+              Add New User
+            </h1>
           </div>
           <div className="h-2 w-2 rounded-full bg-[#28C76F] animate-pulse" />
         </div>
 
-        <form onSubmit={handleSubmit} className="p-8 space-y-5">
-
+        <form onSubmit={handleSubmit} className="p-10 space-y-8">
           {/* Assigned Node */}
-          <div className="space-y-3">
-            <label className="text-[10px] font-black uppercase tracking-widest ml-1 flex items-center gap-2">
-              <Briefcase size={12} /> Assigned Operations Node
+          <div className="space-y-4 bg-slate-50 p-6 rounded-2xl border border-slate-100">
+            <label className="block text-xs font-bold text-slate-600 mb-3 uppercase tracking-wider flex items-center gap-2">
+              <Briefcase size={14} className="text-[#FF9F1C]" /> 
+              <span>Assigned Operations Node</span>
             </label>
 
-            <div className="flex items-center justify-between border border-slate-100 rounded-2xl p-4">
+            <div className="flex items-center justify-between bg-white p-4 rounded-xl border border-slate-100 shadow-sm">
               <div>
-                <p className="text-[13px] font-black uppercase leading-tight">
+                <p className="text-base font-black text-slate-800 leading-tight">
                   {formData.company}
                 </p>
-                <p className="text-[9px] font-bold text-slate-400 uppercase mt-1">
+                <p className="text-sm font-medium text-slate-500 mt-1">
                   Primary Management Group
                 </p>
               </div>
 
-              <span className="px-3 py-1.5 rounded-lg text-[10px] font-black uppercase border border-[#CBF3F0] shadow-sm">
+              <span className="px-4 py-1.5 rounded-lg text-sm font-bold text-[#28C76F] bg-[#E8F9F0] border border-[#D1F5E0] flex items-center gap-2">
+                <Check size={14} strokeWidth={3} />
                 Verified
               </span>
             </div>
           </div>
 
           {/* Profile Info */}
-          <div className="space-y-4">
-
+          <div className="space-y-6 pt-2">
+            <h3 className="text-lg font-bold text-slate-800 flex items-center gap-2">
+              <UserPlus size={18} className="text-[#FF9F1C]" />
+              User Information
+            </h3>
             {/* Full Name */}
             <div>
-              <label className="text-[10px] font-black uppercase tracking-widest ml-1">
-                Full Name *
+              <label className="block text-sm font-bold text-slate-800 mb-2 uppercase tracking-wider">
+                Full Name
               </label>
               <input
                 type="text"
@@ -118,7 +118,7 @@ export default function AddUserFullPage() {
                 value={formData.fullName}
                 onChange={handleChange}
                 placeholder="Legal Name"
-                className="w-full px-5 py-3.5 rounded-xl border border-slate-100 text-sm font-bold outline-none focus:ring-4 focus:ring-[rgba(221,217,255,0.5)] focus:border-[#CBF3F0] transition-all"
+                className="w-full px-5 py-3.5 text-base rounded-xl border border-slate-100 bg-white font-medium text-[#0f0f0f] placeholder-slate-400 outline-none focus:border-[#93C5FD] focus:ring-2 focus:ring-[#93C5FD]/20 transition-all"
                 required
               />
             </div>
@@ -126,7 +126,7 @@ export default function AddUserFullPage() {
             {/* Email + Phone */}
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               <div>
-                <label className="text-[10px] font-black uppercase tracking-widest ml-1">
+                <label className="block text-sm font-bold text-slate-800 mb-2 uppercase tracking-wider">
                   Email
                 </label>
                 <input
@@ -135,12 +135,12 @@ export default function AddUserFullPage() {
                   value={formData.email}
                   onChange={handleChange}
                   placeholder="staff@saaf.ai"
-                  className="w-full px-5 py-3.5 rounded-xl border border-slate-100 text-sm font-bold outline-none focus:ring-4 focus:ring-[rgba(221,217,255,0.5)] focus:border-[#CBF3F0] transition-all"
+                  className="w-full px-5 py-3.5 text-base rounded-xl border border-slate-100 bg-white font-medium text-[#0f0f0f] placeholder-slate-400 outline-none focus:border-[#93C5FD] focus:ring-2 focus:ring-[#93C5FD]/20 transition-all"
                 />
               </div>
 
               <div>
-                <label className="text-[10px] font-black uppercase tracking-widest ml-1">
+                <label className="block text-sm font-bold text-slate-800 mb-2 uppercase tracking-wider">
                   Phone *
                 </label>
                 <input
@@ -149,7 +149,7 @@ export default function AddUserFullPage() {
                   value={formData.phone}
                   onChange={handleChange}
                   placeholder="Mobile Number"
-                  className="w-full px-5 py-3.5 rounded-xl border border-slate-100 text-sm font-bold outline-none focus:ring-4 focus:ring-[rgba(221,217,255,0.5)] focus:border-[#CBF3F0] transition-all"
+                  className="w-full px-5 py-3.5 text-base rounded-xl border border-slate-100 bg-white font-medium text-[#0f0f0f] placeholder-slate-400 outline-none focus:border-[#93C5FD] focus:ring-2 focus:ring-[#93C5FD]/20 transition-all"
                   required
                 />
               </div>
@@ -157,10 +157,13 @@ export default function AddUserFullPage() {
           </div>
 
           {/* Password + Access Level */}
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 pt-2">
+            <h3 className="text-lg font-bold text-slate-800 col-span-2 flex items-center gap-2">
+              <Lock size={18} className="text-[#FF9F1C]" />
+              Access & Security
+            </h3>
             <div>
-              <label className="text-[10px] font-black uppercase tracking-widest ml-1 flex items-center gap-2">
+              <label className="block text-sm font-bold text-slate-800 mb-2 uppercase tracking-wider">
                 <Lock size={12} /> Password *
               </label>
               <input
@@ -169,13 +172,13 @@ export default function AddUserFullPage() {
                 value={formData.password}
                 onChange={handleChange}
                 placeholder="••••••••"
-                className="w-full px-5 py-3.5 rounded-xl border border-slate-100 text-sm font-bold outline-none focus:ring-4 focus:ring-[rgba(221,217,255,0.5)] focus:border-[#CBF3F0] transition-all"
+                className="w-full px-5 py-3.5 text-base rounded-xl border border-slate-100 bg-white font-medium text-[#0f0f0f] placeholder-slate-400 outline-none focus:border-[#93C5FD] focus:ring-2 focus:ring-[#93C5FD]/20 transition-all"
                 required
               />
             </div>
 
             <div>
-              <label className="text-[10px] font-black uppercase tracking-widest ml-1 flex items-center gap-2">
+              <label className="block text-sm font-bold text-slate-800 mb-2 uppercase tracking-wider">
                 <ShieldCheck size={12} /> Access Level *
               </label>
 
@@ -184,7 +187,7 @@ export default function AddUserFullPage() {
                   name="role"
                   value={formData.role}
                   onChange={handleChange}
-                  className="w-full px-5 py-3.5 rounded-xl border border-[#CBF3F0] text-[11px] font-black outline-none appearance-none cursor-pointer uppercase tracking-widest"
+                  className="w-full px-5 py-3.5 text-base rounded-xl border border-[#CBF3F0] bg-white font-medium text-[#0f0f0f] outline-none appearance-none cursor-pointer uppercase tracking-wider"
                   required
                 >
                   {roleOptions.map((role) => (
@@ -202,27 +205,32 @@ export default function AddUserFullPage() {
           </div>
 
           {/* Actions */}
-          <div className="flex items-center gap-3 pt-2">
+          <div className="flex items-center justify-end gap-4 pt-8 border-t border-slate-100 mt-8">
             <button
               type="button"
               onClick={handleGoBack}
-              className="flex-1 px-3 py-3 rounded-2xl border-2 border-slate-50 text-[10px] font-black uppercase tracking-widest text-slate-400 hover:text-rose-500 transition-all flex items-center justify-center gap-2"
+              className="px-6 py-3.5 rounded-xl border border-slate-200 text-sm font-bold uppercase tracking-wider text-slate-500 hover:text-rose-500 hover:bg-rose-50 transition-all flex items-center justify-center gap-2"
             >
-              <X size={12} strokeWidth={3} /> Discard
+              <X size={16} strokeWidth={2.5} /> 
+              <span>Cancel</span>
             </button>
 
             <button
               type="submit"
-              className="bg-[#FF9F1C] hover:bg-[#FF8C00] text-white flex-[1.5] px-3 py-3 rounded-2xl text-[10px] uppercase tracking-widest active:scale-95 flex items-center justify-center gap-2 transition-colors"
+              className="bg-[#FF9F1C] hover:bg-[#E68A00] text-white text-sm font-bold py-3.5 px-8 rounded-xl shadow-md hover:shadow-lg transition-all duration-300 transform hover:-translate-y-0.5 active:translate-y-0 flex items-center justify-center gap-3"
             >
-              <Check size={14} strokeWidth={3} /> Initialize Staff
+              <UserPlus size={18} strokeWidth={2.5} className="text-white" />
+              <span>Create User</span>
             </button>
           </div>
         </form>
       </div>
 
-      <p className="mt-6 text-[9px] font-bold text-slate-400 uppercase tracking-[0.2em] text-center opacity-60">
-        Automatic synchronization with real-time operations enabled.
+      <p className="mt-8 text-sm font-medium text-slate-400 text-center">
+        <span className="inline-flex items-center gap-2 px-4 py-2 bg-slate-50 rounded-full">
+          <span className="h-2 w-2 rounded-full bg-green-400 animate-pulse"></span>
+          <span>Automatic synchronization with real-time operations enabled</span>
+        </span>
       </p>
     </div>
   );
