@@ -2,10 +2,26 @@
 
 import { useState } from "react";
 import LocationSearchMap from "./LocationSearchMap";
+// Import refined modular components
 import UsageCategory from "./UsageCategory";
 import LocationInfoSection from "./LocationInfoSection";
 import LocationImagesUpload from "./LocationImagesUpload";
-import { Building2, Map as MapIcon, Info, MapPin, Home, Image as ImageIcon, ExternalLink, Save, X } from "lucide-react";
+import WashroomDetailsForm from "./WashroomDetailsForm";
+import AccessAmenities from "./AccessAmenities"; // This is the Gender selection
+import AdditionalFeatures from "./AdditionalFeatures";
+
+import {
+  Building2,
+  Map as MapIcon,
+  MapPin,
+  Home,
+  Image as ImageIcon,
+  ExternalLink,
+  Save,
+  X,
+  Settings2,
+  Users
+} from "lucide-react";
 
 export default function EditWashroomForm() {
   const [location, setLocation] = useState({ lat: 21.1458, lng: 79.0882 });
@@ -20,10 +36,10 @@ export default function EditWashroomForm() {
 
   return (
     <div className="max-w-5xl mx-auto space-y-8 pb-12">
-      {/* 1. Main Form Container - Using .card-global for standard dashboard panel */}
-      <div className="card-global p-0 overflow-hidden">
+      {/* 1. Main Form Container */}
+      <div className="card-global p-0 overflow-hidden bg-white dark:bg-slate-900 shadow-xl border-slate-100">
 
-        {/* Themed Header - Synchronized with .header-global and .lavender tokens */}
+        {/* Themed Header */}
         <div className="flex flex-wrap items-center justify-between gap-4 bg-slate-50 dark:bg-slate-800/50 border-b border-slate-100 dark:border-slate-800 px-8 py-6">
           <div className="flex items-center gap-4">
             <div className="h-12 w-12 rounded-2xl bg-white dark:bg-slate-900 flex items-center justify-center shadow-sm border border-slate-100 dark:border-slate-800">
@@ -39,93 +55,53 @@ export default function EditWashroomForm() {
             </div>
           </div>
 
-          <button className="btn-icon flex items-center gap-2 px-4 py-2 text-[10px] font-black uppercase tracking-widest transition-all active:scale-95">
-            <ExternalLink className="h-3.5 w-3.5" />
+          <button className="flex items-center gap-2 px-4 py-2 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl text-[10px] font-black uppercase tracking-widest text-slate-600 dark:text-slate-300 transition-all hover:bg-slate-50 active:scale-95 shadow-sm">
+            <ExternalLink className="h-3.5 w-3.5 text-cyan-500" />
             View Live
           </button>
         </div>
 
         <div className="p-8 space-y-12">
 
-          {/* Section: Facility assignment - Standardized Form Groups */}
+          {/* Section: Facility Architecture (Naked Component) */}
           <div className="space-y-6">
-            <label className="form-label flex items-center gap-2 ml-1">
-              <Building2 className="h-4 w-4 text-cyan-500" />
-              Facility Company Assignment
-            </label>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-              <div className="form-group mb-0">
-                <input className="form-input pl-4" placeholder="Assigned Company Name" />
-              </div>
-              <div className="form-group mb-0">
-                <select className="form-select pl-4">
-                  <option>Change Facility Company</option>
-                  <option>Cleaning Pros Ltd</option>
-                  <option>Urban Hygiene Co</option>
-                </select>
-              </div>
+            <WashroomDetailsForm />
+          </div>
+
+          {/* Section: Gender Availability & Usage */}
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+            <div className="space-y-4">
+              <AccessAmenities /> {/* Gender Selection */}
+            </div>
+            <div className="space-y-4">
+              <UsageCategory />
             </div>
           </div>
 
-          {/* Section: Location hierarchy */}
+          {/* Section: Additional Features (Checklist) */}
           <div className="space-y-6">
-            <label className="form-label flex items-center gap-2 ml-1">
-              <MapIcon className="h-4 w-4 text-cyan-500" />
-              Location Hierarchy
-            </label>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-              <div className="form-group mb-0">
-                <input className="form-input pl-4" placeholder="Inspection Area Name" />
-              </div>
-              <div className="form-group mb-0">
-                <select className="form-select pl-4">
-                  <option>Select Location Type</option>
-                  <option>Public Park</option>
-                  <option>Metro Station</option>
-                  <option>Market Area</option>
-                </select>
-              </div>
-            </div>
-          </div>
-
-          {/* Section: Basic info */}
-          <div className="space-y-6">
-            <label className="form-label flex items-center gap-2 ml-1">
-              <Info className="h-4 w-4 text-cyan-500" />
-              Basic Information
-            </label>
-            <div className="form-group mb-0">
-              <input className="form-input pl-4 font-bold" placeholder="Display Name of Washroom" />
-            </div>
+            <AdditionalFeatures />
           </div>
 
           {/* Section: Location coordinates + map */}
           <div className="space-y-6">
-            <label className="form-label flex items-center gap-2 ml-1">
+            <label className="text-[11px] font-black text-slate-400 uppercase tracking-[0.2em] flex items-center gap-2 ml-1">
               <MapPin className="h-4 w-4 text-cyan-500" />
               Geographical Placement
             </label>
-            <div className="rounded-[24px] border border-slate-100 dark:border-slate-800 overflow-hidden shadow-inner bg-slate-50/30 dark:bg-slate-900/50 p-1">
+            <div className="rounded-[32px] border border-slate-100 dark:border-slate-800 overflow-hidden shadow-inner bg-slate-50/30 dark:bg-slate-900/50 p-1">
               <LocationSearchMap onLocationChange={setLocation} />
             </div>
           </div>
 
-          <UsageCategory />
-
-          {/* Section: Address details - Using faint transparent Oceanic tokens */}
+          {/* Section: Address details */}
           <div className="space-y-6">
-            <label className="form-label flex items-center gap-2 ml-1">
-              <Home className="h-4 w-4 text-cyan-500" />
-              Physical Address Details
-            </label>
-            <div className="bg-slate-50/50 dark:bg-slate-800/10 p-6 rounded-[24px] border border-slate-100 dark:border-slate-800">
-              <LocationInfoSection />
-            </div>
+            <LocationInfoSection />
           </div>
 
           {/* Section: Images */}
           <div className="space-y-6">
-            <label className="form-label flex items-center gap-2 ml-1">
+            <label className="text-[11px] font-black text-slate-400 uppercase tracking-[0.2em] flex items-center gap-2 ml-1">
               <ImageIcon className="h-4 w-4 text-cyan-500" />
               Facility Media & Photos
             </label>
@@ -134,7 +110,7 @@ export default function EditWashroomForm() {
         </div>
       </div>
 
-      {/* Footer actions - Synchronized with .form-actions and primary CTA tokens */}
+      {/* Footer actions */}
       <div className="flex flex-wrap justify-end items-center gap-4 pt-6 border-t border-slate-200 dark:border-slate-800">
         <button className="flex items-center gap-2 px-8 py-3 rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 text-slate-500 dark:text-slate-400 text-xs font-black uppercase tracking-widest hover:bg-slate-50 dark:hover:bg-slate-800 transition-all active:scale-95 shadow-sm">
           <X size={14} strokeWidth={3} />
@@ -143,7 +119,7 @@ export default function EditWashroomForm() {
 
         <button
           onClick={handleSave}
-          className="btn-primary flex items-center gap-2 px-10 py-3 rounded-xl text-white text-[13px] font-black uppercase tracking-[0.15em] shadow-lg shadow-orange-500/20 hover:scale-[1.02] active:scale-95 transition-all"
+          className="flex items-center gap-2 px-10 py-4 rounded-xl bg-cyan-500 text-white text-[13px] font-black uppercase tracking-[0.15em] shadow-lg shadow-cyan-500/20 hover:bg-cyan-600 hover:scale-[1.02] active:scale-95 transition-all"
         >
           <Save size={18} strokeWidth={3} />
           Save Facility Update

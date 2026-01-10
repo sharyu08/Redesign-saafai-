@@ -41,56 +41,30 @@ export default function AddWashroomForm() {
                     <WashroomDetailsForm />
 
                     <div className="card-global">
+                        <LocationInfoSection />
+                    </div>
+
+
+
+                    <div className="card-global">
                         <UsageCategory />
                     </div>
 
                     {/* Availability Details Card - Using .form-group and standard label tokens */}
-                    <div className="card-global">
-                        <div className="flex items-center gap-3 mb-6 pb-4 border-b border-slate-100 dark:border-slate-800">
-                            <div className="h-8 w-8 rounded-lg bg-cyan-400/10 flex items-center justify-center">
-                                <ClipboardList size={16} className="text-cyan-600 dark:text-cyan-400" />
-                            </div>
-                            <h3 className="text-xs font-black text-slate-800 dark:text-slate-100 uppercase tracking-widest">
-                                Availability Details
-                            </h3>
-                        </div>
 
-                        <div className="space-y-4 mb-6">
-                            <label className="flex items-center gap-3 group cursor-pointer">
-                                <input type="checkbox" className="w-4 h-4 rounded border-slate-300 text-cyan-600 focus:ring-cyan-500/20" />
-                                <span className="text-sm font-bold text-slate-600 dark:text-slate-300 group-hover:text-cyan-600 transition-colors">Men's Section Available</span>
-                            </label>
-                            <label className="flex items-center gap-3 group cursor-pointer">
-                                <input type="checkbox" className="w-4 h-4 rounded border-slate-300 text-cyan-600 focus:ring-cyan-500/20" />
-                                <span className="text-sm font-bold text-slate-600 dark:text-slate-300 group-hover:text-cyan-600 transition-colors">Family Room / Gender Neutral</span>
-                            </label>
-                        </div>
-
-                        <div className="form-group mb-0 text-left">
-                            <label className="form-label mb-1.5 ml-1">Additional Metadata</label>
-                            <textarea
-                                className="form-input min-h-[120px] py-3 pl-4 resize-none"
-                                placeholder="Describe specific details about the facility entrance or conditions..."
-                            />
-                        </div>
-                    </div>
 
                     <div className="card-global">
                         <AccessAmenities />
                     </div>
 
-                    <div className="card-global">
-                        <AdditionalFeatures />
-                    </div>
+
                 </div>
 
                 {/* Right Column: Map & Personnel */}
                 <div className="space-y-8">
                     <LocationSearchMap onLocationChange={setLocation} />
 
-                    <div className="card-global">
-                        <LocationInfoSection />
-                    </div>
+
 
                     <div className="card-global">
                         <LocationImagesUpload />
@@ -98,6 +72,10 @@ export default function AddWashroomForm() {
 
                     <div className="card-global">
                         <AssignCleaners />
+                    </div>
+
+                    <div className="card-global">
+                        <AdditionalFeatures />
                     </div>
                 </div>
             </div>
@@ -108,16 +86,15 @@ export default function AddWashroomForm() {
                     type="button"
                     className="flex items-center gap-2 px-8 py-3 rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 text-slate-500 dark:text-slate-400 text-xs font-black uppercase tracking-widest hover:bg-slate-50 dark:hover:bg-slate-800 transition-all active:scale-95 shadow-sm"
                 >
-                    <X size={14} strokeWidth={3} />
-                    Cancel Creation
+                    Cancel
                 </button>
 
                 <button
                     onClick={handleSubmit}
                     className="btn-gradient-primary px-10 py-3 rounded-xl text-sm font-bold shadow-lg hover:brightness-110 active:scale-95 transition-all uppercase tracking-wider"
                 >
-                    <Plus size={18} strokeWidth={3} />
-                    Initialise Location
+
+                    Add Washroom
                 </button>
             </div>
         </div>

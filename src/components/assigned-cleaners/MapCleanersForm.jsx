@@ -84,8 +84,8 @@ export default function MapCleanersForm({ washroomName = "Abhyankar Nagar Garden
                   key={c.id}
                   onClick={() => toggleCleaner(c.id)}
                   className={`flex items-center justify-between p-4 rounded-2xl border transition-all duration-300 group ${isSelected
-                      ? "bg-emerald-50 border-emerald-200 shadow-md ring-1 ring-emerald-500/20"
-                      : "bg-white border-slate-100 hover:border-teal-200 hover:bg-teal-50/30"
+                    ? "bg-emerald-50 border-emerald-200 shadow-md ring-1 ring-emerald-500/20"
+                    : "bg-white border-slate-100 hover:border-teal-200 hover:bg-teal-50/30"
                     }`}
                 >
                   <div className="flex items-center gap-3">
@@ -132,11 +132,10 @@ export default function MapCleanersForm({ washroomName = "Abhyankar Nagar Garden
           <button
             disabled={selectedIds.length === 0}
             onClick={handleCreate}
-            className={`btn w-full py-4 text-sm uppercase tracking-widest flex items-center justify-center gap-3 ${
-              selectedIds.length > 0
+            className={`btn w-full py-4 text-sm uppercase tracking-widest flex items-center justify-center gap-3 ${selectedIds.length > 0
                 ? "btn-primary"
                 : "btn-secondary cursor-not-allowed"
-            }`}
+              }`}
           >
             <Users size={18} />
             Initialize Assignment
