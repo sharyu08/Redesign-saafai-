@@ -59,24 +59,26 @@ const getRoleStyle = (role) => {
 
 // --- DELETE CONFIRMATION MODAL ---
 const DeleteConfirmModal = ({ user, onClose, onConfirm }) => (
-    <div className="form-overlay z-index-100">
-        <div className="form-container">
-            <div className="bg-rose-50 dark:bg-rose-950/20 p-8 flex flex-col items-center text-center border-b border-border">
-                <div className="w-16 h-16 bg-rose-100 dark:bg-rose-900/50 rounded-2xl flex items-center justify-center mb-4">
-                    <AlertTriangle className="h-8 w-8 text-rose-600 dark:text-rose-400" />
+    <div className="fixed inset-0 z-50 flex items-end justify-end p-4">
+        <div className="bg-white/95 dark:bg-black/95 backdrop-blur-sm" onClick={onClose}>
+            <div className="bg-white dark:bg-slate-800 rounded-2xl shadow-2xl border border-slate-200 dark:border-slate-700 transform transition-all duration-300 scale-100 origin-right">
+                <div className="bg-rose-50 dark:bg-rose-950/20 p-8 flex flex-col items-center text-center border-b border-border">
+                    <div className="w-16 h-16 bg-rose-100 dark:bg-rose-900/50 rounded-2xl flex items-center justify-center mb-4">
+                        <AlertTriangle className="h-8 w-8 text-rose-600 dark:text-rose-400" />
+                    </div>
+                    <h2 className="form-header-title text-rose-950 dark:text-rose-200">Confirm Deletion</h2>
+                    <p className="text-sm font-bold text-rose-800/60 dark:text-rose-300/60 mt-2 leading-relaxed">
+                        Are you sure you want to remove <span className="text-rose-600 dark:text-rose-400 font-black">{user.name}</span>? This action is permanent.
+                    </p>
                 </div>
-                <h2 className="form-header-title text-rose-950 dark:text-rose-200">Confirm Deletion</h2>
-                <p className="text-sm font-bold text-rose-800/60 dark:text-rose-300/60 mt-2 leading-relaxed">
-                    Are you sure you want to remove <span className="text-rose-600 dark:text-rose-400 font-black">{user.name}</span>? This action is permanent.
-                </p>
-            </div>
-            <div className="form-actions">
-                <button onClick={onClose} className="btn btn-secondary flex-1">
-                    Cancel
-                </button>
-                <button onClick={() => onConfirm(user.id)} className="btn btn-danger flex-1">
-                    Delete User
-                </button>
+                <div className="form-actions">
+                    <button onClick={onClose} className="btn btn-secondary flex-1">
+                        Cancel
+                    </button>
+                    <button onClick={() => onConfirm(user.id)} className="btn btn-danger flex-1">
+                        Delete User
+                    </button>
+                </div>
             </div>
         </div>
     </div>
@@ -86,44 +88,25 @@ const DeleteConfirmModal = ({ user, onClose, onConfirm }) => (
 const UserDetailCard = ({ user, onClose }) => {
     const activeLocations = user.locations.filter(l => l.active).length;
     return (
-        <div className="form-overlay z-index-60">
-            <div className="form-container form-container-xl">
-                <div className="form-header flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
-                    <div className="flex items-center gap-5">
-                        <div className="w-16 h-16 bg-primary-dark text-white flex items-center justify-center rounded-2xl text-2xl font-black shadow-lg">
-                            {user.name.charAt(0)}
+        <div className="fixed inset-0 z-50 flex items-end justify-end p-4">
+            <div className="bg-white/95 dark:bg-black/95 backdrop-blur-sm" onClick={onClose}>
+                <div className="bg-white dark:bg-slate-800 rounded-2xl shadow-2xl border border-slate-200 dark:border-slate-700 transform transition-all duration-300 scale-100 origin-right">
+                    <div className="bg-rose-50 dark:bg-rose-950/20 p-8 flex flex-col items-center text-center border-b border-border">
+                        <div className="w-16 h-16 bg-rose-100 dark:bg-rose-900/50 rounded-2xl flex items-center justify-center mb-4">
+                            <AlertTriangle className="h-8 w-8 text-rose-600 dark:text-rose-400" />
                         </div>
-                        <div>
-                            <h1 className="form-header-title text-2xl">{user.name}</h1>
-                            <div className={`badge badge-role ${user.role.toLowerCase()} mt-2`}>
-                                <Shield className="w-3 h-3 mr-1.5" /> {user.role}
-                            </div>
-                        </div>
-                    </div>
-                    <button onClick={onClose} className="btn btn-secondary">
-                        Close Profile
-                    </button>
-                </div>
-                <div className="form-body grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-                    <div className="space-y-1">
-                        <p className="form-label">Email Address</p>
-                        <p className="font-bold text-foreground flex items-center gap-2 lowercase">
-                            <Mail size={14} /> {user.email}
+                        <h2 className="form-header-title text-rose-950 dark:text-rose-200">Confirm Deletion</h2>
+                        <p className="text-sm font-bold text-rose-800/60 dark:text-rose-300/60 mt-2 leading-relaxed">
+                            Are you sure you want to remove <span className="text-rose-600 dark:text-rose-400 font-black">{user.name}</span>? This action is permanent.
                         </p>
                     </div>
-                    <div className="space-y-1">
-                        <p className="form-label">Phone Number</p>
-                        <p className="font-bold text-foreground flex items-center gap-2">
-                            <Phone size={14} /> {user.phone}
-                        </p>
-                    </div>
-                    <div className="space-y-1">
-                        <p className="form-label">Organization</p>
-                        <p className="font-bold text-foreground uppercase tracking-tight text-xs">Nagpur Municipal Corp</p>
-                    </div>
-                    <div className="space-y-1 text-right">
-                        <p className="form-label">Staff ID</p>
-                        <p className="font-mono font-bold text-primary-dark dark:text-primary-light">#{user.userId}</p>
+                    <div className="form-actions">
+                        <button onClick={onClose} className="btn btn-secondary flex-1">
+                            Cancel
+                        </button>
+                        <button onClick={() => onConfirm(user.id)} className="btn btn-danger flex-1">
+                            Delete User
+                        </button>
                     </div>
                 </div>
             </div>
@@ -528,7 +511,7 @@ const UserList = () => {
                                             <td className="table-cell table-cell-right">
                                                 <div className="flex justify-end gap-2">
                                                     <button
-                                                        onClick={() => setViewingUser(user)}
+                                                        onClick={() => router.push(`/dashboard/user-management/view/${user.id}`)}
                                                         className="btn-icon btn-icon-view"
                                                         title="View Profile"
                                                     >

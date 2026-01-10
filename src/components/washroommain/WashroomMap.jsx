@@ -5,10 +5,10 @@ import { GoogleMap, Marker, useLoadScript } from "@react-google-maps/api";
 
 export default function WashroomMap() {
     const apiKey = process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY;
-    
+
     const { isLoaded, loadError } = useLoadScript({
         googleMapsApiKey: apiKey || '',
-        id: 'google-map-script-washroom',
+        id: 'google-map-script-washroom', // Unique ID to prevent conflicts
     });
 
     const locations = [

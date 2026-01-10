@@ -32,29 +32,33 @@ function MapContent() {
                 </div>
                 <span>Locate on Map</span>
               </h1>
-              {zoneIdFilter && (
-                <div className="mt-2 flex items-center gap-2 px-3 py-1.5 bg-blue-50 dark:bg-blue-900/20 rounded-full w-fit">
-                  <Info size={14} className="text-blue-500 dark:text-blue-400" />
-                  <span className="text-xs font-bold text-blue-600 dark:text-blue-300 uppercase tracking-wider">
-                    Viewing Zone ID: {zoneIdFilter}
-                  </span>
-                </div>
-              )}
             </div>
           </div>
 
-          {/* Search Input */}
-          <div className="relative w-full max-w-xl group">
-            <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
-              <Search size={18} className="text-slate-400 group-focus-within:text-[#FF9F1C] transition-colors" />
+          {/* Right Side: Search and Zone Filter */}
+          <div className="flex flex-col md:flex-row gap-4">
+            {zoneIdFilter && (
+              <div className="mt-2 flex items-center gap-2 px-3 py-1.5 bg-blue-50 dark:bg-blue-900/20 rounded-full w-fit">
+                <Info size={14} className="text-blue-500 dark:text-blue-400" />
+                <span className="text-xs font-bold text-blue-600 dark:text-blue-300 uppercase tracking-wider">
+                  Viewing Zone ID: {zoneIdFilter}
+                </span>
+              </div>
+            )}
+
+            {/* Search Input */}
+            <div className="relative w-full max-w-xl group">
+              <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
+                <Search size={18} className="text-slate-400 group-focus-within:text-[#FF9F1C] transition-colors" />
+              </div>
+              <input
+                type="text"
+                placeholder="Search specific washrooms in this view..."
+                value={searchText}
+                onChange={(e) => setSearchText(e.target.value)}
+                className="w-full pl-12 pr-6 py-4 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl text-sm font-medium text-slate-800 dark:text-white placeholder-slate-400 dark:placeholder-slate-500 outline-none focus:ring-2 focus:ring-[#FF9F1C]/20 focus:border-[#FF9F1C] transition-all shadow-sm"
+              />
             </div>
-            <input
-              type="text"
-              placeholder="Search specific washrooms in this view..."
-              value={searchText}
-              onChange={(e) => setSearchText(e.target.value)}
-              className="w-full pl-12 pr-4 py-3 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl text-sm font-medium text-slate-800 dark:text-white placeholder-slate-400 dark:placeholder-slate-500 outline-none focus:ring-2 focus:ring-[#FF9F1C]/20 focus:border-[#FF9F1C] transition-all shadow-sm"
-            />
           </div>
         </div>
       </div>
