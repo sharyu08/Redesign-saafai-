@@ -17,15 +17,15 @@ export default function CreateAssignmentsPage() {
   const [isMultipleMode, setIsMultipleMode] = useState(true);
   const [roleFilter, setRoleFilter] = useState("All Roles");
 
-  const roles = ["All Roles", "Cleaner", "Supervisor"];
+  const roles = ["All Roles", "Cleaner", "Supervisor", "Facility Supervisor", "Facility Admin", "Zonal Admin"];
 
   const handleBack = () => router.back();
 
   return (
-    <div className="min-h-screen bg-white dark:bg-background w-full pt-8 pb-12 px-6 flex flex-col items-center relative overflow-hidden">
+    <div className="min-h-screen bg-white dark:bg-background w-full py-6 px-4 sm:px-6 flex flex-col items-center relative overflow-hidden">
 
       {/* Background Decorative Blur (lavender) */}
-      <div className="absolute top-0 right-0 w-64 h-64 bg-[#CBF3F0] rounded-full blur-3xl opacity-50 -mr-20 -mt-20 pointer-events-none" />
+      <div className="absolute top-0 right-0 w-48 h-48 sm:w-56 sm:h-56 bg-[#CBF3F0] rounded-full blur-2xl opacity-50 -mr-12 sm:-mr-16 -mt-12 sm:-mt-16 pointer-events-none" />
 
       {/* Back Button */}
       <div className="absolute top-8 left-8 z-20">
@@ -36,18 +36,18 @@ export default function CreateAssignmentsPage() {
           <div className="h-9 w-9 rounded-full bg-white shadow-sm border border-slate-100 flex items-center justify-center group-hover:border-[#CBF3F0] group-hover:shadow-md transition-all">
             <ArrowLeft size={16} strokeWidth={3} className="group-hover:-translate-x-1 transition-transform" />
           </div>
-          <span className="hidden lg:block">Return</span>
+          <span className="hidden lg:block">Back</span>
         </button>
       </div>
 
       {/* Main Card - Increased size and spacing */}
-      <div className="max-w-3xl w-full bg-white rounded-[32px] shadow-2xl shadow-slate-200/50 border border-slate-100 overflow-hidden animate-in fade-in slide-in-from-bottom-8 duration-1000 relative z-10">
+      <div className="max-w-2xl w-full bg-white rounded-2xl shadow-lg shadow-slate-200/40 border border-slate-100 overflow-hidden animate-in fade-in slide-in-from-bottom-8 duration-1000 relative z-10">
 
         {/* Card Header (lavender) - Increased padding */}
-        <div className="bg-[#CBF3F0] px-8 py-5 border-b border-[#CBF3F1] flex justify-between items-center">
+        <div className="bg-[#CBF3F0] px-6 py-4 border-b border-[#CBF3F1] flex justify-between items-center">
           <div className="flex items-center gap-3">
-            <ClipboardPlus size={20} className="text-[#FF9F1C]" />
-            <h1 className="text-xl font-extrabold tracking-tight text-[#0f0f0f]">
+            <ClipboardPlus size={18} className="text-[#FF9F1C]" />
+            <h1 className="text-lg sm:text-xl font-extrabold tracking-tight text-[#0f0f0f]">
               Create Assignments
             </h1>
           </div>
@@ -57,7 +57,7 @@ export default function CreateAssignmentsPage() {
         <form className="p-8 space-y-8">
 
           {/* Mode Toggle Box - Increased spacing and font sizes */}
-          <div className="bg-white dark:bg-background border border-slate-50 dark:border-border rounded-2xl p-5 flex items-center justify-between">
+          <div className="bg-white dark:bg-background border border-slate-50 dark:border-border rounded-xl p-4 sm:p-5 flex items-center justify-between">
             <div className="flex items-center gap-4">
               <div className="h-11 w-11 rounded-lg bg-white flex items-center justify-center shadow-sm">
                 <ShieldCheck className="text-[#FF9F1C]" size={20} />
@@ -66,8 +66,8 @@ export default function CreateAssignmentsPage() {
                 <h3 className="text-sm font-black text-slate-800 uppercase tracking-tight">
                   Multiple Mode
                 </h3>
-                <p className="text-xs font-bold text-slate-500 uppercase">
-                  Bulk Mapping Active
+                <p className="text-xs font-bold text-slate-500">
+                  Bulk mapping active
                 </p>
               </div>
             </div>
@@ -90,17 +90,17 @@ export default function CreateAssignmentsPage() {
 
           {/* Filter Bar (lavender theme) */}
           {/* Filter by Role - Increased spacing and font sizes */}
-          <div className="text-left space-y-4 bg-[#FDF9F2] p-6 rounded-2xl border border-[#CBF3F0]">
+          <div className="text-left space-y-3 bg-[#FDF9F2] p-4 sm:p-5 rounded-xl border border-[#CBF3F0]">
             <p className="text-xs font-black text-[#FF9F1C]/70 uppercase tracking-widest ml-1">
               Filter by Role
             </p>
-            <div className="flex gap-3">
+            <div className="flex flex-wrap gap-2 sm:gap-3">
               {roles.map((role) => (
                 <button
                   key={role}
                   type="button"
                   onClick={() => setRoleFilter(role)}
-                  className={`px-5 py-2.5 rounded-lg text-xs font-black uppercase tracking-widest transition-all border ${
+                  className={`px-3 sm:px-4 py-1.5 sm:py-2 rounded-lg text-[10px] sm:text-xs font-black uppercase tracking-widest transition-all border ${
                     roleFilter === role
                       ? "bg-[#CBF3F0] border-[#CBF3F0] text-[#FF9F1C] shadow-md"
                       : "bg-white border-slate-100 text-slate-400 hover:border-[#CBF3F0]"
@@ -167,9 +167,7 @@ export default function CreateAssignmentsPage() {
         </form>
       </div>
 
-      <p className="mt-10 text-xs font-bold text-slate-400 uppercase tracking-[0.3em] opacity-70">
-        System Registry Synchronization Active
-      </p>
+      
     </div>
   );
 }

@@ -11,6 +11,7 @@ import {
   Check,
   X,
   ChevronDown,
+  Building2,
 } from "lucide-react";
 
 export default function AddUserFullPage() {
@@ -76,33 +77,26 @@ export default function AddUserFullPage() {
           <div className="h-2 w-2 rounded-full bg-[#28C76F] animate-pulse" />
         </div>
 
-        <form onSubmit={handleSubmit} className="p-10 space-y-8">
-          {/* Assigned Node */}
-          <div className="space-y-4 bg-slate-50 p-6 rounded-2xl border border-slate-100">
-            <label className="block text-xs font-bold text-slate-600 mb-3 uppercase tracking-wider flex items-center gap-2">
-              <Briefcase size={14} className="text-[#FF9F1C]" /> 
-              <span>Assigned Operations Node</span>
-            </label>
-
-            <div className="flex items-center justify-between bg-white p-4 rounded-xl border border-slate-100 shadow-sm">
+        <form onSubmit={handleSubmit} className="p-8 sm:p-10 space-y-8">
+          {/* Assigned Node - Simplified */}
+          <div className="space-y-4">
+            <div className="flex items-center gap-3">
+              <div className="h-10 w-10 rounded-xl bg-[#CBF3F0] flex items-center justify-center">
+                <Building2 size={18} className="text-[#FF9F1C]" />
+              </div>
               <div>
-                <p className="text-base font-black text-slate-800 leading-tight">
-                  {formData.company}
-                </p>
-                <p className="text-sm font-medium text-slate-500 mt-1">
-                  Primary Management Group
+                <h3 className="text-sm font-black text-slate-800 uppercase tracking-tight">
+                  Assigned Operation Node
+                </h3>
+                <p className="text-xs font-medium text-slate-500">
+                  Select the operation node for this user
                 </p>
               </div>
-
-              <span className="px-4 py-1.5 rounded-lg text-sm font-bold text-[#28C76F] bg-[#E8F9F0] border border-[#D1F5E0] flex items-center gap-2">
-                <Check size={14} strokeWidth={3} />
-                Verified
-              </span>
             </div>
           </div>
 
           {/* Profile Info */}
-          <div className="space-y-6 pt-2">
+          <div className="space-y-6 pt-2 bg-white p-6 rounded-2xl border border-slate-100 shadow-sm">
             <h3 className="text-lg font-bold text-slate-800 flex items-center gap-2">
               <UserPlus size={18} className="text-[#FF9F1C]" />
               User Information
@@ -118,7 +112,7 @@ export default function AddUserFullPage() {
                 value={formData.fullName}
                 onChange={handleChange}
                 placeholder="Legal Name"
-                className="w-full px-5 py-3.5 text-base rounded-xl border border-slate-100 bg-white font-medium text-[#0f0f0f] placeholder-slate-400 outline-none focus:border-[#93C5FD] focus:ring-2 focus:ring-[#93C5FD]/20 transition-all"
+                className="w-full px-5 py-3.5 text-base rounded-xl border border-slate-200 hover:border-[#CBF3F0] bg-white font-medium text-[#0f0f0f] placeholder-slate-400 outline-none focus:border-[#FF9F1C] focus:ring-2 focus:ring-[#FF9F1C]/20 transition-all duration-200"
                 required
               />
             </div>
@@ -135,7 +129,7 @@ export default function AddUserFullPage() {
                   value={formData.email}
                   onChange={handleChange}
                   placeholder="staff@saaf.ai"
-                  className="w-full px-5 py-3.5 text-base rounded-xl border border-slate-100 bg-white font-medium text-[#0f0f0f] placeholder-slate-400 outline-none focus:border-[#93C5FD] focus:ring-2 focus:ring-[#93C5FD]/20 transition-all"
+                  className="w-full px-5 py-3.5 text-base rounded-xl border border-slate-200 hover:border-[#CBF3F0] bg-white font-medium text-[#0f0f0f] placeholder-slate-400 outline-none focus:border-[#FF9F1C] focus:ring-2 focus:ring-[#FF9F1C]/20 transition-all duration-200"
                 />
               </div>
 
@@ -149,7 +143,7 @@ export default function AddUserFullPage() {
                   value={formData.phone}
                   onChange={handleChange}
                   placeholder="Mobile Number"
-                  className="w-full px-5 py-3.5 text-base rounded-xl border border-slate-100 bg-white font-medium text-[#0f0f0f] placeholder-slate-400 outline-none focus:border-[#93C5FD] focus:ring-2 focus:ring-[#93C5FD]/20 transition-all"
+                  className="w-full px-5 py-3.5 text-base rounded-xl border border-slate-200 hover:border-[#CBF3F0] bg-white font-medium text-[#0f0f0f] placeholder-slate-400 outline-none focus:border-[#FF9F1C] focus:ring-2 focus:ring-[#FF9F1C]/20 transition-all duration-200"
                   required
                 />
               </div>
@@ -157,7 +151,7 @@ export default function AddUserFullPage() {
           </div>
 
           {/* Password + Access Level */}
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 pt-2">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 pt-2 bg-white p-6 rounded-2xl border border-slate-100 shadow-sm">
             <h3 className="text-lg font-bold text-slate-800 col-span-2 flex items-center gap-2">
               <Lock size={18} className="text-[#FF9F1C]" />
               Access & Security
@@ -172,7 +166,7 @@ export default function AddUserFullPage() {
                 value={formData.password}
                 onChange={handleChange}
                 placeholder="••••••••"
-                className="w-full px-5 py-3.5 text-base rounded-xl border border-slate-100 bg-white font-medium text-[#0f0f0f] placeholder-slate-400 outline-none focus:border-[#93C5FD] focus:ring-2 focus:ring-[#93C5FD]/20 transition-all"
+                className="w-full px-5 py-3.5 text-base rounded-xl border border-slate-200 hover:border-[#CBF3F0] bg-white font-medium text-[#0f0f0f] placeholder-slate-400 outline-none focus:border-[#FF9F1C] focus:ring-2 focus:ring-[#FF9F1C]/20 transition-all duration-200"
                 required
               />
             </div>
@@ -187,7 +181,7 @@ export default function AddUserFullPage() {
                   name="role"
                   value={formData.role}
                   onChange={handleChange}
-                  className="w-full px-5 py-3.5 text-base rounded-xl border border-[#CBF3F0] bg-white font-medium text-[#0f0f0f] outline-none appearance-none cursor-pointer uppercase tracking-wider"
+                  className="w-full px-5 py-3.5 text-base rounded-xl border border-slate-200 hover:border-[#CBF3F0] bg-white font-medium text-[#0f0f0f] outline-none appearance-none cursor-pointer uppercase tracking-wider focus:border-[#FF9F1C] focus:ring-2 focus:ring-[#FF9F1C]/20 transition-all duration-200"
                   required
                 >
                   {roleOptions.map((role) => (

@@ -101,14 +101,7 @@ export default function WashroomTable({ items }) {
                     <div className="text-sm text-slate-600 dark:text-slate-400">
                         Showing {rows.length} of {rows.length} washrooms
                     </div>
-                    <div className="flex items-center gap-2">
-                        <button className="text-xs text-slate-500 hover:text-slate-700 dark:text-slate-400 dark:hover:text-slate-300 transition-colors">
-                            Export CSV
-                        </button>
-                        <button className="text-xs text-slate-500 hover:text-slate-700 dark:text-slate-400 dark:hover:text-slate-300 transition-colors">
-                            Print Report
-                        </button>
-                    </div>
+
                 </div>
             </div>
         </div>
