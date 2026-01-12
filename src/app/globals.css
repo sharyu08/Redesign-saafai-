@@ -183,29 +183,32 @@
     --z-tooltip: 1070;
   }
 
-  /* 🌙 DARK MODE - Updated to match design */
+  /* 🌙 DARK MODE - Enhanced for better contrast and consistency */
   .dark {
-    --background: 222 47% 11%;
-    /* Dark blue background */
-    --foreground: 0 0% 100%;
+    --background: 222 47% 7%;
+    /* Slightly darker blue background for better contrast */
+    --foreground: 0 0% 95%;
+    /* Slightly off-white for better readability */
     /* White text */
 
-    --card: 222 47% 15%;
-    /* Slightly lighter blue for cards */
-    --card-foreground: 0 0% 100%;
-    /* White text on cards */
-
-    --border: 222 47% 20%;
-    /* Border color */
-    --muted: 222 47% 18%;
-    /* Muted background */
-    --muted-foreground: 0 0% 80%;
-    /* Light gray for muted text */
-
-    --primary: 34 100% 56%;
-    /* Orange primary color */
+    --card: 222 47% 12%;
+    --card-foreground: 0 0% 95%;
+    --popover: 222 47% 10%;
+    --popover-foreground: 0 0% 98%;
+    --primary: 34 100% 60%;
     --primary-foreground: 0 0% 100%;
-    /* White text on primary */
+    --secondary: 222 47% 18%;
+    --secondary-foreground: 0 0% 98%;
+    --muted: 222 30% 20%;
+    --muted-foreground: 0 0% 85%;
+    --accent: 34 100% 60%;
+    --accent-foreground: 0 0% 100%;
+    --destructive: 0 84% 63%;
+    --destructive-foreground: 0 0% 100%;
+    --border: 222 30% 25%;
+    --input: 222 40% 20%;
+    --ring: 34 100% 60%;
+    --radius: 0.5rem;
 
     /* Primary Color Variants - Dark Mode */
     --primary-dark: 34 100% 45%;
@@ -228,16 +231,14 @@
     /* Lighter secondary */
 
     /* Background Colors - Dark Mode */
-    --bg-light-cyan: 222 47% 15%;
-    /* Card background */
-    --bg-very-light-cyan: 222 47% 11%;
-    /* Main background */
-    --bg-light-cyan-alt: 222 47% 18%;
-    /* Alternate background */
-    --bg-light-gray: 222 47% 15%;
-    /* Gray background */
-    --bg-light-cyan-variant: 222 47% 20%;
-    /* Variant background */
+    --bg-light-cyan: 222 47% 14%;
+    --bg-very-light-cyan: 222 47% 16%;
+    --bg-light-gray: 222 47% 8%;
+    --bg-light-cyan-variant: 222 47% 14%;
+    --border-light-cyan: 222 30% 28%;
+    --text-dark-gray: 0 0% 95%;
+    --text-medium-gray: 0 0% 85%;
+    --text-light-gray: 0 0% 75%;
     --bg-light-gray-alt: 222 47% 18%;
     /* Alternate gray */
     --bg-very-light-cyan-alt: 222 47% 15%;
@@ -256,11 +257,11 @@
     /* Darker orange border */
 
     /* Text Colors - Dark Mode */
-    --text-dark-gray: 0 0% 100%;
+    --text-dark-gray: 0 0% 95%;
     /* White text */
-    --text-medium-gray: 0 0% 80%;
+    --text-medium-gray: 0 0% 85%;
     /* Light gray text */
-    --text-light-gray: 0 0% 60%;
+    --text-light-gray: 0 0% 75%;
     /* Lighter gray text */
 
     /* Accent Colors - Dark Mode */
@@ -518,7 +519,7 @@
   .dark .header-global {
     border-bottom-color: hsl(var(--border));
     background-color: hsl(var(--background) / 0.95);
-    box-shadow: 0 1px 3px 0 hsl(var(--primary) / 0.2);
+    box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.2);
   }
 
   /* Page Header with Gradient */
@@ -564,7 +565,7 @@
   .dark .page-header {
     background-color: hsl(var(--card));
     border-color: hsl(var(--border));
-    box-shadow: 0 14px 40px rgba(0, 0, 0, 0.65);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
   }
 
   /* ALL page headers inherit these colors - change here to update all */
@@ -1133,7 +1134,7 @@
   .dark .table-container {
     background-color: hsl(var(--card));
     border-color: hsl(var(--border));
-    box-shadow: 0 14px 40px rgba(0, 0, 0, 0.65);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
   }
 
   /* Table - Standardized model */
@@ -1443,7 +1444,7 @@
 
   .dark .table-global {
     border-color: hsl(var(--border));
-    box-shadow: 0 14px 40px hsl(var(--primary-dark) / 0.65);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
   }
 
   .dark .table-global thead {
@@ -1559,9 +1560,9 @@
   }
 
   .dark .badge-primary:hover {
-    background-color: hsl(var(--primary) / 0.2);
-    border-color: hsl(var(--primary-light) / 0.4);
-    box-shadow: 0 2px 8px hsl(var(--primary) / 0.3);
+    background-color: hsl(var(--muted));
+    border-color: hsl(var(--muted-foreground) / 0.2);
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
   }
 
   /* Status Badges - with hover effects */
@@ -1764,9 +1765,9 @@
   }
 
   .dark .badge-role.cleaner:hover {
-    background-color: hsl(var(--primary) / 0.2);
-    border-color: hsl(var(--primary-light) / 0.4);
-    box-shadow: 0 2px 8px hsl(var(--primary) / 0.3);
+    background-color: hsl(var(--muted));
+    border-color: hsl(var(--muted-foreground) / 0.2);
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
   }
 
   /* Score Badge - with hover effect */
@@ -1798,9 +1799,9 @@
   }
 
   .dark .badge-score:hover {
-    background-color: hsl(var(--primary) / 0.2);
-    border-color: hsl(var(--primary-light) / 0.4);
-    box-shadow: 0 2px 8px hsl(var(--primary) / 0.3);
+    background-color: hsl(var(--muted));
+    border-color: hsl(var(--muted-foreground) / 0.2);
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
   }
 
   /* Amenity Chip - with hover effect */
@@ -1831,9 +1832,9 @@
   }
 
   .dark .chip:hover {
-    background-color: hsl(var(--primary) / 0.2);
-    border-color: hsl(var(--primary-light) / 0.4);
-    box-shadow: 0 2px 8px hsl(var(--primary) / 0.3);
+    background-color: hsl(var(--muted));
+    border-color: hsl(var(--muted-foreground) / 0.2);
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
   }
 
   /* Zone Chip - Enhanced styling for zone display */
@@ -1866,9 +1867,9 @@
   }
 
   .dark .chip-zone:hover {
-    background-color: hsl(var(--primary) / 0.2);
-    border-color: hsl(var(--primary-light) / 0.4);
-    box-shadow: 0 2px 8px hsl(var(--primary) / 0.3);
+    background-color: hsl(var(--muted));
+    border-color: hsl(var(--muted-foreground) / 0.2);
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
   }
 
   /* Golden Star Rating - For average ratings */
@@ -1948,7 +1949,7 @@
   }
 
   .dark .card {
-    box-shadow: 0 14px 40px rgba(0, 0, 0, 0.65);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
   }
 
   /* Card Variants */
@@ -1979,7 +1980,7 @@
   }
 
   .dark .card-auth {
-    box-shadow: 0 14px 40px rgba(0, 0, 0, 0.65);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
   }
 
   /* Global Card - Semantic utility class for all cards */
@@ -2001,11 +2002,12 @@
 
   .dark .card-global {
     border-color: hsl(var(--border));
-    box-shadow: 0 14px 40px hsl(var(--primary-dark) / 0.65);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
   }
 
   .dark .card-global:hover {
-    box-shadow: 0 16px 48px hsl(var(--primary) / 0.7);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
+    transform: translateY(-1px);
   }
 }
 
@@ -2230,8 +2232,8 @@
   }
 
   .dark .form-input:focus {
-    border-color: hsl(var(--primary-light));
-    box-shadow: 0 0 0 4px hsl(var(--primary-light) / 0.1);
+    border-color: hsl(var(--border));
+    box-shadow: 0 0 0 2px hsl(var(--border) / 0.5);
     background-color: hsl(var(--card));
   }
 
@@ -2293,8 +2295,8 @@
   }
 
   .dark .form-select:focus {
-    border-color: hsl(var(--primary-light));
-    box-shadow: 0 0 0 4px hsl(var(--primary-light) / 0.1);
+    border-color: hsl(var(--border));
+    box-shadow: 0 0 0 2px hsl(var(--border) / 0.5);
     background-color: hsl(var(--card));
   }
 
@@ -2539,13 +2541,13 @@
 
   .dark .nav-item:hover {
     background-color: rgba(107, 99, 255, 0.15);
-    color: hsl(var(--primary-light));
+    color: hsl(var(--foreground));
   }
 
   .dark .nav-item-active {
     background-color: rgba(107, 99, 255, 0.2) !important;
-    color: hsl(var(--primary-light)) !important;
-    border-left-color: hsl(var(--primary-light)) !important;
+    color: hsl(var(--foreground)) !important;
+    border-left-color: hsl(var(--muted-foreground)) !important;
   }
 
   /* Sidebar background utility - for consistent background */
@@ -2571,7 +2573,16 @@
   /* Hover State */
   .nav-item:hover {
     background-color: rgba(107, 99, 255, 0.08);
-    color: hsl(var(--primary));
+    color: hsl(var(--foreground));
+  }
+
+  /* Prevent icon color change on hover */
+  .nav-item:hover svg {
+    color: inherit !important;
+  }
+
+  .dark .nav-item:hover svg {
+    color: inherit !important;
   }
 
   /* Active State */
@@ -2601,6 +2612,7 @@
 
   .dark .nav-item:hover {
     background-color: hsl(var(--muted));
+    color: hsl(var(--foreground));
   }
 
   .nav-item-active {
@@ -2612,7 +2624,7 @@
 
   .dark .nav-item-active {
     background-color: hsl(var(--muted));
-    color: hsl(var(--text-light-gray));
+    color: hsl(var(--foreground));
     border: none;
   }
 
