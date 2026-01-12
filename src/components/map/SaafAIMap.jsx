@@ -2,34 +2,24 @@
 
 import { useState, useCallback, useEffect } from "react";
 import { GoogleMap, Marker, useLoadScript } from "@react-google-maps/api";
-import locations from "@/data/locations"; // Ensure this contains your full washroom list
+import locations from "@/data/locations";
 import MapLegend from "./MapLegend";
 import LocationInfoPanel from "./LocationInfoPanel";
-
-const containerStyle = {
-    width: "100%",
-    height: "100%",
-};
 
 const defaultCenter = { lat: 21.1458, lng: 79.0882 };
 
 const statusIcon = {
     TOP: "http://maps.google.com/mapfiles/ms/icons/green-dot.png",
-    ATTENTION: "http://maps.google.com/mapfiles/ms/icons/red-dot.png",
-    UNASSIGNED: "http://maps.google.com/mapfiles/ms/icons/yellow-dot.png",
+    ATTENTION: "http://maps.google.com/mapfiles/ms/icons/yellow-dot.png",
+    UNASSIGNED: "http://maps.google.com/mapfiles/ms/icons/red-dot.png",
 };
 
-export default function SaafAIMap({
-    selectedLocation,
-    onSelectLocation,
-    searchText,
-    zoneIdFilter, // Prop passed from LocateOnMapPage
-}) {
+const SaafAIMapBase = ({ selectedLocation, onSelectLocation, searchText, zoneIdFilter }) => {
     const apiKey = process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY || '';
 
     const { isLoaded, loadError } = useLoadScript({
         googleMapsApiKey: apiKey,
-        id: 'google-maps-script',
+        id: 'google-maps-script-main',
         libraries: ['places'],
     });
 
@@ -39,112 +29,99 @@ export default function SaafAIMap({
         setMap(mapInstance);
     }, []);
 
-    // 1. FILTER LOGIC: Combine Zone ID and Search Text
     const filteredLocations = locations.filter((loc) => {
         const matchesSearch = loc.name.toLowerCase().includes(searchText.toLowerCase());
-
-        // Match loc.type_id or loc.location_types.id with the zoneIdFilter from URL
         const matchesZone = zoneIdFilter ? String(loc.type_id) === String(zoneIdFilter) : true;
-
         return matchesSearch && matchesZone;
     });
 
-    // 2. AUTO-ZOOM LOGIC: Focus map on filtered results
     useEffect(() => {
         if (map && filteredLocations.length > 0 && window.google) {
             const bounds = new window.google.maps.LatLngBounds();
             filteredLocations.forEach((loc) => bounds.extend(loc.position));
-
-            // Adjust map to fit all markers in the zone
             map.fitBounds(bounds);
-
-            // Prevent excessive zoom if there is only one marker
-            if (filteredLocations.length === 1) {
-                map.setZoom(16);
-            }
+            if (filteredLocations.length === 1) map.setZoom(16);
         }
     }, [map, filteredLocations]);
 
-    // Only show error if there's an actual load error from Google Maps
-    if (loadError) {
-        console.error('Google Maps API Error:', loadError);
-        return (
-            <div className="h-full w-full flex items-center justify-center bg-slate-50 dark:bg-slate-800 p-4">
-                <div className="bg-white dark:bg-slate-700 rounded-xl border border-red-200 dark:border-red-800 p-6 max-w-md text-center">
-                    <p className="text-sm font-medium text-red-600 dark:text-red-400 mb-2">
-                        Map failed to load
-                    </p>
-                    <p className="text-xs text-muted-foreground">
-                        Please check your Google Maps API key configuration
-                    </p>
-                </div>
-            </div>
-        );
-    }
-
-    // Loading state - show map container with loading indicator
-    if (!isLoaded) {
-        return (
-            <div className="relative w-full map-container-full">
-                <div className="absolute inset-0 flex items-center justify-center bg-slate-100 dark:bg-slate-800">
-                    <div className="text-center">
-                        <div className="h-10 w-10 border-4 border-primary-light/20 border-t-primary-dark dark:border-t-primary-light rounded-full animate-spin mx-auto mb-3"></div>
-                        <p className="text-xs font-medium text-muted-foreground">
-                            Loading map...
-                        </p>
-                    </div>
-                </div>
-            </div>
-        );
-    }
+    if (loadError) return <div className="h-[700px] flex items-center justify-center bg-slate-50 uppercase font-black text-xs tracking-widest text-red-500">Map Load Error</div>;
+    if (!isLoaded) return <div className="h-[700px] bg-slate-100 flex items-center justify-center uppercase font-black text-xs tracking-widest text-slate-400 animate-pulse">SaafAI Map Loading...</div>;
 
     return (
-        <div className="relative w-full h-full map-container-full">
-            {/* GOOGLE MAP */}
+        <div className="relative w-full h-[700px] min-h-[600px] overflow-hidden rounded-[32px] border border-slate-200 shadow-sm bg-white">
+
+            {/* GOOGLE MAP COMPONENT */}
             <GoogleMap
-                mapContainerStyle={{ width: '100%', height: '100%', minHeight: '600px' }}
+                mapContainerStyle={{ width: '100%', height: '100%' }}
                 center={defaultCenter}
                 zoom={13}
                 onLoad={onLoad}
                 options={{
                     fullscreenControl: false,
-                    mapTypeControl: true,
+                    mapTypeControl: false,
                     streetViewControl: false,
-                    styles: mapStyles, // Optional: Apply custom clean UI styles
+                    zoomControl: false,
+                    styles: mapStyles,
                 }}
             >
                 {filteredLocations.map((loc) => (
                     <Marker
                         key={loc.id}
                         position={loc.position}
-                        icon={statusIcon[loc.status]}
+                        icon={statusIcon[loc.status] || statusIcon.UNASSIGNED}
                         onClick={() => onSelectLocation(loc)}
-                        animation={window.google?.maps?.Animation?.DROP}
                     />
                 ))}
             </GoogleMap>
 
-            {/* 🔥 INFO PANEL – INSIDE MAP */}
-            <LocationInfoPanel
-                location={selectedLocation}
-                onClose={() => onSelectLocation(null)}
-            />
+            {/* ✅ MAP LEGEND: FIXED BOTTOM LEFT WITH INCREASED PADDING & HIGHEST Z-INDEX */}
+            <div
+                className="
+          absolute bottom-10 left-10 
+          z-[70] 
+          bg-white/95 
+          backdrop-blur-md 
+          p-5
+          rounded-2xl 
+          border border-slate-200
+          shadow-[0_12px_40px_rgba(0,0,0,0.15)]
+          pointer-events-auto
+          min-w-[180px]
+        "
+            >
+                <MapLegend />
+            </div>
 
-            <MapLegend />
+            {/* RIGHT SIDE INFO DRAWER (Positioned absolute to this container) */}
+            {selectedLocation && (
+                <LocationInfoPanel
+                    location={selectedLocation}
+                    onClose={() => onSelectLocation(null)}
+                />
+            )}
 
             {/* NO RESULTS OVERLAY */}
             {filteredLocations.length === 0 && (
-                <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-white/90 backdrop-blur-md px-6 py-4 rounded-2xl border border-slate-100 shadow-xl z-20 text-center">
-                    <p className="text-xs font-black text-[hsl(var(--primary-dark))] uppercase tracking-widest">No Washrooms Found</p>
-                    <p className="text-[10px] font-bold text-slate-400 uppercase mt-1">Try adjusting your zone or search filters</p>
+                <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-white/95 backdrop-blur-md px-8 py-5 rounded-[24px] border border-slate-100 shadow-2xl z-[80] text-center">
+                    <p className="text-xs font-black text-slate-800 uppercase tracking-widest">No Washrooms Found</p>
                 </div>
             )}
         </div>
     );
+};
+
+export default function SaafAIMap({ selectedLocation, onSelectLocation, searchText, zoneIdFilter }) {
+    return (
+        <SaafAIMapBase
+            selectedLocation={selectedLocation}
+            onSelectLocation={onSelectLocation}
+            searchText={searchText}
+            zoneIdFilter={zoneIdFilter}
+        />
+    );
 }
 
-// Custom Map Styles for a cleaner administrative look
 const mapStyles = [
     { featureType: "poi", elementType: "labels", stylers: [{ visibility: "off" }] },
-    { featureType: "transit", elementType: "labels.icon", stylers: [{ visibility: "off" }] }
+    { featureType: "transit", elementType: "labels.icon", stylers: [{ visibility: "off" }] },
 ];

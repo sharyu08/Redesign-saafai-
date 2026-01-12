@@ -528,7 +528,7 @@ const UserList = () => {
                                             <td className="table-cell table-cell-right">
                                                 <div className="flex justify-end gap-2">
                                                     <button
-                                                        onClick={() => setViewingUser(user)}
+                                                        onClick={() => router.push(`/dashboard/user-management/view/${user.id}`)}
                                                         className="btn-icon btn-icon-view"
                                                         title="View Profile"
                                                     >
