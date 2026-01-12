@@ -3,6 +3,7 @@
 import { useState } from "react"; // Added for modal control
 import Link from "next/link";
 import { MapPin, Clock, ArrowRight, User, X } from "lucide-react"; // Added X for closing modal
+import "./ActivityCard.css";
 
 export default function ActivityCard({ activity }) {
     // 1. State to manage the Gallery Modal visibility
@@ -51,8 +52,8 @@ export default function ActivityCard({ activity }) {
                                 <button
                                     key={i}
                                     onClick={() => setIsGalleryOpen(true)}
-                                    className="h-14 w-14 rounded-full overflow-hidden relative hover:z-30 hover:scale-105 transition-all cursor-pointer shadow-sm hover:shadow-md border-2 border-white"
-                                    style={{ zIndex: 10 - i }}
+                                    className="h-14 w-14 rounded-full overflow-hidden relative hover:z-30 hover:scale-105 transition-all cursor-pointer shadow-sm hover:shadow-md border-2 border-white activity-card-image-stack"
+                                    style={{ '--stack-index': 10 - i }}
                                 >
                                     <img
                                         src={getFullImgPath(imgName)}

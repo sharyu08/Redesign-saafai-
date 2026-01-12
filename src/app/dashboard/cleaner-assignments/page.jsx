@@ -4,6 +4,7 @@ import Link from "next/link";
 import { useMemo, useState } from "react";
 import SummaryCards from "../../../components/cleanerAssignments/SummaryCards";
 import FilterBar from "../../../components/cleanerAssignments/FilterBar";
+import "./index.css";
 import {
   Search,
   Plus,
@@ -150,8 +151,8 @@ export default function CleanerAssignmentsPage() {
     </div>
     <div className="mt-2 h-1.5 bg-black/5 dark:bg-white/10 rounded-full overflow-hidden">
       <div 
-        className="h-full bg-[hsl(var(--primary))] rounded-full"
-        style={{ width: '100%' }}
+        className="h-full bg-[hsl(var(--primary))] rounded-full cleaner-assignments-progress-bar"
+        style={{ '--progress-width': '100%' }}
       ></div>
     </div>
   </button>
@@ -180,8 +181,8 @@ export default function CleanerAssignmentsPage() {
     </div>
     <div className="mt-2 h-1.5 bg-black/5 dark:bg-white/10 rounded-full overflow-hidden">
       <div 
-        className="h-full bg-[#22C55E] rounded-full"
-        style={{ width: `${(stats.assigned / stats.total) * 100}%` }}
+        className="h-full bg-[#22C55E] rounded-full cleaner-assignments-progress-bar"
+        style={{ '--progress-width': `${(stats.assigned / stats.total) * 100}%` }}
       ></div>
     </div>
   </button>
@@ -210,8 +211,8 @@ export default function CleanerAssignmentsPage() {
     </div>
     <div className="mt-2 h-1.5 bg-black/5 dark:bg-white/10 rounded-full overflow-hidden">
       <div 
-        className="h-full bg-[#3B82F6] rounded-full"
-        style={{ width: `${(stats.unassigned / stats.total) * 100}%` }}
+        className="h-full bg-[#3B82F6] rounded-full cleaner-assignments-progress-bar"
+        style={{ '--progress-width': `${(stats.unassigned / stats.total) * 100}%` }}
       ></div>
     </div>
   </button>

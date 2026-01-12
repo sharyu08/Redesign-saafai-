@@ -1,6 +1,7 @@
 "use client";
 
 import { useRouter } from "next/navigation"; // Import the router for redirection
+import "./index.css";
 import { User, Mail, Phone, MapPin, ShieldCheck, Edit3, LogOut, Camera } from "lucide-react";
 import StatusBadge from "@/components/washroommain/StatusBadge";
 import Link from "next/link";

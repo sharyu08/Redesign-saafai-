@@ -1,0 +1,5 @@
+/* Cleaner Stats Component Specific Styles */
+
+.cleaner-stats-progress-bar {
+  width: var(--progress-width, 0%);
+}

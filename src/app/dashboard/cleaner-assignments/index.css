@@ -1,0 +1,6 @@
+/* Cleaner Assignments Page Specific Styles */
+
+/* Progress bars in summary cards */
+.cleaner-assignments-progress-bar {
+  width: var(--progress-width, 100%);
+}

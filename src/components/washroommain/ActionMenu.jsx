@@ -3,6 +3,7 @@
 import { useState, useRef, useEffect } from "react";
 import { MoreVertical, User, ShieldCheck, Edit3, Trash2 } from "lucide-react";
 import { useRouter } from "next/navigation";
+import "./ActionMenu.css";
 
 export default function ActionMenu({ washroomId }) {
     const [open, setOpen] = useState(false);
@@ -52,8 +53,7 @@ export default function ActionMenu({ washroomId }) {
             {/* Dropdown Menu Container - Synced with --z-dropdown and --radius-xl */}
             {open && (
                 <div
-                    className="absolute right-0 mt-2 w-48 bg-white dark:bg-slate-900 border border-slate-100 dark:border-slate-800 rounded-[var(--radius-xl)] shadow-xl animate-fade-in"
-                    style={{ zIndex: "var(--z-dropdown)" }}
+                    className="absolute right-0 mt-2 w-48 bg-white dark:bg-slate-900 border border-slate-100 dark:border-slate-800 rounded-[var(--radius-xl)] shadow-xl animate-fade-in action-menu-dropdown"
                 >
                     <div className="p-1.5 space-y-0.5">
                         {actions.map((item) => (

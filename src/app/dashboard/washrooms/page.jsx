@@ -1,6 +1,7 @@
 "use client";
 
 import { useMemo, useState } from "react";
+import "./index.css";
 import WashroomHeader from "../../../components/washroommain/WashroomHeader";
 import WashroomFilters from "../../../components/washroommain/WashroomFilters";
 import WashroomTable from "../../../components/washroommain/WashroomTable";

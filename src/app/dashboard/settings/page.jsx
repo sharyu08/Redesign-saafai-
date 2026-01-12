@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import "./index.css";
 import { User, Bell, Map, Shield, CheckCircle2 } from "lucide-react";
 import ProfileTab from "@/components/settings/ProfileTab";
 import NotificationsTab from "@/components/settings/NotificationsTab";

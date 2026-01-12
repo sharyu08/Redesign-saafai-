@@ -1,0 +1,6 @@
+/* Activity Card Component Specific Styles */
+
+/* Image stack z-index management */
+.activity-card-image-stack {
+  z-index: var(--stack-index, 10);
+}

@@ -1,6 +1,7 @@
 'use client';
 
 import { Bar, Line } from 'react-chartjs-2';
+import './Charts.css';
 import {
   Chart as ChartJS,
   CategoryScale,
@@ -401,11 +402,10 @@ export function CleanerPerformanceChart() {
       {data.labels.map((label, i) => (
         <div 
           key={i}
-          className={`absolute ${i === maxValueIndex ? 'block' : 'hidden'}`}
+          className={`absolute ${i === maxValueIndex ? 'block' : 'hidden'} chart-tooltip-marker`}
           style={{
-            left: `${(i / (data.labels.length - 1)) * 100}%`,
-            top: '50%',
-            transform: 'translate(-50%, -100%)',
+            '--left-percent': `${(i / (data.labels.length - 1)) * 100}%`,
+            '--transform-value': 'translate(-50%, -100%)',
           }}
         >
           <div className="bg-gradient-to-r from-[#FF9F1C] to-[#2EC4B6] text-white text-xs font-medium px-3 py-1.5 rounded-full flex items-center shadow-lg border-2 border-white/20">
