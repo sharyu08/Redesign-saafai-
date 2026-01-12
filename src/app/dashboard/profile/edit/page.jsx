@@ -44,11 +44,11 @@ export default function EditProfilePage() {
                 </div>
 
                 {/* 2. MAIN EDIT FORM CARD */}
-                <form onSubmit={handleSave} className="bg-white border border-slate-100 rounded-[32px] shadow-[0_8px_30px_rgb(0,0,0,0.04)] overflow-hidden">
+                <form onSubmit={handleSave} className="bg-white border border-slate-100 rounded-[32px] shadow-[0_8px_30px_rgb(0,0,0,0.08)] overflow-hidden transition-all hover:shadow-[0_10px_40px_rgb(0,0,0,0.1)]">
                     <div className="p-8 space-y-8">
 
                         {/* Avatar Edit Section */}
-                        <div className="flex flex-col items-center gap-4 py-4 border-b border-slate-50">
+                        <div className="flex flex-col items-center gap-4 py-6 px-6 border border-slate-100 rounded-2xl shadow-[0_4px_20px_rgb(0,0,0,0.05)] bg-white/50">
                             <div className="relative group">
                                 <div className="h-24 w-24 rounded-[32px] bg-[#E6F7F9] flex items-center justify-center border-4 border-white shadow-lg">
                                     <User size={40} className="text-[#58BECF]" />

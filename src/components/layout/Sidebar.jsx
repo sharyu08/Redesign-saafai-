@@ -100,21 +100,21 @@ export default function Sidebar({ open, onClose, collapsed, onToggleCollapse }) 
     <aside
       className={`fixed inset-y-0 left-0 z-50 flex flex-col
         ${collapsed ? "w-20" : "w-72"}
-        bg-[#e0f2f1] border-r border-[#d0e8e6]
-        shadow-[0_20px_60px_rgba(0,0,0,0.08)]
+        bg-[#e0f2f1] dark:bg-slate-800 border-r border-[#d0e8e6] dark:border-slate-700
+        shadow-[0_20px_60px_rgba(0,0,0,0.08)] dark:shadow-[0_20px_60px_rgba(0,0,0,0.3)]
         transition-all duration-200
         ${open ? "translate-x-0" : "-translate-x-full md:translate-x-0"}`}
     >
       {/* HEADER */}
-      <div className="sticky top-0 z-10 flex h-20 items-center gap-3 px-4 border-b border-[#d0e8e6] bg-[#e0f2f1]/90 backdrop-blur-md">
+      <div className="sticky top-0 z-10 flex h-20 items-center gap-3 px-4 border-b border-[#d0e8e6] dark:border-slate-700 bg-[#e0f2f1]/90 dark:bg-slate-800/90 backdrop-blur-md">
         {!collapsed && (
           <>
-            <div className="h-10 w-10 rounded-xl bg-white flex items-center justify-center shadow-sm border border-[#d0e8e6]">
+            <div className="h-10 w-10 rounded-xl bg-white dark:bg-slate-700 flex items-center justify-center shadow-sm border border-[#d0e8e6] dark:border-slate-600">
               <Image src="/image/dashboard img.png" alt="Logo" width={28} height={28} unoptimized />
             </div>
             <div className="flex-1">
-              <p className="text-[10px] font-black uppercase tracking-widest text-cyan-600">Admin Console</p>
-              <p className="text-sm font-bold text-slate-800">Safai</p>
+              <p className="text-[10px] font-black uppercase tracking-widest text-cyan-600 dark:text-cyan-400">Admin Console</p>
+              <p className="text-sm font-bold text-slate-800 dark:text-slate-100">Safai</p>
             </div>
           </>
         )}
@@ -127,11 +127,11 @@ export default function Sidebar({ open, onClose, collapsed, onToggleCollapse }) 
       </div>
 
       {/* NAV SECTION */}
-      <div className="flex-1 px-3 py-4 space-y-4 overflow-y-auto scrollbar-hide">
+      <div className="flex-1 px-3 py-4 space-y-4 overflow-y-auto scrollbar-hide dark:scrollbar-hide">
         {navSections.map((section, sectionIndex) => (
           <div key={section.heading}>
             {!collapsed && (
-              <p className="px-4 mb-3 text-[10px] font-black uppercase tracking-[0.2em] text-slate-400">
+              <p className="px-4 mb-3 text-[10px] font-black uppercase tracking-[0.2em] text-slate-400 dark:text-slate-500">
                 {section.heading}
               </p>
             )}
@@ -166,7 +166,7 @@ export default function Sidebar({ open, onClose, collapsed, onToggleCollapse }) 
                       )}
                     </button>
                     {!collapsed && openGroups[item.label] && (
-                      <div className="ml-9 space-y-1 border-l-2 border-[#d0e8e6] pl-4 animate-in slide-in-from-top-1 duration-200">
+                      <div className="ml-9 space-y-1 border-l-2 border-[#d0e8e6] dark:border-slate-700 pl-4 animate-in slide-in-from-top-1 duration-200">
                         {item.children.map((child) => (
                           <Link
                             key={child.href}
@@ -184,30 +184,30 @@ export default function Sidebar({ open, onClose, collapsed, onToggleCollapse }) 
               })}
             </div>
             {!collapsed && sectionIndex < navSections.length - 1 && (
-              <div className="h-px bg-[#d0e8e6] my-6 mx-4" />
+              <div className="h-px bg-[#d0e8e6] dark:bg-slate-700 my-6 mx-4" />
             )}
           </div>
         ))}
       </div>
 
       {/* FOOTER */}
-      <div className="sticky bottom-0 p-4 border-t border-[#d0e8e6] bg-[#e0f2f1]/90 backdrop-blur-md space-y-3">
-        <div className="rounded-[20px] p-3 bg-white/40 border border-white/60 hover:bg-white/60 transition-colors">
+      <div className="sticky bottom-0 p-4 border-t border-[#d0e8e6] dark:border-slate-700 bg-[#e0f2f1]/90 dark:bg-slate-800/90 backdrop-blur-md space-y-3">
+        <div className="rounded-[20px] p-3 bg-white/40 dark:bg-slate-700/60 border border-white/60 dark:border-slate-600 hover:bg-white/60 dark:hover:bg-slate-600/80 transition-colors">
           <Link href="/dashboard/settings" onClick={onClose} className="flex items-center gap-3 group">
             <div className="h-9 w-9 flex-shrink-0 rounded-xl bg-gradient-to-br from-cyan-400 to-blue-600 flex items-center justify-center text-white font-black text-xs shadow-sm">
               TI
             </div>
             {!collapsed && (
               <div className="flex-1 overflow-hidden">
-                <p className="text-sm font-black text-slate-800 truncate">Test Intern</p>
-                <p className="text-[10px] font-bold text-cyan-600 uppercase">Admin</p>
+                <p className="text-sm font-black text-slate-800 dark:text-slate-100">Test Intern</p>
+                <p className="text-[10px] font-bold text-cyan-600 dark:text-cyan-400 uppercase">Admin</p>
               </div>
             )}
             {!collapsed && <Settings className="h-4 w-4 text-slate-400 group-hover:rotate-90 transition-transform" />}
           </Link>
         </div>
         <button
-          className="flex w-full items-center justify-center gap-2 rounded-xl bg-rose-50 px-4 py-3 text-sm font-black text-rose-600 border border-rose-100 hover:bg-rose-600 hover:text-white transition-all group"
+          className="flex w-full items-center justify-center gap-2 rounded-xl bg-rose-50 dark:bg-rose-900 px-4 py-3 text-sm font-black text-rose-600 dark:text-rose-400 border border-rose-100 dark:border-rose-700 hover:bg-rose-600 dark:hover:bg-rose-400 hover:text-white transition-all group"
           onClick={() => {/* Handle Logout */ }}
         >
           <LogOut className="h-4 w-4 group-hover:-translate-x-1 transition-transform" />
