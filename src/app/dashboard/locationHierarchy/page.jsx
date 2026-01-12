@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import "./index.css";
 import LocationHeader from "@/components/locationHierarchy/LocationHeader";
 import LocationTable from "@/components/locationHierarchy/LocationTable";
 import { Search, Plus, SlidersHorizontal } from "lucide-react";

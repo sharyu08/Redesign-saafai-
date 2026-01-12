@@ -1,6 +1,7 @@
 "use client";
 
 import { Users, UserCheck, UserMinus, TrendingUp, TrendingDown } from "lucide-react";
+import "./CleanerStats.css";
 
 export default function CleanerStats() {
     const stats = { total: 24, assigned: 22, unassigned: 2 };
@@ -110,8 +111,8 @@ function StatCard({ title, value, trend, isUp, percentage, icon, type }) {
                     {/* Thinner progress bar */}
                     <div className="h-1.5 w-full bg-slate-100 dark:bg-slate-800 rounded-full overflow-hidden">
                         <div
-                            className={`h-full rounded-full transition-all duration-1000 ease-out ${style.bar}`}
-                            style={{ width: `${percentage}%` }}
+                            className={`h-full rounded-full transition-all duration-1000 ease-out ${style.bar} cleaner-stats-progress-bar`}
+                            style={{ '--progress-width': `${percentage}%` }}
                         />
                     </div>
                 </div>

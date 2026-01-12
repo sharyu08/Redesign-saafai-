@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, Suspense } from "react";
+import "./index.css";
 import { useSearchParams } from "next/navigation";
 import SaafAIMap from "@/components/map/SaafAIMap";
 import { Search, MapPin, Info, ArrowLeft } from "lucide-react";
