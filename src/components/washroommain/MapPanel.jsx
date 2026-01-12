@@ -9,6 +9,7 @@ export default function MapPanel({ locations }) {
     const { isLoaded, loadError } = useLoadScript({
         googleMapsApiKey: apiKey,
         libraries: ["places"],
+        id: 'google-maps-script-panel', // Unique ID to prevent conflicts
     });
 
     const center = locations?.[0]

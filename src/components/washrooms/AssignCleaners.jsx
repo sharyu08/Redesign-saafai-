@@ -1,11 +1,12 @@
 "use client";
 
+import React from "react";
 import { Users, UserPlus, Info } from "lucide-react";
 
 export default function AssignCleaners() {
     return (
-        /* Using .card-global for standard dashboard panel styling and hover effects */
-        <div className="card-global transition-all hover:shadow-lg">
+        /* Removed card-global and shadow utility classes to prevent the double-border look */
+        <div className="w-full">
 
             {/* Section Header - Synchronized with Page Header tokens */}
             <div className="flex items-center gap-3 mb-6 pb-4 border-b border-slate-100 dark:border-slate-800">

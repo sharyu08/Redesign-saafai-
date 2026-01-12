@@ -1,8 +1,34 @@
 "use client";
 
-import React, { useState } from 'react';
-import { useRouter } from 'next/navigation';
-import { Search, Plus, Eye, Edit3, Trash2, MapPin, Mail, Phone, Shield, AlertTriangle, Users, Filter } from 'lucide-react';
+import React, { useEffect, useMemo, useState } from "react";
+import Link from "next/link";
+import Image from "next/image";
+import { usePathname, useRouter } from "next/navigation";
+// Added Search to imports
+import {
+    Activity,
+    AlertTriangle,
+    BarChart3,
+    ChevronDown,
+    Filter,
+    Eye,
+    Edit3,
+    Layers3,
+    ListChecks,
+    LogOut,
+    Mail,
+    Map,
+    MapPin,
+    MenuSquare,
+    MessageSquare,
+    Phone,
+    Plus,
+    Search,    // ✅ Added
+    Shield,
+    Users,
+    Wrench,
+    Trash2,
+} from "lucide-react";
 
 // --- MOCK DATA ---
 const initialUserRows = [
@@ -177,160 +203,188 @@ const UserList = () => {
                     </div>
                 </div>
 
-                {/* Stats Cards */}
-                <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-7 gap-4">
+                {/* Stats Cards - Compact Design */}
+                <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-7 gap-2.5 mb-6">
                     {/* Total Users Card - Highlighted */}
                     <button
                         onClick={() => setRoleFilter("all")}
-                        className={`rounded-2xl p-5 shadow-lg transition-all duration-200 hover:scale-105 hover:shadow-xl cursor-pointer text-left ${
-                            roleFilter === "all"
-                                ? "bg-gradient-to-br from-[hsl(var(--primary))] to-[hsl(var(--primary-dark))] text-white"
-                                : "bg-white dark:bg-card border border-border text-foreground hover:border-[hsl(var(--primary))]/50"
-                        }`}
+                        className={`group relative overflow-hidden rounded-xl p-3 transition-all duration-200 ease-out cursor-pointer text-left border ${roleFilter === "all"
+                            ? "bg-gradient-to-br from-[hsl(var(--primary))] to-[hsl(var(--primary-dark))] text-white border-transparent shadow-md"
+                            : "bg-white dark:bg-card border-border text-foreground hover:border-[hsl(var(--primary))] hover:shadow-sm"
+                            }`}
                     >
-                        <div className="flex items-center justify-between mb-2">
-                            <p className={`text-xs font-bold uppercase tracking-wider ${
-                                roleFilter === "all" ? "opacity-90" : "text-muted-foreground"
-                            }`}>Total Users</p>
-                            <Users className={`h-5 w-5 ${
-                                roleFilter === "all" ? "opacity-80" : "text-muted-foreground"
-                            }`} />
+                        <div className="relative z-10">
+                            <div className="flex items-center justify-between mb-1">
+                                <p className={`text-[10px] font-bold uppercase tracking-wider ${roleFilter === "all" ? "opacity-90" : "text-muted-foreground"}`}>
+                                    Total Users
+                                </p>
+                                <div className={`p-1 rounded ${roleFilter === "all" ? "bg-white/10" : "bg-muted/50"}`}>
+                                    <Users className={`h-3.5 w-3.5 ${roleFilter === "all" ? "text-white" : "text-muted-foreground"}`} />
+                                </div>
+                            </div>
+                            <p className={`text-xl font-black ${roleFilter === "all" ? "text-white" : "text-foreground"}`}>
+                                {stats.total}
+                            </p>
                         </div>
-                        <p className={`text-3xl font-black ${
-                            roleFilter === "all" ? "text-white" : "text-foreground"
-                        }`}>{stats.total}</p>
+                        {roleFilter === "all" && (
+                            <div className="absolute -bottom-3 -right-3 w-12 h-12 bg-white/5 rounded-full"></div>
+                        )}
                     </button>
 
                     {/* Admin Card */}
                     <button
                         onClick={() => setRoleFilter("Admin")}
-                        className={`rounded-2xl p-5 border shadow-sm transition-all duration-200 hover:scale-105 hover:shadow-md cursor-pointer text-left ${
-                            roleFilter === "Admin"
-                                ? "bg-[hsl(var(--primary))] border-[hsl(var(--primary-dark))] text-white"
-                                : "bg-white dark:bg-card border-border text-foreground hover:border-[hsl(var(--primary))]/50"
-                        }`}
+                        className={`group relative overflow-hidden rounded-xl p-3 transition-all duration-200 ease-out cursor-pointer text-left border ${roleFilter === "Admin"
+                            ? "bg-[hsl(var(--primary))] border-[hsl(var(--primary-dark))] text-white shadow-md"
+                            : "bg-white dark:bg-card border-border text-foreground hover:border-[hsl(var(--primary))] hover:shadow-sm"
+                            }`}
                     >
-                        <div className="flex items-center justify-between mb-2">
-                            <p className={`text-xs font-bold uppercase tracking-wider ${
-                                roleFilter === "Admin" ? "opacity-90" : "text-muted-foreground"
-                            }`}>Admin</p>
-                            <Shield className={`h-5 w-5 ${
-                                roleFilter === "Admin" ? "opacity-80" : "text-muted-foreground"
-                            }`} />
+                        <div className="relative z-10">
+                            <div className="flex items-center justify-between mb-1">
+                                <p className={`text-[10px] font-bold uppercase tracking-wider ${roleFilter === "Admin" ? "opacity-90" : "text-muted-foreground"}`}>
+                                    Admin
+                                </p>
+                                <div className={`p-1 rounded ${roleFilter === "Admin" ? "bg-white/10" : "bg-muted/50"}`}>
+                                    <Shield className={`h-3.5 w-3.5 ${roleFilter === "Admin" ? "text-white" : "text-muted-foreground"}`} />
+                                </div>
+                            </div>
+                            <p className={`text-xl font-black ${roleFilter === "Admin" ? "text-white" : "text-foreground"}`}>
+                                {stats.admin}
+                            </p>
                         </div>
-                        <p className={`text-2xl font-black ${
-                            roleFilter === "Admin" ? "text-white" : "text-foreground"
-                        }`}>{stats.admin}</p>
+                        {roleFilter === "Admin" && (
+                            <div className="absolute -bottom-3 -right-3 w-12 h-12 bg-white/5 rounded-full"></div>
+                        )}
                     </button>
 
                     {/* Supervisor Card */}
                     <button
                         onClick={() => setRoleFilter("Supervisor")}
-                        className={`rounded-2xl p-5 border shadow-sm transition-all duration-200 hover:scale-105 hover:shadow-md cursor-pointer text-left ${
-                            roleFilter === "Supervisor"
-                                ? "bg-[hsl(var(--lavender-300))] border-[hsl(var(--lavender-300))] text-white"
-                                : "bg-white dark:bg-card border-border text-foreground hover:border-[hsl(var(--lavender-300))]/50"
-                        }`}
+                        className={`group relative overflow-hidden rounded-xl p-3 transition-all duration-200 ease-out cursor-pointer text-left border ${roleFilter === "Supervisor"
+                            ? "bg-[hsl(var(--lavender-300))] border-[hsl(var(--lavender-300))] text-white shadow-md"
+                            : "bg-white dark:bg-card border-border text-foreground hover:border-[hsl(var(--lavender-300))] hover:shadow-sm"
+                            }`}
                     >
-                        <div className="flex items-center justify-between mb-2">
-                            <p className={`text-xs font-bold uppercase tracking-wider ${
-                                roleFilter === "Supervisor" ? "opacity-90" : "text-muted-foreground"
-                            }`}>Supervisor</p>
-                            <Shield className={`h-5 w-5 ${
-                                roleFilter === "Supervisor" ? "opacity-80" : "text-muted-foreground"
-                            }`} />
+                        <div className="relative z-10">
+                            <div className="flex items-center justify-between mb-1">
+                                <p className={`text-[10px] font-bold uppercase tracking-wider ${roleFilter === "Supervisor" ? "opacity-90" : "text-muted-foreground"}`}>
+                                    Supervisor
+                                </p>
+                                <div className={`p-1 rounded ${roleFilter === "Supervisor" ? "bg-white/10" : "bg-muted/50"}`}>
+                                    <Shield className={`h-3.5 w-3.5 ${roleFilter === "Supervisor" ? "text-white" : "text-muted-foreground"}`} />
+                                </div>
+                            </div>
+                            <p className={`text-xl font-black ${roleFilter === "Supervisor" ? "text-white" : "text-foreground"}`}>
+                                {stats.supervisor}
+                            </p>
                         </div>
-                        <p className={`text-2xl font-black ${
-                            roleFilter === "Supervisor" ? "text-white" : "text-foreground"
-                        }`}>{stats.supervisor}</p>
+                        {roleFilter === "Supervisor" && (
+                            <div className="absolute -bottom-3 -right-3 w-12 h-12 bg-white/5 rounded-full"></div>
+                        )}
                     </button>
 
                     {/* Cleaner Card */}
                     <button
                         onClick={() => setRoleFilter("Cleaner")}
-                        className={`rounded-2xl p-5 border shadow-sm transition-all duration-200 hover:scale-105 hover:shadow-md cursor-pointer text-left ${
-                            roleFilter === "Cleaner"
-                                ? "bg-[hsl(var(--primary-accent))] border-[hsl(var(--primary-medium))] text-white"
-                                : "bg-white dark:bg-card border-border text-foreground hover:border-[hsl(var(--primary-accent))]/50"
-                        }`}
+                        className={`group relative overflow-hidden rounded-xl p-3 transition-all duration-200 ease-out cursor-pointer text-left border ${roleFilter === "Cleaner"
+                            ? "bg-[hsl(var(--primary-accent))] border-[hsl(var(--primary-medium))] text-white shadow-md"
+                            : "bg-white dark:bg-card border-border text-foreground hover:border-[hsl(var(--primary-accent))] hover:shadow-sm"
+                            }`}
                     >
-                        <div className="flex items-center justify-between mb-2">
-                            <p className={`text-xs font-bold uppercase tracking-wider ${
-                                roleFilter === "Cleaner" ? "opacity-90" : "text-muted-foreground"
-                            }`}>Cleaner</p>
-                            <Users className={`h-5 w-5 ${
-                                roleFilter === "Cleaner" ? "opacity-80" : "text-muted-foreground"
-                            }`} />
+                        <div className="relative z-10">
+                            <div className="flex items-center justify-between mb-1">
+                                <p className={`text-[10px] font-bold uppercase tracking-wider ${roleFilter === "Cleaner" ? "opacity-90" : "text-muted-foreground"}`}>
+                                    Cleaner
+                                </p>
+                                <div className={`p-1 rounded ${roleFilter === "Cleaner" ? "bg-white/10" : "bg-muted/50"}`}>
+                                    <Users className={`h-3.5 w-3.5 ${roleFilter === "Cleaner" ? "text-white" : "text-muted-foreground"}`} />
+                                </div>
+                            </div>
+                            <p className={`text-xl font-black ${roleFilter === "Cleaner" ? "text-white" : "text-foreground"}`}>
+                                {stats.cleaner}
+                            </p>
                         </div>
-                        <p className={`text-2xl font-black ${
-                            roleFilter === "Cleaner" ? "text-white" : "text-foreground"
-                        }`}>{stats.cleaner}</p>
+                        {roleFilter === "Cleaner" && (
+                            <div className="absolute -bottom-3 -right-3 w-12 h-12 bg-white/5 rounded-full"></div>
+                        )}
                     </button>
 
                     {/* Zonal Admin Card */}
                     <button
                         onClick={() => setRoleFilter("Zonal Admin")}
-                        className={`rounded-2xl p-5 border shadow-sm transition-all duration-200 hover:scale-105 hover:shadow-md cursor-pointer text-left ${
-                            roleFilter === "Zonal Admin"
-                                ? "bg-[hsl(var(--lavender-300))] border-[hsl(var(--lavender-300))] text-white"
-                                : "bg-white dark:bg-card border-border text-foreground hover:border-[hsl(var(--lavender-300))]/50"
-                        }`}
+                        className={`group relative overflow-hidden rounded-xl p-3 transition-all duration-200 ease-out cursor-pointer text-left border ${roleFilter === "Zonal Admin"
+                            ? "bg-[hsl(var(--lavender-300))] border-[hsl(var(--lavender-300))] text-white shadow-md"
+                            : "bg-white dark:bg-card border-border text-foreground hover:border-[hsl(var(--lavender-300))] hover:shadow-sm"
+                            }`}
                     >
-                        <div className="flex items-center justify-between mb-2">
-                            <p className={`text-xs font-bold uppercase tracking-wider ${
-                                roleFilter === "Zonal Admin" ? "opacity-90" : "text-muted-foreground"
-                            }`}>Zonal Admin</p>
-                            <MapPin className={`h-5 w-5 ${
-                                roleFilter === "Zonal Admin" ? "opacity-80" : "text-muted-foreground"
-                            }`} />
+                        <div className="relative z-10">
+                            <div className="flex items-center justify-between mb-1">
+                                <p className={`text-[10px] font-bold uppercase tracking-wider ${roleFilter === "Zonal Admin" ? "opacity-90" : "text-muted-foreground"}`}>
+                                    Zonal Admin
+                                </p>
+                                <div className={`p-1 rounded ${roleFilter === "Zonal Admin" ? "bg-white/10" : "bg-muted/50"}`}>
+                                    <MapPin className={`h-3.5 w-3.5 ${roleFilter === "Zonal Admin" ? "text-white" : "text-muted-foreground"}`} />
+                                </div>
+                            </div>
+                            <p className={`text-xl font-black ${roleFilter === "Zonal Admin" ? "text-white" : "text-foreground"}`}>
+                                {stats.zonalAdmin}
+                            </p>
                         </div>
-                        <p className={`text-2xl font-black ${
-                            roleFilter === "Zonal Admin" ? "text-white" : "text-foreground"
-                        }`}>{stats.zonalAdmin}</p>
+                        {roleFilter === "Zonal Admin" && (
+                            <div className="absolute -bottom-3 -right-3 w-12 h-12 bg-white/5 rounded-full"></div>
+                        )}
                     </button>
 
                     {/* Facility Supervisor Card */}
                     <button
                         onClick={() => setRoleFilter("Facility Supervisor")}
-                        className={`rounded-2xl p-5 border shadow-sm transition-all duration-200 hover:scale-105 hover:shadow-md cursor-pointer text-left ${
-                            roleFilter === "Facility Supervisor"
-                                ? "bg-[hsl(var(--lavender-200))] border-[hsl(var(--lavender-300))] text-[hsl(var(--primary-dark))]"
-                                : "bg-white dark:bg-card border-border text-foreground hover:border-[hsl(var(--lavender-300))]/50"
-                        }`}
+                        className={`group relative overflow-hidden rounded-xl p-3 transition-all duration-200 ease-out cursor-pointer text-left border ${roleFilter === "Facility Supervisor"
+                            ? "bg-[hsl(var(--lavender-200))] border-[hsl(var(--lavender-300))] text-[hsl(var(--primary-dark))] shadow-md"
+                            : "bg-white dark:bg-card border-border text-foreground hover:border-[hsl(var(--lavender-300))] hover:shadow-sm"
+                            }`}
                     >
-                        <div className="flex items-center justify-between mb-2">
-                            <p className={`text-xs font-bold uppercase tracking-wider ${
-                                roleFilter === "Facility Supervisor" ? "text-[hsl(var(--primary-dark))]" : "text-muted-foreground"
-                            }`}>Facility Supervisor</p>
-                            <Users className={`h-5 w-5 ${
-                                roleFilter === "Facility Supervisor" ? "text-[hsl(var(--primary-dark))]" : "text-muted-foreground"
-                            }`} />
+                        <div className="relative z-10">
+                            <div className="flex items-center justify-between mb-1">
+                                <p className={`text-[10px] font-bold uppercase tracking-wider ${roleFilter === "Facility Supervisor" ? "text-[hsl(var(--primary-dark))]" : "text-muted-foreground"}`}>
+                                    Facility Supv
+                                </p>
+                                <div className={`p-1 rounded ${roleFilter === "Facility Supervisor" ? "bg-[hsl(var(--primary-dark))]/10" : "bg-muted/50"}`}>
+                                    <Users className={`h-3.5 w-3.5 ${roleFilter === "Facility Supervisor" ? "text-[hsl(var(--primary-dark))]" : "text-muted-foreground"}`} />
+                                </div>
+                            </div>
+                            <p className={`text-xl font-black ${roleFilter === "Facility Supervisor" ? "text-[hsl(var(--primary-dark))]" : "text-foreground"}`}>
+                                {stats.facilitySupervisor}
+                            </p>
                         </div>
-                        <p className={`text-2xl font-black ${
-                            roleFilter === "Facility Supervisor" ? "text-[hsl(var(--primary-dark))]" : "text-foreground"
-                        }`}>{stats.facilitySupervisor}</p>
+                        {roleFilter === "Facility Supervisor" && (
+                            <div className="absolute -bottom-3 -right-3 w-12 h-12 bg-[hsl(var(--primary-dark))]/5 rounded-full"></div>
+                        )}
                     </button>
 
                     {/* Facility Admin Card */}
                     <button
                         onClick={() => setRoleFilter("Facility Admin")}
-                        className={`rounded-2xl p-5 border shadow-sm transition-all duration-200 hover:scale-105 hover:shadow-md cursor-pointer text-left ${
-                            roleFilter === "Facility Admin"
-                                ? "bg-[hsl(var(--lavender-200))] border-[hsl(var(--lavender-300))] text-[hsl(var(--primary-dark))]"
-                                : "bg-white dark:bg-card border-border text-foreground hover:border-[hsl(var(--lavender-300))]/50"
-                        }`}
+                        className={`group relative overflow-hidden rounded-xl p-3 transition-all duration-200 ease-out cursor-pointer text-left border ${roleFilter === "Facility Admin"
+                            ? "bg-[hsl(var(--lavender-200))] border-[hsl(var(--lavender-300))] text-[hsl(var(--primary-dark))] shadow-md"
+                            : "bg-white dark:bg-card border-border text-foreground hover:border-[hsl(var(--lavender-300))] hover:shadow-sm"
+                            }`}
                     >
-                        <div className="flex items-center justify-between mb-2">
-                            <p className={`text-xs font-bold uppercase tracking-wider ${
-                                roleFilter === "Facility Admin" ? "text-[hsl(var(--primary-dark))]" : "text-muted-foreground"
-                            }`}>Facility Admin</p>
-                            <Shield className={`h-5 w-5 ${
-                                roleFilter === "Facility Admin" ? "text-[hsl(var(--primary-dark))]" : "text-muted-foreground"
-                            }`} />
+                        <div className="relative z-10">
+                            <div className="flex items-center justify-between mb-1">
+                                <p className={`text-[10px] font-bold uppercase tracking-wider ${roleFilter === "Facility Admin" ? "text-[hsl(var(--primary-dark))]" : "text-muted-foreground"}`}>
+                                    Facility Admin
+                                </p>
+                                <div className={`p-1 rounded ${roleFilter === "Facility Admin" ? "bg-[hsl(var(--primary-dark))]/10" : "bg-muted/50"}`}>
+                                    <Shield className={`h-3.5 w-3.5 ${roleFilter === "Facility Admin" ? "text-[hsl(var(--primary-dark))]" : "text-muted-foreground"}`} />
+                                </div>
+                            </div>
+                            <p className={`text-xl font-black ${roleFilter === "Facility Admin" ? "text-[hsl(var(--primary-dark))]" : "text-foreground"}`}>
+                                {stats.facilityAdmin}
+                            </p>
                         </div>
-                        <p className={`text-2xl font-black ${
-                            roleFilter === "Facility Admin" ? "text-[hsl(var(--primary-dark))]" : "text-foreground"
-                        }`}>{stats.facilityAdmin}</p>
+                        {roleFilter === "Facility Admin" && (
+                            <div className="absolute -bottom-3 -right-3 w-12 h-12 bg-[hsl(var(--primary-dark))]/5 rounded-full"></div>
+                        )}
                     </button>
                 </div>
 
@@ -341,7 +395,7 @@ const UserList = () => {
                         type="text"
                         value={searchTerm}
                         onChange={(e) => setSearchTerm(e.target.value)}
-                        placeholder="Search"
+                        placeholder="Search t"
                         className="w-full pl-12 pr-6 py-4 rounded-2xl border border-border bg-card text-xs font-bold uppercase tracking-widest outline-none focus:ring-4 focus:ring-primary-light/20 focus:border-primary-medium transition-all shadow-sm"
                     />
                 </div>
@@ -354,22 +408,20 @@ const UserList = () => {
                     </span>
                     <button
                         onClick={() => setRoleFilter("all")}
-                        className={`px-4 py-2 rounded-xl text-xs font-bold uppercase tracking-wider transition-all ${
-                            roleFilter === "all"
-                                ? "bg-[hsl(var(--primary))] text-white shadow-md"
-                                : "bg-white dark:bg-card border border-border text-muted-foreground hover:bg-[hsl(var(--bg-very-light-cyan))] dark:hover:bg-slate-800 hover:border-[hsl(var(--primary))]/50"
-                        }`}
+                        className={`px-4 py-2 rounded-xl text-xs font-bold uppercase tracking-wider transition-all ${roleFilter === "all"
+                            ? "bg-[hsl(var(--primary))] text-white shadow-md"
+                            : "bg-white dark:bg-card border border-border text-muted-foreground hover:bg-[hsl(var(--bg-very-light-cyan))] dark:hover:bg-slate-800 hover:border-[hsl(var(--primary))]/50"
+                            }`}
                     >
                         All Users
                     </button>
                     {stats.admin > 0 && (
                         <button
                             onClick={() => setRoleFilter("Admin")}
-                            className={`px-4 py-2 rounded-xl text-xs font-bold uppercase tracking-wider transition-all ${
-                                roleFilter === "Admin"
-                                    ? "bg-[hsl(var(--primary))] text-white shadow-md"
-                                    : "bg-white dark:bg-card border border-border text-muted-foreground hover:bg-[hsl(var(--bg-very-light-cyan))] dark:hover:bg-slate-800 hover:border-[hsl(var(--primary))]/50"
-                            }`}
+                            className={`px-4 py-2 rounded-xl text-xs font-bold uppercase tracking-wider transition-all ${roleFilter === "Admin"
+                                ? "bg-[hsl(var(--primary))] text-white shadow-md"
+                                : "bg-white dark:bg-card border border-border text-muted-foreground hover:bg-[hsl(var(--bg-very-light-cyan))] dark:hover:bg-slate-800 hover:border-[hsl(var(--primary))]/50"
+                                }`}
                         >
                             Admins {stats.admin}
                         </button>
@@ -377,11 +429,10 @@ const UserList = () => {
                     {stats.supervisor > 0 && (
                         <button
                             onClick={() => setRoleFilter("Supervisor")}
-                            className={`px-4 py-2 rounded-xl text-xs font-bold uppercase tracking-wider transition-all ${
-                                roleFilter === "Supervisor"
-                                    ? "bg-[hsl(var(--lavender-300))] text-white shadow-md"
-                                    : "bg-white dark:bg-card border border-border text-muted-foreground hover:bg-[hsl(var(--bg-very-light-cyan))] dark:hover:bg-slate-800 hover:border-[hsl(var(--lavender-300))]/50"
-                            }`}
+                            className={`px-4 py-2 rounded-xl text-xs font-bold uppercase tracking-wider transition-all ${roleFilter === "Supervisor"
+                                ? "bg-[hsl(var(--lavender-300))] text-white shadow-md"
+                                : "bg-white dark:bg-card border border-border text-muted-foreground hover:bg-[hsl(var(--bg-very-light-cyan))] dark:hover:bg-slate-800 hover:border-[hsl(var(--lavender-300))]/50"
+                                }`}
                         >
                             Supervisors {stats.supervisor}
                         </button>
@@ -389,11 +440,10 @@ const UserList = () => {
                     {stats.cleaner > 0 && (
                         <button
                             onClick={() => setRoleFilter("Cleaner")}
-                            className={`px-4 py-2 rounded-xl text-xs font-bold uppercase tracking-wider transition-all ${
-                                roleFilter === "Cleaner"
-                                    ? "bg-[hsl(var(--primary-accent))] text-white shadow-md"
-                                    : "bg-white dark:bg-card border border-border text-muted-foreground hover:bg-[hsl(var(--bg-very-light-cyan))] dark:hover:bg-slate-800 hover:border-[hsl(var(--primary-accent))]/50"
-                            }`}
+                            className={`px-4 py-2 rounded-xl text-xs font-bold uppercase tracking-wider transition-all ${roleFilter === "Cleaner"
+                                ? "bg-[hsl(var(--primary-accent))] text-white shadow-md"
+                                : "bg-white dark:bg-card border border-border text-muted-foreground hover:bg-[hsl(var(--bg-very-light-cyan))] dark:hover:bg-slate-800 hover:border-[hsl(var(--primary-accent))]/50"
+                                }`}
                         >
                             Cleaners {stats.cleaner}
                         </button>
@@ -401,11 +451,10 @@ const UserList = () => {
                     {stats.zonalAdmin > 0 && (
                         <button
                             onClick={() => setRoleFilter("Zonal Admin")}
-                            className={`px-4 py-2 rounded-xl text-xs font-bold uppercase tracking-wider transition-all ${
-                                roleFilter === "Zonal Admin"
-                                    ? "bg-[hsl(var(--lavender-300))] text-white shadow-md"
-                                    : "bg-white dark:bg-card border border-border text-muted-foreground hover:bg-[hsl(var(--bg-very-light-cyan))] dark:hover:bg-slate-800 hover:border-[hsl(var(--lavender-300))]/50"
-                            }`}
+                            className={`px-4 py-2 rounded-xl text-xs font-bold uppercase tracking-wider transition-all ${roleFilter === "Zonal Admin"
+                                ? "bg-[hsl(var(--lavender-300))] text-white shadow-md"
+                                : "bg-white dark:bg-card border border-border text-muted-foreground hover:bg-[hsl(var(--bg-very-light-cyan))] dark:hover:bg-slate-800 hover:border-[hsl(var(--lavender-300))]/50"
+                                }`}
                         >
                             Zonal Admins {stats.zonalAdmin}
                         </button>
@@ -413,11 +462,10 @@ const UserList = () => {
                     {stats.facilitySupervisor > 0 && (
                         <button
                             onClick={() => setRoleFilter("Facility Supervisor")}
-                            className={`px-4 py-2 rounded-xl text-xs font-bold uppercase tracking-wider transition-all ${
-                                roleFilter === "Facility Supervisor"
-                                    ? "bg-[hsl(var(--lavender-200))] text-[hsl(var(--primary-dark))] border border-[hsl(var(--lavender-300))] shadow-md"
-                                    : "bg-white dark:bg-card border border-border text-muted-foreground hover:bg-[hsl(var(--bg-very-light-cyan))] dark:hover:bg-slate-800 hover:border-[hsl(var(--lavender-300))]/50"
-                            }`}
+                            className={`px-4 py-2 rounded-xl text-xs font-bold uppercase tracking-wider transition-all ${roleFilter === "Facility Supervisor"
+                                ? "bg-[hsl(var(--lavender-200))] text-[hsl(var(--primary-dark))] border border-[hsl(var(--lavender-300))] shadow-md"
+                                : "bg-white dark:bg-card border border-border text-muted-foreground hover:bg-[hsl(var(--bg-very-light-cyan))] dark:hover:bg-slate-800 hover:border-[hsl(var(--lavender-300))]/50"
+                                }`}
                         >
                             Facility Supervisors {stats.facilitySupervisor}
                         </button>
@@ -425,11 +473,10 @@ const UserList = () => {
                     {stats.facilityAdmin > 0 && (
                         <button
                             onClick={() => setRoleFilter("Facility Admin")}
-                            className={`px-4 py-2 rounded-xl text-xs font-bold uppercase tracking-wider transition-all ${
-                                roleFilter === "Facility Admin"
-                                    ? "bg-[hsl(var(--lavender-200))] text-[hsl(var(--primary-dark))] border border-[hsl(var(--lavender-300))] shadow-md"
-                                    : "bg-white dark:bg-card border border-border text-muted-foreground hover:bg-[hsl(var(--bg-very-light-cyan))] dark:hover:bg-slate-800 hover:border-[hsl(var(--lavender-300))]/50"
-                            }`}
+                            className={`px-4 py-2 rounded-xl text-xs font-bold uppercase tracking-wider transition-all ${roleFilter === "Facility Admin"
+                                ? "bg-[hsl(var(--lavender-200))] text-[hsl(var(--primary-dark))] border border-[hsl(var(--lavender-300))] shadow-md"
+                                : "bg-white dark:bg-card border border-border text-muted-foreground hover:bg-[hsl(var(--bg-very-light-cyan))] dark:hover:bg-slate-800 hover:border-[hsl(var(--lavender-300))]/50"
+                                }`}
                         >
                             Facility Admins {stats.facilityAdmin}
                         </button>
@@ -481,7 +528,7 @@ const UserList = () => {
                                             <td className="table-cell table-cell-right">
                                                 <div className="flex justify-end gap-2">
                                                     <button
-                                                        onClick={() => setViewingUser(user)}
+                                                        onClick={() => router.push(`/dashboard/user-management/view/${user.id}`)}
                                                         className="btn-icon btn-icon-view"
                                                         title="View Profile"
                                                     >
@@ -509,7 +556,7 @@ const UserList = () => {
                             </tbody>
                         </table>
                     </div>
-                    
+
                     {/* Table Footer */}
                     <div className="table-footer">
                         <p className="text-xs font-medium text-muted-foreground">

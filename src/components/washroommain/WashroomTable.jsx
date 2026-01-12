@@ -1,6 +1,6 @@
 "use client";
 
-import WashroomRow from "./WashroomRow";
+import WashroomRowWithModal from "./WashroomRowWithModal";
 import { Hash, List, MapPin, Star, User, Building2, Activity, Settings } from "lucide-react";
 
 export default function WashroomTable({ items }) {
@@ -73,7 +73,7 @@ export default function WashroomTable({ items }) {
                     <tbody className="table-body">
                         {rows.length > 0 ? (
                             rows.map((washroom, index) => (
-                                <WashroomRow
+                                <WashroomRowWithModal
                                     key={washroom.id}
                                     index={index}
                                     washroom={washroom}
@@ -97,14 +97,18 @@ export default function WashroomTable({ items }) {
 
             {/* Table Footer / Summary */}
             <div className="table-footer">
-                <p className="text-xs-standard font-bold text-muted-foreground uppercase tracking-widest">
-                    Showing {rows.length} Total Facilities
-                </p>
-                <div className="flex items-center gap-2">
-                    <div className="h-1.5 w-1.5 rounded-full bg-green-500 animate-pulse" />
-                    <span className="text-xs-standard font-bold text-primary-dark uppercase tracking-widest">
-                        System Active
-                    </span>
+                <div className="flex items-center justify-between p-4 bg-slate-50 dark:bg-slate-800/50 border-t border-slate-200 dark:border-slate-700">
+                    <div className="text-sm text-slate-600 dark:text-slate-400">
+                        Showing {rows.length} of {rows.length} washrooms
+                    </div>
+                    <div className="flex items-center gap-2">
+                        <button className="text-xs text-slate-500 hover:text-slate-700 dark:text-slate-400 dark:hover:text-slate-300 transition-colors">
+                            Export CSV
+                        </button>
+                        <button className="text-xs text-slate-500 hover:text-slate-700 dark:text-slate-400 dark:hover:text-slate-300 transition-colors">
+                            Print Report
+                        </button>
+                    </div>
                 </div>
             </div>
         </div>
