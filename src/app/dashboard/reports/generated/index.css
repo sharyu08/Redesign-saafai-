@@ -1,0 +1,5 @@
+/* Generated Reports Page Specific Styles */
+
+.reports-progress-bar {
+  width: var(--progress-width, 0%);
+}
