@@ -1,0 +1,5 @@
+/* Activity Stats Component Specific Styles */
+
+.activity-stats-progress-bar {
+  width: var(--progress-width, 82%);
+}

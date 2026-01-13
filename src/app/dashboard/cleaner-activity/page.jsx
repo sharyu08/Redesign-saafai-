@@ -6,6 +6,7 @@ import {
   ActivityStats,
   ActivityGrid,
 } from "@/components/cleanerActivity";
+import "./index.css";
 import { 
   Send,
   MapPin,

@@ -1,6 +1,7 @@
 "use client";
 
 import { HiOutlineChartBar } from "react-icons/hi";
+import "./ActivityStats.css";
 
 export default function ActivityStats() {
     return (
@@ -66,8 +67,8 @@ export default function ActivityStats() {
                 </div>
                 <div className="h-2.5 w-full rounded-full bg-[hsl(var(--muted))] overflow-hidden">
                     <div
-                        className="progress-bar rounded-full bg-[hsl(var(--primary))] shadow-[0_0_8px_rgba(45,183,196,0.4)] transition-all duration-700"
-                        style={{ width: "82%" }}
+                        className="progress-bar rounded-full bg-[hsl(var(--primary))] shadow-[0_0_8px_rgba(45,183,196,0.4)] transition-all duration-700 activity-stats-progress-bar"
+                        style={{ '--progress-width': '82%' }}
                     />
                 </div>
             </div>

@@ -1,0 +1,20 @@
+/* MapView Component Specific Styles */
+
+/* Map marker styles - these are applied via Leaflet's divIcon */
+.map-marker-selected {
+  background: #10b981;
+  width: 18px;
+  height: 18px;
+  border-radius: 9px;
+  border: 2px solid #fff;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+}
+
+.map-marker-unselected {
+  background: #3b82f6;
+  width: 18px;
+  height: 18px;
+  border-radius: 9px;
+  border: 2px solid #fff;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+}

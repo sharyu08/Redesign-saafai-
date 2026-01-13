@@ -1,5 +1,6 @@
 "use client";
 import { useEffect, useRef } from "react";
+import "./MapView.css";
 
 export default function MapView({ locations = [], selected = [], onToggle }) {
   const mapRef = useRef(null);
@@ -61,7 +62,7 @@ export default function MapView({ locations = [], selected = [], onToggle }) {
       const color = isSelected ? "green" : "blue";
       const icon = L.divIcon({
         className: "custom-pin",
-        html: `<div style="background:${isSelected ? '#10b981' : '#3b82f6'}; width:18px; height:18px; border-radius:9px; border:2px solid #fff; box-shadow:0 1px 2px rgba(0,0,0,0.2)"></div>`,
+        html: `<div class="${isSelected ? 'map-marker-selected' : 'map-marker-unselected'}""></div>`,
         iconSize: [18, 18],
         iconAnchor: [9, 9],
       });

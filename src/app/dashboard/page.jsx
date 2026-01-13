@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import "./index.css";
 import {
   Activity,
   CheckCircle2,
