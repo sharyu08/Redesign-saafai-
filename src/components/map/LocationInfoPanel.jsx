@@ -29,11 +29,12 @@ export default function LocationInfoPanel({ location, onClose }) {
       {/* RIGHT-SIDE DRAWER CONTAINER */}
       <div
         className="
-          absolute top-0 right-0 h-full w-full sm:w-[400px]
+          absolute top-0 right-0 h-full w-full sm:w-[400px] lg:w-[500px]
           bg-white dark:bg-slate-900 shadow-2xl
           z-50 flex flex-col border-l border-slate-100 dark:border-slate-800
           animate-in slide-in-from-right duration-300
         "
+        onClick={(e) => e.stopPropagation()}
       >
         {/* COMPACT HEADER */}
         <div className="px-5 py-4 bg-slate-50 dark:bg-slate-800/50 border-b border-slate-100 dark:border-slate-800">

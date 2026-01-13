@@ -77,53 +77,53 @@ export default function LocationTable({ searchTerm = "" }) {
                             </tr>
                         ) : (
                             filtered.map((loc, index) => (
-                            <tr key={loc.id} className="table-row group">
-                                <td className="table-cell">
-                                    {(index + 1).toString().padStart(2, '0')}
-                                </td>
+                                <tr key={loc.id} className="table-row group">
+                                    <td className="table-cell">
+                                        {(index + 1).toString().padStart(2, '0')}
+                                    </td>
 
-                                <td className="table-cell">
-                                    <span className="group-hover:text-primary-dark dark:group-hover:text-primary-light transition-colors text-wrap-safe">
-                                        {loc.name}
-                                    </span>
-                                </td>
+                                    <td className="table-cell">
+                                        <span className="group-hover:text-primary-dark dark:group-hover:text-primary-light transition-colors text-wrap-safe">
+                                            {loc.name}
+                                        </span>
+                                    </td>
 
-                                <td className="table-cell">
-                                    <div className="inline-flex items-center px-4 py-1.5 bg-cyan-50 dark:bg-cyan-900/30 rounded-lg text-sm font-medium text-cyan-700 dark:text-cyan-300 border border-cyan-200 dark:border-cyan-800/50 text-wrap-safe">
-                                        {getParentName(loc.parent_id)}
-                                    </div>
-                                </td>
+                                    <td className="table-cell">
+                                        <div className="inline-flex items-center px-4 py-1.5 bg-cyan-50 dark:bg-cyan-900/30 rounded-lg text-sm font-medium text-cyan-700 dark:text-cyan-300 border border-cyan-200 dark:border-cyan-800/50 text-wrap-safe">
+                                            {getParentName(loc.parent_id)}
+                                        </div>
+                                    </td>
 
-                                <td className="table-cell table-cell-center">
-                                    <button
-                                        onClick={() => router.push(`/dashboard/locate?zoneId=${loc.id}`)}
-                                        title={`Show all locations in ${loc.name}`}
-                                        className="btn-icon"
-                                    >
-                                        <MapPin size={16} strokeWidth={2.5} />
-                                    </button>
-                                </td>
-
-                                <td className="table-cell">
-                                    <div className="flex items-center justify-center gap-3">
+                                    <td className="table-cell table-cell-center">
                                         <button
-                                            onClick={() => router.push(`/dashboard/locationHierarchy/edit/${loc.id}`)}
-                                            title="Edit Zone Information"
-                                            className="btn-icon btn-icon-edit"
+                                            onClick={() => router.push(`/dashboard/locate?zoneId=${loc.id}`)}
+                                            title={`Show all locations in ${loc.name}`}
+                                            className="btn-icon"
                                         >
-                                            <Edit3 size={16} strokeWidth={2.5} />
+                                            <MapPin size={16} strokeWidth={2.5} />
                                         </button>
+                                    </td>
 
-                                        <button
-                                            onClick={() => handleDelete(loc.id)}
-                                            title="Permanently Delete Zone"
-                                            className="btn-icon btn-icon-delete"
-                                        >
-                                            <Trash2 size={16} strokeWidth={2.5} />
-                                        </button>
-                                    </div>
-                                </td>
-                            </tr>
+                                    <td className="table-cell">
+                                        <div className="flex items-center justify-center gap-3">
+                                            <button
+                                                onClick={() => router.push(`/dashboard/locationHierarchy/edit/${loc.id}`)}
+                                                title="Edit Zone Information"
+                                                className="btn-icon btn-icon-edit"
+                                            >
+                                                <Edit3 size={16} strokeWidth={2.5} />
+                                            </button>
+
+                                            <button
+                                                onClick={() => handleDelete(loc.id)}
+                                                title="Permanently Delete Zone"
+                                                className="btn-icon btn-icon-delete"
+                                            >
+                                                <Trash2 size={16} strokeWidth={2.5} />
+                                            </button>
+                                        </div>
+                                    </td>
+                                </tr>
                             ))
                         )}
                     </tbody>
