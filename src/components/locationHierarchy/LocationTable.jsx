@@ -2,6 +2,7 @@
 
 import React, { useState } from "react";
 import { useRouter } from "next/navigation";
+import { LOCATION_DATA } from "./data";
 import {
     Hash,
     Navigation2,
@@ -12,21 +13,9 @@ import {
     Map
 } from "lucide-react";
 
-export default function LocationTable() {
+export default function LocationTable({ searchTerm = "" }) {
     const router = useRouter();
-
-    const [locationData, setLocationData] = useState([
-        { id: "114", name: "Nagpur Urban", parent_id: null },
-        { id: "115", name: "Dharampeth Zone", parent_id: "114" },
-        { id: "118", name: "Nehru Nagar Zone", parent_id: "114" },
-        { id: "126", name: "Dhantoli", parent_id: "114" },
-        { id: "127", name: "Sadar Zone", parent_id: "114" },
-        { id: "131", name: "Nagpur East", parent_id: "114" },
-        { id: "132", name: "Manish Nagar Zone", parent_id: "114" },
-        { id: "133", name: "Shanti Nagar", parent_id: "114" },
-        { id: "134", name: "Nagpur Ruaral", parent_id: null },
-        { id: "135", name: "Butibori", parent_id: "114" }
-    ]);
+    const [locationData, setLocationData] = useState(LOCATION_DATA);
 
     const handleDelete = (id) => {
         if (confirm("Are you sure you want to delete this zone?")) {
@@ -41,55 +30,66 @@ export default function LocationTable() {
         return parent ? parent.name : "Unknown";
     };
 
+    const filtered = locationData.filter((loc) => {
+        if (!searchTerm || !searchTerm.trim()) return true;
+        const query = searchTerm.toLowerCase();
+        return loc.name.toLowerCase().includes(query);
+    });
+
     return (
         <div className="table-container">
-            {/* Desktop Table View */}
-            <div className="hidden lg:block">
-                <div className="overflow-x-auto">
-                    <table className="table">
-                        <thead className="table-header">
-                            <tr>
-                                <th>
-                                    <div className="flex items-center gap-2">
-                                        <Hash size={14} strokeWidth={3} /> SR NO
-                                    </div>
-                                </th>
-                                <th>
-                                    <div className="flex items-center gap-2">
-                                        <Navigation2 size={14} strokeWidth={3} /> Zone Name
-                                    </div>
-                                </th>
-                                <th>
-                                    <div className="flex items-center gap-2">
-                                        <Activity size={14} strokeWidth={3} /> Parent Hierarchy
-                                    </div>
-                                </th>
-                                <th className="table-cell-center">
-                                    <div className="flex items-center justify-center gap-2">
-                                        <Map size={14} strokeWidth={3} /> Map view
-                                    </div>
-                                </th>
-                                <th className="table-cell-center">
-                                    Action
-                                </th>
-                            </tr>
-                        </thead>
+            <div className="table-wrapper-responsive">
+                <table className="table w-full">
+                    <thead className="table-header">
+                        <tr>
+                            <th>
+                                <div className="flex items-center gap-2">
+                                    <Hash size={14} strokeWidth={3} /> SR NO
+                                </div>
+                            </th>
+                            <th>
+                                <div className="flex items-center gap-2">
+                                    <Navigation2 size={14} strokeWidth={3} /> Zone Name
+                                </div>
+                            </th>
+                            <th>
+                                <div className="flex items-center gap-2">
+                                    <Activity size={14} strokeWidth={3} /> Parent Hierarchy
+                                </div>
+                            </th>
+                            <th className="table-cell-center">
+                                <div className="flex items-center justify-center gap-2">
+                                    <Map size={14} strokeWidth={3} /> Map view
+                                </div>
+                            </th>
+                            <th className="table-cell-center">
+                                Action
+                            </th>
+                        </tr>
+                    </thead>
 
-                        <tbody className="table-body">
-                            {locationData.map((loc, index) => (
+                    <tbody className="table-body">
+                        {filtered.length === 0 ? (
+                            <tr>
+                                <td colSpan={5} className="table-cell py-10 text-center">
+                                    <p className="text-sm font-medium">No locations found.</p>
+                                </td>
+                            </tr>
+                        ) : (
+                            filtered.map((loc, index) => (
                                 <tr key={loc.id} className="table-row group">
                                     <td className="table-cell">
                                         {(index + 1).toString().padStart(2, '0')}
                                     </td>
 
                                     <td className="table-cell">
-                                        <span className="group-hover:text-primary-dark dark:group-hover:text-primary-light transition-colors">
+                                        <span className="group-hover:text-primary-dark dark:group-hover:text-primary-light transition-colors text-wrap-safe">
                                             {loc.name}
                                         </span>
                                     </td>
 
                                     <td className="table-cell">
-                                        <div className="inline-flex items-center px-4 py-1.5 bg-cyan-50 dark:bg-cyan-900/30 rounded-lg text-sm font-medium text-cyan-700 dark:text-cyan-300 border border-cyan-200 dark:border-cyan-800/50">
+                                        <div className="inline-flex items-center px-4 py-1.5 bg-cyan-50 dark:bg-cyan-900/30 rounded-lg text-sm font-medium text-cyan-700 dark:text-cyan-300 border border-cyan-200 dark:border-cyan-800/50 text-wrap-safe">
                                             {getParentName(loc.parent_id)}
                                         </div>
                                     </td>
@@ -124,87 +124,21 @@ export default function LocationTable() {
                                         </div>
                                     </td>
                                 </tr>
-                            ))}
-                        </tbody>
-                    </table>
-                </div>
+                            ))
+                        )}
+                    </tbody>
+                </table>
             </div>
 
-            {/* Mobile Card View */}
-            <div className="lg:hidden space-y-4 p-4">
-                {locationData.map((loc, index) => (
-                    <div key={loc.id} className="bg-white rounded-xl border border-slate-100 shadow-sm p-4 space-y-4 hover:bg-slate-50 transition-colors">
-                        {/* Header Section */}
-                        <div className="flex items-center gap-3 pb-3 border-b border-slate-100">
-                            <div className="flex-1">
-                                <h3 className="text-base font-bold text-slate-800">#{(index + 1).toString().padStart(2, '0')} {loc.name}</h3>
-                                <p className="text-sm text-slate-500">Zone Location</p>
-                            </div>
-                            <div className="text-right">
-                                <span className="text-sm font-medium text-slate-700 bg-cyan-50 text-cyan-700 px-2 py-1 rounded-lg">
-                                    {getParentName(loc.parent_id)}
-                                </span>
-                            </div>
-                        </div>
-
-                        {/* Details Grid */}
-                        <div className="grid grid-cols-1 gap-3">
-                            {/* Parent Hierarchy */}
-                            <div className="flex items-center gap-2">
-                                <Activity className="w-4 h-4 text-slate-400" />
-                                <div>
-                                    <p className="text-sm font-medium text-slate-700">{getParentName(loc.parent_id)}</p>
-                                    <p className="text-xs text-slate-400">Parent Zone</p>
-                                </div>
-                            </div>
-
-                            {/* Map View Button */}
-                            <div className="flex items-center gap-2">
-                                <MapPin className="w-4 h-4 text-slate-400" />
-                                <button
-                                    onClick={() => router.push(`/dashboard/locate?zoneId=${loc.id}`)}
-                                    className="text-sm font-medium text-cyan-600 hover:text-cyan-700 transition-colors"
-                                >
-                                    View on Map
-                                </button>
-                            </div>
-                        </div>
-
-                        {/* Action Buttons */}
-                        <div className="pt-3 border-t border-slate-100">
-                            <div className="flex gap-2">
-                                <button
-                                    onClick={() => router.push(`/dashboard/locationHierarchy/edit/${loc.id}`)}
-                                    className="flex-1 bg-slate-50 hover:bg-slate-100 text-slate-700 py-2 rounded-lg font-medium text-sm transition-colors flex items-center justify-center gap-2"
-                                >
-                                    <Edit3 className="w-4 h-4" />
-                                    Edit Zone
-                                </button>
-                                <button
-                                    onClick={() => handleDelete(loc.id)}
-                                    className="flex-1 bg-red-50 hover:bg-red-100 text-red-600 py-2 rounded-lg font-medium text-sm transition-colors flex items-center justify-center gap-2"
-                                >
-                                    <Trash2 className="w-4 h-4" />
-                                    Delete Zone
-                                </button>
-                            </div>
-                        </div>
-                    </div>
-                ))}
-            </div>
-
-            {/* Table Footer - Desktop Only */}
-            <div className="hidden lg:block">
-                <div className="table-footer">
-                    <p className="text-xs-standard font-black text-muted-foreground uppercase tracking-widest">
-                        Safai Portal
-                    </p>
-                    <div className="flex items-center gap-2">
-                        <div className="h-1.5 w-1.5 rounded-full bg-primary-light animate-pulse" />
-                        <span className="text-xs-standard font-black text-primary-dark uppercase tracking-widest">
-                            {locationData.length} Total Zones Registered
-                        </span>
-                    </div>
+            <div className="table-footer">
+                <p className="text-xs-standard font-black text-muted-foreground uppercase tracking-widest">
+                    Safai Portal
+                </p>
+                <div className="flex items-center gap-2">
+                    <div className="h-1.5 w-1.5 rounded-full bg-primary-light animate-pulse" />
+                    <span className="text-xs-standard font-black text-primary-dark uppercase tracking-widest">
+                        {filtered.length} Total Zones Registered
+                    </span>
                 </div>
             </div>
         </div>

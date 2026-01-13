@@ -1,64 +1,30 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import { useMemo, useState, useEffect } from "react";
+import { useRouter, usePathname } from "next/navigation";
+import { useResponsive } from "@/hooks/useResponsive";
 import "./index.css";
 import WashroomHeader from "../../../components/washroommain/WashroomHeader";
 import WashroomFilters from "../../../components/washroommain/WashroomFilters";
 import WashroomTable from "../../../components/washroommain/WashroomTable";
-
-const WASHROOMS = [
-  {
-    id: "294",
-    name: "New Manish Nagar Chowk",
-    location_types: { name: "Manish Nagar Zone" },
-    current_cleaning_score: 7.0,
-    averageRating: 8.7,
-    cleaner_assignments: [
-      { status: "assigned", cleaner_user: { name: "Nikhil Tupkar", phone: "7777777777" } },
-      { status: "unassigned", cleaner_user: { name: "Raju Chaudhari", phone: "8210370052" } },
-      { status: "unassigned", cleaner_user: { name: "Suresh Mane", phone: "9527632627" } }
-    ],
-    facility_companies: { name: "N/A" },
-    status: false,
-    latitude: 21.085,
-    longitude: 79.067
-  },
-  {
-    id: "289",
-    name: "SBT Japnese garden",
-    location_types: { name: "Dhantoli" },
-    current_cleaning_score: 8.9,
-    averageRating: 9.6,
-    cleaner_assignments: [
-      { status: "assigned", cleaner_user: { name: "Raju Choudhary", phone: "8210370052" } }
-    ],
-    facility_companies: { name: "N/A" },
-    status: true,
-    latitude: 21.161,
-    longitude: 79.064
-  },
-  {
-    id: "278",
-    name: "Budhawar Bazaar",
-    location_types: { name: "Nehru Nagar Zone" },
-    current_cleaning_score: 8.5,
-    averageRating: 8.9,
-    cleaner_assignments: [
-      { status: "assigned", cleaner_user: { name: "Ankit Choudhary", phone: "7499667264" } }
-    ],
-    facility_companies: { name: "N/A" },
-    status: true,
-    latitude: 21.127,
-    longitude: 79.111
-  }
-];
+import { WASHROOMS } from "../../../components/washroommain/data";
 
 export default function WashroomsPage() {
+  const router = useRouter();
+  const pathname = usePathname();
+  const { isMobile } = useResponsive();
   const [search, setSearch] = useState("");
   const [typeFilter, setTypeFilter] = useState("all");
   const [companyFilter, setCompanyFilter] = useState("all");
   const [ratingFilter, setRatingFilter] = useState("all");
   const [assignmentFilter, setAssignmentFilter] = useState("all");
+
+  // Redirect mobile users to mobile page
+  useEffect(() => {
+    if (isMobile && pathname === "/dashboard/washrooms") {
+      router.replace("/dashboard/washrooms/mobile");
+    }
+  }, [isMobile, pathname, router]);
 
   const filtered = useMemo(() => {
     return WASHROOMS.filter((w) => {
@@ -115,9 +81,9 @@ export default function WashroomsPage() {
         <div className="relative group">
           <div className="absolute -inset-1 bg-gradient-to-r from-[#58BECF]/5 to-[#6D9CDC]/5 rounded-[32px] blur-xl opacity-0 group-hover:opacity-100 transition duration-700" />
 
-          <div className="relative bg-white rounded-[28px] shadow-[0_8px_30px_rgb(0,0,0,0.04)] overflow-hidden">
+          <div className="relative bg-white dark:bg-card rounded-[28px] shadow-[0_8px_30px_rgb(0,0,0,0.04)] overflow-hidden border border-slate-100 dark:border-border">
             {/* The 1.5px blue gradient line has been removed to achieve the clean look */}
-            <div className="p-2 overflow-x-auto">
+            <div className="p-2 table-wrapper-responsive">
               <WashroomTable items={filtered} />
             </div>
           </div>

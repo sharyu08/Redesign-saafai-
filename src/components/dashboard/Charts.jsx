@@ -1,6 +1,7 @@
 'use client';
 
 import { Bar, Line } from 'react-chartjs-2';
+import { useRef, useEffect, useState } from 'react';
 import './Charts.css';
 import {
   Chart as ChartJS,
@@ -14,7 +15,6 @@ import {
   Legend,
   Filler,
 } from 'chart.js';
-import { useEffect, useState } from 'react';
 
 // Register ChartJS components
 ChartJS.register(
@@ -334,6 +334,18 @@ export function CleanerPerformanceChart() {
 
   // Find the index of the highest value
   const maxValueIndex = data.datasets[0].data.indexOf(Math.max(...data.datasets[0].data));
+  const tooltipRefs = useRef({});
+
+  // Set tooltip positions programmatically
+  useEffect(() => {
+    data.labels.forEach((label, i) => {
+      const ref = tooltipRefs.current[i];
+      if (ref && i === maxValueIndex) {
+        ref.style.setProperty('--left-percent', `${(i / (data.labels.length - 1)) * 100}%`);
+        ref.style.setProperty('--transform-value', 'translate(-50%, -100%)');
+      }
+    });
+  }, [data.labels, maxValueIndex]);
   
   const options = {
     responsive: true,
@@ -402,11 +414,8 @@ export function CleanerPerformanceChart() {
       {data.labels.map((label, i) => (
         <div 
           key={i}
+          ref={(el) => { tooltipRefs.current[i] = el; }}
           className={`absolute ${i === maxValueIndex ? 'block' : 'hidden'} chart-tooltip-marker`}
-          style={{
-            '--left-percent': `${(i / (data.labels.length - 1)) * 100}%`,
-            '--transform-value': 'translate(-50%, -100%)',
-          }}
         >
           <div className="bg-gradient-to-r from-[#FF9F1C] to-[#2EC4B6] text-white text-xs font-medium px-3 py-1.5 rounded-full flex items-center shadow-lg border-2 border-white/20">
             <span className="mr-1.5">🔥</span> {data.datasets[0].data[i]} tasks

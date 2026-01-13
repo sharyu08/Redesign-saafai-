@@ -1,6 +1,7 @@
 "use client";
 
 import { Users, UserCheck, UserMinus, TrendingUp, TrendingDown } from "lucide-react";
+import { useRef, useEffect } from "react";
 import "./CleanerStats.css";
 
 export default function CleanerStats() {
@@ -40,6 +41,14 @@ export default function CleanerStats() {
 }
 
 function StatCard({ title, value, trend, isUp, percentage, icon, type }) {
+    const progressRef = useRef(null);
+
+    useEffect(() => {
+        if (progressRef.current) {
+            progressRef.current.style.setProperty('--progress-width', `${percentage}%`);
+        }
+    }, [percentage]);
+
     const styles = {
         slate: {
             bg: "bg-white dark:bg-slate-900",
@@ -111,8 +120,8 @@ function StatCard({ title, value, trend, isUp, percentage, icon, type }) {
                     {/* Thinner progress bar */}
                     <div className="h-1.5 w-full bg-slate-100 dark:bg-slate-800 rounded-full overflow-hidden">
                         <div
+                            ref={progressRef}
                             className={`h-full rounded-full transition-all duration-1000 ease-out ${style.bar} cleaner-stats-progress-bar`}
-                            style={{ '--progress-width': `${percentage}%` }}
                         />
                     </div>
                 </div>
