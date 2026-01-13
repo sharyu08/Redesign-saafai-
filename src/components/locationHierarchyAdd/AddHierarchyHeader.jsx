@@ -12,14 +12,14 @@ export default function AddHierarchyHeader() {
                 {/* Title & Description Section */}
                 <div className="page-header-title-section">
                     <div className="page-header-icon">
-                        <FolderPlus className="h-6 w-6 text-primary-light" strokeWidth={2.5} />
+                        <FolderPlus className="h-6 w-6 text-[hsl(var(--primary-light))]" strokeWidth={2.5} />
                     </div>
                     <div className="text-left">
                         <h1 className="page-header-title">
                             Add New Zone Type
                         </h1>
                         <p className="page-header-subtitle">
-                            <MapPin size={12} />
+                            <MapPin size={12} className="text-[hsl(var(--text-muted))]" />
                             Configure Workspace Architecture
                         </p>
                     </div>
@@ -29,7 +29,7 @@ export default function AddHierarchyHeader() {
                 <div className="page-header-actions">
                     <button
                         onClick={() => router.back()}
-                        className="btn btn-secondary flex items-center gap-2 px-5 py-2.5 text-xs-standard uppercase tracking-widest active:scale-95"
+                        className="btn-action flex items-center gap-2 px-5 py-2.5 text-xs-standard uppercase tracking-widest active:scale-95"
                     >
                         <ChevronLeft size={16} strokeWidth={3} />
                         Back to List

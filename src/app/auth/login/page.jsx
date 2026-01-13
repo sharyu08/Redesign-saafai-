@@ -1,14 +1,14 @@
 // src/app/auth/login/page.jsx
 "use client";
 
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, Suspense } from "react";
 import AuthCard from "@/components/auth/AuthCard";
 import Link from "next/link";
 import { useRouter, useSearchParams } from "next/navigation";
 import { ShieldCheck, Lock, Phone, AlertCircle, CheckCircle2 } from "lucide-react";
 import { useTheme } from "next-themes";
 
-export default function LoginPage() {
+function LoginPageContent() {
   const router = useRouter();
   const searchParams = useSearchParams();
 
@@ -24,12 +24,12 @@ export default function LoginPage() {
 
   useEffect(() => {
     setMounted(true);
-    
+
     // Check if user just signed up successfully
     if (searchParams.get("signup") === "success") {
       setJustSignedUp(true);
     }
-    
+
     // Check if already logged in
     const token = document.cookie.split('; ').find(row => row.startsWith('auth-token='));
     if (token) {
@@ -43,35 +43,35 @@ export default function LoginPage() {
   };
 
   // src/app/auth/login/page.jsx
-async function handleSubmit(e) {
-  e.preventDefault();
-  setError(null);
+  async function handleSubmit(e) {
+    e.preventDefault();
+    setError(null);
 
-  // Basic validation
-  if (!formData.phone || !formData.password) {
-    setError("Phone number and password are required");
-    return;
+    // Basic validation
+    if (!formData.phone || !formData.password) {
+      setError("Phone number and password are required");
+      return;
+    }
+
+    setLoading(true);
+
+    try {
+      // Simulate API call
+      await new Promise(resolve => setTimeout(resolve, 1000));
+
+      // Set auth token in cookies
+      document.cookie = 'auth-token=your-jwt-token; path=/; max-age=604800; SameSite=Lax';
+
+      // Force full page reload to ensure all auth state is properly initialized
+      window.location.href = '/dashboard';
+
+    } catch (err) {
+      setError("Authentication failed. Please check your credentials.");
+      console.error('Login error:', err);
+    } finally {
+      setLoading(false);
+    }
   }
-
-  setLoading(true);
-
-  try {
-    // Simulate API call
-    await new Promise(resolve => setTimeout(resolve, 1000));
-    
-    // Set auth token in cookies
-    document.cookie = 'auth-token=your-jwt-token; path=/; max-age=604800; SameSite=Lax';
-    
-    // Force full page reload to ensure all auth state is properly initialized
-    window.location.href = '/dashboard';
-    
-  } catch (err) {
-    setError("Authentication failed. Please check your credentials.");
-    console.error('Login error:', err);
-  } finally {
-    setLoading(false);
-  }
-}
 
   const inputStyles = "w-full rounded-lg border border-gray-300 pl-11 pr-4 py-2.5 bg-white text-gray-900 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 text-sm shadow-sm";
   const labelStyles = "block text-sm font-medium text-gray-700 mb-1.5";
@@ -171,24 +171,37 @@ async function handleSubmit(e) {
               disabled={loading}
               className="w-full bg-blue-600 hover:bg-blue-700 text-white font-medium py-2.5 px-4 rounded-lg flex items-center justify-center gap-2 transition-colors focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 disabled:opacity-70 disabled:cursor-not-allowed"
             >
-            {loading ? (
-              <>
-                <svg className="animate-spin h-4 w-4 text-white mr-2" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
-                  <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
-                  <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
-                </svg>
-                Authenticating...
-              </>
-            ) : (
-              <>
-                <Lock className="w-4 h-4" />
-                Authenticate Session
-              </>
-            )}
-          </button>
+              {loading ? (
+                <>
+                  <svg className="animate-spin h-4 w-4 text-white mr-2" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                    <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+                    <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                  </svg>
+                  Authenticating...
+                </>
+              ) : (
+                <>
+                  <Lock className="w-4 h-4" />
+                  Authenticate Session
+                </>
+              )}
+            </button>
           </div>
         </form>
       </AuthCard>
     </div>
+  );
+}
+
+export default function LoginPage() {
+  return (
+    <Suspense fallback={<div className="min-h-screen bg-slate-50 dark:bg-background flex items-center justify-center">
+      <div className="text-center">
+        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600 border-t-transparent"></div>
+        <p className="mt-4 text-slate-600">Loading authentication...</p>
+      </div>
+    </div>}>
+      <LoginPageContent />
+    </Suspense>
   );
 }
