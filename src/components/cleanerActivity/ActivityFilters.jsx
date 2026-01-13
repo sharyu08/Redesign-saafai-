@@ -16,10 +16,10 @@ export default function ActivityFilters() {
             {/* Left Side: Date Filter */}
             <div className="flex items-center gap-4 text-sm">
                 <div className="flex items-center gap-2">
-                    <div className="p-1.5 bg-[#E0F7FA] rounded-md">
-                        <HiOutlineCalendar className="text-[hsl(var(--primary))] text-lg" />
+                    <div className="p-1.5 bg-[#E0F7FA] dark:bg-[hsl(224,48%,16%)] rounded-md">
+                        <HiOutlineCalendar className="text-[hsl(var(--primary))] dark:text-[hsl(var(--primary-light))] text-lg" />
                     </div>
-                    <span className="font-bold text-[hsl(var(--muted-foreground))] uppercase tracking-widest text-[10px]">
+                    <span className="font-bold text-[hsl(var(--muted-foreground))] dark:text-slate-300 uppercase tracking-widest text-[10px]">
                         Filter by Date
                     </span>
                 </div>
@@ -28,9 +28,9 @@ export default function ActivityFilters() {
                     type="date"
                     className="
                         rounded-xl border border-[hsl(var(--border))] 
-                        bg-[hsl(var(--input))] 
+                        bg-[hsl(var(--input))] dark:bg-[hsl(224,48%,12%)]
                         px-4 py-2 
-                        text-sm font-semibold text-[hsl(var(--foreground))]
+                        text-sm font-semibold text-[hsl(var(--foreground))] dark:text-slate-200
                         focus:ring-2 focus:ring-[hsl(var(--primary))] focus:border-transparent 
                         outline-none transition-all
                     "
@@ -38,9 +38,9 @@ export default function ActivityFilters() {
 
                 <button className="
                     flex items-center gap-1.5 
-                    text-[hsl(var(--primary-dark))] 
+                    text-[hsl(var(--primary-dark))] dark:text-[hsl(var(--primary-light))] 
                     text-xs font-bold uppercase tracking-wider 
-                    hover:text-[hsl(var(--primary))] 
+                    hover:text-[hsl(var(--primary))] dark:hover:text-[hsl(var(--primary))] 
                     transition-colors group
                 ">
                     <HiOutlineRefresh className="text-sm group-hover:rotate-180 transition-transform duration-500" />

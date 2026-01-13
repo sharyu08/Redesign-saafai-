@@ -1,9 +1,12 @@
 "use client";
 
 import Link from "next/link";
-import { useMemo, useState } from "react";
+import { useMemo, useState, useRef, useEffect } from "react";
+import { useRouter, usePathname } from "next/navigation";
+import { useResponsive } from "@/hooks/useResponsive";
 import SummaryCards from "../../../components/cleanerAssignments/SummaryCards";
 import FilterBar from "../../../components/cleanerAssignments/FilterBar";
+import { INITIAL_ASSIGNMENTS } from "../../../components/cleanerAssignments/data";
 import "./index.css";
 import {
   Search,
@@ -21,23 +24,24 @@ import {
   LayoutList
 } from "lucide-react";
 
-// Mock data
-const initialAssignments = [
-  { id: 1, cleanerName: "Omkar saaf cleaner", cleanerEmail: "omkar.cleaner@example.com", locationName: "New Manish Nagar Chowk", role: "Cleaner", status: "Assigned", assignedOn: "2025-12-08" },
-  { id: 2, cleanerName: "Rajesh sahani - Narendra square", cleanerEmail: "rajesh.sahani@example.com", locationName: "New Manish Nagar Chowk", role: "Cleaner", status: "Assigned", assignedOn: "2025-12-08" },
-  { id: 3, cleanerName: "Omkar Supervisor", cleanerEmail: "richom056@gmail.com", locationName: "Narendra nagar square", role: "Supervisor", status: "Assigned", assignedOn: "2025-12-08" },
-  { id: 4, cleanerName: "Test Supervisor", cleanerEmail: "test.supervisor@example.com", locationName: "Budhwar Bazaar", role: "Supervisor", status: "Assigned", assignedOn: "2025-12-03" },
-  { id: 5, cleanerName: "New Cleaner", cleanerEmail: "new.cleaner@example.com", locationName: "Untitled Location", role: "Cleaner", status: "Unassigned", assignedOn: "-" },
-];
-
 const PAGE_SIZE = 5;
 
 export default function CleanerAssignmentsPage() {
-  const [assignments, setAssignments] = useState(initialAssignments);
+  const router = useRouter();
+  const pathname = usePathname();
+  const { isMobile } = useResponsive();
+  const [assignments, setAssignments] = useState(INITIAL_ASSIGNMENTS);
   const [search, setSearch] = useState("");
   const [statusFilter, setStatusFilter] = useState("all");
   const [roleFilter, setRoleFilter] = useState("all");
   const [page, setPage] = useState(1);
+
+  // Redirect mobile users to mobile page
+  useEffect(() => {
+    if (isMobile && pathname === "/dashboard/cleaner-assignments") {
+      router.replace("/dashboard/cleaner-assignments/mobile");
+    }
+  }, [isMobile, pathname, router]);
   
   // Calculate stats
   const stats = useMemo(() => ({
@@ -82,6 +86,26 @@ export default function CleanerAssignmentsPage() {
 
   const startIndex = (page - 1) * PAGE_SIZE;
   const pageItems = filtered.slice(startIndex, startIndex + PAGE_SIZE);
+
+  // Refs for progress bars
+  const totalProgressRef = useRef(null);
+  const assignedProgressRef = useRef(null);
+  const unassignedProgressRef = useRef(null);
+
+  // Set progress bar widths programmatically
+  useEffect(() => {
+    if (totalProgressRef.current) {
+      totalProgressRef.current.style.setProperty('--progress-width', '100%');
+    }
+    if (assignedProgressRef.current) {
+      const width = `${(stats.assigned / stats.total) * 100}%`;
+      assignedProgressRef.current.style.setProperty('--progress-width', width);
+    }
+    if (unassignedProgressRef.current) {
+      const width = `${(stats.unassigned / stats.total) * 100}%`;
+      unassignedProgressRef.current.style.setProperty('--progress-width', width);
+    }
+  }, [stats]);
 
   return (
     <div className="min-h-screen bg-white dark:bg-background py-8 px-8 text-left">
@@ -130,29 +154,29 @@ export default function CleanerAssignmentsPage() {
   {/* Total Staff Card */}
   <button
     onClick={() => { setRoleFilter("all"); setStatusFilter("all"); }}
-    className={`group relative overflow-hidden rounded-xl p-3 transition-all duration-200 ease-out cursor-pointer text-left border ${
+    className={`cleaner-assignments-card cleaner-assignments-card-total ${roleFilter === "all" && statusFilter === "all" ? "cleaner-assignments-card-active" : ""} group relative overflow-hidden rounded-xl p-3 transition-all duration-200 ease-out cursor-pointer text-left border ${
       roleFilter === "all" && statusFilter === "all"
-        ? "bg-[#F8FAFF] border-[#93C5FD] text-foreground shadow-sm"
-        : "bg-white dark:bg-card border-[#E0F2FE] text-foreground hover:border-[#93C5FD] hover:bg-[#F8FAFF] hover:shadow-sm"
+        ? "bg-[#F8FAFF] border-[#93C5FD] dark:border-primary text-foreground shadow-sm"
+        : "bg-white dark:bg-card border-[#E0F2FE] dark:border-border text-foreground hover:border-[#93C5FD] dark:hover:border-primary/40 hover:bg-[#F8FAFF] hover:shadow-sm"
     }`}
   >
     <div className="relative z-10">
       <div className="flex items-center justify-between mb-1">
-        <p className={`text-[10px] font-bold uppercase tracking-wider ${roleFilter === "all" && statusFilter === "all" ? "text-primary font-black" : "text-muted-foreground"}`}>
+        <p className={`cleaner-assignments-label text-[10px] font-bold uppercase tracking-wider ${roleFilter === "all" && statusFilter === "all" ? "text-primary font-black" : "text-muted-foreground"}`}>
           Total Staff
         </p>
-        <div className={`p-1 rounded ${roleFilter === "all" && statusFilter === "all" ? "bg-primary/10" : "bg-muted/50"}`}>
-          <Users className={`h-3.5 w-3.5 ${roleFilter === "all" && statusFilter === "all" ? "text-primary" : "text-muted-foreground"}`} />
+        <div className={`cleaner-assignments-icon p-1 rounded transition-all duration-200 ${roleFilter === "all" && statusFilter === "all" ? "bg-primary/10" : "bg-muted/50"}`}>
+          <Users className={`h-3.5 w-3.5 transition-colors duration-200 ${roleFilter === "all" && statusFilter === "all" ? "text-primary" : "text-muted-foreground"}`} />
         </div>
       </div>
-      <p className={`text-xl font-black ${roleFilter === "all" && statusFilter === "all" ? "text-primary" : "text-foreground"}`}>
+      <p className={`cleaner-assignments-value text-xl font-black ${roleFilter === "all" && statusFilter === "all" ? "text-primary" : "text-foreground"}`}>
         {stats.total}
       </p>
     </div>
     <div className="mt-2 h-1.5 bg-black/5 dark:bg-white/10 rounded-full overflow-hidden">
       <div 
+        ref={totalProgressRef}
         className="h-full bg-[hsl(var(--primary))] rounded-full cleaner-assignments-progress-bar"
-        style={{ '--progress-width': '100%' }}
       ></div>
     </div>
   </button>
@@ -160,29 +184,29 @@ export default function CleanerAssignmentsPage() {
   {/* Assigned Card */}
   <button
     onClick={() => { setStatusFilter("Assigned"); }}
-    className={`group relative overflow-hidden rounded-xl p-3 transition-all duration-200 ease-out cursor-pointer text-left border ${
+    className={`cleaner-assignments-card cleaner-assignments-card-assigned ${statusFilter === "Assigned" ? "cleaner-assignments-card-active" : ""} group relative overflow-hidden rounded-xl p-3 transition-all duration-200 ease-out cursor-pointer text-left border ${
       statusFilter === "Assigned"
-        ? "bg-[#F0FDF4] border-[#86EFAC] text-foreground shadow-sm"
-        : "bg-white dark:bg-card border-[#DCFCE7] text-foreground hover:border-[#86EFAC] hover:bg-[#F0FDF4] hover:shadow-sm"
+        ? "bg-[#F0FDF4] border-[#86EFAC] dark:border-[#22C55E] text-foreground shadow-sm"
+        : "bg-white dark:bg-card border-[#DCFCE7] dark:border-border text-foreground hover:border-[#86EFAC] dark:hover:border-[#22C55E]/40 hover:bg-[#F0FDF4] hover:shadow-sm"
     }`}
   >
     <div className="relative z-10">
       <div className="flex items-center justify-between mb-1">
-        <p className={`text-[10px] font-bold uppercase tracking-wider ${statusFilter === "Assigned" ? "text-[#22C55E] font-black" : "text-muted-foreground"}`}>
+        <p className={`cleaner-assignments-label text-[10px] font-bold uppercase tracking-wider ${statusFilter === "Assigned" ? "text-[#22C55E] font-black" : "text-muted-foreground"}`}>
           Assigned
         </p>
-        <div className={`p-1 rounded ${statusFilter === "Assigned" ? "bg-[#22C55E]/10" : "bg-muted/50"}`}>
-          <UserCheck className={`h-3.5 w-3.5 ${statusFilter === "Assigned" ? "text-[#22C55E]" : "text-muted-foreground"}`} />
+        <div className={`cleaner-assignments-icon p-1 rounded transition-all duration-200 ${statusFilter === "Assigned" ? "bg-[#22C55E]/10" : "bg-muted/50"}`}>
+          <UserCheck className={`h-3.5 w-3.5 transition-colors duration-200 ${statusFilter === "Assigned" ? "text-[#22C55E]" : "text-muted-foreground"}`} />
         </div>
       </div>
-      <p className={`text-xl font-black ${statusFilter === "Assigned" ? "text-[#22C55E]" : "text-foreground"}`}>
+      <p className={`cleaner-assignments-value text-xl font-black ${statusFilter === "Assigned" ? "text-[#22C55E]" : "text-foreground"}`}>
         {stats.assigned}
       </p>
     </div>
     <div className="mt-2 h-1.5 bg-black/5 dark:bg-white/10 rounded-full overflow-hidden">
       <div 
+        ref={assignedProgressRef}
         className="h-full bg-[#22C55E] rounded-full cleaner-assignments-progress-bar"
-        style={{ '--progress-width': `${(stats.assigned / stats.total) * 100}%` }}
       ></div>
     </div>
   </button>
@@ -190,29 +214,29 @@ export default function CleanerAssignmentsPage() {
   {/* Unassigned Card */}
   <button
     onClick={() => { setStatusFilter("Unassigned"); }}
-    className={`group relative overflow-hidden rounded-xl p-3 transition-all duration-200 ease-out cursor-pointer text-left border ${
+    className={`cleaner-assignments-card cleaner-assignments-card-unassigned ${statusFilter === "Unassigned" ? "cleaner-assignments-card-active" : ""} group relative overflow-hidden rounded-xl p-3 transition-all duration-200 ease-out cursor-pointer text-left border ${
       statusFilter === "Unassigned"
-        ? "bg-[#F0F9FF] border-[#93C5FD] text-foreground shadow-sm"
-        : "bg-white dark:bg-card border-[#E0F2FE] text-foreground hover:border-[#93C5FD] hover:bg-[#F0F9FF] hover:shadow-sm"
+        ? "bg-[#F0F9FF] border-[#93C5FD] dark:border-[#3B82F6] text-foreground shadow-sm"
+        : "bg-white dark:bg-card border-[#E0F2FE] dark:border-border text-foreground hover:border-[#93C5FD] dark:hover:border-[#3B82F6]/40 hover:bg-[#F0F9FF] hover:shadow-sm"
     }`}
   >
     <div className="relative z-10">
       <div className="flex items-center justify-between mb-1">
-        <p className={`text-[10px] font-bold uppercase tracking-wider ${statusFilter === "Unassigned" ? "text-[#3B82F6] font-black" : "text-muted-foreground"}`}>
+        <p className={`cleaner-assignments-label text-[10px] font-bold uppercase tracking-wider ${statusFilter === "Unassigned" ? "text-[#3B82F6] font-black" : "text-muted-foreground"}`}>
           Unassigned
         </p>
-        <div className={`p-1 rounded ${statusFilter === "Unassigned" ? "bg-[#3B82F6]/10" : "bg-muted/50"}`}>
-          <UserMinus className={`h-3.5 w-3.5 ${statusFilter === "Unassigned" ? "text-[#3B82F6]" : "text-muted-foreground"}`} />
+        <div className={`cleaner-assignments-icon p-1 rounded transition-all duration-200 ${statusFilter === "Unassigned" ? "bg-[#3B82F6]/10" : "bg-muted/50"}`}>
+          <UserMinus className={`h-3.5 w-3.5 transition-colors duration-200 ${statusFilter === "Unassigned" ? "text-[#3B82F6]" : "text-muted-foreground"}`} />
         </div>
       </div>
-      <p className={`text-xl font-black ${statusFilter === "Unassigned" ? "text-[#3B82F6]" : "text-foreground"}`}>
+      <p className={`cleaner-assignments-value text-xl font-black ${statusFilter === "Unassigned" ? "text-[#3B82F6]" : "text-foreground"}`}>
         {stats.unassigned}
       </p>
     </div>
     <div className="mt-2 h-1.5 bg-black/5 dark:bg-white/10 rounded-full overflow-hidden">
       <div 
+        ref={unassignedProgressRef}
         className="h-full bg-[#3B82F6] rounded-full cleaner-assignments-progress-bar"
-        style={{ '--progress-width': `${(stats.unassigned / stats.total) * 100}%` }}
       ></div>
     </div>
   </button>
@@ -220,8 +244,8 @@ export default function CleanerAssignmentsPage() {
 
         {/* 4. Main Data Table - Using standardized table classes */}
         <div className="table-container">
-          <div className="overflow-x-auto">
-            <table className="table min-w-full">
+          <div className="table-wrapper-responsive">
+            <table className="table w-full">
               <thead className="table-header">
                 <tr>
                   <th>
@@ -280,17 +304,17 @@ export default function CleanerAssignmentsPage() {
                     <tr key={item.id} className="table-row">
                       <td className="table-cell">
                         <div className="flex items-center gap-3">
-                          <div className="h-9 w-9 rounded-full bg-white dark:bg-card border border-cyan-100 dark:border-border text-[#00838F] dark:text-primary-light flex items-center justify-center font-bold text-[11px] shadow-sm">
+                          <div className="h-9 w-9 rounded-full bg-white dark:bg-card border border-cyan-100 dark:border-border text-[#00838F] dark:text-primary-light flex items-center justify-center font-bold text-[11px] shadow-sm flex-shrink-0">
                             {item.cleanerName.split(' ').map(n => n[0]).join('').substring(0, 2).toUpperCase()}
                           </div>
-                          <div className="text-left">
-                            <p className="leading-none mb-1">{item.cleanerName}</p>
-                            <p className="text-[10px] text-muted-foreground">{item.cleanerEmail}</p>
+                          <div className="text-left flex-1 min-w-0">
+                            <p className="leading-none mb-1 text-wrap-safe">{item.cleanerName}</p>
+                            <p className="text-[10px] text-muted-foreground text-wrap-safe break-all">{item.cleanerEmail}</p>
                           </div>
                         </div>
                       </td>
                       <td className="table-cell">
-                        <p className="text-primary-dark dark:text-primary-light hover:text-primary-medium dark:hover:text-primary transition-colors cursor-pointer">
+                        <p className="text-primary-dark dark:text-primary-light hover:text-primary-medium dark:hover:text-primary transition-colors cursor-pointer text-wrap-safe">
                           {item.locationName}
                         </p>
                       </td>

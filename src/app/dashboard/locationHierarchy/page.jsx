@@ -1,13 +1,25 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { useRouter, usePathname } from "next/navigation";
+import { useResponsive } from "@/hooks/useResponsive";
 import "./index.css";
 import LocationHeader from "@/components/locationHierarchy/LocationHeader";
 import LocationTable from "@/components/locationHierarchy/LocationTable";
 import { Search, Plus, SlidersHorizontal } from "lucide-react";
 
 export default function LocationHierarchyPage() {
+  const router = useRouter();
+  const pathname = usePathname();
+  const { isMobile } = useResponsive();
   const [searchQuery, setSearchQuery] = useState("");
+
+  // Redirect mobile users to mobile page
+  useEffect(() => {
+    if (isMobile && pathname === "/dashboard/locationHierarchy") {
+      router.replace("/dashboard/locationHierarchy/mobile");
+    }
+  }, [isMobile, pathname, router]);
 
   return (
     <div className="min-h-screen bg-white dark:bg-background pb-12 transition-colors duration-300">
@@ -41,8 +53,8 @@ export default function LocationHierarchyPage() {
         {/* Table */}
         <div className="relative group">
 
-          <div className="relative bg-white rounded-[24px] md:rounded-[28px] shadow-[0_8px_30px_rgb(0,0,0,0.04)] border border-slate-100 overflow-hidden">
-            <div className="p-1 overflow-x-auto">
+          <div className="relative bg-white dark:bg-card rounded-[24px] md:rounded-[28px] shadow-[0_8px_30px_rgb(0,0,0,0.04)] border border-slate-100 dark:border-border overflow-hidden">
+            <div className="p-1 table-wrapper-responsive">
               <LocationTable searchTerm={searchQuery} />
             </div>
           </div>

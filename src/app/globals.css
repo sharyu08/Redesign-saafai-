@@ -185,29 +185,39 @@
 
   /* 🌙 DARK MODE - Enhanced for better contrast and consistency */
   .dark {
-    --background: 222 47% 7%;
-    /* Slightly darker blue background for better contrast */
-    --foreground: 0 0% 95%;
-    /* Slightly off-white for better readability */
-    /* White text */
-
-    --card: 222 47% 12%;
-    --card-foreground: 0 0% 95%;
-    --popover: 222 47% 10%;
+    --app-bg: 224 48% 6%;
+    /* #080c17 - Main app background */
+    --background: 224 48% 6%;
+    /* #080c17 - Dark theme background color */
+    --foreground: 0 0% 96%;
+    /* Off-white text for excellent readability */
+    
+    --card: 224 48% 10%;
+    /* Slightly lighter than background for card elevation */
+    --card-foreground: 0 0% 96%;
+    --popover: 224 48% 9%;
     --popover-foreground: 0 0% 98%;
     --primary: 34 100% 60%;
+    /* Orange primary - maintains brand color */
     --primary-foreground: 0 0% 100%;
-    --secondary: 222 47% 18%;
+    --secondary: 224 48% 14%;
+    /* Subtle secondary background */
     --secondary-foreground: 0 0% 98%;
-    --muted: 222 30% 20%;
-    --muted-foreground: 0 0% 85%;
+    --muted: 224 48% 12%;
+    /* Muted background */
+    --muted-foreground: 0 0% 75%;
+    /* Muted text */
     --accent: 34 100% 60%;
     --accent-foreground: 0 0% 100%;
     --destructive: 0 84% 63%;
+    /* Red for destructive actions */
     --destructive-foreground: 0 0% 100%;
-    --border: 222 30% 25%;
-    --input: 222 40% 20%;
+    --border: 224 48% 18%;
+    /* Subtle borders that don't overpower */
+    --input: 224 48% 10%;
+    /* Input backgrounds match cards */
     --ring: 34 100% 60%;
+    /* Focus ring uses primary color */
     --radius: 0.5rem;
 
     /* Primary Color Variants - Dark Mode */
@@ -231,30 +241,38 @@
     /* Lighter secondary */
 
     /* Background Colors - Dark Mode */
-    --bg-light-cyan: 222 47% 14%;
-    --bg-very-light-cyan: 222 47% 16%;
-    --bg-light-gray: 222 47% 8%;
-    --bg-light-cyan-variant: 222 47% 14%;
-    --border-light-cyan: 222 30% 28%;
-    --text-dark-gray: 0 0% 95%;
+    --bg-light-cyan: 224 48% 12%;
+    /* Card-like backgrounds */
+    --bg-very-light-cyan: 224 48% 11%;
+    /* Slightly elevated backgrounds */
+    --bg-light-gray: 224 48% 8%;
+    /* Subtle gray backgrounds */
+    --bg-light-cyan-variant: 224 48% 12%;
+    /* Variant backgrounds */
+    --border-light-cyan: 224 48% 20%;
+    /* Border color */
+    --text-dark-gray: 0 0% 96%;
+    /* Primary text color */
     --text-medium-gray: 0 0% 85%;
+    /* Secondary text */
     --text-light-gray: 0 0% 75%;
-    --bg-light-gray-alt: 222 47% 18%;
-    /* Alternate gray */
-    --bg-very-light-cyan-alt: 222 47% 15%;
-    /* Alternate cyan */
-    --bg-light-gray-variant: 222 47% 20%;
-    /* Gray variant */
-    --bg-light-cyan-variant2: 222 47% 18%;
+    /* Tertiary text */
+    --bg-light-gray-alt: 224 48% 14%;
+    /* Alternate gray backgrounds */
+    --bg-very-light-cyan-alt: 224 48% 13%;
+    /* Alternate elevated backgrounds */
+    --bg-light-gray-variant: 224 48% 16%;
+    /* Gray variant for hover states */
+    --bg-light-cyan-variant2: 224 48% 14%;
     /* Second variant */
-    --bg-light-rose: 222 47% 20%;
-    /* Rose background */
+    --bg-light-rose: 224 48% 16%;
+    /* Rose/alternate background */
 
     /* Border Colors - Dark Mode */
-    --border-light-cyan: 222 47% 25%;
-    /* Border color */
+    --border-light-cyan: 224 48% 20%;
+    /* Subtle border color */
     --border-primary-dark: 34 100% 45%;
-    /* Darker orange border */
+    /* Darker orange border for accents */
 
     /* Text Colors - Dark Mode */
     --text-dark-gray: 0 0% 95%;
@@ -283,8 +301,8 @@
     /* Orange primary */
     --chart-primary-dark: 34 100% 45%;
     /* Darker orange */
-    --chart-secondary: 222 47% 25%;
-    /* Dark blue secondary */
+    --chart-secondary: 224 48% 20%;
+    /* Secondary color matching theme */
     --chart-accent: 207 90% 61%;
     /* Blue accent */
     --chart-success: 142 71% 50%;
@@ -295,28 +313,28 @@
     /* Red error */
 
     /* Chart Background & UI Colors - Dark Mode */
-    --chart-bg: 218 43% 10%;
-    /* Slightly darker card background */
-    --chart-border: 218 43% 22%;
-    /* █ #2E3F5A - Dark border */
-    --chart-grid: 218 43% 20%;
-    /* █ #2A3850 - Dark grid lines */
-    --chart-text: 192 58% 70%;
-    /* █ #8CCFE0 - Light text */
-    --chart-text-dark: 178 50% 95%;
-    /* █ #DCF2F1 - Very light text */
-    --chart-text-body: 192 58% 75%;
-    /* █ #A5DBEB - Light body text */
+    --chart-bg: 224 48% 10%;
+    /* Chart background matches card color */
+    --chart-border: 224 48% 18%;
+    /* Chart border matches theme borders */
+    --chart-grid: 224 48% 16%;
+    /* Subtle grid lines */
+    --chart-text: 0 0% 85%;
+    /* Chart text color */
+    --chart-text-dark: 0 0% 96%;
+    /* Dark chart text (actually light) */
+    --chart-text-body: 0 0% 80%;
+    /* Chart body text */
 
     /* Chart Tooltip Colors - Dark Mode */
-    --chart-tooltip-bg: 218 43% 10%;
-    /* Slightly darker tooltip background */
-    --chart-tooltip-border: 218 43% 25%;
-    /* █ #354966 - Dark tooltip border */
-    --chart-tooltip-title: 178 50% 95%;
-    /* █ #DCF2F1 - Light tooltip title */
-    --chart-tooltip-body: 192 58% 75%;
-    /* █ #A5DBEB - Light tooltip body */
+    --chart-tooltip-bg: 224 48% 12%;
+    /* Tooltip background */
+    --chart-tooltip-border: 224 48% 20%;
+    /* Tooltip border */
+    --chart-tooltip-title: 0 0% 96%;
+    /* Tooltip title text */
+    --chart-tooltip-body: 0 0% 85%;
+    /* Tooltip body text */
 
     /* Chart Gradient Colors - Dark Mode */
     --chart-gradient-start: 192 58% 70%;
@@ -329,16 +347,148 @@
     /* Gradient opacity end (50%) */
 
     /* Dark Mode Backgrounds */
-    --bg-dark-teal: 222 47% 11%;
-    /* Dark blue background */
-    --border-dark-teal: 222 47% 20%;
-    /* Blue border */
+    --bg-dark-teal: 224 48% 8%;
+    /* Dark background variant */
+    --border-dark-teal: 224 48% 18%;
+    /* Border color */
 
     /* Sidebar Colors - Dark Mode */
-    --sidebar-bg: 222 47% 11%;
-    /* Dark blue sidebar */
-    --sidebar-border: 222 47% 20%;
-    /* Blue border */
+    --sidebar-bg: 224 48% 8%;
+    /* Sidebar background - slightly lighter than main */
+    --sidebar-border: 224 48% 18%;
+    /* Sidebar border */
+  }
+}
+
+/* =====================================================
+   📱 RESPONSIVE UTILITIES (GLOBAL, NON PAGE-SPECIFIC)
+   Keep strictly reusable helpers only.
+===================================================== */
+@layer utilities {
+  /* Responsive container */
+  .container-responsive {
+    width: 100%;
+    margin-left: auto;
+    margin-right: auto;
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
+
+  @media (min-width: 640px) {
+    .container-responsive {
+      padding-left: 1.5rem;
+      padding-right: 1.5rem;
+    }
+  }
+
+  @media (min-width: 1024px) {
+    .container-responsive {
+      padding-left: 2rem;
+      padding-right: 2rem;
+      max-width: 1280px;
+    }
+  }
+
+  @media (min-width: 1536px) {
+    .container-responsive {
+      max-width: 1600px;
+    }
+  }
+
+  /* Safe text helpers */
+  .text-wrap-safe {
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    word-break: break-word;
+    hyphens: auto;
+  }
+
+  .text-nowrap-ellipsis {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  /* Flex/grid child safety */
+  .flex-safe {
+    min-width: 0;
+    flex: 1 1 0%;
+  }
+
+  /* Visibility helpers */
+  .hide-mobile {
+    display: none;
+  }
+
+  @media (min-width: 768px) {
+    .hide-mobile {
+      display: block;
+    }
+  }
+
+  .show-mobile {
+    display: block;
+  }
+
+  @media (min-width: 768px) {
+    .show-mobile {
+      display: none;
+    }
+  }
+
+  .hide-desktop {
+    display: block;
+  }
+
+  @media (min-width: 1024px) {
+    .hide-desktop {
+      display: none;
+    }
+  }
+
+  /* Responsive table wrapper */
+  .table-wrapper-responsive {
+    width: 100%;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  /* Responsive padding utility */
+  .padding-responsive {
+    padding: 1rem;
+  }
+
+  @media (min-width: 640px) {
+    .padding-responsive {
+      padding: 1.5rem;
+    }
+  }
+
+  @media (min-width: 1024px) {
+    .padding-responsive {
+      padding: 2rem;
+    }
+  }
+
+  /* Responsive text sizes */
+  .text-responsive-xs {
+    font-size: clamp(0.625rem, 0.5vw + 0.5rem, 0.75rem);
+  }
+
+  .text-responsive-sm {
+    font-size: clamp(0.75rem, 0.75vw + 0.5rem, 0.875rem);
+  }
+
+  .text-responsive-base {
+    font-size: clamp(0.875rem, 1vw + 0.5rem, 1rem);
+  }
+
+  .text-responsive-lg {
+    font-size: clamp(1rem, 1.25vw + 0.5rem, 1.125rem);
+  }
+
+  .text-responsive-xl {
+    font-size: clamp(1.125rem, 1.5vw + 0.5rem, 1.5rem);
   }
 }
 
@@ -790,6 +940,18 @@
     color: #FFFFFF;
   }
 
+  .dark .btn-secondary {
+    background: hsl(224, 48%, 12%) !important;
+    color: hsl(34, 100%, 60%) !important;
+    border-color: hsl(34, 100%, 60%) !important;
+  }
+
+  .dark .btn-secondary:hover:not(:disabled) {
+    background: hsl(34, 100%, 60%) !important;
+    border-color: hsl(34, 100%, 60%) !important;
+    color: hsl(0, 0%, 100%) !important;
+  }
+
   /* Outline Button */
   .btn-outline,
   .btn-neutral {
@@ -1132,9 +1294,10 @@
   }
 
   .dark .table-container {
-    background-color: hsl(var(--card));
-    border-color: hsl(var(--border));
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+    background-color: hsl(224, 48%, 12%);
+    /* More distinct from background for better visibility */
+    border-color: hsl(224, 48%, 20%);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
   }
 
   /* Table - Standardized model */
@@ -1826,15 +1989,18 @@
   }
 
   .dark .chip {
-    background-color: hsl(var(--bg-dark-teal));
-    border-color: hsl(var(--border-dark-teal));
-    color: hsl(var(--primary-light));
+    background-color: hsl(224, 48%, 14%);
+    /* More distinct chip background */
+    border-color: hsl(224, 48%, 22%);
+    color: hsl(0, 0%, 90%);
+    /* Light text for visibility */
   }
 
   .dark .chip:hover {
-    background-color: hsl(var(--muted));
-    border-color: hsl(var(--muted-foreground) / 0.2);
-    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+    background-color: hsl(224, 48%, 16%);
+    border-color: hsl(224, 48%, 25%);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+    transform: translateY(-1px);
   }
 
   /* Zone Chip - Enhanced styling for zone display */
@@ -1861,15 +2027,18 @@
   }
 
   .dark .chip-zone {
-    background-color: hsl(var(--bg-dark-teal));
-    border-color: hsl(var(--border-dark-teal));
-    color: hsl(var(--primary-light));
+    background-color: hsl(224, 48%, 14%);
+    /* More distinct chip background */
+    border-color: hsl(224, 48%, 22%);
+    color: hsl(0, 0%, 90%);
+    /* Light text for visibility */
   }
 
   .dark .chip-zone:hover {
-    background-color: hsl(var(--muted));
-    border-color: hsl(var(--muted-foreground) / 0.2);
-    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+    background-color: hsl(224, 48%, 16%);
+    border-color: hsl(224, 48%, 25%);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+    transform: translateY(-1px);
   }
 
   /* Golden Star Rating - For average ratings */
@@ -1904,6 +2073,53 @@
 
   .dark .rating-display .rating-value {
     color: hsl(var(--foreground));
+  }
+
+  /* Filter Buttons / Rating Filter Chips */
+  .filter-chip-button {
+    padding: 0.5rem 1rem;
+    font-size: 0.625rem;
+    font-weight: 900;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    border-radius: 0.75rem;
+    border: 1px solid;
+    transition: all 0.2s ease;
+    cursor: pointer;
+  }
+
+  .filter-chip-button:not(.filter-chip-button-active) {
+    background-color: white;
+    border-color: rgb(226, 232, 240);
+    color: rgb(148, 163, 184);
+  }
+
+  .filter-chip-button:not(.filter-chip-button-active):hover {
+    border-color: rgb(203, 213, 225);
+  }
+
+  .dark .filter-chip-button:not(.filter-chip-button-active) {
+    background-color: hsl(224, 48%, 12%);
+    border-color: hsl(224, 48%, 20%);
+    color: hsl(0, 0%, 75%);
+  }
+
+  .dark .filter-chip-button:not(.filter-chip-button-active):hover {
+    background-color: hsl(224, 48%, 14%);
+    border-color: hsl(224, 48%, 25%);
+    color: hsl(0, 0%, 85%);
+  }
+
+  .filter-chip-button-active {
+    background-color: rgb(241, 245, 249);
+    border-color: rgb(203, 213, 225);
+    color: rgb(30, 41, 59);
+  }
+
+  .dark .filter-chip-button-active {
+    background-color: hsl(224, 48%, 16%);
+    border-color: hsl(224, 48%, 25%);
+    color: hsl(0, 0%, 95%);
   }
 
   /* Enhanced Table Row Styling for Washroom Table */
@@ -1949,7 +2165,10 @@
   }
 
   .dark .card {
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+    background-color: hsl(224, 48%, 12%);
+    /* More distinct from background for better visibility */
+    border-color: hsl(224, 48%, 20%);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
   }
 
   /* Card Variants */
@@ -2001,13 +2220,17 @@
   }
 
   .dark .card-global {
-    border-color: hsl(var(--border));
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+    background-color: hsl(224, 48%, 12%);
+    /* More distinct from background for better visibility */
+    border-color: hsl(224, 48%, 20%);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
   }
 
   .dark .card-global:hover {
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
-    transform: translateY(-1px);
+    background-color: hsl(224, 48%, 14%);
+    border-color: hsl(224, 48%, 25%);
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.4);
+    transform: translateY(-2px);
   }
 }
 
