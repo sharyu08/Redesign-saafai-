@@ -17,10 +17,17 @@ export default function ReportsPage() {
   const [view, setView] = useState("config"); // "config" or "generated"
   const [isExporting, setIsExporting] = useState(false);
 
+  // Function to switch to the results view
+  const handleGenerateReport = () => {
+    setView("generated");
+  };
+
   return (
     <div className="min-h-screen bg-slate-50 dark:bg-background p-4 md:p-8">
       <div className="max-w-7xl mx-auto space-y-6">
+
         {view === "config" ? (
+          /* --- CONFIGURATION VIEW --- */
           <>
             <ReportHeader
               selectedReport={selectedReport}
@@ -28,7 +35,9 @@ export default function ReportsPage() {
               onExport={() => handleExport(selectedReport, startDate, endDate, setIsExporting)}
               isExporting={isExporting}
             />
+
             <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
+              {/* LEFT: SELECTION PANEL */}
               <div className="lg:col-span-4">
                 <ReportSidebar
                   reportConfigs={reportConfigs}
@@ -36,23 +45,33 @@ export default function ReportsPage() {
                   setSelectedReport={setSelectedReport}
                 />
               </div>
+
+              {/* RIGHT: CONFIGURATION FORM */}
               <div className="lg:col-span-8">
                 <ReportConfig
                   selectedReport={selectedReport}
                   config={reportConfigs[selectedReport]}
-                  startDate={startDate} setStartDate={setStartDate}
-                  endDate={endDate} setEndDate={setEndDate}
+                  startDate={startDate}
+                  setStartDate={setStartDate}
+                  endDate={endDate}
+                  setEndDate={setEndDate}
+                  onGenerate={handleGenerateReport} // Pass the trigger function
                 />
               </div>
             </div>
           </>
         ) : (
-          <>
-            <ReportSummaryHeader reportType={selectedReport} onRefine={() => setView("config")} />
+          /* --- GENERATED REPORT VIEW --- */
+          <div className="animate-in fade-in duration-500 space-y-6">
+            <ReportSummaryHeader
+              reportType={selectedReport}
+              onRefine={() => setView("config")}
+            />
             <ReportStats />
             <ReportTable data={reportData} />
-          </>
+          </div>
         )}
+
       </div>
     </div>
   );

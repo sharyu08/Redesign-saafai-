@@ -45,7 +45,7 @@ export default function AddUserFullPage() {
   };
 
   return (
-    <div className="min-h-screen bg-white dark:bg-background w-full pt-8 pb-12 px-4 sm:px-6 flex flex-col items-center relative overflow-hidden">
+    <div className="min-h-screen bg-white dark:bg-background w-full pt-8 pb-12 px-4 sm:px-6 md:px-8 flex flex-col items-center relative overflow-hidden">
       {/* Background Decorative Blur */}
       <div className="absolute top-0 right-0 w-64 h-64 bg-[#CBF3F0] rounded-full blur-3xl opacity-50 -mr-20 -mt-20 pointer-events-none" />
 
@@ -62,8 +62,8 @@ export default function AddUserFullPage() {
         </button>
       </div>
 
-      {/* Main Card */}
-      <div className="max-w-3xl w-full bg-white rounded-[24px] sm:rounded-[32px] shadow-2xl shadow-slate-200/50 border border-slate-100 overflow-hidden animate-in fade-in slide-in-from-bottom-8 duration-1000 relative z-10">
+      {/* Main Card - Increased size and spacing */}
+      <div className="w-full max-w-3xl bg-white dark:bg-card rounded-[32px] shadow-2xl shadow-slate-200/50 border border-slate-100 dark:border-border overflow-hidden animate-in fade-in slide-in-from-bottom-8 duration-1000 relative z-10">
         {/* Card Header */}
         <div className="bg-[#CBF3F0] px-6 sm:px-8 py-5 border-b border-[#CBF3F1] flex justify-between items-center">
           <div className="flex items-center gap-3">
@@ -75,19 +75,21 @@ export default function AddUserFullPage() {
           <div className="h-2 w-2 rounded-full bg-[#28C76F] animate-pulse" />
         </div>
 
-        <form onSubmit={handleSubmit} className="p-6 sm:p-10 space-y-10">
-          {/* Assigned Node Section */}
-          <div className="flex items-start gap-4">
-            <div className="h-10 w-10 shrink-0 rounded-xl bg-[#CBF3F0] flex items-center justify-center">
-              <Building2 size={18} className="text-[#FF9F1C]" />
-            </div>
-            <div>
-              <h3 className="text-sm font-black text-slate-800 uppercase tracking-tight">
-                Assigned Operation Node
-              </h3>
-              <p className="text-xs font-medium text-slate-500">
-                Nagpur Municipal Corporation Pilot
-              </p>
+        <form onSubmit={handleSubmit} className="p-6 sm:p-8 space-y-8">
+          {/* Assigned Node - Simplified */}
+          <div className="space-y-4">
+            <div className="flex items-center gap-3">
+              <div className="h-10 w-10 rounded-xl bg-[#CBF3F0] flex items-center justify-center">
+                <Building2 size={18} className="text-[#FF9F1C]" />
+              </div>
+              <div>
+                <h3 className="text-sm font-black text-slate-800 uppercase tracking-tight">
+                  Assigned Operation Node
+                </h3>
+                <p className="text-xs font-medium text-slate-500">
+                  Select the operation node for this user
+                </p>
+              </div>
             </div>
           </div>
 
@@ -146,9 +148,9 @@ export default function AddUserFullPage() {
             </div>
           </div>
 
-          {/* Access & Security Section */}
-          <div className="bg-slate-50/50 p-5 sm:p-6 rounded-2xl border border-slate-100 shadow-sm">
-            <h3 className="text-base sm:text-lg font-bold text-slate-800 flex items-center gap-2 mb-6">
+          {/* Password + Access Level */}
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 pt-2 bg-white dark:bg-card p-6 rounded-2xl border border-slate-100 dark:border-border shadow-sm">
+            <h3 className="text-lg font-bold text-slate-800 col-span-2 flex items-center gap-2">
               <Lock size={18} className="text-[#FF9F1C]" />
               Access & Security
             </h3>

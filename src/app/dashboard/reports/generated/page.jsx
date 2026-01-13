@@ -22,11 +22,12 @@ import {
   ShieldCheck,
   LayoutDashboard
 } from 'lucide-react';
-import { useState } from 'react';
+import { useState, useRef, useEffect } from 'react';
 
 function GeneratedReportContent() {
   const searchParams = useSearchParams();
   const [showFilters, setShowFilters] = useState(false);
+  const progressRefs = useRef({});
 
   const reportType = searchParams.get('type') || 'Cleaning Report';
   const reportData = [

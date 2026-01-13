@@ -17,12 +17,11 @@ export default function WashroomTable({ items }) {
     };
 
     return (
-        <div className="table-container">
-            {/* Desktop Table View */}
-            <div className="hidden lg:block">
-                {/* Scrollable Container with Custom Scrollbar Styling */}
-                <div className="overflow-x-auto overflow-y-auto max-h-[600px]">
-                    <table className="table min-w-[1200px]">
+        <div className="w-full space-y-4">
+            {/* 1. DESKTOP TABLE VIEW */}
+            <div className="hidden lg:block table-container">
+                <div className="table-wrapper-responsive overflow-y-auto max-h-[600px]">
+                    <table className="table w-full">
                         <thead className="table-header">
                             <tr>
                                 <th>
@@ -73,7 +72,7 @@ export default function WashroomTable({ items }) {
                                         <span>STATUS</span>
                                     </div>
                                 </th>
-                                <th className="table-cell-right">
+                                <th className="table-cell-right text-right">
                                     <div className="flex items-center justify-end gap-2">
                                         <Settings className="w-4 h-4" />
                                         <span>ACTION</span>
@@ -107,79 +106,68 @@ export default function WashroomTable({ items }) {
                         </tbody>
                     </table>
                 </div>
+
+                {/* Table Footer - Desktop */}
+                <div className="table-footer flex items-center justify-between p-4 bg-slate-50 dark:bg-slate-800/50 border-t border-slate-200 dark:border-slate-700">
+                    <div className="text-sm text-slate-600 dark:text-slate-400">
+                        Showing {rows.length} washroom records
+                    </div>
+                </div>
             </div>
 
-            {/* Mobile Card View */}
+            {/* 2. MOBILE CARD VIEW */}
             <div className="lg:hidden space-y-4 p-4">
                 {rows.length > 0 ? (
-                    rows.map((washroom, index) => (
-                        <div key={washroom.id} className="bg-white rounded-xl border border-slate-100 shadow-sm p-4 space-y-4 hover:bg-slate-50 transition-colors">
-                            {/* Header Section */}
-                            <div className="flex items-center gap-3 pb-3 border-b border-slate-100">
+                    rows.map((washroom) => (
+                        <div key={washroom.id} className="bg-white dark:bg-card rounded-xl border border-slate-100 dark:border-slate-800 shadow-sm p-4 space-y-4 hover:bg-slate-50 transition-colors">
+                            {/* Mobile Card Header */}
+                            <div className="flex items-center gap-3 pb-3 border-b border-slate-100 dark:border-slate-800">
                                 <div className="flex-1">
-                                    <h3 className="text-base font-bold text-slate-800">{washroom.name}</h3>
+                                    <h3 className="text-base font-bold text-slate-800 dark:text-slate-200">{washroom.name}</h3>
                                     <p className="text-sm text-slate-500">SR NO: {washroom.srNo}</p>
                                 </div>
                                 <div className="text-right">
-                                    <span className={`px-2 py-1 rounded-lg text-xs font-bold uppercase tracking-widest ${washroom.status === 'Active' ? 'bg-emerald-50 text-emerald-600' : 'bg-slate-50 text-slate-600'
+                                    <span className={`px-2 py-1 rounded-lg text-xs font-bold uppercase tracking-widest ${washroom.status === 'Active' ? 'bg-emerald-50 text-emerald-600' : 'bg-slate-100 text-slate-600'
                                         }`}>
                                         {washroom.status}
                                     </span>
                                 </div>
                             </div>
 
-                            {/* Details Grid */}
+                            {/* Mobile Details Grid */}
                             <div className="grid grid-cols-1 gap-3">
-                                {/* Zone */}
                                 <div className="flex items-center gap-2">
                                     <MapPin className="w-4 h-4 text-slate-400" />
-                                    <div>
-                                        <p className="text-sm font-medium text-slate-700">{washroom.zone}</p>
-                                    </div>
+                                    <p className="text-sm font-medium text-slate-700 dark:text-slate-300">{washroom.zone}</p>
                                 </div>
-
-                                {/* Current Score */}
                                 <div className="flex items-center gap-2">
                                     <Star className="w-4 h-4 text-slate-400" />
                                     <div>
-                                        <p className="text-sm font-medium text-slate-700">{washroom.currentScore}</p>
+                                        <p className="text-sm font-medium text-slate-700 dark:text-slate-300">{washroom.currentScore}</p>
                                         <p className="text-xs text-slate-400">Current Score</p>
                                     </div>
                                 </div>
-
-                                {/* Average Rating */}
-                                <div className="flex items-center gap-2">
-                                    <Star className="w-4 h-4 text-slate-400" />
-                                    <div>
-                                        <p className="text-sm font-medium text-slate-700">{washroom.avgRating}</p>
-                                        <p className="text-xs text-slate-400">Average Rating</p>
-                                    </div>
-                                </div>
-
-                                {/* Cleaner */}
                                 <div className="flex items-center gap-2">
                                     <User className="w-4 h-4 text-slate-400" />
                                     <div>
-                                        <p className="text-sm font-medium text-slate-700">{washroom.cleaner}</p>
+                                        <p className="text-sm font-medium text-slate-700 dark:text-slate-300">{washroom.cleaner}</p>
                                         <p className="text-xs text-slate-400">Assigned Cleaner</p>
                                     </div>
                                 </div>
-
-                                {/* Facility */}
                                 <div className="flex items-center gap-2">
                                     <Building2 className="w-4 h-4 text-slate-400" />
                                     <div>
-                                        <p className="text-sm font-medium text-slate-700">{washroom.facility}</p>
+                                        <p className="text-sm font-medium text-slate-700 dark:text-slate-300">{washroom.facility}</p>
                                         <p className="text-xs text-slate-400">Facility Type</p>
                                     </div>
                                 </div>
                             </div>
 
-                            {/* Action Button */}
-                            <div className="pt-3 border-t border-slate-100">
+                            {/* Mobile Action Button */}
+                            <div className="pt-3 border-t border-slate-100 dark:border-slate-800">
                                 <button
                                     onClick={() => handleModalOpen(washroom.id)}
-                                    className="w-full bg-slate-50 hover:bg-slate-100 text-slate-700 py-3 rounded-xl font-medium text-sm transition-colors flex items-center justify-center gap-2"
+                                    className="w-full bg-slate-50 dark:bg-slate-800 hover:bg-slate-100 text-slate-700 dark:text-slate-200 py-3 rounded-xl font-medium text-sm transition-colors flex items-center justify-center gap-2"
                                 >
                                     <Settings className="w-4 h-4" />
                                     View Details
@@ -188,18 +176,14 @@ export default function WashroomTable({ items }) {
                         </div>
                     ))
                 ) : (
-                    <div className="bg-white rounded-xl border border-slate-100 shadow-sm p-8 text-center">
-                        <div className="flex flex-col items-center gap-4">
-                            <div className="p-3 bg-slate-50 rounded-full">
-                                <Activity className="w-8 h-8 text-slate-400" />
-                            </div>
-                            <p className="text-sm font-medium text-slate-600">No washroom records found.</p>
-                        </div>
+                    <div className="bg-white dark:bg-card rounded-xl border border-slate-100 p-8 text-center">
+                        <Activity className="w-8 h-8 text-slate-400 mx-auto mb-2 opacity-20" />
+                        <p className="text-sm font-medium text-slate-600">No washroom records found.</p>
                     </div>
                 )}
             </div>
 
-            {/* Render all modals outside table structure */}
+            {/* 3. MODALS (Rendered outside table structure for accessibility) */}
             {rows.map((washroom) => (
                 <WashroomRowModal
                     key={`modal-${washroom.id}`}
@@ -208,17 +192,6 @@ export default function WashroomTable({ items }) {
                     setIsModalOpen={(isOpen) => isOpen ? handleModalOpen(washroom.id) : handleModalClose(washroom.id)}
                 />
             ))}
-
-            {/* Table Footer / Summary - Desktop Only */}
-            <div className="hidden lg:block">
-                <div className="table-footer">
-                    <div className="flex items-center justify-between p-4 bg-slate-50 dark:bg-slate-800/50 border-t border-slate-200 dark:border-slate-700">
-                        <div className="text-sm text-slate-600 dark:text-slate-400">
-                            Showing {rows.length} of {rows.length} washrooms
-                        </div>
-                    </div>
-                </div>
-            </div>
         </div>
     );
 }

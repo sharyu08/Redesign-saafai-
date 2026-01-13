@@ -1,0 +1,21 @@
+/* Washrooms Mobile Page Specific Styles */
+
+/* Mobile card spacing */
+.washrooms-mobile-card {
+    transition: all 0.2s ease;
+}
+
+.washrooms-mobile-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.dark .washrooms-mobile-card:hover {
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+.washroom-card-name {
+    font-weight: 700;
+    line-height: 1.3;
+    word-break: break-word;
+}

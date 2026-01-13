@@ -27,13 +27,13 @@ export default function CleanerActivityHeader() {
                 </div>
 
                 {/* Right Side: Filter Tabs */}
-                <div className="flex items-center bg-[#F7F7FF] p-1.5 rounded-xl gap-1">
+                <div className="flex items-center bg-[#F7F7FF] dark:bg-[hsl(224,48%,14%)] p-1.5 rounded-xl gap-1">
                     <button 
                         onClick={() => setActiveTab('all')}
                         className={`px-5 py-2 text-sm font-bold rounded-lg transition-colors ${
                             activeTab === 'all' 
-                                ? 'text-white bg-[#FF9F1C] shadow-sm hover:bg-[#5A52E0]' 
-                                : 'text-slate-600 hover:text-[#FF9F1C]'
+                                ? 'text-white bg-[#FF9F1C] dark:bg-[hsl(var(--primary))] shadow-sm hover:bg-[#E68900] dark:hover:bg-[hsl(var(--primary-dark))]' 
+                                : 'text-slate-600 dark:text-slate-300 hover:text-[#FF9F1C] dark:hover:text-[hsl(var(--primary))]'
                         }`}>
                         All Tasks
                     </button>
@@ -42,8 +42,8 @@ export default function CleanerActivityHeader() {
                         onClick={() => setActiveTab('ongoing')}
                         className={`px-5 py-2 text-sm font-bold rounded-lg transition-colors ${
                             activeTab === 'ongoing' 
-                                ? 'text-white bg-[#FF9F1C] shadow-sm hover:bg-[#5A52E0]' 
-                                : 'text-slate-600 hover:text-[#FF9F1C]'
+                                ? 'text-white bg-[#FF9F1C] dark:bg-[hsl(var(--primary))] shadow-sm hover:bg-[#E68900] dark:hover:bg-[hsl(var(--primary-dark))]' 
+                                : 'text-slate-600 dark:text-slate-300 hover:text-[#FF9F1C] dark:hover:text-[hsl(var(--primary))]'
                         }`}>
                         Ongoing
                     </button>
@@ -52,8 +52,8 @@ export default function CleanerActivityHeader() {
                         onClick={() => setActiveTab('completed')}
                         className={`px-5 py-2 text-sm font-bold rounded-lg transition-colors ${
                             activeTab === 'completed' 
-                                ? 'text-white bg-[#FF9F1C] shadow-sm hover:bg-[#5A52E0]' 
-                                : 'text-slate-600 hover:text-[#FF9F1C]'
+                                ? 'text-white bg-[#FF9F1C] dark:bg-[hsl(var(--primary))] shadow-sm hover:bg-[#E68900] dark:hover:bg-[hsl(var(--primary-dark))]' 
+                                : 'text-slate-600 dark:text-slate-300 hover:text-[#FF9F1C] dark:hover:text-[hsl(var(--primary))]'
                         }`}>
                         Completed
                     </button>

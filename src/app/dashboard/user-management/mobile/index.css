@@ -1,0 +1,87 @@
+/* Mobile-only styling for User Management cards */
+
+.um-mobile-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.um-mobile-card {
+  background-color: hsl(var(--card));
+  border: 1px solid hsl(var(--border));
+  border-radius: 16px;
+  padding: 1rem;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+}
+
+.um-mobile-header {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin-bottom: 0.75rem;
+}
+
+.um-mobile-avatar {
+  width: 44px;
+  height: 44px;
+  border-radius: 12px;
+  background: hsl(var(--bg-light-cyan));
+  color: hsl(var(--primary-dark));
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 800;
+  font-size: 0.95rem;
+  flex-shrink: 0;
+  border: 1px solid hsl(var(--border));
+}
+
+.um-mobile-name {
+  font-weight: 700;
+  color: hsl(var(--foreground));
+}
+
+.um-mobile-id {
+  font-size: 0.75rem;
+  color: hsl(var(--muted-foreground));
+}
+
+.um-mobile-row {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.35rem 0;
+}
+
+.um-mobile-icon {
+  width: 16px;
+  height: 16px;
+  color: hsl(var(--muted-foreground));
+  flex-shrink: 0;
+}
+
+.um-mobile-link {
+  font-size: 0.9rem;
+  color: hsl(var(--foreground));
+  text-decoration: none;
+}
+
+.um-mobile-link:hover {
+  color: hsl(var(--primary));
+}
+
+.um-mobile-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 0.5rem;
+  padding-top: 0.75rem;
+  border-top: 1px solid hsl(var(--border));
+}
+
+.um-mobile-empty {
+  background-color: hsl(var(--card));
+  border: 1px solid hsl(var(--border));
+  border-radius: 12px;
+  padding: 1.5rem;
+  text-align: center;
+}
