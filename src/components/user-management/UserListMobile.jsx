@@ -1,9 +1,12 @@
 "use client";
 
-import { Eye, Edit3, Trash2, Mail, Phone, Shield } from "lucide-react";
+import { Eye, Edit3, Trash2, Mail, Phone, Shield, Plus } from "lucide-react";
 import { useMemo } from "react";
+import { useRouter } from "next/navigation";
 
 export default function UserListMobile({ users = [], onDelete, onView, onEdit }) {
+  const router = useRouter();
+
   const sorted = useMemo(
     () => [...users].sort((a, b) => a.name.localeCompare(b.name)),
     [users]
@@ -11,6 +14,31 @@ export default function UserListMobile({ users = [], onDelete, onView, onEdit })
 
   return (
     <div className="um-mobile-list space-y-3">
+      {/* Header with Add User Button */}
+      <div className="page-header">
+        <div className="page-header-content">
+          <div className="page-header-title-section">
+            <div className="page-header-icon">
+              <Shield className="h-6 w-6 text-primary-light" strokeWidth={2.5} />
+            </div>
+            <div className="text-left">
+              <h1 className="page-header-title">User Management</h1>
+              <p className="page-header-subtitle">Manage all user roles and permissions</p>
+            </div>
+          </div>
+
+          {/* Action Buttons */}
+          <div className="page-header-actions">
+            <button
+              onClick={() => router.push('/dashboard/user-management/add-user')}
+              className="btn btn-primary flex items-center gap-2 px-6 py-2.5 text-xs-standard uppercase tracking-widest active:scale-95"
+            >
+              <Plus size={16} strokeWidth={3} /> Add User
+            </button>
+          </div>
+        </div>
+      </div>
+
       {sorted.length === 0 ? (
         <div className="um-mobile-empty">
           <p className="text-sm text-muted-foreground">No users found.</p>

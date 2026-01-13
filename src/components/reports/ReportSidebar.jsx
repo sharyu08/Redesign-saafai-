@@ -17,8 +17,8 @@ export default function ReportSidebar({ reportConfigs, selectedReport, setSelect
                         key={report}
                         onClick={() => setSelectedReport(report)}
                         className={`w-full group px-4 py-4 rounded-xl border transition-all flex items-center justify-between outline-none active:scale-[0.98] ${selectedReport === report
-                                ? "bg-emerald-100 dark:bg-emerald-900/40 border-emerald-500/40 text-emerald-700 dark:text-emerald-400 shadow-sm"
-                                : "bg-transparent border-transparent text-slate-500 dark:text-muted-foreground hover:bg-emerald-50 hover:text-emerald-600 hover:border-emerald-100 dark:hover:bg-emerald-900/20"
+                            ? "bg-emerald-100 dark:bg-emerald-900/40 border-emerald-500/40 text-emerald-700 dark:text-emerald-400 shadow-sm"
+                            : "bg-transparent border-transparent text-slate-500 dark:text-muted-foreground hover:bg-emerald-50 hover:text-emerald-600 hover:border-emerald-100 dark:hover:bg-emerald-900/20"
                             }`}
                     >
                         <span className="text-[12px] font-bold tracking-tight">{report}</span>

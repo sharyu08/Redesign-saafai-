@@ -9,14 +9,16 @@ export default function ReportStats({ data }) {
     ];
 
     return (
-        <div className="grid grid-cols-1 gap-6 md:grid-cols-3">
+        <div className="grid grid-cols-3 gap-4">
             {stats.map((s, i) => (
-                <div key={i} style={{ backgroundColor: s.color, borderColor: s.border }} className="p-6 rounded-[24px] border flex items-center justify-between shadow-sm">
-                    <div>
-                        <p style={{ color: s.iconColor }} className="text-[10px] font-black uppercase tracking-widest leading-none">{s.label}</p>
-                        <h3 className="text-3xl font-black text-slate-800 mt-2">{s.val < 10 ? `0${s.val}` : s.val}</h3>
+                <div key={i} style={{ backgroundColor: s.color, borderColor: s.border }} className="p-4 rounded-xl border flex items-center gap-4 shadow-sm">
+                    <div style={{ color: s.iconColor }} className="p-2 rounded-lg bg-white/50">
+                        <s.Icon size={18} />
                     </div>
-                    <s.Icon size={24} style={{ color: s.iconColor }} className="opacity-30" />
+                    <div>
+                        <p style={{ color: s.iconColor }} className="text-[11px] font-semibold uppercase tracking-wider leading-none">{s.label}</p>
+                        <h3 className="text-2xl font-bold text-slate-800">{s.val}</h3>
+                    </div>
                 </div>
             ))}
         </div>

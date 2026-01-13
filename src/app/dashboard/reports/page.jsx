@@ -62,13 +62,25 @@ export default function ReportsPage() {
           </>
         ) : (
           /* --- GENERATED REPORT VIEW --- */
-          <div className="animate-in fade-in duration-500 space-y-6">
-            <ReportSummaryHeader
-              reportType={selectedReport}
-              onRefine={() => setView("config")}
-            />
-            <ReportStats />
-            <ReportTable data={reportData} />
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
+            {/* LEFT: SELECTION PANEL (Still visible in generated view) */}
+            <div className="lg:col-span-4">
+              <ReportSidebar
+                reportConfigs={reportConfigs}
+                selectedReport={selectedReport}
+                setSelectedReport={setSelectedReport}
+              />
+            </div>
+
+            {/* RIGHT: GENERATED REPORT CONTENT */}
+            <div className="lg:col-span-8 animate-in fade-in duration-500 space-y-6">
+              <ReportSummaryHeader
+                reportType={selectedReport}
+                onRefine={() => setView("config")}
+              />
+              <ReportStats />
+              <ReportTable data={reportData} />
+            </div>
           </div>
         )}
 

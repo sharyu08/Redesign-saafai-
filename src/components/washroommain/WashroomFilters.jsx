@@ -1,6 +1,6 @@
 "use client";
 
-import { Search, Filter, Building2, Star, XCircle, CheckCircle2, UserMinus, ChevronDown } from "lucide-react";
+import { Search, Filter, Building2, Star, XCircle, CheckCircle2, UserMinus, ChevronDown, X } from "lucide-react";
 
 export default function WashroomFilters({
     search,
@@ -14,14 +14,17 @@ export default function WashroomFilters({
     assignmentFilter,
     onAssignmentFilterChange,
     onClear,
+    onCancel,
 }) {
     return (
         /* Using .card-global for standard dashboard panel styling */
         <div className="card-global p-3 shadow-sm border border-slate-100 dark:border-slate-800">
-            <div className="flex flex-wrap items-center gap-3">
+
+
+            <div className="flex flex-col gap-4 lg:flex-row lg:items-center lg:gap-3">
 
                 {/* 1. COMPACT SEARCH - Using .form-input-wrapper logic */}
-                <div className="relative group min-w-[240px] flex-1">
+                <div className="relative group min-w-[240px] lg:flex-1">
                     <div className="form-input-wrapper">
                         <Search className="form-input-icon h-4 w-4" />
                         <input
@@ -34,7 +37,7 @@ export default function WashroomFilters({
                 </div>
 
                 {/* 2. COMPACT SELECTS - Using standardized .form-select and Roboto weights */}
-                <div className="flex items-center gap-2">
+                <div className="flex flex-col gap-2 lg:flex-row lg:items-center lg:gap-2">
                     <div className="relative group">
                         <select
                             className="appearance-none bg-[hsl(var(--input))] border border-[hsl(var(--border))] rounded-xl pl-3 pr-8 py-2 text-xs font-bold text-[hsl(var(--foreground))] focus:ring-2 focus:ring-[hsl(var(--primary))] hover:ring-2 hover:ring-[hsl(var(--primary))]/30 hover:border-[hsl(var(--primary))]/50 outline-none cursor-pointer transition-all"
@@ -61,7 +64,7 @@ export default function WashroomFilters({
                         <Building2 className="absolute right-2.5 top-1/2 -translate-y-1/2 h-3 w-3 text-[hsl(var(--muted-foreground))] group-hover:text-[hsl(var(--primary))] pointer-events-none transition-colors" />
                     </div>
 
-                    {/* RATING SELECT - Values match the logic below */}
+                    {/* RATING SELECT - Values match logic below */}
                     <div className="relative group">
                         <select
                             className="appearance-none bg-[hsl(var(--input))] border border-[hsl(var(--border))] rounded-xl pl-3 pr-8 py-2 text-xs font-bold text-[hsl(var(--foreground))] focus:ring-2 focus:ring-[hsl(var(--primary))] hover:ring-2 hover:ring-[hsl(var(--primary))]/30 hover:border-[hsl(var(--primary))]/50 outline-none cursor-pointer transition-all"
@@ -81,15 +84,14 @@ export default function WashroomFilters({
                 <div className="flex bg-slate-50 dark:bg-slate-800 p-1 rounded-xl border border-slate-100 dark:border-slate-700 shadow-inner">
                     {[
                         { id: "all", label: "All", icon: null },
-                        { id: "assigned", label: "Assigned", icon: <CheckCircle2 size={10} /> },
-                        { id: "unassigned", label: "None", icon: <UserMinus size={10} /> }
+                        { id: "assigned", label: "Assigned", icon: <CheckCircle2 size={10} /> }
                     ].map((btn) => (
                         <button
                             key={btn.id}
                             type="button"
                             onClick={() => onAssignmentFilterChange(btn.id)}
                             className={`
-                                px-4 py-1.5 rounded-lg text-[9px] font-black uppercase tracking-[0.15em] transition-all flex items-center gap-1.5
+                                px-3 py-1.5 rounded-lg text-[9px] font-black uppercase tracking-[0.15em] transition-all flex items-center gap-1.5
                                 ${assignmentFilter === btn.id
                                     ? "bg-white dark:bg-slate-700 text-cyan-600 dark:text-cyan-400 shadow-sm border border-slate-100 dark:border-slate-600"
                                     : "text-slate-400 hover:text-slate-600 dark:hover:text-slate-200"
@@ -100,17 +102,20 @@ export default function WashroomFilters({
                             {btn.label}
                         </button>
                     ))}
+
+                    {/* Clear Button - Replaces "None" filter position */}
+                    {/* 4. CLEAR ACTION - Using recorded .btn-icon logic */}
+                    <button
+                        type="button"
+                        onClick={onClear}
+                        className="p-2 text-slate-400 hover:text-rose-500 hover:bg-rose-50 dark:hover:bg-rose-900/20 rounded-xl transition-all"
+                        title="Clear All Filters"
+                    >
+                        <XCircle className="h-5 w-5" />
+                    </button>
                 </div>
 
-                {/* 4. CLEAR ACTION - Using recorded .btn-icon logic */}
-                <button
-                    type="button"
-                    onClick={onClear}
-                    className="p-2 text-slate-400 hover:text-rose-500 hover:bg-rose-50 dark:hover:bg-rose-900/20 rounded-xl transition-all"
-                    title="Clear All Filters"
-                >
-                    <XCircle className="h-5 w-5" />
-                </button>
+
             </div>
         </div>
     );

@@ -19,6 +19,10 @@ export default function WashroomsPage() {
   const [ratingFilter, setRatingFilter] = useState("all");
   const [assignmentFilter, setAssignmentFilter] = useState("all");
 
+  const handleCancel = () => {
+    router.push("/dashboard");
+  };
+
   // Redirect mobile users to mobile page
   useEffect(() => {
     if (isMobile && pathname === "/dashboard/washrooms") {
@@ -74,6 +78,7 @@ export default function WashroomsPage() {
             assignmentFilter={assignmentFilter}
             onAssignmentFilterChange={setAssignmentFilter}
             onClear={handleClearFilters}
+            onCancel={handleCancel}
           />
         </div>
 

@@ -26,19 +26,7 @@ export default function UserManagementMobilePage() {
   return (
     <div className="min-h-screen bg-background text-foreground padding-responsive">
       <div className="container-responsive space-y-4">
-        <div className="page-header">
-          <div className="page-header-content">
-            <div className="page-header-title-section">
-              <div className="page-header-icon">
-                <span className="font-black text-lg">UM</span>
-              </div>
-              <div className="text-left">
-                <h1 className="page-header-title">User Management</h1>
-                <p className="page-header-subtitle">Mobile view — cards</p>
-              </div>
-            </div>
-          </div>
-        </div>
+
 
         <UserListMobile
           users={users}
