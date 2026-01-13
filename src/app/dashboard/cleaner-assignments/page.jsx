@@ -108,8 +108,8 @@ export default function CleanerAssignmentsPage() {
   }, [stats]);
 
   return (
-    <div className="min-h-screen bg-white dark:bg-background py-8 px-8 text-left">
-      <div className="max-w-7xl mx-auto space-y-8">
+    <div className="min-h-screen bg-white dark:bg-background py-4 sm:py-6 md:py-8 px-4 sm:px-6 md:px-8 text-left">
+      <div className="max-w-7xl mx-auto space-y-4 sm:space-y-6 md:space-y-8">
 
         {/* 1. STANDARDIZED PAGE HEADER - Using same class as all other headers */}
         <div className="page-header">
@@ -131,19 +131,19 @@ export default function CleanerAssignmentsPage() {
             </div>
 
             {/* Action Buttons */}
-            <div className="page-header-actions">
+            <div className="page-header-actions w-full sm:w-auto flex flex-col sm:flex-row gap-2 sm:gap-0.75 mt-4 sm:mt-0">
               <button 
                 type="button"
-                className="btn btn-secondary flex items-center gap-2 px-5 py-2.5 text-xs-standard uppercase tracking-widest active:scale-95"
+                className="btn btn-secondary flex items-center justify-center gap-2 px-4 sm:px-5 py-2.5 text-xs-standard uppercase tracking-widest active:scale-95 w-full sm:w-auto"
               >
-                <LayoutList size={14} /> Show Assignments
+                <LayoutList size={14} /> <span className="whitespace-nowrap">Show Assignments</span>
               </button>
               
               <Link
                 href="/dashboard/cleaner-assignments/add"
-                className="btn btn-primary flex items-center gap-2 px-6 py-2.5 text-xs-standard uppercase tracking-widest active:scale-95"
+                className="btn btn-primary flex items-center justify-center gap-2 px-4 sm:px-6 py-2.5 text-xs-standard uppercase tracking-widest active:scale-95 w-full sm:w-auto"
               >
-                <Plus size={16} strokeWidth={3} /> Add Cleaner
+                <Plus size={16} strokeWidth={3} /> <span className="whitespace-nowrap">Add Cleaner</span>
               </Link>
             </div>
           </div>

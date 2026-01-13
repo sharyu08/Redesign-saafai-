@@ -19,8 +19,8 @@ export default function CleanerActivityPage() {
   return (
     <div className="min-h-screen bg-[hsl(var(--muted))]">
 
-      <div className="p-4 md:p-6 lg:p-8">
-        <div className="max-w-[1600px] mx-auto space-y-6">
+      <div className="p-3 sm:p-4 md:p-6 lg:p-8">
+        <div className="max-w-[1600px] mx-auto space-y-4 sm:space-y-6">
 
           {/* Page Header */}
           <div className="relative z-10">
@@ -28,7 +28,7 @@ export default function CleanerActivityPage() {
           </div>
 
           {/* Filters */}
-          <div className="bg-[hsl(var(--card))] border border-[hsl(var(--border))] rounded-[var(--radius)] p-4 shadow-sm relative z-20">
+          <div className="bg-[hsl(var(--card))] border border-[hsl(var(--border))] rounded-[var(--radius)] p-3 sm:p-4 shadow-sm relative z-20 overflow-hidden">
             <ActivityFilters />
           </div>
 

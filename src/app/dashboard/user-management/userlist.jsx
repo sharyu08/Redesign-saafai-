@@ -170,41 +170,41 @@ const UserList = () => {
     const isModalOpen = viewingUser || deletingUser;
 
     return (
-        <div className="p-8 max-w-7xl mx-auto space-y-8">
-            <div className={`space-y-8 transition-all duration-300 ${isModalOpen ? 'blur-md scale-[0.98] pointer-events-none' : 'scale-100'}`}>
+        <div className="p-4 sm:p-6 md:p-8 max-w-7xl mx-auto space-y-4 sm:space-y-6 md:space-y-8">
+            <div className={`space-y-4 sm:space-y-6 md:space-y-8 transition-all duration-300 ${isModalOpen ? 'blur-md scale-[0.98] pointer-events-none' : 'scale-100'}`}>
 
                 {/* Header Section - Using standardized page-header class */}
                 <div className="page-header">
                     <div className="page-header-content">
                         {/* Title Section */}
-                        <div className="page-header-title-section">
-                            <div className="page-header-icon">
+                        <div className="page-header-title-section flex-1 min-w-0">
+                            <div className="page-header-icon flex-shrink-0">
                                 <Shield className="h-6 w-6 text-primary-light" strokeWidth={2.5} />
                             </div>
-                            <div className="text-left">
-                                <h1 className="page-header-title">
+                            <div className="text-left min-w-0">
+                                <h1 className="page-header-title text-wrap-safe">
                                     User Management
                                 </h1>
-                                <p className="page-header-subtitle">
+                                <p className="page-header-subtitle text-wrap-safe">
                                     Manage all user roles and permissions
                                 </p>
                             </div>
                         </div>
 
                         {/* Action Buttons */}
-                        <div className="page-header-actions">
+                        <div className="page-header-actions w-full sm:w-auto flex-shrink-0 mt-4 sm:mt-0">
                             <button
                                 onClick={() => router.push('/dashboard/user-management/add-user')}
-                                className="btn btn-primary flex items-center gap-2 px-6 py-2.5 text-xs-standard uppercase tracking-widest active:scale-95"
+                                className="btn btn-primary flex items-center justify-center gap-2 px-4 sm:px-6 py-2.5 text-xs-standard uppercase tracking-widest active:scale-95 w-full sm:w-auto"
                             >
-                                <Plus size={16} strokeWidth={3} /> Add User
+                                <Plus size={16} strokeWidth={3} /> <span className="whitespace-nowrap">Add User</span>
                             </button>
                         </div>
                     </div>
                 </div>
 
                 {/* Stats Cards - Compact Design */}
-                <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-7 gap-2.5 mb-6">
+                <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-7 gap-2 sm:gap-2.5 mb-4 sm:mb-6">
                     {/* Total Users Card - Highlighted */}
                     <button
                         onClick={() => setRoleFilter("all")}
@@ -401,14 +401,14 @@ const UserList = () => {
                 </div>
 
                 {/* Filter Chips */}
-                <div className="flex flex-wrap items-center gap-3">
-                    <span className="text-xs font-bold text-muted-foreground uppercase tracking-wider flex items-center gap-2">
+                <div className="flex flex-wrap items-center gap-2 sm:gap-3">
+                    <span className="text-xs font-bold text-muted-foreground uppercase tracking-wider flex items-center gap-2 w-full sm:w-auto mb-1 sm:mb-0">
                         <Filter className="h-4 w-4" />
                         Filter:
                     </span>
                     <button
                         onClick={() => setRoleFilter("all")}
-                        className={`px-4 py-2 rounded-xl text-xs font-bold uppercase tracking-wider transition-all ${roleFilter === "all"
+                        className={`px-3 sm:px-4 py-2 rounded-xl text-xs font-bold uppercase tracking-wider transition-all ${roleFilter === "all"
                             ? "bg-[hsl(var(--primary))] text-white shadow-md"
                             : "bg-white dark:bg-card border border-border text-muted-foreground hover:bg-[hsl(var(--bg-very-light-cyan))] dark:hover:bg-slate-800 hover:border-[hsl(var(--primary))]/50"
                             }`}
@@ -418,7 +418,7 @@ const UserList = () => {
                     {stats.admin > 0 && (
                         <button
                             onClick={() => setRoleFilter("Admin")}
-                            className={`px-4 py-2 rounded-xl text-xs font-bold uppercase tracking-wider transition-all ${roleFilter === "Admin"
+                            className={`px-3 sm:px-4 py-2 rounded-xl text-xs font-bold uppercase tracking-wider transition-all ${roleFilter === "Admin"
                                 ? "bg-[hsl(var(--primary))] text-white shadow-md"
                                 : "bg-white dark:bg-card border border-border text-muted-foreground hover:bg-[hsl(var(--bg-very-light-cyan))] dark:hover:bg-slate-800 hover:border-[hsl(var(--primary))]/50"
                                 }`}
@@ -429,7 +429,7 @@ const UserList = () => {
                     {stats.supervisor > 0 && (
                         <button
                             onClick={() => setRoleFilter("Supervisor")}
-                            className={`px-4 py-2 rounded-xl text-xs font-bold uppercase tracking-wider transition-all ${roleFilter === "Supervisor"
+                            className={`px-3 sm:px-4 py-2 rounded-xl text-xs font-bold uppercase tracking-wider transition-all ${roleFilter === "Supervisor"
                                 ? "bg-[hsl(var(--lavender-300))] text-white shadow-md"
                                 : "bg-white dark:bg-card border border-border text-muted-foreground hover:bg-[hsl(var(--bg-very-light-cyan))] dark:hover:bg-slate-800 hover:border-[hsl(var(--lavender-300))]/50"
                                 }`}
@@ -440,7 +440,7 @@ const UserList = () => {
                     {stats.cleaner > 0 && (
                         <button
                             onClick={() => setRoleFilter("Cleaner")}
-                            className={`px-4 py-2 rounded-xl text-xs font-bold uppercase tracking-wider transition-all ${roleFilter === "Cleaner"
+                            className={`px-3 sm:px-4 py-2 rounded-xl text-xs font-bold uppercase tracking-wider transition-all ${roleFilter === "Cleaner"
                                 ? "bg-[hsl(var(--primary-accent))] text-white shadow-md"
                                 : "bg-white dark:bg-card border border-border text-muted-foreground hover:bg-[hsl(var(--bg-very-light-cyan))] dark:hover:bg-slate-800 hover:border-[hsl(var(--primary-accent))]/50"
                                 }`}
@@ -451,7 +451,7 @@ const UserList = () => {
                     {stats.zonalAdmin > 0 && (
                         <button
                             onClick={() => setRoleFilter("Zonal Admin")}
-                            className={`px-4 py-2 rounded-xl text-xs font-bold uppercase tracking-wider transition-all ${roleFilter === "Zonal Admin"
+                            className={`px-3 sm:px-4 py-2 rounded-xl text-xs font-bold uppercase tracking-wider transition-all ${roleFilter === "Zonal Admin"
                                 ? "bg-[hsl(var(--lavender-300))] text-white shadow-md"
                                 : "bg-white dark:bg-card border border-border text-muted-foreground hover:bg-[hsl(var(--bg-very-light-cyan))] dark:hover:bg-slate-800 hover:border-[hsl(var(--lavender-300))]/50"
                                 }`}
@@ -462,7 +462,7 @@ const UserList = () => {
                     {stats.facilitySupervisor > 0 && (
                         <button
                             onClick={() => setRoleFilter("Facility Supervisor")}
-                            className={`px-4 py-2 rounded-xl text-xs font-bold uppercase tracking-wider transition-all ${roleFilter === "Facility Supervisor"
+                            className={`px-3 sm:px-4 py-2 rounded-xl text-xs font-bold uppercase tracking-wider transition-all ${roleFilter === "Facility Supervisor"
                                 ? "bg-[hsl(var(--lavender-200))] text-[hsl(var(--primary-dark))] border border-[hsl(var(--lavender-300))] shadow-md"
                                 : "bg-white dark:bg-card border border-border text-muted-foreground hover:bg-[hsl(var(--bg-very-light-cyan))] dark:hover:bg-slate-800 hover:border-[hsl(var(--lavender-300))]/50"
                                 }`}
@@ -473,7 +473,7 @@ const UserList = () => {
                     {stats.facilityAdmin > 0 && (
                         <button
                             onClick={() => setRoleFilter("Facility Admin")}
-                            className={`px-4 py-2 rounded-xl text-xs font-bold uppercase tracking-wider transition-all ${roleFilter === "Facility Admin"
+                            className={`px-3 sm:px-4 py-2 rounded-xl text-xs font-bold uppercase tracking-wider transition-all ${roleFilter === "Facility Admin"
                                 ? "bg-[hsl(var(--lavender-200))] text-[hsl(var(--primary-dark))] border border-[hsl(var(--lavender-300))] shadow-md"
                                 : "bg-white dark:bg-card border border-border text-muted-foreground hover:bg-[hsl(var(--bg-very-light-cyan))] dark:hover:bg-slate-800 hover:border-[hsl(var(--lavender-300))]/50"
                                 }`}

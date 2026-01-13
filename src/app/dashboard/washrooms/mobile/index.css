@@ -14,6 +14,26 @@
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
 }
 
+/* Ensure cards don't overflow */
+.washroom-card-name {
+    word-break: break-word;
+    overflow-wrap: break-word;
+    hyphens: auto;
+    line-height: 1.4;
+}
+
+/* Mobile card container - prevent overflow */
+@media (max-width: 767px) {
+    .washroom-card-container {
+        overflow: hidden;
+    }
+    
+    .washroom-card-container > * {
+        max-width: 100%;
+        box-sizing: border-box;
+    }
+}
+
 .washroom-card-name {
     font-weight: 700;
     line-height: 1.3;

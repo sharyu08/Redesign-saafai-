@@ -17,15 +17,15 @@ export default function WashroomFilters({
 }) {
     return (
         /* Using .card-global for standard dashboard panel styling */
-        <div className="card-global p-3 shadow-sm border border-slate-100 dark:border-slate-800">
-            <div className="flex flex-wrap items-center gap-3">
+        <div className="card-global p-3 sm:p-4 shadow-sm border border-slate-100 dark:border-slate-800">
+            <div className="flex flex-col sm:flex-row sm:flex-wrap items-stretch sm:items-center gap-3">
 
                 {/* 1. COMPACT SEARCH - Using .form-input-wrapper logic */}
-                <div className="relative group min-w-[240px] flex-1">
+                <div className="relative group w-full sm:min-w-[240px] sm:flex-1">
                     <div className="form-input-wrapper">
                         <Search className="form-input-icon h-4 w-4" />
                         <input
-                            className="form-input py-2 pl-10 text-xs"
+                            className="form-input py-2.5 sm:py-2 pl-10 text-sm sm:text-xs w-full"
                             placeholder="Search facility name or ID..."
                             value={search}
                             onChange={(e) => onSearchChange(e.target.value)}
@@ -34,10 +34,10 @@ export default function WashroomFilters({
                 </div>
 
                 {/* 2. COMPACT SELECTS - Using standardized .form-select and Roboto weights */}
-                <div className="flex items-center gap-2">
-                    <div className="relative group">
+                <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-2 w-full sm:w-auto">
+                    <div className="relative group w-full sm:w-auto">
                         <select
-                            className="appearance-none bg-[hsl(var(--input))] border border-[hsl(var(--border))] rounded-xl pl-3 pr-8 py-2 text-xs font-bold text-[hsl(var(--foreground))] focus:ring-2 focus:ring-[hsl(var(--primary))] hover:ring-2 hover:ring-[hsl(var(--primary))]/30 hover:border-[hsl(var(--primary))]/50 outline-none cursor-pointer transition-all"
+                            className="appearance-none bg-[hsl(var(--input))] border border-[hsl(var(--border))] rounded-xl pl-3 pr-8 py-2.5 sm:py-2 text-sm sm:text-xs font-bold text-[hsl(var(--foreground))] focus:ring-2 focus:ring-[hsl(var(--primary))] hover:ring-2 hover:ring-[hsl(var(--primary))]/30 hover:border-[hsl(var(--primary))]/50 outline-none cursor-pointer transition-all w-full"
                             value={typeFilter}
                             onChange={(e) => onTypeFilterChange(e.target.value)}
                         >
@@ -49,9 +49,9 @@ export default function WashroomFilters({
                         <Filter className="absolute right-2.5 top-1/2 -translate-y-1/2 h-3 w-3 text-[hsl(var(--muted-foreground))] group-hover:text-[hsl(var(--primary))] pointer-events-none transition-colors" />
                     </div>
 
-                    <div className="relative group">
+                    <div className="relative group w-full sm:w-auto">
                         <select
-                            className="appearance-none bg-[hsl(var(--input))] border border-[hsl(var(--border))] rounded-xl pl-3 pr-8 py-2 text-xs font-bold text-[hsl(var(--foreground))] focus:ring-2 focus:ring-[hsl(var(--primary))] hover:ring-2 hover:ring-[hsl(var(--primary))]/30 hover:border-[hsl(var(--primary))]/50 outline-none cursor-pointer transition-all"
+                            className="appearance-none bg-[hsl(var(--input))] border border-[hsl(var(--border))] rounded-xl pl-3 pr-8 py-2.5 sm:py-2 text-sm sm:text-xs font-bold text-[hsl(var(--foreground))] focus:ring-2 focus:ring-[hsl(var(--primary))] hover:ring-2 hover:ring-[hsl(var(--primary))]/30 hover:border-[hsl(var(--primary))]/50 outline-none cursor-pointer transition-all w-full"
                             value={companyFilter}
                             onChange={(e) => onCompanyFilterChange(e.target.value)}
                         >
@@ -62,9 +62,9 @@ export default function WashroomFilters({
                     </div>
 
                     {/* RATING SELECT - Values match the logic below */}
-                    <div className="relative group">
+                    <div className="relative group w-full sm:w-auto">
                         <select
-                            className="appearance-none bg-[hsl(var(--input))] border border-[hsl(var(--border))] rounded-xl pl-3 pr-8 py-2 text-xs font-bold text-[hsl(var(--foreground))] focus:ring-2 focus:ring-[hsl(var(--primary))] hover:ring-2 hover:ring-[hsl(var(--primary))]/30 hover:border-[hsl(var(--primary))]/50 outline-none cursor-pointer transition-all"
+                            className="appearance-none bg-[hsl(var(--input))] border border-[hsl(var(--border))] rounded-xl pl-3 pr-8 py-2.5 sm:py-2 text-sm sm:text-xs font-bold text-[hsl(var(--foreground))] focus:ring-2 focus:ring-[hsl(var(--primary))] hover:ring-2 hover:ring-[hsl(var(--primary))]/30 hover:border-[hsl(var(--primary))]/50 outline-none cursor-pointer transition-all w-full"
                             value={ratingFilter}
                             onChange={(e) => onRatingFilterChange(e.target.value)}
                         >
@@ -78,7 +78,7 @@ export default function WashroomFilters({
                 </div>
 
                 {/* 3. SEGMENTED ASSIGNMENT CONTROL - Using .muted and hover tokens */}
-                <div className="flex bg-slate-50 dark:bg-slate-800 p-1 rounded-xl border border-slate-100 dark:border-slate-700 shadow-inner">
+                <div className="flex bg-slate-50 dark:bg-slate-800 p-1 rounded-xl border border-slate-100 dark:border-slate-700 shadow-inner w-full sm:w-auto">
                     {[
                         { id: "all", label: "All", icon: null },
                         { id: "assigned", label: "Assigned", icon: <CheckCircle2 size={10} /> },
@@ -106,7 +106,7 @@ export default function WashroomFilters({
                 <button
                     type="button"
                     onClick={onClear}
-                    className="p-2 text-slate-400 hover:text-rose-500 hover:bg-rose-50 dark:hover:bg-rose-900/20 rounded-xl transition-all"
+                    className="p-2.5 sm:p-2 text-slate-400 hover:text-rose-500 hover:bg-rose-50 dark:hover:bg-rose-900/20 rounded-xl transition-all self-start sm:self-center"
                     title="Clear All Filters"
                 >
                     <XCircle className="h-5 w-5" />

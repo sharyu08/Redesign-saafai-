@@ -148,18 +148,18 @@ export default function CreateAssignmentsPage() {
   };
 
   return (
-    <div className="min-h-screen bg-white dark:bg-background w-full py-6 px-4 sm:px-6 md:px-8 flex flex-col items-center relative overflow-hidden">
+    <div className="min-h-screen bg-white dark:bg-background w-full py-4 sm:py-6 px-3 sm:px-4 md:px-6 lg:px-8 flex flex-col items-center relative overflow-hidden">
 
       {/* Background Decorative Blur (lavender) */}
       <div className="absolute top-0 right-0 w-48 h-48 sm:w-56 sm:h-56 bg-[#CBF3F0] rounded-full blur-2xl opacity-50 -mr-12 sm:-mr-16 -mt-12 sm:-mt-16 pointer-events-none" />
 
       {/* Back Button */}
-      <div className="absolute top-8 left-8 z-20">
+      <div className="absolute top-4 sm:top-8 left-3 sm:left-8 z-20">
         <button
           onClick={handleBack}
-          className="group flex items-center gap-3 text-[10px] font-black uppercase tracking-[0.2em] text-slate-400 hover:text-[#FF9F1C] transition-all"
+          className="group flex items-center gap-2 sm:gap-3 text-[10px] font-black uppercase tracking-[0.2em] text-slate-400 hover:text-[#FF9F1C] transition-all"
         >
-          <div className="h-9 w-9 rounded-full bg-white shadow-sm border border-slate-100 flex items-center justify-center group-hover:border-[#CBF3F0] group-hover:shadow-md transition-all">
+          <div className="h-9 w-9 rounded-full bg-white dark:bg-card shadow-sm border border-slate-100 dark:border-border flex items-center justify-center group-hover:border-[#CBF3F0] group-hover:shadow-md transition-all">
             <ArrowLeft size={16} strokeWidth={3} className="group-hover:-translate-x-1 transition-transform" />
           </div>
           <span className="hidden lg:block">Back</span>
@@ -167,23 +167,23 @@ export default function CreateAssignmentsPage() {
       </div>
 
       {/* Main Card - Increased size and spacing */}
-      <div className="max-w-2xl w-full bg-white rounded-2xl shadow-lg shadow-slate-200/40 border border-slate-100 overflow-hidden animate-in fade-in slide-in-from-bottom-8 duration-1000 relative z-10">
+      <div className="w-full max-w-full sm:max-w-xl lg:max-w-2xl bg-white dark:bg-card rounded-2xl shadow-lg shadow-slate-200/40 border border-slate-100 dark:border-border overflow-hidden animate-in fade-in slide-in-from-bottom-8 duration-1000 relative z-10 mt-12 sm:mt-0">
 
         {/* Card Header (lavender) - Increased padding */}
-        <div className="bg-[#CBF3F0] px-6 py-4 border-b border-[#CBF3F1] flex justify-between items-center">
-          <div className="flex items-center gap-3">
+        <div className="bg-[#CBF3F0] dark:bg-[hsl(224,48%,16%)] px-4 sm:px-6 py-4 border-b border-[#CBF3F1] dark:border-border flex justify-between items-center">
+          <div className="flex items-center gap-2 sm:gap-3">
             <ClipboardPlus size={18} className="text-[#FF9F1C]" />
-            <h1 className="text-lg sm:text-xl font-extrabold tracking-tight text-[#0f0f0f]">
+            <h1 className="text-lg sm:text-xl font-extrabold tracking-tight text-[#0f0f0f] dark:text-foreground">
               Create Assignments
             </h1>
           </div>
           <div className="h-2 w-2 rounded-full bg-[#28C76F] animate-pulse" />
         </div>
 
-        <form className="p-8 space-y-8">
+        <form className="p-4 sm:p-6 md:p-8 space-y-6 sm:space-y-8">
 
           {/* Mode Toggle Box - Increased spacing and font sizes */}
-          <div className="bg-white dark:bg-card border border-slate-50 dark:border-border rounded-xl p-4 sm:p-5 flex items-center justify-between transition-all duration-300">
+          <div className="bg-white dark:bg-card border border-slate-50 dark:border-border rounded-xl p-4 sm:p-5 flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-4 transition-all duration-300">
             <div className="flex items-center gap-4">
               <div className={`h-11 w-11 rounded-lg bg-white dark:bg-[hsl(224,48%,14%)] flex items-center justify-center shadow-sm transition-all duration-300 ${
                 isMultipleMode ? "bg-[#FDF9F2] dark:bg-[hsl(224,48%,16%)]" : "bg-blue-50 dark:bg-blue-900/20"
@@ -296,7 +296,7 @@ export default function CreateAssignmentsPage() {
                         : "Select a user..."
                     }
                     placeholder={isMultipleMode ? "Click to select users..." : "Select a user..."}
-                    className="w-full px-6 py-3.5 text-base rounded-xl border border-slate-100 dark:border-border bg-white dark:bg-card font-medium text-[#0f0f0f] dark:text-slate-100 outline-none focus:border-[#93C5FD] dark:focus:border-[hsl(var(--primary))] focus:ring-2 focus:ring-[#93C5FD]/20 dark:focus:ring-[hsl(var(--primary))]/20 transition-all cursor-pointer"
+                    className="w-full px-4 sm:px-6 py-3 sm:py-3.5 text-sm sm:text-base rounded-xl border border-slate-100 dark:border-border bg-white dark:bg-card font-medium text-[#0f0f0f] dark:text-slate-100 outline-none focus:border-[#93C5FD] dark:focus:border-[hsl(var(--primary))] focus:ring-2 focus:ring-[#93C5FD]/20 dark:focus:ring-[hsl(var(--primary))]/20 transition-all cursor-pointer"
                   />
                   <ChevronDown
                     className={`absolute right-5 top-1/2 -translate-y-1/2 text-slate-400 dark:text-slate-500 group-hover:text-[#FF9F1C] dark:group-hover:text-[hsl(var(--primary))] transition-all duration-300 ${
@@ -440,7 +440,7 @@ export default function CreateAssignmentsPage() {
                     }
                     placeholder="Click to select locations..."
                     disabled={!isMultipleMode && !selectedUser}
-                    className="w-full px-6 py-3.5 text-base rounded-xl border border-slate-100 dark:border-border bg-white dark:bg-card font-medium text-[#0f0f0f] dark:text-slate-100 outline-none focus:border-[#93C5FD] dark:focus:border-[hsl(var(--primary))] focus:ring-2 focus:ring-[#93C5FD]/20 dark:focus:ring-[hsl(var(--primary))]/20 transition-all cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed"
+                    className="w-full px-4 sm:px-6 py-3 sm:py-3.5 text-sm sm:text-base rounded-xl border border-slate-100 dark:border-border bg-white dark:bg-card font-medium text-[#0f0f0f] dark:text-slate-100 outline-none focus:border-[#93C5FD] dark:focus:border-[hsl(var(--primary))] focus:ring-2 focus:ring-[#93C5FD]/20 dark:focus:ring-[hsl(var(--primary))]/20 transition-all cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed"
                   />
                   <ChevronDown
                     className={`absolute right-5 top-1/2 -translate-y-1/2 text-slate-400 dark:text-slate-500 group-hover:text-[#FF9F1C] dark:group-hover:text-[hsl(var(--primary))] transition-all duration-300 ${

@@ -78,8 +78,8 @@ export default function WashroomsMobilePage() {
 
                 {/* Cards Container */}
                 <div className="relative group">
-                    <div className="relative bg-white dark:bg-card rounded-[28px] shadow-[0_8px_30px_rgb(0,0,0,0.04)] overflow-hidden border border-slate-100 dark:border-border">
-                        <div className="p-4">
+                    <div className="relative bg-white dark:bg-card rounded-2xl sm:rounded-[28px] shadow-[0_8px_30px_rgb(0,0,0,0.04)] overflow-hidden border border-slate-100 dark:border-border">
+                        <div className="p-3 sm:p-4 washroom-card-container">
                             <WashroomCards items={filtered} />
                         </div>
                     </div>
