@@ -34,10 +34,10 @@ export default function WashroomRow({ washroom, index }) {
                 <td className="py-4 px-4">
                     <Link
                         href={`/dashboard/washrooms/${washroom.id}`}
-                        className="font-medium text-gray-900 dark:text-gray-100 hover:text-primary-dark dark:hover:text-primary-light transition-colors"
+                        className="font-medium text-gray-900 dark:text-gray-100 hover:text-primary-dark dark:hover:text-primary-light transition-colors text-wrap-safe flex items-center gap-1"
                     >
-                        {washroom.name}
-                        <ChevronRight className="w-3.5 h-3.5 opacity-0 -translate-x-2 group-hover/link:opacity-100 group-hover/link:translate-x-0 transition-all text-cyan-500" />
+                        <span className="text-wrap-safe">{washroom.name}</span>
+                        <ChevronRight className="w-3.5 h-3.5 opacity-0 -translate-x-2 group-hover/link:opacity-100 group-hover/link:translate-x-0 transition-all text-cyan-500 flex-shrink-0" />
                     </Link>
                 </td>
 
@@ -70,13 +70,13 @@ export default function WashroomRow({ washroom, index }) {
                 {/* UPDATED CLEANER COLUMN */}
                 <td className="table-cell">
                     <div className="flex items-center gap-2">
-                        <div className={`w-2 h-2 rounded-full ${assignments.length > 0 ? 'bg-green-500' : 'bg-gray-400'}`}></div>
-                        <span className="text-gray-800 dark:text-gray-200 font-medium">{primaryCleaner}</span>
+                        <div className={`w-2 h-2 rounded-full flex-shrink-0 ${assignments.length > 0 ? 'bg-green-500' : 'bg-gray-400'}`}></div>
+                        <span className="text-gray-800 dark:text-gray-200 font-medium text-wrap-safe flex-1 min-w-0">{primaryCleaner}</span>
 
                         {extraCount > 0 && (
                             <button
                                 onClick={() => setIsModalOpen(true)}
-                                className="text-blue-600 dark:text-blue-400 hover:text-blue-800 dark:hover:text-blue-300 transition-colors ml-1 text-sm font-medium"
+                                className="text-blue-600 dark:text-blue-400 hover:text-blue-800 dark:hover:text-blue-300 transition-colors ml-1 text-sm font-medium flex-shrink-0"
                             >
                                 +{extraCount}
                             </button>
@@ -85,7 +85,7 @@ export default function WashroomRow({ washroom, index }) {
                 </td>
 
                 <td className="table-cell">
-                    <span className="text-gray-600 dark:text-gray-400">
+                    <span className="text-gray-600 dark:text-gray-400 text-wrap-safe">
                         {washroom.facility_companies?.name || "N/A"}
                     </span>
                 </td>

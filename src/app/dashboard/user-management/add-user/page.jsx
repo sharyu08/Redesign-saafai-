@@ -47,7 +47,7 @@ export default function AddUserFullPage() {
   };
 
   return (
-    <div className="min-h-screen bg-white dark:bg-background w-full pt-8 pb-12 px-6 flex flex-col items-center relative overflow-hidden">
+    <div className="min-h-screen bg-white dark:bg-background w-full pt-8 pb-12 px-4 sm:px-6 md:px-8 flex flex-col items-center relative overflow-hidden">
       {/* Background Decorative Blur */}
       <div className="absolute top-0 right-0 w-64 h-64 bg-[#CBF3F0] rounded-full blur-3xl opacity-50 -mr-20 -mt-20 pointer-events-none" />
 
@@ -65,7 +65,7 @@ export default function AddUserFullPage() {
       </div>
 
       {/* Main Card - Increased size and spacing */}
-      <div className="max-w-3xl w-full bg-white rounded-[32px] shadow-2xl shadow-slate-200/50 border border-slate-100 overflow-hidden animate-in fade-in slide-in-from-bottom-8 duration-1000 relative z-10">
+      <div className="w-full max-w-3xl bg-white dark:bg-card rounded-[32px] shadow-2xl shadow-slate-200/50 border border-slate-100 dark:border-border overflow-hidden animate-in fade-in slide-in-from-bottom-8 duration-1000 relative z-10">
         {/* Card Header */}
         <div className="bg-[#CBF3F0] px-8 py-5 border-b border-[#CBF3F1] flex justify-between items-center">
           <div className="flex items-center gap-3">
@@ -77,7 +77,7 @@ export default function AddUserFullPage() {
           <div className="h-2 w-2 rounded-full bg-[#28C76F] animate-pulse" />
         </div>
 
-        <form onSubmit={handleSubmit} className="p-8 sm:p-10 space-y-8">
+        <form onSubmit={handleSubmit} className="p-6 sm:p-8 space-y-8">
           {/* Assigned Node - Simplified */}
           <div className="space-y-4">
             <div className="flex items-center gap-3">
@@ -151,7 +151,7 @@ export default function AddUserFullPage() {
           </div>
 
           {/* Password + Access Level */}
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 pt-2 bg-white p-6 rounded-2xl border border-slate-100 shadow-sm">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 pt-2 bg-white dark:bg-card p-6 rounded-2xl border border-slate-100 dark:border-border shadow-sm">
             <h3 className="text-lg font-bold text-slate-800 col-span-2 flex items-center gap-2">
               <Lock size={18} className="text-[#FF9F1C]" />
               Access & Security

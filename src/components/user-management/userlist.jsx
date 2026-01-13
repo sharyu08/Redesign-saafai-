@@ -4,6 +4,7 @@ import React, { useEffect, useMemo, useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { usePathname, useRouter } from "next/navigation";
+import { useResponsive } from "@/hooks/useResponsive";
 // Added Search to imports
 import {
     Activity,
@@ -29,24 +30,7 @@ import {
     Wrench,
     Trash2,
 } from "lucide-react";
-
-// --- MOCK DATA ---
-const initialUserRows = [
-    {
-        id: 103,
-        name: 'Rajesh Sahani',
-        phone: '8955596876',
-        email: 'rajesh@saaf.ai',
-        role: 'Cleaner',
-        userId: 182,
-        locations: [
-            { name: 'Narendra nagar square', assignedDate: '20 Nov 2025', active: true, coordinates: '21.107, 79.079' },
-            { name: 'New Manish Nagar Chowk', assignedDate: '8 Dec 2025', active: true, coordinates: '21.085, 79.087' }
-        ]
-    },
-    { id: 101, name: 'Test Intern', phone: '9356150564', email: 'test1@gmail.com', role: 'Admin', userId: 180, locations: [] },
-    { id: 102, name: 'Omkar Supervisor', phone: '3333333333', email: 'richom056@gmail.com', role: 'Supervisor', userId: 181, locations: [{ name: 'Narendra nagar square', assignedDate: '20 Nov 2025', active: true, coordinates: '21.107, 79.079' }] },
-];
+import { initialUserRows } from "./data";
 
 const getRoleStyle = (role) => {
     switch (role) {
@@ -117,6 +101,8 @@ const UserDetailCard = ({ user, onClose }) => {
 // --- MAIN COMPONENT ---
 const UserList = () => {
     const router = useRouter();
+    const pathname = usePathname();
+    const { isMobile } = useResponsive();
     const [userRows, setUserRows] = useState(initialUserRows);
     const [searchTerm, setSearchTerm] = useState("");
     const [roleFilter, setRoleFilter] = useState("all");
@@ -151,6 +137,12 @@ const UserList = () => {
     };
 
     const isModalOpen = viewingUser || deletingUser;
+
+    useEffect(() => {
+        if (isMobile && pathname === "/dashboard/user-management") {
+            router.replace("/dashboard/user-management/mobile");
+        }
+    }, [isMobile, pathname, router]);
 
     return (
         <div className="p-8 max-w-7xl mx-auto space-y-8">
@@ -468,7 +460,7 @@ const UserList = () => {
 
                 {/* Table View - Using standardized table classes */}
                 <div className="table-container">
-                    <div className="overflow-x-auto">
+                    <div className="table-wrapper-responsive">
                         <table className="table min-w-full">
                             <thead className="table-header">
                                 <tr>
@@ -494,13 +486,13 @@ const UserList = () => {
                                                         {user.name.charAt(0)}
                                                     </div>
                                                     <div>
-                                                        <div>{user.name}</div>
+                                                        <div className="text-wrap-safe">{user.name}</div>
                                                         <div className="text-[10px] text-muted-foreground">ID: #{user.userId}</div>
                                                     </div>
                                                 </div>
                                             </td>
                                             <td className="table-cell">
-                                                <div className="text-xs">{user.email}</div>
+                                                <div className="text-xs text-wrap-safe">{user.email}</div>
                                                 <div className="text-[10px] text-muted-foreground mt-1">{user.phone}</div>
                                             </td>
                                             <td className="table-cell">

@@ -92,7 +92,7 @@ export default function ReportsPage() {
 
             <button className="btn btn-primary px-6 py-3 w-full md:w-auto text-xs-standard uppercase tracking-widest active:scale-95 flex items-center justify-center gap-2">
               <Download size={14} strokeWidth={3} />
-              Export All Reports
+              Export Reports
             </button>
           </div>
         </div>

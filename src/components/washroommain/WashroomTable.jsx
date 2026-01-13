@@ -9,8 +9,8 @@ export default function WashroomTable({ items }) {
     return (
         <div className="table-container">
             {/* Scrollable Container with Custom Scrollbar Styling */}
-            <div className="overflow-x-auto overflow-y-auto max-h-[600px]">
-                <table className="table min-w-[1200px]">
+            <div className="table-wrapper-responsive overflow-y-auto max-h-[600px]">
+                <table className="table w-full">
                     <thead className="table-header">
                         <tr>
                             <th>

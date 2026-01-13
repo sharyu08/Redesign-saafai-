@@ -44,55 +44,55 @@ export default function CleanerActivityPage() {
               </div>
 
               {/* Quick Action Log */}
-              <div className="bg-white border border-[#CBF3F0] rounded-[24px] overflow-hidden shadow-md">
+              <div className="bg-white dark:bg-card border border-[#CBF3F0] dark:border-border rounded-[24px] overflow-hidden shadow-md dark:shadow-lg">
 
                 {/* Header */}
-                <div className="bg-[#CBF3F0] px-5 py-4 border-b border-[#CBF3F0] flex items-center justify-between">
+                <div className="bg-[#CBF3F0] dark:bg-[hsl(224,48%,16%)] px-5 py-4 border-b border-[#CBF3F0] dark:border-border flex items-center justify-between">
                   <div className="flex items-center gap-2">
-                    <PlusCircle size={16} className="text-[#FF9F1C]" />
-                    <h3 className="text-[11px] font-black text-[#FF9F1C] uppercase tracking-widest">
+                    <PlusCircle size={16} className="text-[#FF9F1C] dark:text-[hsl(var(--primary))]" />
+                    <h3 className="text-[11px] font-black text-[#FF9F1C] dark:text-[hsl(var(--primary))] uppercase tracking-widest">
                       Quick Action Log
                     </h3>
                   </div>
-                  <Info size={14} className="text-[#8A84FF] opacity-50" />
+                  <Info size={14} className="text-[#8A84FF] dark:text-slate-400 opacity-50" />
                 </div>
 
                 <div className="p-5 space-y-4">
 
                   {/* Location Node */}
                   <div className="space-y-1.5">
-                    <label className="text-[9px] font-black text-slate-400 uppercase tracking-tighter ml-1">
+                    <label className="text-[9px] font-black text-slate-400 dark:text-slate-300 uppercase tracking-tighter ml-1">
                       Location Node
                     </label>
                     <div className="relative">
-                      <select className="w-full bg-slate-50 border border-slate-100 rounded-xl px-9 py-3 text-[12px] font-bold text-slate-700 outline-none focus:border-[#CBF3F0] appearance-none cursor-pointer">
-                        <option>Select Washroom</option>
-                        <option>Public Toilet - Zone 1</option>
+                      <select className="w-full bg-slate-50 dark:bg-[hsl(224,48%,12%)] border border-slate-100 dark:border-border rounded-xl px-9 py-3 text-[12px] font-bold text-slate-700 dark:text-slate-200 outline-none focus:border-[#CBF3F0] dark:focus:border-[hsl(var(--primary))] appearance-none cursor-pointer">
+                        <option className="bg-white dark:bg-card">Select Washroom</option>
+                        <option className="bg-white dark:bg-card">Public Toilet - Zone 1</option>
                       </select>
                       <MapPin
                         size={14}
-                        className="absolute left-3 top-1/2 -translate-y-1/2 text-[#FF9F1C]"
+                        className="absolute left-3 top-1/2 -translate-y-1/2 text-[#FF9F1C] dark:text-[hsl(var(--primary))]"
                       />
                       <ChevronDown
                         size={14}
-                        className="absolute right-3 top-1/2 -translate-y-1/2 text-slate-300"
+                        className="absolute right-3 top-1/2 -translate-y-1/2 text-slate-300 dark:text-slate-500"
                       />
                     </div>
                   </div>
 
                   {/* Activity Note */}
                   <div className="space-y-1.5">
-                    <label className="text-[9px] font-black text-slate-400 uppercase tracking-tighter ml-1">
+                    <label className="text-[9px] font-black text-slate-400 dark:text-slate-300 uppercase tracking-tighter ml-1">
                       Activity Note
                     </label>
                     <textarea 
                       placeholder="Briefly describe the update..."
-                      className="w-full bg-slate-50 border border-slate-100 rounded-xl px-4 py-3 text-[12px] font-bold text-slate-700 outline-none focus:border-[#CBF3F0] min-h-[100px] resize-none"
+                      className="w-full bg-slate-50 dark:bg-[hsl(224,48%,12%)] border border-slate-100 dark:border-border rounded-xl px-4 py-3 text-[12px] font-bold text-slate-700 dark:text-slate-200 placeholder:text-slate-400 dark:placeholder:text-slate-500 outline-none focus:border-[#CBF3F0] dark:focus:border-[hsl(var(--primary))] min-h-[100px] resize-none"
                     />
                   </div>
 
                   {/* Submit Button */}
-                  <button className="w-full bg-gradient-to-r from-[#CBF3F0] to-[#CBF3F0] hover:opacity-90 text-white py-3.5 rounded-xl font-black text-[10px] uppercase tracking-[0.2em] shadow-lg flex items-center justify-center gap-2 transition-all active:scale-95">
+                  <button className="w-full bg-gradient-to-r from-[#CBF3F0] to-[#CBF3F0] dark:from-[hsl(var(--primary))] dark:to-[hsl(var(--primary-dark))] hover:opacity-90 text-white py-3.5 rounded-xl font-black text-[10px] uppercase tracking-[0.2em] shadow-lg flex items-center justify-center gap-2 transition-all active:scale-95">
                     <Send size={14} />
                     Submit Log
                   </button>

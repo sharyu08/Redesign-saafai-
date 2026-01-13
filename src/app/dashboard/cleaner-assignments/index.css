@@ -4,3 +4,72 @@
 .cleaner-assignments-progress-bar {
   width: var(--progress-width, 100%);
 }
+
+/* Summary Cards - Dark Theme Hover Effects */
+.dark .cleaner-assignments-card {
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.dark .cleaner-assignments-card:hover {
+  background-color: hsl(224, 48%, 12%) !important;
+  border-color: hsl(224, 48%, 22%) !important;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
+}
+
+.dark .cleaner-assignments-card:hover .cleaner-assignments-icon {
+  background-color: hsl(224, 48%, 16%);
+  transform: scale(1.1);
+}
+
+.dark .cleaner-assignments-card:hover .cleaner-assignments-label {
+  color: hsl(0, 0%, 90%);
+}
+
+.dark .cleaner-assignments-card:hover .cleaner-assignments-value {
+  color: hsl(0, 0%, 98%);
+}
+
+/* Active state for dark theme */
+.dark .cleaner-assignments-card-active {
+  background-color: hsl(224, 48%, 14%) !important;
+  border-color: hsl(34, 100%, 60%) !important;
+  box-shadow: 0 4px 12px rgba(255, 159, 28, 0.15);
+}
+
+.dark .cleaner-assignments-card-active .cleaner-assignments-icon {
+  background-color: hsl(34, 100%, 60%, 0.15);
+}
+
+/* Total Staff Card - Dark Theme Hover */
+.dark .cleaner-assignments-card-total:hover {
+  border-color: hsl(34, 100%, 60%, 0.4) !important;
+  background-color: hsl(224, 48%, 12%) !important;
+}
+
+.dark .cleaner-assignments-card-total:hover .cleaner-assignments-icon {
+  background-color: hsl(34, 100%, 60%, 0.15);
+  color: hsl(34, 100%, 60%);
+}
+
+/* Assigned Card - Dark Theme Hover */
+.dark .cleaner-assignments-card-assigned:hover {
+  border-color: hsl(142, 71%, 50%, 0.4) !important;
+  background-color: hsl(224, 48%, 12%) !important;
+}
+
+.dark .cleaner-assignments-card-assigned:hover .cleaner-assignments-icon {
+  background-color: hsl(142, 71%, 50%, 0.15);
+  color: hsl(142, 71%, 50%);
+}
+
+/* Unassigned Card - Dark Theme Hover */
+.dark .cleaner-assignments-card-unassigned:hover {
+  border-color: hsl(207, 90%, 61%, 0.4) !important;
+  background-color: hsl(224, 48%, 12%) !important;
+}
+
+.dark .cleaner-assignments-card-unassigned:hover .cleaner-assignments-icon {
+  background-color: hsl(207, 90%, 61%, 0.15);
+  color: hsl(207, 90%, 61%);
+}

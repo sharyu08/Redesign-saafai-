@@ -19,11 +19,12 @@ import {
   Zap,
   Settings
 } from 'lucide-react';
-import { useState } from 'react';
+import { useState, useRef, useEffect } from 'react';
 
 export default function GeneratedReport() {
   const searchParams = useSearchParams();
   const [showFilters, setShowFilters] = useState(false);
+  const progressRefs = useRef({});
 
   // Get filter values from URL
   const reportType = searchParams.get('type') || 'Cleaning Report';
@@ -55,6 +56,16 @@ export default function GeneratedReport() {
       score: 82,
     }
   ];
+
+  // Set progress bar widths programmatically
+  useEffect(() => {
+    reportData.forEach((item) => {
+      const ref = progressRefs.current[item.id];
+      if (ref) {
+        ref.style.setProperty('--progress-width', `${item.score}%`);
+      }
+    });
+  }, [reportData]);
 
   return (
     <div className="min-h-screen bg-white dark:bg-background py-8 px-8 space-y-8 w-full text-left">
@@ -191,7 +202,10 @@ export default function GeneratedReport() {
                   <td className="table-cell">
                     <div className="flex items-center gap-2">
                       <div className="h-1.5 w-16 bg-slate-100 rounded-full overflow-hidden">
-                        <div className="progress-bar bg-primary-medium reports-progress-bar" style={{ '--progress-width': `${item.score}%` }}></div>
+                        <div 
+                          ref={(el) => { progressRefs.current[item.id] = el; }}
+                          className="progress-bar bg-primary-medium reports-progress-bar"
+                        ></div>
                       </div>
                       <span>{item.score}%</span>
                     </div>

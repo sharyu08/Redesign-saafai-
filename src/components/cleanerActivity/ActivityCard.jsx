@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react"; // Added for modal control
+import { useState, useRef, useEffect } from "react"; // Added for modal control
 import Link from "next/link";
 import { MapPin, Clock, ArrowRight, User, X } from "lucide-react"; // Added X for closing modal
 import "./ActivityCard.css";
@@ -8,8 +8,19 @@ import "./ActivityCard.css";
 export default function ActivityCard({ activity }) {
     // 1. State to manage the Gallery Modal visibility
     const [isGalleryOpen, setIsGalleryOpen] = useState(false);
+    const imageStackRefs = useRef({});
 
     const IMAGE_BASE_PATH = "/image/CleanerActivity";
+
+    // Set z-index programmatically for image stack
+    useEffect(() => {
+        activity.images?.slice(0, 4).forEach((imgName, i) => {
+            const ref = imageStackRefs.current[i];
+            if (ref) {
+                ref.style.setProperty('--stack-index', String(10 - i));
+            }
+        });
+    }, [activity.images]);
 
     const getFullImgPath = (imgName) => {
         if (imgName === undefined || imgName === null) return "";
@@ -20,29 +31,29 @@ export default function ActivityCard({ activity }) {
 
     return (
         <>
-            <div className="flex flex-col justify-between rounded-2xl bg-white shadow-[0_4px_20px_rgba(0,0,0,0.05)] hover:shadow-[0_8px_30px_rgba(0,0,0,0.08)] hover:-translate-y-0.5 p-5 h-[380px] transition-all duration-300 group border-0">
+            <div className="flex flex-col justify-between rounded-2xl bg-white dark:bg-card shadow-[0_4px_20px_rgba(0,0,0,0.05)] dark:shadow-[0_4px_12px_rgba(0,0,0,0.3)] hover:shadow-[0_8px_30px_rgba(0,0,0,0.08)] dark:hover:shadow-[0_6px_16px_rgba(0,0,0,0.4)] hover:-translate-y-0.5 p-5 h-[380px] transition-all duration-300 group border-0 dark:border-border">
                 <div className="space-y-3">
                     <div className="flex items-start justify-between">
                         <div className="flex items-center gap-3">
-                            <div className="h-10 w-10 rounded-full bg-[#FDF9F2] flex items-center justify-center">
-                                <User className="h-5 w-5 text-[#FF9F1C]" />
+                            <div className="h-10 w-10 rounded-full bg-[#FDF9F2] dark:bg-[hsl(224,48%,16%)] flex items-center justify-center">
+                                <User className="h-5 w-5 text-[#FF9F1C] dark:text-[hsl(var(--primary))]" />
                             </div>
                             <div>
-                                <h3 className="text-sm font-bold text-slate-900 leading-none mb-1">
+                                <h3 className="text-sm font-bold text-slate-900 dark:text-slate-100 leading-none mb-1">
                                     {activity.cleanerName}
                                 </h3>
-                                <span className="text-[10px] font-black uppercase tracking-widest text-slate-400 dark:text-slate-500">
+                                <span className="text-[10px] font-black uppercase tracking-widest text-slate-400 dark:text-slate-400">
                                     Staff Member
                                 </span>
                             </div>
                         </div>
-                        <span className="rounded-full bg-emerald-50 border border-emerald-100 px-2.5 py-1 text-[10px] font-bold uppercase tracking-wider text-emerald-600">
+                        <span className="rounded-full bg-emerald-50 dark:bg-emerald-900/30 border border-emerald-100 dark:border-emerald-800 px-2.5 py-1 text-[10px] font-bold uppercase tracking-wider text-emerald-600 dark:text-emerald-400">
                             Completed
                         </span>
                     </div>
 
                     <div className="py-2">
-                        <p className="text-[10px] font-bold text-slate-400 uppercase tracking-tight mb-3">
+                        <p className="text-[10px] font-bold text-slate-400 dark:text-slate-300 uppercase tracking-tight mb-3">
                             Evidence Logs ({activity.images?.length || 0})
                         </p>
 
@@ -51,9 +62,9 @@ export default function ActivityCard({ activity }) {
                             {activity.images?.slice(0, 4).map((imgName, i) => (
                                 <button
                                     key={i}
+                                    ref={(el) => { imageStackRefs.current[i] = el; }}
                                     onClick={() => setIsGalleryOpen(true)}
-                                    className="h-14 w-14 rounded-full overflow-hidden relative hover:z-30 hover:scale-105 transition-all cursor-pointer shadow-sm hover:shadow-md border-2 border-white activity-card-image-stack"
-                                    style={{ '--stack-index': 10 - i }}
+                                    className="h-14 w-14 rounded-full overflow-hidden relative hover:z-30 hover:scale-105 transition-all cursor-pointer shadow-sm hover:shadow-md border-2 border-white dark:border-[hsl(224,48%,12%)] activity-card-image-stack"
                                 >
                                     <img
                                         src={getFullImgPath(imgName)}
@@ -70,7 +81,7 @@ export default function ActivityCard({ activity }) {
                             {activity.images?.length > 4 && (
                                 <button
                                     onClick={() => setIsGalleryOpen(true)}
-                                    className="flex h-14 w-14 items-center justify-center rounded-full bg-[#FF9F1C] text-xs font-black text-white shadow-sm z-20 hover:bg-[#5A52E0] transition-all cursor-pointer active:scale-95 border-2 border-white"
+                                    className="flex h-14 w-14 items-center justify-center rounded-full bg-[#FF9F1C] dark:bg-[hsl(var(--primary))] text-xs font-black text-white shadow-sm z-20 hover:bg-[#E68900] dark:hover:bg-[hsl(var(--primary-dark))] transition-all cursor-pointer active:scale-95 border-2 border-white dark:border-[hsl(224,48%,12%)]"
                                 >
                                     +{activity.images.length - 4}
                                 </button>
@@ -79,17 +90,17 @@ export default function ActivityCard({ activity }) {
                     </div>
                 </div>
 
-                <div className="bg-[#FAFAFF] rounded-2xl p-4 space-y-2.5 border border-[#FDF9F2]">
-                    <div className="flex items-center gap-2 text-xs font-bold text-slate-800">
-                        <MapPin className="h-3.5 w-3.5 text-[#FF9F1C]" />
+                <div className="bg-[#FAFAFF] dark:bg-[hsl(224,48%,14%)] rounded-2xl p-4 space-y-2.5 border border-[#FDF9F2] dark:border-border">
+                    <div className="flex items-center gap-2 text-xs font-bold text-slate-800 dark:text-slate-200">
+                        <MapPin className="h-3.5 w-3.5 text-[#FF9F1C] dark:text-[hsl(var(--primary))]" />
                         <span className="truncate">{activity.location}</span>
                     </div>
-                    <div className="flex flex-col gap-1.5 pl-4 border-l-2 border-[#CBF3F0]">
-                        <div className="flex items-center gap-2 text-[11px] text-slate-500 font-medium">
-                            <Clock className="h-3 w-3 text-[#8A84FF]" />
+                    <div className="flex flex-col gap-1.5 pl-4 border-l-2 border-[#CBF3F0] dark:border-[hsl(var(--primary))]/30">
+                        <div className="flex items-center gap-2 text-[11px] text-slate-500 dark:text-slate-400 font-medium">
+                            <Clock className="h-3 w-3 text-[#8A84FF] dark:text-slate-400" />
                             <span>Finished: {activity.finishedAt}</span>
                         </div>
-                        <p className="text-[11px] font-black text-emerald-600 bg-emerald-50 px-2 py-1 rounded-full w-fit uppercase tracking-widest">
+                        <p className="text-[11px] font-black text-emerald-600 dark:text-emerald-400 bg-emerald-50 dark:bg-emerald-900/30 px-2 py-1 rounded-full w-fit uppercase tracking-widest">
                             Validated • 1m
                         </p>
                     </div>
@@ -98,7 +109,7 @@ export default function ActivityCard({ activity }) {
                 <div className="pt-2">
                     <Link
                         href={`/dashboard/cleaner-activity/${activity.id}`}
-                        className="flex items-center justify-center gap-2 w-full py-2.5 rounded-xl text-xs font-bold text-[#FF9F1C] hover:bg-[#FDF9F2] transition-all duration-300 active:scale-95 border border-[#CBF3F0]"
+                        className="flex items-center justify-center gap-2 w-full py-2.5 rounded-xl text-xs font-bold text-[#FF9F1C] dark:text-[hsl(var(--primary))] hover:bg-[#FDF9F2] dark:hover:bg-[hsl(224,48%,16%)] transition-all duration-300 active:scale-95 border border-[#CBF3F0] dark:border-border"
                     >
                         Detailed Report
                         <ArrowRight className="h-3.5 w-3.5" />
@@ -108,27 +119,27 @@ export default function ActivityCard({ activity }) {
 
             {/* 3. GALLERY MODAL OVERLAY */}
             {isGalleryOpen && (
-                <div className="fixed inset-0 z-[999] flex items-center justify-center p-4 bg-slate-900/60 backdrop-blur-sm animate-in fade-in duration-200">
-                    <div className="bg-white w-full max-w-4xl rounded-[32px] overflow-hidden shadow-2xl flex flex-col max-h-[90vh]">
+                <div className="fixed inset-0 z-[999] flex items-center justify-center p-4 bg-slate-900/60 dark:bg-black/80 backdrop-blur-sm animate-in fade-in duration-200">
+                    <div className="bg-white dark:bg-card w-full max-w-4xl rounded-[32px] overflow-hidden shadow-2xl dark:shadow-2xl flex flex-col max-h-[90vh] border dark:border-border">
                         {/* Modal Header */}
-                                <div className="p-6 border-b border-slate-100 flex justify-between items-center bg-white sticky top-0">
+                                <div className="p-6 border-b border-slate-100 dark:border-border flex justify-between items-center bg-white dark:bg-card sticky top-0">
                             <div>
-                                        <h2 className="text-xl font-black text-[hsl(var(--primary))] uppercase tracking-tight">Full Evidence Log</h2>
-                                <p className="text-[10px] font-bold text-slate-400 uppercase tracking-widest">{activity.cleanerName} • {activity.location}</p>
+                                        <h2 className="text-xl font-black text-[hsl(var(--primary))] dark:text-[hsl(var(--primary-light))] uppercase tracking-tight">Full Evidence Log</h2>
+                                <p className="text-[10px] font-bold text-slate-400 dark:text-slate-300 uppercase tracking-widest">{activity.cleanerName} • {activity.location}</p>
                             </div>
                             <button
                                 onClick={() => setIsGalleryOpen(false)}
-                                className="p-2 bg-slate-50 hover:bg-rose-50 hover:text-rose-500 rounded-full transition-all"
+                                className="p-2 bg-slate-50 dark:bg-[hsl(224,48%,14%)] hover:bg-rose-50 dark:hover:bg-rose-900/30 hover:text-rose-500 dark:hover:text-rose-400 rounded-full transition-all"
                             >
                                 <X className="h-6 w-6" />
                             </button>
                         </div>
 
                         {/* Modal Content: Full Grid of all photos */}
-                        <div className="p-6 overflow-y-auto">
+                        <div className="p-6 overflow-y-auto bg-white dark:bg-card">
                             <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4">
                                 {activity.images?.map((imgName, idx) => (
-                                    <div key={idx} className="aspect-square rounded-2xl overflow-hidden border border-slate-100 bg-slate-50">
+                                    <div key={idx} className="aspect-square rounded-2xl overflow-hidden border border-slate-100 dark:border-border bg-slate-50 dark:bg-[hsl(224,48%,12%)]">
                                         <img
                                             src={getFullImgPath(imgName)}
                                             alt={`Evidence ${idx + 1}`}
@@ -143,7 +154,7 @@ export default function ActivityCard({ activity }) {
                         </div>
 
                         {/* Modal Footer */}
-                            <div className="p-6 border-t border-slate-100 flex justify-end bg-slate-50">
+                            <div className="p-6 border-t border-slate-100 dark:border-border flex justify-end bg-slate-50 dark:bg-[hsl(224,48%,14%)]">
                             <button
                                 onClick={() => setIsGalleryOpen(false)}
                                 className="btn-primary px-8 py-3 rounded-2xl font-black text-[10px] uppercase tracking-widest active:scale-95"

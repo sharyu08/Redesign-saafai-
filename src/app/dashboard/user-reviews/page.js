@@ -81,19 +81,19 @@ export default function UserReviewsPage() {
   const ratingOptions = [5, 4, 3, 2, 1];
 
   return (
-    <div className="w-full py-8 px-8 bg-white min-h-screen">
+    <div className="w-full py-8 px-8 bg-white dark:bg-background min-h-screen">
       <div className="max-w-[1600px] mx-auto">
 
         {/* Header */}
         <ReviewHeader totalReviews={totalReviews} />
 
         {/* ================= FILTER CARD ================= */}
-        <div className="bg-white rounded-2xl border border-slate-200 p-6 shadow-sm mb-8">
+        <div className="bg-white dark:bg-card rounded-2xl border border-slate-200 dark:border-border p-6 shadow-sm dark:shadow-lg mb-8">
           <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-6">
 
             {/* Rating Filters */}
             <div className="space-y-3">
-              <div className="flex items-center gap-2 text-[10px] font-black text-slate-400 uppercase tracking-widest">
+              <div className="flex items-center gap-2 text-[10px] font-black text-slate-400 dark:text-muted-foreground uppercase tracking-widest">
                 <SlidersHorizontal size={14} />
                 Filter by rating
               </div>
@@ -103,11 +103,11 @@ export default function UserReviewsPage() {
                 <button
                   onClick={() => setSelectedRating(null)}
                   className={`
-                    px-4 py-2 rounded-xl text-[10px] font-black uppercase tracking-widest border transition-all
+                    filter-chip-button
                     ${
                       selectedRating === null
-                        ? "bg-slate-200 text-slate-800 border-slate-300"
-                        : "bg-white text-slate-400 border-slate-200 hover:border-slate-300"
+                        ? "filter-chip-button-active bg-slate-200 dark:bg-[hsl(224,48%,16%)] text-slate-800 dark:text-foreground border-slate-300 dark:border-[hsl(224,48%,25%)]"
+                        : ""
                     }
                   `}
                 >
@@ -120,11 +120,11 @@ export default function UserReviewsPage() {
                     key={rating}
                     onClick={() => setSelectedRating(rating)}
                     className={`
-                      px-4 py-2 rounded-xl text-[10px] font-black uppercase tracking-widest border transition-all
+                      filter-chip-button
                       ${
                         selectedRating === rating
-                          ? ratingColorMap[rating]
-                          : "bg-white text-slate-400 border-slate-200 hover:border-slate-300"
+                          ? `filter-chip-button-active ${ratingColorMap[rating]} dark:bg-[hsl(224,48%,16%)] dark:border-[hsl(224,48%,25%)] dark:text-foreground`
+                          : ""
                       }
                     `}
                   >
@@ -137,7 +137,7 @@ export default function UserReviewsPage() {
             {/* ================= SEARCH ================= */}
             <div className="relative group lg:w-96">
               <Search
-                className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-300"
+                className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-300 dark:text-muted-foreground"
                 size={18}
               />
               <input
@@ -148,12 +148,13 @@ export default function UserReviewsPage() {
                 className="
                   w-full pl-12 pr-6 py-4
                   rounded-2xl
-                  border border-slate-200
-                  bg-white
-                  text-sm font-bold text-slate-700
+                  border border-slate-200 dark:border-border
+                  bg-white dark:bg-muted
+                  text-sm font-bold text-slate-700 dark:text-foreground
+                  placeholder:text-slate-400 dark:placeholder:text-muted-foreground
                   outline-none
-                  focus:ring-4 focus:ring-slate-100
-                  focus:border-slate-300
+                  focus:ring-4 focus:ring-slate-100 dark:focus:ring-primary/20
+                  focus:border-slate-300 dark:focus:border-primary
                   transition-all
                 "
               />
