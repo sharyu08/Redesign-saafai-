@@ -122,9 +122,9 @@ export default function ActivityCard({ activity }) {
                 <div className="fixed inset-0 z-[999] flex items-center justify-center p-4 bg-slate-900/60 dark:bg-black/80 backdrop-blur-sm animate-in fade-in duration-200">
                     <div className="bg-white dark:bg-card w-full max-w-4xl rounded-[32px] overflow-hidden shadow-2xl dark:shadow-2xl flex flex-col max-h-[90vh] border dark:border-border">
                         {/* Modal Header */}
-                                <div className="p-6 border-b border-slate-100 dark:border-border flex justify-between items-center bg-white dark:bg-card sticky top-0">
+                        <div className="p-6 border-b border-slate-100 dark:border-border flex justify-between items-center bg-white dark:bg-card sticky top-0">
                             <div>
-                                        <h2 className="text-xl font-black text-[hsl(var(--primary))] dark:text-[hsl(var(--primary-light))] uppercase tracking-tight">Full Evidence Log</h2>
+                                <h2 className="text-xl font-black text-[hsl(var(--primary))] dark:text-[hsl(var(--primary-light))] uppercase tracking-tight">Full Evidence Log</h2>
                                 <p className="text-[10px] font-bold text-slate-400 dark:text-slate-300 uppercase tracking-widest">{activity.cleanerName} • {activity.location}</p>
                             </div>
                             <button
@@ -154,7 +154,7 @@ export default function ActivityCard({ activity }) {
                         </div>
 
                         {/* Modal Footer */}
-                            <div className="p-6 border-t border-slate-100 dark:border-border flex justify-end bg-slate-50 dark:bg-[hsl(224,48%,14%)]">
+                        <div className="p-6 border-t border-slate-100 dark:border-border flex justify-end bg-slate-50 dark:bg-[hsl(224,48%,14%)]">
                             <button
                                 onClick={() => setIsGalleryOpen(false)}
                                 className="btn-primary px-8 py-3 rounded-2xl font-black text-[10px] uppercase tracking-widest active:scale-95"
