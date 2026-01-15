@@ -2,10 +2,13 @@ import React from 'react';
 import { FileText, CheckCircle2, Clock } from 'lucide-react';
 
 export default function ReportStats({ data }) {
+    // Ensure data is an array, fallback to empty array if undefined
+    const reportData = Array.isArray(data) ? data : [];
+
     const stats = [
-        { label: "Total Entries", val: data.length, color: "#FEF3EB", border: "#FDE0CF", iconColor: "#8E6C1F", Icon: FileText },
-        { label: "Validated Tasks", val: data.filter(d => d.status === 'Completed').length, color: "#F0FDF4", border: "#DCFCE7", iconColor: "#15803D", Icon: CheckCircle2 },
-        { label: "Pending Queue", val: data.filter(d => d.status !== 'Completed').length, color: "#F0F9FF", border: "#D1E9FF", iconColor: "#0070AD", Icon: Clock },
+        { label: "Total Entries", val: reportData.length, color: "#FEF3EB", border: "#FDE0CF", iconColor: "#8E6C1F", Icon: FileText },
+        { label: "Validated Tasks", val: reportData.filter(d => d.status === 'Completed').length, color: "#F0FDF4", border: "#DCFCE7", iconColor: "#15803D", Icon: CheckCircle2 },
+        { label: "Pending Queue", val: reportData.filter(d => d.status !== 'Completed').length, color: "#F0F9FF", border: "#D1E9FF", iconColor: "#0070AD", Icon: Clock },
     ];
 
     return (

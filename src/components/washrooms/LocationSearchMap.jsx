@@ -5,8 +5,8 @@ import {
     GoogleMap,
     Marker,
     Autocomplete,
-    useJsApiLoader,
 } from "@react-google-maps/api";
+import { useJsApiLoader } from "@/hooks/useGoogleMapsLoader";
 import { Search, MapPin, Info, Navigation } from "lucide-react";
 
 const libraries = ["places"];
@@ -16,12 +16,9 @@ export default function LocationSearchMap({ onLocationChange }) {
     const [lat, setLat] = useState(21.1458);
     const [lng, setLng] = useState(79.0882);
 
-    const apiKey = process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY;
-
     const { isLoaded, loadError } = useJsApiLoader({
-        googleMapsApiKey: apiKey || '',
+        googleMapsApiKey: process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY || '',
         libraries,
-        id: 'google-map-script-places',
     });
 
     useEffect(() => {
@@ -45,18 +42,6 @@ export default function LocationSearchMap({ onLocationChange }) {
         setLat(newLat);
         setLng(newLng);
     };
-
-    if (!apiKey) {
-        return (
-            <div className="card-global">
-                <div className="bg-rose-50 dark:bg-rose-900/10 border border-rose-100 dark:border-rose-900/30 rounded-xl p-4">
-                    <p className="text-xs font-black text-rose-600 dark:text-rose-400 uppercase tracking-widest">
-                        Configuration Error: API Key Missing
-                    </p>
-                </div>
-            </div>
-        );
-    }
 
     if (loadError) {
         return (

@@ -1,14 +1,12 @@
 "use client";
 
 import { useState } from "react";
-import { GoogleMap, Marker, useLoadScript } from "@react-google-maps/api";
+import { GoogleMap, Marker } from "@react-google-maps/api";
+import { useJsApiLoader } from "@/hooks/useGoogleMapsLoader";
 
 export default function WashroomMap() {
-    const apiKey = process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY;
-
-    const { isLoaded, loadError } = useLoadScript({
-        googleMapsApiKey: apiKey || '',
-        id: 'google-map-script-washroom', // Unique ID to prevent conflicts
+    const { isLoaded, loadError } = useJsApiLoader({
+        googleMapsApiKey: process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY || '',
     });
 
     const locations = [
@@ -16,19 +14,6 @@ export default function WashroomMap() {
         { lat: 21.155, lng: 79.095 },
         { lat: 21.16, lng: 79.082 },
     ];
-
-    // Handle missing API key
-    if (!apiKey) {
-        return (
-            <div className="h-[320px] w-full rounded-xl overflow-hidden bg-slate-100 dark:bg-slate-800 flex items-center justify-center border border-slate-200 dark:border-slate-700">
-                <div className="text-center p-4">
-                    <p className="text-sm font-medium text-muted-foreground">
-                        Google Maps API key required
-                    </p>
-                </div>
-            </div>
-        );
-    }
 
     // Handle API load errors
     if (loadError) {

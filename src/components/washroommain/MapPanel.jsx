@@ -1,15 +1,13 @@
 "use client";
 
-import { GoogleMap, Marker, useLoadScript } from "@react-google-maps/api";
+import { GoogleMap, Marker } from "@react-google-maps/api";
+import { useJsApiLoader } from "@/hooks/useGoogleMapsLoader";
 import { Map as MapIcon, Info, ShieldAlert } from "lucide-react";
 
 export default function MapPanel({ locations }) {
-    const apiKey = process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY || '';
-
-    const { isLoaded, loadError } = useLoadScript({
-        googleMapsApiKey: apiKey,
+    const { isLoaded, loadError } = useJsApiLoader({
+        googleMapsApiKey: process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY || '',
         libraries: ["places"],
-        id: 'google-maps-script-panel', // Unique ID to prevent conflicts
     });
 
     const center = locations?.[0]
@@ -44,7 +42,6 @@ export default function MapPanel({ locations }) {
         </div>
     );
 
-    if (!apiKey) return <StatusPlaceholder title="API Key Required" subtitle="Please update your .env.local with NEXT_PUBLIC_GOOGLE_MAPS_API_KEY" isError />;
     if (loadError) return <StatusPlaceholder title="Map Load Failed" subtitle={loadError.message || "Check API configuration in your dashboard"} isError />;
     if (!isLoaded) return <StatusPlaceholder title="Initialising Grid" subtitle="Retrieving spatial data coordinates..." />;
 

@@ -1,7 +1,8 @@
 "use client";
 
 import { useState, useCallback, useEffect } from "react";
-import { GoogleMap, Marker, useLoadScript } from "@react-google-maps/api";
+import { GoogleMap, Marker } from "@react-google-maps/api";
+import { useJsApiLoader } from "@/hooks/useGoogleMapsLoader";
 import locations from "@/data/locations";
 import MapLegend from "./MapLegend";
 import LocationInfoPanel from "./LocationInfoPanel";
@@ -15,11 +16,8 @@ const statusIcon = {
 };
 
 const SaafAIMapBase = ({ selectedLocation, onSelectLocation, searchText, zoneIdFilter }) => {
-    const apiKey = process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY || '';
-
-    const { isLoaded, loadError } = useLoadScript({
-        googleMapsApiKey: apiKey,
-        id: 'google-maps-script-main',
+    const { isLoaded, loadError } = useJsApiLoader({
+        googleMapsApiKey: process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY || '',
         libraries: ['places'],
     });
 
@@ -74,7 +72,7 @@ const SaafAIMapBase = ({ selectedLocation, onSelectLocation, searchText, zoneIdF
                 ))}
             </GoogleMap>
 
-            {/* ✅ MAP LEGEND: FIXED BOTTOM LEFT WITH INCREASED PADDING & HIGHEST Z-INDEX */}
+            {/* MAP LEGEND: FIXED BOTTOM LEFT WITH INCREASED PADDING & HIGHEST Z-INDEX */}
             <div
                 className="
           absolute bottom-10 left-10 
