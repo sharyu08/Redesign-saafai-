@@ -1,8 +1,7 @@
 "use client";
 
 import { useState, useCallback, useEffect } from "react";
-import { GoogleMap, Marker } from "@react-google-maps/api";
-import { useJsApiLoader } from "@/hooks/useGoogleMapsLoader";
+import { GoogleMap, Marker, useLoadScript } from "@react-google-maps/api";
 import locations from "@/data/locations";
 import MapLegend from "./MapLegend";
 import LocationInfoPanel from "./LocationInfoPanel";
@@ -10,13 +9,13 @@ import LocationInfoPanel from "./LocationInfoPanel";
 const defaultCenter = { lat: 21.1458, lng: 79.0882 };
 
 const statusIcon = {
-    TOP: "http://maps.google.com/mapfiles/ms/icons/green-dot.png",
+    TOP: "http://maps.google.com/mapfiles/ms/icons/blue-dot.png",
     ATTENTION: "http://maps.google.com/mapfiles/ms/icons/yellow-dot.png",
     UNASSIGNED: "http://maps.google.com/mapfiles/ms/icons/red-dot.png",
 };
 
 const SaafAIMapBase = ({ selectedLocation, onSelectLocation, searchText, zoneIdFilter }) => {
-    const { isLoaded, loadError } = useJsApiLoader({
+    const { isLoaded, loadError } = useLoadScript({
         googleMapsApiKey: process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY || '',
         libraries: ['places'],
     });
@@ -42,7 +41,14 @@ const SaafAIMapBase = ({ selectedLocation, onSelectLocation, searchText, zoneIdF
         }
     }, [map, filteredLocations]);
 
-    if (loadError) return <div className="h-[700px] flex items-center justify-center bg-slate-50 uppercase font-black text-xs tracking-widest text-red-500">Map Load Error</div>;
+    if (loadError) return (
+        <div className="h-[700px] flex items-center justify-center bg-slate-50 uppercase font-black text-xs tracking-widest text-red-500">
+            <div className="text-center">
+                <p className="mb-2">Map Load Error</p>
+                <p className="text-xs text-red-400">{loadError.message || 'Please check your Google Maps API configuration'}</p>
+            </div>
+        </div>
+    );
     if (!isLoaded) return <div className="h-[700px] bg-slate-100 flex items-center justify-center uppercase font-black text-xs tracking-widest text-slate-400 animate-pulse">SaafAI Map Loading...</div>;
 
     return (

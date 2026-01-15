@@ -192,7 +192,7 @@
     /* #080c17 - Dark theme background color */
     --foreground: 0 0% 96%;
     /* Off-white text for excellent readability */
-    
+
     --card: 224 48% 10%;
     /* Slightly lighter than background for card elevation */
     --card-foreground: 0 0% 96%;
@@ -366,6 +366,7 @@
    Keep strictly reusable helpers only.
 ===================================================== */
 @layer utilities {
+
   /* Responsive container */
   .container-responsive {
     width: 100%;
@@ -850,7 +851,7 @@
       justify-content: flex-start;
       width: 100%;
     }
-    
+
     .page-header-actions .btn {
       min-width: 120px;
       justify-content: center;
