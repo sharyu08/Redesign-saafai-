@@ -25,15 +25,7 @@ export default function ShowHeader() {
                         </div>
                     </div>
 
-                    <div className="page-header-actions">
-                        <button
-                            onClick={() => router.back()}
-                            className="btn btn-secondary flex items-center gap-2 px-6 py-3 text-xs-standard uppercase tracking-widest active:scale-95"
-                        >
-                            <ChevronLeft size={14} strokeWidth={3} />
-                            Back to List
-                        </button>
-                    </div>
+
                 </div>
             </div>
         </div>

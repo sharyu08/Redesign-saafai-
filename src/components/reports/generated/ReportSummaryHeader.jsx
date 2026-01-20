@@ -4,7 +4,7 @@ import jsPDF from 'jspdf';
 import autoTable from 'jspdf-autotable'; // Import function directly
 import * as XLSX from 'xlsx';
 
-export default function ReportSummaryHeader({ reportType, data, onBackToConfig }) {
+export default function ReportSummaryHeader({ reportType, data, onRefine }) {
     // 1. PDF LOGIC
     const downloadPDF = () => {
         if (!data || data.length === 0) {
@@ -58,7 +58,7 @@ export default function ReportSummaryHeader({ reportType, data, onBackToConfig }
     return (
         <div className="space-y-6 print:hidden">
             <button
-                onClick={onBackToConfig}
+                onClick={onRefine}
                 className="flex items-center gap-2 text-[#007C85] font-black text-[10px] uppercase tracking-widest hover:translate-x-[-4px] transition-transform"
             >
                 <ArrowLeft size={16} strokeWidth={3} /> Back to Parameters

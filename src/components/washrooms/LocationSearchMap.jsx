@@ -5,8 +5,8 @@ import {
     GoogleMap,
     Marker,
     Autocomplete,
+    useLoadScript,
 } from "@react-google-maps/api";
-import { useJsApiLoader } from "@/hooks/useGoogleMapsLoader";
 import { Search, MapPin, Info, Navigation } from "lucide-react";
 
 const libraries = ["places"];
@@ -16,7 +16,7 @@ export default function LocationSearchMap({ onLocationChange }) {
     const [lat, setLat] = useState(21.1458);
     const [lng, setLng] = useState(79.0882);
 
-    const { isLoaded, loadError } = useJsApiLoader({
+    const { isLoaded, loadError } = useLoadScript({
         googleMapsApiKey: process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY || '',
         libraries,
     });

@@ -1,230 +1,137 @@
 "use client";
 
-import { Network, Building2, Map, Hash, ChevronRight, Activity, Users, CheckCircle, AlertCircle, Plus, MoreHorizontal } from "lucide-react";
+import React, { useState } from "react";
+import {
+    Network, Building2, Map, ChevronRight,
+    Activity, CheckCircle, X, Maximize2, Share2
+} from "lucide-react";
 
 export default function HierarchyTreePreview() {
-    return (
-        <div className="bg-[hsl(var(--card))] dark:bg-[hsl(var(--card))] rounded-[32px] border border-[hsl(var(--border))] shadow-lg overflow-hidden h-full">
+    const [isFullViewOpen, setIsFullViewOpen] = useState(false);
 
-            {/* Header using global classes */}
-            <div className="page-header-content px-8 py-5 border-b border-[hsl(var(--border))] flex items-center justify-between">
-                <div className="flex items-center gap-3">
-                    <div className="page-header-icon h-8 w-8">
-                        <Network className="h-5 w-5 text-[hsl(var(--primary-light))]" strokeWidth={2.5} />
+    // Dynamic data for the tree
+    const rootNode = { name: "Nagpur Urban", nodes: 114 };
+    const childNodes = [
+        { name: "Nagpur Rural", id: "#134", color: "slate" },
+        { name: "Dharampeth", id: "#115", color: "emerald" },
+        { name: "Nagpur East", id: "#116", color: "orange" },
+        { name: "Nagpur West", id: "#117", color: "emerald" },
+        { name: "Nagpur South", id: "#118", color: "rose" }
+    ];
+
+    const TreeContent = ({ isModal = false }) => (
+        <div className={`flex flex-col items-center ${isModal ? 'p-12' : 'p-6'} min-w-max`}>
+            {/* ROOT LEVEL */}
+            <div className="relative flex flex-col items-center">
+                <div className="relative z-10 bg-white dark:bg-slate-900 border-2 border-indigo-100 dark:border-indigo-900 px-8 py-4 rounded-2xl shadow-xl flex flex-col items-center transition-transform hover:scale-105">
+                    <div className="h-10 w-10 rounded-full bg-indigo-600 flex items-center justify-center mb-2 shadow-lg">
+                        <Building2 size={20} className="text-white" />
                     </div>
-                    <div className="text-left">
-                        <h2 className="page-header-title text-[11px]">
-                            Architecture Preview
-                        </h2>
-                        <p className="page-header-subtitle text-[9px]">
-                            Real-time Mapping Logic
-                        </p>
-                    </div>
+                    <span className="text-sm font-black text-slate-800 dark:text-white uppercase tracking-wider">
+                        {rootNode.name}
+                    </span>
+                    <span className="text-[10px] font-bold text-slate-400 mt-1">{rootNode.nodes} NODES</span>
                 </div>
-                <div className="flex items-center gap-2 px-3 py-1 bg-[hsl(var(--muted))]/60 rounded-full border border-[hsl(var(--border))] backdrop-blur-sm">
-                    <Activity size={10} className="text-[hsl(var(--chart-success))] animate-pulse" />
-                    <span className="text-[8px] font-black text-[hsl(var(--text-muted))] uppercase tracking-[0.2em]">Live Preview</span>
-                </div>
+
+                {/* Vertical Stem below Root */}
+                <div className="h-10 w-0.5 bg-indigo-200 dark:bg-indigo-900"></div>
             </div>
 
-            <div className="p-10 relative bg-gradient-to-br from-[hsl(var(--bg-light-gray))]/30 to-[hsl(var(--lavender-100))]/20 dark:from-[hsl(var(--card))]/30 dark:to-[hsl(var(--primary-light))]/20 max-h-[600px] overflow-y-auto">
+            {/* BRANCHING LEVEL */}
+            <div className="relative flex flex-col items-center w-full">
+                {/* The Horizontal Connector Bar */}
+                {/* This line spans from the center of the first child to the center of the last child */}
+                <div className="absolute top-0 h-0.5 bg-indigo-200 dark:bg-indigo-900"
+                    style={{
+                        width: `calc(100% - ${100 / childNodes.length}%)`,
+                        left: `${50 / childNodes.length}%`
+                    }}>
+                </div>
 
-                {/* Enhanced Visual Connector System */}
-                <svg className="absolute left-[54px] top-[115px] w-10 h-96 pointer-events-none" fill="none">
-                    <defs>
-                        <linearGradient id="connectorGradient" x1="0%" y1="0%" x2="0%" y2="100%">
-                            <stop offset="0%" className="text-[hsl(var(--primary-light))]" stopOpacity="0.6" />
-                            <stop offset="100%" className="text-[hsl(var(--primary))]" stopOpacity="0.3" />
-                        </linearGradient>
-                    </defs>
-                    {/* Main vertical line */}
-                    <path d="M 2 0 V 380" stroke="url(#connectorGradient)" strokeWidth="3" strokeLinecap="round" />
-                    {/* Horizontal lines to children */}
-                    <path d="M 2 65 H 35" stroke="url(#connectorGradient)" strokeWidth="3" strokeLinecap="round" />
-                    <path d="M 2 130 H 35" stroke="url(#connectorGradient)" strokeWidth="3" strokeLinecap="round" />
-                    <path d="M 2 195 H 35" stroke="url(#connectorGradient)" strokeWidth="3" strokeLinecap="round" />
-                    <path d="M 2 260 H 35" stroke="url(#connectorGradient)" strokeWidth="3" strokeLinecap="round" />
-                    <path d="M 2 325 H 35" stroke="url(#connectorGradient)" strokeWidth="3" strokeLinecap="round" />
-                </svg>
+                <div className="flex w-full justify-between gap-8 md:gap-12">
+                    {childNodes.map((child, i) => (
+                        <div key={i} className="relative flex flex-col items-center pt-10 flex-1">
+                            {/* Vertical line connecting horizontal branch to individual child */}
+                            <div className="absolute top-0 h-10 w-0.5 bg-indigo-200 dark:bg-indigo-900"></div>
 
-                <div className="space-y-12 relative">
-
-                    {/* ROOT NODE: Enhanced Master Zone */}
-                    <div className="flex items-center gap-6 group">
-                        <div className="relative z-10 h-12 w-12 rounded-2xl bg-gradient-to-br from-[hsl(var(--primary-dark))] via-[hsl(var(--primary-light))] to-[hsl(var(--chart-accent))] border-4 border-[hsl(var(--card))] dark:border-[hsl(var(--background))] shadow-xl shadow-[hsl(var(--primary-light))]/30 flex-shrink-0 flex items-center justify-center transition-all duration-300 group-hover:scale-110 group-hover:shadow-2xl">
-                            <Building2 size={20} className="text-white" strokeWidth={2.5} />
-                        </div>
-                        <div className="flex-1 bg-[hsl(var(--card))] dark:bg-[hsl(var(--card))] border border-[hsl(var(--border))] rounded-[22px] p-5 shadow-md transition-all duration-300 group-hover:shadow-lg group-hover:border-[hsl(var(--primary-light))]/30">
-                            <div className="flex items-center justify-between">
-                                <div className="text-left">
-                                    <p className="text-xs font-black text-[hsl(var(--text-heading))] dark:text-[hsl(var(--foreground))] uppercase tracking-[0.2em]">Nagpur Urban</p>
-                                    <div className="flex items-center gap-2 mt-1">
-                                        <Hash size={10} className="text-[hsl(var(--primary-light))]" />
-                                        <span className="text-[10px] font-black text-[hsl(var(--text-body))] dark:text-[hsl(var(--card-foreground))] tracking-normal">113</span>
+                            <div className={`relative z-10 px-4 py-4 rounded-2xl border-2 transition-all hover:shadow-lg w-full max-w-[160px] ${child.color === 'emerald'
+                                ? 'bg-emerald-50 border-emerald-100 text-emerald-700 dark:bg-emerald-900/20 dark:border-emerald-800'
+                                : child.color === 'orange'
+                                    ? 'bg-orange-50 border-orange-100 text-orange-700 dark:bg-orange-900/20 dark:border-orange-800'
+                                    : child.color === 'rose'
+                                        ? 'bg-rose-50 border-rose-100 text-rose-700 dark:bg-rose-900/20 dark:border-rose-800'
+                                        : 'bg-slate-50 border-slate-100 text-slate-700 dark:bg-slate-800/40 dark:border-slate-700'
+                                }`}>
+                                <div className="flex flex-col items-center text-center">
+                                    <div className={`h-8 w-8 rounded-lg flex items-center justify-center mb-2 ${child.color === 'emerald' ? 'bg-emerald-100' :
+                                        child.color === 'orange' ? 'bg-orange-100' :
+                                            child.color === 'rose' ? 'bg-rose-100' : 'bg-slate-200'
+                                        }`}>
+                                        <Map size={16} />
                                     </div>
-                                    <p className="text-[9px] font-bold text-[hsl(var(--chart-success))] dark:text-[hsl(var(--chart-success))] uppercase tracking-tighter mt-1">Master Root Zone</p>
-                                </div>
-                                <div className="flex items-center gap-1.5 px-3 py-1 bg-[hsl(var(--chart-success))]/10 dark:bg-[hsl(var(--chart-success))]/20 rounded-lg border border-[hsl(var(--chart-success))]/30">
-                                    <CheckCircle size={12} className="text-[hsl(var(--chart-success))]" />
-                                    <span className="text-[10px] font-black text-[hsl(var(--chart-success))] dark:text-[hsl(var(--chart-success))] tracking-normal">Active</span>
+                                    <span className="text-[10px] font-black uppercase tracking-tight leading-tight mb-1">{child.name}</span>
+                                    <span className="text-[9px] font-bold opacity-60">{child.id}</span>
                                 </div>
                             </div>
                         </div>
-                    </div>
-
-                    {/* CHILD NODES CONTAINER */}
-                    <div className="space-y-8 ml-14">
-
-                        {/* CHILD 01: Dharampeth Zone */}
-                        <div className="flex items-center gap-5 group">
-                            <div className="relative z-10 h-8 w-8 rounded-xl bg-[hsl(var(--card))] dark:bg-[hsl(var(--card))] border-2 border-[hsl(var(--border))] shadow-md flex-shrink-0 flex items-center justify-center transition-all duration-300 group-hover:bg-[hsl(var(--muted))] group-hover:scale-105">
-                                <div className="h-3 w-3 rounded-full bg-[hsl(var(--chart-success))] shadow-[0_0_8px_rgba(16,185,129,0.5)] animate-pulse" />
-                            </div>
-                            <div className="flex-1 bg-[hsl(var(--card))] dark:bg-[hsl(var(--card))] border border-[hsl(var(--border))] rounded-[18px] p-4 shadow-sm transition-all duration-300 group-hover:shadow-md group-hover:border-[hsl(var(--primary-light))]/30">
-                                <div className="flex items-center justify-between">
-                                    <div className="flex items-center gap-3">
-                                        <div className="p-2 bg-[hsl(var(--chart-success))]/10 dark:bg-[hsl(var(--chart-success))]/20 rounded-lg border border-[hsl(var(--chart-success))]/30">
-                                            <Map size={14} className="text-[hsl(var(--chart-success))]" />
-                                        </div>
-                                        <div className="text-left">
-                                            <p className="text-[11px] font-black text-[hsl(var(--text-body))] dark:text-[hsl(var(--card-foreground))] uppercase tracking-tight">Dharampeth Zone</p>
-                                            <div className="flex items-center gap-2 mt-1">
-                                                <Users size={10} className="text-[hsl(var(--text-muted))]" />
-                                                <span className="text-[9px] font-black text-[hsl(var(--text-muted))] dark:text-[hsl(var(--text-muted))] uppercase tracking-tighter">12 Facilities</span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <ChevronRight size={16} className="text-[hsl(var(--text-muted))] dark:text-[hsl(var(--text-muted))] group-hover:text-[hsl(var(--primary-light))] transition-colors" />
-                                </div>
-                            </div>
-                        </div>
-
-                        {/* CHILD 02: Nagpur East */}
-                        <div className="flex items-center gap-5 group">
-                            <div className="relative z-10 h-8 w-8 rounded-xl bg-[hsl(var(--card))] dark:bg-[hsl(var(--card))] border-2 border-[hsl(var(--border))] shadow-md flex-shrink-0 flex items-center justify-center transition-all duration-300 group-hover:bg-[hsl(var(--muted))] group-hover:scale-105">
-                                <div className="h-3 w-3 rounded-full bg-[hsl(var(--chart-warning))] shadow-[0_0_8px_rgba(245,158,11,0.5)]" />
-                            </div>
-                            <div className="flex-1 bg-[hsl(var(--card))] dark:bg-[hsl(var(--card))] border border-[hsl(var(--border))] rounded-[18px] p-4 shadow-sm transition-all duration-300 group-hover:shadow-md group-hover:border-[hsl(var(--primary-light))]/30">
-                                <div className="flex items-center justify-between">
-                                    <div className="flex items-center gap-3">
-                                        <div className="p-2 bg-[hsl(var(--chart-warning))]/10 dark:bg-[hsl(var(--chart-warning))]/20 rounded-lg border border-[hsl(var(--chart-warning))]/30">
-                                            <Map size={14} className="text-[hsl(var(--chart-warning))]" />
-                                        </div>
-                                        <div className="text-left">
-                                            <p className="text-[11px] font-black text-[hsl(var(--text-body))] dark:text-[hsl(var(--card-foreground))] uppercase tracking-tight">Nagpur East</p>
-                                            <div className="flex items-center gap-2 mt-1">
-                                                <AlertCircle size={10} className="text-[hsl(var(--chart-warning))]" />
-                                                <span className="text-[9px] font-black text-[hsl(var(--text-muted))] dark:text-[hsl(var(--text-muted))] uppercase tracking-tighter">Sync Required</span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <ChevronRight size={16} className="text-[hsl(var(--text-muted))] dark:text-[hsl(var(--text-muted))] group-hover:text-[hsl(var(--primary-light))] transition-colors" />
-                                </div>
-                            </div>
-                        </div>
-
-                        {/* CHILD 03: Nagpur West */}
-                        <div className="flex items-center gap-5 group">
-                            <div className="relative z-10 h-8 w-8 rounded-xl bg-[hsl(var(--card))] dark:bg-[hsl(var(--card))] border-2 border-[hsl(var(--border))] shadow-md flex-shrink-0 flex items-center justify-center transition-all duration-300 group-hover:bg-[hsl(var(--muted))] group-hover:scale-105">
-                                <div className="h-3 w-3 rounded-full bg-[hsl(var(--chart-success))] shadow-[0_0_8px_rgba(16,185,129,0.5)] animate-pulse" />
-                            </div>
-                            <div className="flex-1 bg-[hsl(var(--card))] dark:bg-[hsl(var(--card))] border border-[hsl(var(--border))] rounded-[18px] p-4 shadow-sm transition-all duration-300 group-hover:shadow-md group-hover:border-[hsl(var(--primary-light))]/30">
-                                <div className="flex items-center justify-between">
-                                    <div className="flex items-center gap-3">
-                                        <div className="p-2 bg-[hsl(var(--chart-success))]/10 dark:bg-[hsl(var(--chart-success))]/20 rounded-lg border border-[hsl(var(--chart-success))]/30">
-                                            <Map size={14} className="text-[hsl(var(--chart-success))]" />
-                                        </div>
-                                        <div className="text-left">
-                                            <p className="text-[11px] font-black text-[hsl(var(--text-body))] dark:text-[hsl(var(--card-foreground))] uppercase tracking-tight">Nagpur West</p>
-                                            <div className="flex items-center gap-2 mt-1">
-                                                <Users size={10} className="text-[hsl(var(--text-muted))]" />
-                                                <span className="text-[9px] font-black text-[hsl(var(--text-muted))] dark:text-[hsl(var(--text-muted))] uppercase tracking-tighter">8 Facilities</span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <ChevronRight size={16} className="text-[hsl(var(--text-muted))] dark:text-[hsl(var(--text-muted))] group-hover:text-[hsl(var(--primary-light))] transition-colors" />
-                                </div>
-                            </div>
-                        </div>
-
-                        {/* CHILD 04: Nagpur North */}
-                        <div className="flex items-center gap-5 group">
-                            <div className="relative z-10 h-8 w-8 rounded-xl bg-[hsl(var(--card))] dark:bg-[hsl(var(--card))] border-2 border-[hsl(var(--border))] shadow-md flex-shrink-0 flex items-center justify-center transition-all duration-300 group-hover:bg-[hsl(var(--muted))] group-hover:scale-105">
-                                <div className="h-3 w-3 rounded-full bg-[hsl(var(--chart-success))] shadow-[0_0_8px_rgba(16,185,129,0.5)] animate-pulse" />
-                            </div>
-                            <div className="flex-1 bg-[hsl(var(--card))] dark:bg-[hsl(var(--card))] border border-[hsl(var(--border))] rounded-[18px] p-4 shadow-sm transition-all duration-300 group-hover:shadow-md group-hover:border-[hsl(var(--primary-light))]/30">
-                                <div className="flex items-center justify-between">
-                                    <div className="flex items-center gap-3">
-                                        <div className="p-2 bg-[hsl(var(--chart-success))]/10 dark:bg-[hsl(var(--chart-success))]/20 rounded-lg border border-[hsl(var(--chart-success))]/30">
-                                            <Map size={14} className="text-[hsl(var(--chart-success))]" />
-                                        </div>
-                                        <div className="text-left">
-                                            <p className="text-[11px] font-black text-[hsl(var(--text-body))] dark:text-[hsl(var(--card-foreground))] uppercase tracking-tight">Nagpur North</p>
-                                            <div className="flex items-center gap-2 mt-1">
-                                                <Users size={10} className="text-[hsl(var(--text-muted))]" />
-                                                <span className="text-[9px] font-black text-[hsl(var(--text-muted))] dark:text-[hsl(var(--text-muted))] uppercase tracking-tighter">15 Facilities</span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <ChevronRight size={16} className="text-[hsl(var(--text-muted))] dark:text-[hsl(var(--text-muted))] group-hover:text-[hsl(var(--primary-light))] transition-colors" />
-                                </div>
-                            </div>
-                        </div>
-
-                        {/* CHILD 05: Nagpur South */}
-                        <div className="flex items-center gap-5 group">
-                            <div className="relative z-10 h-8 w-8 rounded-xl bg-[hsl(var(--card))] dark:bg-[hsl(var(--card))] border-2 border-[hsl(var(--border))] shadow-md flex-shrink-0 flex items-center justify-center transition-all duration-300 group-hover:bg-[hsl(var(--muted))] group-hover:scale-105">
-                                <div className="h-3 w-3 rounded-full bg-[hsl(var(--chart-error))] shadow-[0_0_8px_rgba(239,68,68,0.5)]" />
-                            </div>
-                            <div className="flex-1 bg-[hsl(var(--card))] dark:bg-[hsl(var(--card))] border border-[hsl(var(--border))] rounded-[18px] p-4 shadow-sm transition-all duration-300 group-hover:shadow-md group-hover:border-[hsl(var(--primary-light))]/30">
-                                <div className="flex items-center justify-between">
-                                    <div className="flex items-center gap-3">
-                                        <div className="p-2 bg-[hsl(var(--chart-error))]/10 dark:bg-[hsl(var(--chart-error))]/20 rounded-lg border border-[hsl(var(--chart-error))]/30">
-                                            <Map size={14} className="text-[hsl(var(--chart-error))]" />
-                                        </div>
-                                        <div className="text-left">
-                                            <p className="text-[11px] font-black text-[hsl(var(--text-body))] dark:text-[hsl(var(--card-foreground))] uppercase tracking-tight">Nagpur South</p>
-                                            <div className="flex items-center gap-2 mt-1">
-                                                <AlertCircle size={10} className="text-[hsl(var(--chart-error))]" />
-                                                <span className="text-[9px] font-black text-[hsl(var(--text-muted))] dark:text-[hsl(var(--text-muted))] uppercase tracking-tighter">Offline</span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div className="flex items-center gap-1">
-                                        <ChevronRight size={16} className="text-[hsl(var(--text-muted))] dark:text-[hsl(var(--text-muted))] group-hover:text-[hsl(var(--primary-light))] transition-colors" />
-                                        <Plus size={12} className="text-[hsl(var(--primary-light))]" />
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        {/* CHILD 06: More Zones */}
-                        <div className="flex items-center gap-5 group">
-                            <div className="relative z-10 h-8 w-8 rounded-xl bg-[hsl(var(--card))] dark:bg-[hsl(var(--card))] border-2 border-[hsl(var(--border))] border-dashed shadow-md flex-shrink-0 flex items-center justify-center transition-all duration-300 group-hover:bg-[hsl(var(--muted))] group-hover:scale-105">
-                                <MoreHorizontal size={14} className="text-[hsl(var(--text-muted))]" />
-                            </div>
-                            <div className="flex-1 bg-[hsl(var(--muted))]/30 dark:bg-[hsl(var(--muted))]/20 border border-[hsl(var(--border))]/50 rounded-[18px] p-4 shadow-sm transition-all duration-300 group-hover:shadow-md group-hover:border-[hsl(var(--primary-light))]/30">
-                                <div className="flex items-center justify-between">
-                                    <div className="flex items-center gap-3">
-                                        <div className="p-2 bg-[hsl(var(--muted))]/50 rounded-lg">
-                                            <Plus size={14} className="text-[hsl(var(--text-muted))]" />
-                                        </div>
-                                        <div className="text-left">
-                                            <p className="text-[11px] font-black text-[hsl(var(--text-muted))] uppercase tracking-tight">More Zones</p>
-                                            <div className="flex items-center gap-2 mt-1">
-                                                <Hash size={10} className="text-[hsl(var(--text-muted))]" />
-                                                <span className="text-[9px] font-black text-[hsl(var(--text-muted))] uppercase tracking-tighter">24+ Available</span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <ChevronRight size={16} className="text-[hsl(var(--text-muted))] dark:text-[hsl(var(--text-muted))] group-hover:text-[hsl(var(--primary-light))] transition-colors" />
-                                </div>
-                            </div>
-                        </div>
-
-                    </div>
+                    ))}
                 </div>
             </div>
         </div>
+    );
+
+    return (
+        <>
+            <div className="card-global bg-white dark:bg-card border-slate-200 h-full flex flex-col overflow-hidden">
+                {/* Header */}
+                <div className="px-6 py-4 border-b border-slate-100 dark:border-slate-800 flex items-center justify-between bg-slate-50/50 shrink-0">
+                    <div className="flex items-center gap-3">
+                        <div className="h-8 w-8 rounded-lg bg-indigo-600 flex items-center justify-center shadow-md">
+                            <Network size={18} className="text-white" />
+                        </div>
+                        <div>
+                            <h2 className="text-[11px] font-black text-slate-800 dark:text-white uppercase tracking-widest">Architecture</h2>
+                            <p className="text-[9px] font-bold text-slate-400 uppercase">Hierarchical Map</p>
+                        </div>
+                    </div>
+                    <button
+                        onClick={() => setIsFullViewOpen(true)}
+                        className="p-2 hover:bg-white rounded-lg border border-transparent hover:border-slate-200 transition-all text-slate-400 hover:text-indigo-600"
+                    >
+                        <Maximize2 size={16} />
+                    </button>
+                </div>
+
+                {/* Normal View Scrollable Area */}
+                <div className="flex-1 overflow-auto custom-scrollbar bg-[radial-gradient(#e5e7eb_1px,transparent_1px)] [background-size:20px_20px]">
+                    <TreeContent />
+                </div>
+            </div>
+
+            {/* FULL VIEW MODAL */}
+            {isFullViewOpen && (
+                <div className="fixed inset-0 z-[999] bg-slate-900/60 backdrop-blur-md flex items-center justify-center p-4">
+                    <div className="bg-white dark:bg-slate-950 w-full max-w-[95vw] h-[90vh] rounded-[32px] shadow-2xl overflow-hidden flex flex-col border border-white/20">
+                        <div className="p-6 border-b border-slate-100 dark:border-slate-800 flex items-center justify-between shrink-0">
+                            <div className="flex items-center gap-4">
+                                <Share2 className="text-indigo-500" />
+                                <h3 className="text-lg font-black text-slate-800 dark:text-white uppercase tracking-widest">Full Architecture Map</h3>
+                            </div>
+                            <button
+                                onClick={() => setIsFullViewOpen(false)}
+                                className="h-10 w-10 rounded-full bg-slate-100 hover:bg-rose-50 hover:text-rose-500 flex items-center justify-center transition-colors"
+                            >
+                                <X size={20} />
+                            </button>
+                        </div>
+                        <div className="flex-1 overflow-auto bg-[radial-gradient(#e5e7eb_1px,transparent_1px)] [background-size:20px_20px] dark:bg-[radial-gradient(#1e293b_1px,transparent_1px)]">
+                            <div className="min-h-full flex items-center justify-center">
+                                <TreeContent isModal={true} />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            )}
+        </>
     );
 }

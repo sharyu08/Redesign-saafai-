@@ -1,11 +1,10 @@
 "use client";
 
-import { GoogleMap, Marker } from "@react-google-maps/api";
-import { useJsApiLoader } from "@/hooks/useGoogleMapsLoader";
+import { GoogleMap, Marker, useLoadScript } from "@react-google-maps/api";
 import { Map as MapIcon, Info, ShieldAlert } from "lucide-react";
 
 export default function MapPanel({ locations }) {
-    const { isLoaded, loadError } = useJsApiLoader({
+    const { isLoaded, loadError } = useLoadScript({
         googleMapsApiKey: process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY || '',
         libraries: ["places"],
     });

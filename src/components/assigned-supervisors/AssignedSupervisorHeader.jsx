@@ -9,11 +9,7 @@ export default function AssignedSupervisorHeader() {
             <div className="page-header-content">
                 {/* Left Section: Navigation & Title */}
                 <div className="page-header-title-section">
-                    <Link href="/dashboard/washrooms">
-                        <button className="btn btn-icon inline-flex h-10 w-10 items-center justify-center active:scale-95">
-                            <ArrowLeft className="h-5 w-5" />
-                        </button>
-                    </Link>
+
 
                     <div className="page-header-icon">
                         <ShieldCheck className="h-5 w-5 text-primary-light" />

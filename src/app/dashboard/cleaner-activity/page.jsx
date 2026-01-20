@@ -7,7 +7,7 @@ import {
   ActivityGrid,
 } from "@/components/cleanerActivity";
 import "./index.css";
-import { 
+import {
   Send,
   MapPin,
   PlusCircle,
@@ -85,7 +85,7 @@ export default function CleanerActivityPage() {
                     <label className="text-[9px] font-black text-slate-400 dark:text-slate-300 uppercase tracking-tighter ml-1">
                       Activity Note
                     </label>
-                    <textarea 
+                    <textarea
                       placeholder="Briefly describe the update..."
                       className="w-full bg-slate-50 dark:bg-[hsl(224,48%,12%)] border border-slate-100 dark:border-border rounded-xl px-4 py-3 text-[12px] font-bold text-slate-700 dark:text-slate-200 placeholder:text-slate-400 dark:placeholder:text-slate-500 outline-none focus:border-[#CBF3F0] dark:focus:border-[hsl(var(--primary))] min-h-[100px] resize-none"
                     />

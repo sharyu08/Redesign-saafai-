@@ -6,8 +6,11 @@ import {
     ParentMapping,
     SaveActions,
 } from "@/components/locationHierarchyShow";
+import { ChevronLeft } from "lucide-react";
+import { useRouter } from "next/navigation";
 
 export default function ShowHierarchyPage() {
+    const router = useRouter();
     return (
         /* UI UPDATE: Applied a very soft neutral background (#F8FAFB) 
            to make the pure white cards pop. Added a max-width container 
@@ -15,6 +18,13 @@ export default function ShowHierarchyPage() {
         */
         <div className="min-h-screen bg-white dark:bg-background pb-20">
             <div className="max-w-[1600px] mx-auto p-6 space-y-8">
+
+                <button
+                    onClick={() => router.back()}
+                    className="p-2 hover:bg-slate-100 dark:hover:bg-slate-700 rounded-full text-slate-600 dark:text-slate-300 transition-colors"
+                >
+                    <ChevronLeft size={20} strokeWidth={2.5} />
+                </button>
 
                 {/* Header Section */}
                 <ShowHeader />
@@ -27,8 +37,6 @@ export default function ShowHierarchyPage() {
 
                     <div className="lg:col-span-7 xl:col-span-8">
                         <div className="bg-white rounded-[32px] shadow-sm border border-slate-100 overflow-hidden">
-                            {/* Top Accent Bar for Brand Identity */}
-                            <div className="h-1.5 w-full bg-gradient-to-r from-[#58BECF] to-[#6D9CDC]" />
                             <ParentMapping />
                         </div>
                     </div>

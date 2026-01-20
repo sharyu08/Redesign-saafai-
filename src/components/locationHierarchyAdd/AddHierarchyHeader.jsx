@@ -24,17 +24,6 @@ export default function AddHierarchyHeader() {
                         </p>
                     </div>
                 </div>
-
-                {/* Back Button */}
-                <div className="page-header-actions">
-                    <button
-                        onClick={() => router.back()}
-                        className="btn-action flex items-center gap-2 px-5 py-2.5 text-xs-standard uppercase tracking-widest active:scale-95"
-                    >
-                        <ChevronLeft size={16} strokeWidth={3} />
-                        Back to List
-                    </button>
-                </div>
             </div>
         </div>
     );

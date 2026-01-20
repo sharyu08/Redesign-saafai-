@@ -32,9 +32,9 @@ export default function EditProfilePage() {
                     <div className="flex items-center gap-4">
                         <Link
                             href="/dashboard/profile"
-                            className="p-2.5 bg-white border border-slate-100 rounded-xl text-slate-400 hover:text-[#007C85] transition-all shadow-sm"
+                            className="p-2 hover:bg-slate-100 dark:hover:bg-slate-700 rounded-full text-slate-600 dark:text-slate-300 transition-colors"
                         >
-                            <ArrowLeft size={20} strokeWidth={3} />
+                            <ArrowLeft size={20} strokeWidth={2.5} />
                         </Link>
                         <div>
                             <h1 className="text-xl font-black text-[#007C85] uppercase tracking-tight">Edit Profile</h1>

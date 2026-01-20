@@ -11,6 +11,7 @@ import {
   ChevronDown,
   Building2,
 } from "lucide-react";
+import Link from "next/link";
 
 export default function AddUserFullPage() {
   const router = useRouter();
@@ -49,17 +50,13 @@ export default function AddUserFullPage() {
       {/* Background Decorative Blur */}
       <div className="absolute top-0 right-0 w-64 h-64 bg-[#CBF3F0] rounded-full blur-3xl opacity-50 -mr-20 -mt-20 pointer-events-none" />
 
-      {/* Back Button */}
+      {/* Uniform Back Button */}
       <div className="w-full max-w-3xl mb-6 self-center">
-        <button
-          onClick={handleGoBack}
-          className="group flex items-center gap-3 text-[10px] font-black uppercase tracking-[0.2em] text-slate-400 hover:text-[#FF9F1C] transition-all"
-        >
-          <div className="h-9 w-9 rounded-full bg-white shadow-sm border border-slate-100 flex items-center justify-center group-hover:border-[#CBF3F0] group-hover:shadow-md transition-all">
-            <ArrowLeft size={16} strokeWidth={3} className="group-hover:-translate-x-1 transition-transform" />
-          </div>
-          <span>Return</span>
-        </button>
+        <Link href="/dashboard/user-management">
+          <button className="p-2 hover:bg-slate-100 dark:hover:bg-slate-700 rounded-full text-slate-600 dark:text-slate-300 transition-colors">
+            <ArrowLeft size={20} strokeWidth={2.5} />
+          </button>
+        </Link>
       </div>
 
       {/* Main Card - Increased size and spacing */}

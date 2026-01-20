@@ -5,8 +5,6 @@ import { Save, X, ChevronDown, Info } from "lucide-react";
 export default function EditForm() {
     return (
         <div className="bg-white rounded-[32px] border border-slate-100 shadow-sm overflow-hidden relative">
-            {/* Subtle Brand Accent Bar */}
-            <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-[hsl(var(--primary))] to-[hsl(var(--primary-accent))]" />
 
             <div className="p-8 space-y-8">
                 {/* Form Field: Type Name */}

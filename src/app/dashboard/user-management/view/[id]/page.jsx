@@ -51,10 +51,9 @@ export default function ViewUserPage() {
                 <div className="flex items-center justify-between">
                     <button
                         onClick={handleBack}
-                        className="group flex items-center gap-2 px-1 py-1 text-[10px] font-black uppercase tracking-[0.2em] text-slate-400 hover:text-cyan-600 transition-all"
+                        className="p-2 hover:bg-slate-100 dark:hover:bg-slate-700 rounded-full text-slate-600 dark:text-slate-300 transition-colors"
                     >
-                        <ArrowLeft size={14} className="group-hover:-translate-x-1 transition-transform" />
-                        Back to Directory
+                        <ArrowLeft size={20} strokeWidth={2.5} />
                     </button>
 
                     <button

@@ -42,7 +42,7 @@ export default function CleanerAssignmentsPage() {
       router.replace("/dashboard/cleaner-assignments/mobile");
     }
   }, [isMobile, pathname, router]);
-  
+
   // Calculate stats
   const stats = useMemo(() => ({
     total: assignments.length,
@@ -61,7 +61,7 @@ export default function CleanerAssignmentsPage() {
 
   const filtered = useMemo(() => {
     let data = [...assignments];
-    
+
     // Apply search filter
     if (search.trim()) {
       const term = search.toLowerCase();
@@ -70,17 +70,17 @@ export default function CleanerAssignmentsPage() {
         item.locationName.toLowerCase().includes(term)
       );
     }
-    
+
     // Apply status filter
     if (statusFilter !== "all") {
       data = data.filter(item => item.status === statusFilter);
     }
-    
+
     // Apply role filter
     if (roleFilter !== "all") {
       data = data.filter(item => item.role === roleFilter);
     }
-    
+
     return data;
   }, [assignments, search, statusFilter, roleFilter]);
 
@@ -132,13 +132,6 @@ export default function CleanerAssignmentsPage() {
 
             {/* Action Buttons */}
             <div className="page-header-actions">
-              <button 
-                type="button"
-                className="btn btn-secondary flex items-center gap-2 px-5 py-2.5 text-xs-standard uppercase tracking-widest active:scale-95"
-              >
-                <LayoutList size={14} /> Show Assignments
-              </button>
-              
               <Link
                 href="/dashboard/cleaner-assignments/add"
                 className="btn btn-primary flex items-center gap-2 px-6 py-2.5 text-xs-standard uppercase tracking-widest active:scale-95"
@@ -150,97 +143,94 @@ export default function CleanerAssignmentsPage() {
         </div>
 
         {/* 2. Summary Cards */}
-<div className="grid grid-cols-1 md:grid-cols-3 gap-3 mb-6">
-  {/* Total Staff Card */}
-  <button
-    onClick={() => { setRoleFilter("all"); setStatusFilter("all"); }}
-    className={`cleaner-assignments-card cleaner-assignments-card-total ${roleFilter === "all" && statusFilter === "all" ? "cleaner-assignments-card-active" : ""} group relative overflow-hidden rounded-xl p-3 transition-all duration-200 ease-out cursor-pointer text-left border ${
-      roleFilter === "all" && statusFilter === "all"
-        ? "bg-[#F8FAFF] border-[#93C5FD] dark:border-primary text-foreground shadow-sm"
-        : "bg-white dark:bg-card border-[#E0F2FE] dark:border-border text-foreground hover:border-[#93C5FD] dark:hover:border-primary/40 hover:bg-[#F8FAFF] hover:shadow-sm"
-    }`}
-  >
-    <div className="relative z-10">
-      <div className="flex items-center justify-between mb-1">
-        <p className={`cleaner-assignments-label text-[10px] font-bold uppercase tracking-wider ${roleFilter === "all" && statusFilter === "all" ? "text-primary font-black" : "text-muted-foreground"}`}>
-          Total Staff
-        </p>
-        <div className={`cleaner-assignments-icon p-1 rounded transition-all duration-200 ${roleFilter === "all" && statusFilter === "all" ? "bg-primary/10" : "bg-muted/50"}`}>
-          <Users className={`h-3.5 w-3.5 transition-colors duration-200 ${roleFilter === "all" && statusFilter === "all" ? "text-primary" : "text-muted-foreground"}`} />
-        </div>
-      </div>
-      <p className={`cleaner-assignments-value text-xl font-black ${roleFilter === "all" && statusFilter === "all" ? "text-primary" : "text-foreground"}`}>
-        {stats.total}
-      </p>
-    </div>
-    <div className="mt-2 h-1.5 bg-black/5 dark:bg-white/10 rounded-full overflow-hidden">
-      <div 
-        ref={totalProgressRef}
-        className="h-full bg-[hsl(var(--primary))] rounded-full cleaner-assignments-progress-bar"
-      ></div>
-    </div>
-  </button>
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-3 mb-6">
+          {/* Total Staff Card */}
+          <button
+            onClick={() => { setRoleFilter("all"); setStatusFilter("all"); }}
+            className={`cleaner-assignments-card cleaner-assignments-card-total ${roleFilter === "all" && statusFilter === "all" ? "cleaner-assignments-card-active" : ""} group relative overflow-hidden rounded-xl p-3 transition-all duration-200 ease-out cursor-pointer text-left border ${roleFilter === "all" && statusFilter === "all"
+              ? "bg-[#F8FAFF] border-[#93C5FD] dark:border-primary text-foreground shadow-sm"
+              : "bg-white dark:bg-card border-[#E0F2FE] dark:border-border text-foreground hover:border-[#93C5FD] dark:hover:border-primary/40 hover:bg-[#F8FAFF] hover:shadow-sm"
+              }`}
+          >
+            <div className="relative z-10">
+              <div className="flex items-center justify-between mb-1">
+                <p className={`cleaner-assignments-label text-[10px] font-bold uppercase tracking-wider ${roleFilter === "all" && statusFilter === "all" ? "text-primary font-black" : "text-muted-foreground"}`}>
+                  Total Staff
+                </p>
+                <div className={`cleaner-assignments-icon p-1 rounded transition-all duration-200 ${roleFilter === "all" && statusFilter === "all" ? "bg-primary/10" : "bg-muted/50"}`}>
+                  <Users className={`h-3.5 w-3.5 transition-colors duration-200 ${roleFilter === "all" && statusFilter === "all" ? "text-primary" : "text-muted-foreground"}`} />
+                </div>
+              </div>
+              <p className={`cleaner-assignments-value text-xl font-black ${roleFilter === "all" && statusFilter === "all" ? "text-primary" : "text-foreground"}`}>
+                {stats.total}
+              </p>
+            </div>
+            <div className="mt-2 h-1.5 bg-black/5 dark:bg-white/10 rounded-full overflow-hidden">
+              <div
+                ref={totalProgressRef}
+                className="h-full bg-[hsl(var(--primary))] rounded-full cleaner-assignments-progress-bar"
+              ></div>
+            </div>
+          </button>
 
-  {/* Assigned Card */}
-  <button
-    onClick={() => { setStatusFilter("Assigned"); }}
-    className={`cleaner-assignments-card cleaner-assignments-card-assigned ${statusFilter === "Assigned" ? "cleaner-assignments-card-active" : ""} group relative overflow-hidden rounded-xl p-3 transition-all duration-200 ease-out cursor-pointer text-left border ${
-      statusFilter === "Assigned"
-        ? "bg-[#F0FDF4] border-[#86EFAC] dark:border-[#22C55E] text-foreground shadow-sm"
-        : "bg-white dark:bg-card border-[#DCFCE7] dark:border-border text-foreground hover:border-[#86EFAC] dark:hover:border-[#22C55E]/40 hover:bg-[#F0FDF4] hover:shadow-sm"
-    }`}
-  >
-    <div className="relative z-10">
-      <div className="flex items-center justify-between mb-1">
-        <p className={`cleaner-assignments-label text-[10px] font-bold uppercase tracking-wider ${statusFilter === "Assigned" ? "text-[#22C55E] font-black" : "text-muted-foreground"}`}>
-          Assigned
-        </p>
-        <div className={`cleaner-assignments-icon p-1 rounded transition-all duration-200 ${statusFilter === "Assigned" ? "bg-[#22C55E]/10" : "bg-muted/50"}`}>
-          <UserCheck className={`h-3.5 w-3.5 transition-colors duration-200 ${statusFilter === "Assigned" ? "text-[#22C55E]" : "text-muted-foreground"}`} />
-        </div>
-      </div>
-      <p className={`cleaner-assignments-value text-xl font-black ${statusFilter === "Assigned" ? "text-[#22C55E]" : "text-foreground"}`}>
-        {stats.assigned}
-      </p>
-    </div>
-    <div className="mt-2 h-1.5 bg-black/5 dark:bg-white/10 rounded-full overflow-hidden">
-      <div 
-        ref={assignedProgressRef}
-        className="h-full bg-[#22C55E] rounded-full cleaner-assignments-progress-bar"
-      ></div>
-    </div>
-  </button>
+          {/* Assigned Card */}
+          <button
+            onClick={() => { setStatusFilter("Assigned"); }}
+            className={`cleaner-assignments-card cleaner-assignments-card-assigned ${statusFilter === "Assigned" ? "cleaner-assignments-card-active" : ""} group relative overflow-hidden rounded-xl p-3 transition-all duration-200 ease-out cursor-pointer text-left border ${statusFilter === "Assigned"
+              ? "bg-[#F0FDF4] border-[#86EFAC] dark:border-[#22C55E] text-foreground shadow-sm"
+              : "bg-white dark:bg-card border-[#DCFCE7] dark:border-border text-foreground hover:border-[#86EFAC] dark:hover:border-[#22C55E]/40 hover:bg-[#F0FDF4] hover:shadow-sm"
+              }`}
+          >
+            <div className="relative z-10">
+              <div className="flex items-center justify-between mb-1">
+                <p className={`cleaner-assignments-label text-[10px] font-bold uppercase tracking-wider ${statusFilter === "Assigned" ? "text-[#22C55E] font-black" : "text-muted-foreground"}`}>
+                  Assigned
+                </p>
+                <div className={`cleaner-assignments-icon p-1 rounded transition-all duration-200 ${statusFilter === "Assigned" ? "bg-[#22C55E]/10" : "bg-muted/50"}`}>
+                  <UserCheck className={`h-3.5 w-3.5 transition-colors duration-200 ${statusFilter === "Assigned" ? "text-[#22C55E]" : "text-muted-foreground"}`} />
+                </div>
+              </div>
+              <p className={`cleaner-assignments-value text-xl font-black ${statusFilter === "Assigned" ? "text-[#22C55E]" : "text-foreground"}`}>
+                {stats.assigned}
+              </p>
+            </div>
+            <div className="mt-2 h-1.5 bg-black/5 dark:bg-white/10 rounded-full overflow-hidden">
+              <div
+                ref={assignedProgressRef}
+                className="h-full bg-[#22C55E] rounded-full cleaner-assignments-progress-bar"
+              ></div>
+            </div>
+          </button>
 
-  {/* Unassigned Card */}
-  <button
-    onClick={() => { setStatusFilter("Unassigned"); }}
-    className={`cleaner-assignments-card cleaner-assignments-card-unassigned ${statusFilter === "Unassigned" ? "cleaner-assignments-card-active" : ""} group relative overflow-hidden rounded-xl p-3 transition-all duration-200 ease-out cursor-pointer text-left border ${
-      statusFilter === "Unassigned"
-        ? "bg-[#F0F9FF] border-[#93C5FD] dark:border-[#3B82F6] text-foreground shadow-sm"
-        : "bg-white dark:bg-card border-[#E0F2FE] dark:border-border text-foreground hover:border-[#93C5FD] dark:hover:border-[#3B82F6]/40 hover:bg-[#F0F9FF] hover:shadow-sm"
-    }`}
-  >
-    <div className="relative z-10">
-      <div className="flex items-center justify-between mb-1">
-        <p className={`cleaner-assignments-label text-[10px] font-bold uppercase tracking-wider ${statusFilter === "Unassigned" ? "text-[#3B82F6] font-black" : "text-muted-foreground"}`}>
-          Unassigned
-        </p>
-        <div className={`cleaner-assignments-icon p-1 rounded transition-all duration-200 ${statusFilter === "Unassigned" ? "bg-[#3B82F6]/10" : "bg-muted/50"}`}>
-          <UserMinus className={`h-3.5 w-3.5 transition-colors duration-200 ${statusFilter === "Unassigned" ? "text-[#3B82F6]" : "text-muted-foreground"}`} />
+          {/* Unassigned Card */}
+          <button
+            onClick={() => { setStatusFilter("Unassigned"); }}
+            className={`cleaner-assignments-card cleaner-assignments-card-unassigned ${statusFilter === "Unassigned" ? "cleaner-assignments-card-active" : ""} group relative overflow-hidden rounded-xl p-3 transition-all duration-200 ease-out cursor-pointer text-left border ${statusFilter === "Unassigned"
+              ? "bg-[#F0F9FF] border-[#93C5FD] dark:border-[#3B82F6] text-foreground shadow-sm"
+              : "bg-white dark:bg-card border-[#E0F2FE] dark:border-border text-foreground hover:border-[#93C5FD] dark:hover:border-[#3B82F6]/40 hover:bg-[#F0F9FF] hover:shadow-sm"
+              }`}
+          >
+            <div className="relative z-10">
+              <div className="flex items-center justify-between mb-1">
+                <p className={`cleaner-assignments-label text-[10px] font-bold uppercase tracking-wider ${statusFilter === "Unassigned" ? "text-[#3B82F6] font-black" : "text-muted-foreground"}`}>
+                  Unassigned
+                </p>
+                <div className={`cleaner-assignments-icon p-1 rounded transition-all duration-200 ${statusFilter === "Unassigned" ? "bg-[#3B82F6]/10" : "bg-muted/50"}`}>
+                  <UserMinus className={`h-3.5 w-3.5 transition-colors duration-200 ${statusFilter === "Unassigned" ? "text-[#3B82F6]" : "text-muted-foreground"}`} />
+                </div>
+              </div>
+              <p className={`cleaner-assignments-value text-xl font-black ${statusFilter === "Unassigned" ? "text-[#3B82F6]" : "text-foreground"}`}>
+                {stats.unassigned}
+              </p>
+            </div>
+            <div className="mt-2 h-1.5 bg-black/5 dark:bg-white/10 rounded-full overflow-hidden">
+              <div
+                ref={unassignedProgressRef}
+                className="h-full bg-[#3B82F6] rounded-full cleaner-assignments-progress-bar"
+              ></div>
+            </div>
+          </button>
         </div>
-      </div>
-      <p className={`cleaner-assignments-value text-xl font-black ${statusFilter === "Unassigned" ? "text-[#3B82F6]" : "text-foreground"}`}>
-        {stats.unassigned}
-      </p>
-    </div>
-    <div className="mt-2 h-1.5 bg-black/5 dark:bg-white/10 rounded-full overflow-hidden">
-      <div 
-        ref={unassignedProgressRef}
-        className="h-full bg-[#3B82F6] rounded-full cleaner-assignments-progress-bar"
-      ></div>
-    </div>
-  </button>
-</div>
 
         {/* 4. Main Data Table - Using standardized table classes */}
         <div className="table-container">
@@ -255,35 +245,35 @@ export default function CleanerAssignmentsPage() {
                     <div className="flex items-center gap-2"><MapPin size={14} strokeWidth={2.5} /> Location</div>
                   </th>
                   <th>
-                <div className="flex items-center gap-2">
-                  <Shield size={14} strokeWidth={2.5} /> 
-                  <select 
-                    className="bg-transparent border-none text-sm font-medium focus:ring-0 focus:outline-none cursor-pointer"
-                    value={roleFilter}
-                    onChange={(e) => setRoleFilter(e.target.value)}
-                    onClick={(e) => e.stopPropagation()}
-                  >
-                    <option value="all">All Roles</option>
-                    <option value="Cleaner">Cleaner</option>
-                    <option value="Supervisor">Supervisor</option>
-                  </select>
-                </div>
-              </th>
+                    <div className="flex items-center gap-2">
+                      <Shield size={14} strokeWidth={2.5} />
+                      <select
+                        className="bg-transparent border-none text-sm font-medium focus:ring-0 focus:outline-none cursor-pointer"
+                        value={roleFilter}
+                        onChange={(e) => setRoleFilter(e.target.value)}
+                        onClick={(e) => e.stopPropagation()}
+                      >
+                        <option value="all">All Roles</option>
+                        <option value="Cleaner">Cleaner</option>
+                        <option value="Supervisor">Supervisor</option>
+                      </select>
+                    </div>
+                  </th>
                   <th>
-                <div className="flex items-center gap-2">
-                  <Activity size={14} strokeWidth={2.5} /> 
-                  <select 
-                    className="bg-transparent border-none text-sm font-medium focus:ring-0 focus:outline-none cursor-pointer"
-                    value={statusFilter}
-                    onChange={(e) => setStatusFilter(e.target.value)}
-                    onClick={(e) => e.stopPropagation()}
-                  >
-                    <option value="all">All Status</option>
-                    <option value="Assigned">Assigned</option>
-                    <option value="Unassigned">Unassigned</option>
-                  </select>
-                </div>
-              </th>
+                    <div className="flex items-center gap-2">
+                      <Activity size={14} strokeWidth={2.5} />
+                      <select
+                        className="bg-transparent border-none text-sm font-medium focus:ring-0 focus:outline-none cursor-pointer"
+                        value={statusFilter}
+                        onChange={(e) => setStatusFilter(e.target.value)}
+                        onClick={(e) => e.stopPropagation()}
+                      >
+                        <option value="all">All Status</option>
+                        <option value="Assigned">Assigned</option>
+                        <option value="Unassigned">Unassigned</option>
+                      </select>
+                    </div>
+                  </th>
                   <th>
                     <div className="flex items-center gap-2"><LayoutList size={14} strokeWidth={2.5} /> Assigned On</div>
                   </th>

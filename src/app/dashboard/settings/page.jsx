@@ -63,8 +63,8 @@ export default function SettingsPage() {
                                 key={tab.id}
                                 onClick={() => setActiveTab(tab.id)}
                                 className={`flex-shrink-0 flex items-center gap-3 px-5 py-3.5 rounded-2xl transition-all ${isActive
-                                        ? "btn-primary shadow-lg" // Uses your standardized primary button style
-                                        : "text-muted-foreground hover:bg-muted"
+                                    ? "btn-primary shadow-lg" // Uses your standardized primary button style
+                                    : "text-muted-foreground hover:bg-muted"
                                     }`}
                             >
                                 <tab.icon className={`h-4 w-4 ${isActive ? "text-white" : "text-primary-light"}`} />

@@ -66,17 +66,13 @@ export default function MapSupervisorsForm({ washroomName = "Abhyankar Nagar Gar
           </div>
         </div>
 
-        <Link href={`/dashboard/washrooms/${washroomId}/supervisors`}>
-          <button className="flex items-center gap-2 px-6 py-2.5 rounded-xl border border-slate-200 bg-white text-[10px] font-black uppercase tracking-widest text-slate-500 hover:bg-slate-50 transition-all">
-            <ArrowLeft className="h-4 w-4" /> Back to Dashboard
-          </button>
-        </Link>
+
       </div>
 
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 items-start">
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-start">
 
         {/* LEFT COLUMN: SELECTION AREA */}
-        <div className="lg:col-span-2 space-y-6">
+        <div className="lg:col-span-1 space-y-6">
           <div className="card-global overflow-hidden p-0">
             <div className="p-8">
               <div className="flex items-center justify-between mb-6">

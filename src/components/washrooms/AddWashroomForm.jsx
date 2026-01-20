@@ -9,7 +9,8 @@ import AdditionalFeatures from "./AdditionalFeatures";
 import LocationImagesUpload from "./LocationImagesUpload";
 import AssignCleaners from "./AssignCleaners";
 import LocationSearchMap from "./LocationSearchMap";
-import { Plus, X, Building2, ClipboardList } from "lucide-react";
+import { Plus, X, Building2, ClipboardList, ArrowLeft } from "lucide-react";
+import Link from "next/link";
 
 export default function AddWashroomForm() {
     const [location, setLocation] = useState({ lat: 21.1458, lng: 79.0882 });
@@ -25,6 +26,16 @@ export default function AddWashroomForm() {
 
     return (
         <div className="max-w-7xl mx-auto space-y-8 pb-10">
+            {/* Back Button */}
+            <div className="flex items-center gap-4">
+                <Link
+                    href="/dashboard/washrooms"
+                    className="p-2 hover:bg-slate-100 dark:hover:bg-slate-700 rounded-full text-slate-600 dark:text-slate-300 transition-colors"
+                >
+                    <ArrowLeft size={20} strokeWidth={2.5} />
+                </Link>
+            </div>
+
             {/* Title Section */}
             <div className="w-full">
                 <h1 className="text-2xl font-extrabold tracking-tight text-black">

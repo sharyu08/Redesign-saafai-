@@ -14,6 +14,7 @@ import {
   X
 } from "lucide-react";
 import FilterBar from "../../../../components/cleanerAssignments/FilterBar";
+import Link from "next/link";
 
 export default function CreateAssignmentsPage() {
   const router = useRouter();
@@ -54,7 +55,7 @@ export default function CreateAssignmentsPage() {
   const filteredUsers = mockUsers.filter(user => {
     const matchesRole = roleFilter === "All Roles" || user.role.toLowerCase() === roleFilter.toLowerCase();
     const matchesSearch = user.name.toLowerCase().includes(userSearchQuery.toLowerCase()) ||
-                         user.email.toLowerCase().includes(userSearchQuery.toLowerCase());
+      user.email.toLowerCase().includes(userSearchQuery.toLowerCase());
     return matchesRole && matchesSearch;
   });
 
@@ -153,17 +154,13 @@ export default function CreateAssignmentsPage() {
       {/* Background Decorative Blur (lavender) */}
       <div className="absolute top-0 right-0 w-48 h-48 sm:w-56 sm:h-56 bg-[#CBF3F0] rounded-full blur-2xl opacity-50 -mr-12 sm:-mr-16 -mt-12 sm:-mt-16 pointer-events-none" />
 
-      {/* Back Button */}
+      {/* Uniform Back Button */}
       <div className="absolute top-8 left-8 z-20">
-        <button
-          onClick={handleBack}
-          className="group flex items-center gap-3 text-[10px] font-black uppercase tracking-[0.2em] text-slate-400 hover:text-[#FF9F1C] transition-all"
-        >
-          <div className="h-9 w-9 rounded-full bg-white shadow-sm border border-slate-100 flex items-center justify-center group-hover:border-[#CBF3F0] group-hover:shadow-md transition-all">
-            <ArrowLeft size={16} strokeWidth={3} className="group-hover:-translate-x-1 transition-transform" />
-          </div>
-          <span className="hidden lg:block">Back</span>
-        </button>
+        <Link href="/dashboard/cleaner-assignments">
+          <button className="p-2 hover:bg-slate-100 dark:hover:bg-slate-700 rounded-full text-slate-600 dark:text-slate-300 transition-colors">
+            <ArrowLeft size={20} strokeWidth={2.5} />
+          </button>
+        </Link>
       </div>
 
       {/* Main Card - Increased size and spacing */}
@@ -185,26 +182,22 @@ export default function CreateAssignmentsPage() {
           {/* Mode Toggle Box - Increased spacing and font sizes */}
           <div className="bg-white dark:bg-card border border-slate-50 dark:border-border rounded-xl p-4 sm:p-5 flex items-center justify-between transition-all duration-300">
             <div className="flex items-center gap-4">
-              <div className={`h-11 w-11 rounded-lg bg-white dark:bg-[hsl(224,48%,14%)] flex items-center justify-center shadow-sm transition-all duration-300 ${
-                isMultipleMode ? "bg-[#FDF9F2] dark:bg-[hsl(224,48%,16%)]" : "bg-blue-50 dark:bg-blue-900/20"
-              }`}>
-                <ShieldCheck className={`transition-colors duration-300 ${
-                  isMultipleMode ? "text-[#FF9F1C]" : "text-blue-600 dark:text-blue-400"
-                }`} size={20} />
+              <div className={`h-11 w-11 rounded-lg bg-white dark:bg-[hsl(224,48%,14%)] flex items-center justify-center shadow-sm transition-all duration-300 ${isMultipleMode ? "bg-[#FDF9F2] dark:bg-[hsl(224,48%,16%)]" : "bg-blue-50 dark:bg-blue-900/20"
+                }`}>
+                <ShieldCheck className={`transition-colors duration-300 ${isMultipleMode ? "text-[#FF9F1C]" : "text-blue-600 dark:text-blue-400"
+                  }`} size={20} />
               </div>
               <div className="text-left">
-                <h3 className={`text-sm font-black uppercase tracking-tight transition-colors duration-300 ${
-                  isMultipleMode 
-                    ? "text-slate-800 dark:text-slate-100" 
-                    : "text-blue-700 dark:text-blue-300"
-                }`}>
+                <h3 className={`text-sm font-black uppercase tracking-tight transition-colors duration-300 ${isMultipleMode
+                  ? "text-slate-800 dark:text-slate-100"
+                  : "text-blue-700 dark:text-blue-300"
+                  }`}>
                   {isMultipleMode ? "Multiple Mode" : "Single Mode"}
                 </h3>
-                <p className={`text-xs font-bold transition-colors duration-300 ${
-                  isMultipleMode 
-                    ? "text-slate-500 dark:text-slate-400" 
-                    : "text-blue-600 dark:text-blue-400"
-                }`}>
+                <p className={`text-xs font-bold transition-colors duration-300 ${isMultipleMode
+                  ? "text-slate-500 dark:text-slate-400"
+                  : "text-blue-600 dark:text-blue-400"
+                  }`}>
                   {isMultipleMode ? "Bulk mapping active" : "One-to-one mapping active"}
                 </p>
               </div>
@@ -214,35 +207,31 @@ export default function CreateAssignmentsPage() {
             <button
               type="button"
               onClick={() => setIsMultipleMode(!isMultipleMode)}
-              className={`relative inline-flex h-9 w-16 items-center rounded-full transition-all duration-300 ease-in-out focus:outline-none focus:ring-2 focus:ring-offset-2 active:scale-95 hover:scale-105 ${
-                isMultipleMode 
-                  ? "bg-[#CBF3F0] dark:bg-[hsl(var(--primary))]/30 focus:ring-[#CBF3F0] shadow-md shadow-[#CBF3F0]/20" 
-                  : "bg-blue-500 dark:bg-blue-600 focus:ring-blue-500 shadow-md shadow-blue-500/20"
-              }`}
+              className={`relative inline-flex h-9 w-16 items-center rounded-full transition-all duration-300 ease-in-out focus:outline-none focus:ring-2 focus:ring-offset-2 active:scale-95 hover:scale-105 ${isMultipleMode
+                ? "bg-[#CBF3F0] dark:bg-[hsl(var(--primary))]/30 focus:ring-[#CBF3F0] shadow-md shadow-[#CBF3F0]/20"
+                : "bg-blue-500 dark:bg-blue-600 focus:ring-blue-500 shadow-md shadow-blue-500/20"
+                }`}
             >
               {/* Toggle Circle with Icon */}
               <span
-                className={`inline-flex items-center justify-center h-7 w-7 transform rounded-full bg-white dark:bg-slate-100 transition-all duration-300 ease-out shadow-lg ${
-                  isMultipleMode ? "translate-x-8" : "translate-x-1"
-                }`}
+                className={`inline-flex items-center justify-center h-7 w-7 transform rounded-full bg-white dark:bg-slate-100 transition-all duration-300 ease-out shadow-lg ${isMultipleMode ? "translate-x-8" : "translate-x-1"
+                  }`}
               >
                 {/* Multiple Mode Icon */}
-                <Users 
-                  size={14} 
-                  className={`absolute transition-all duration-300 ${
-                    isMultipleMode 
-                      ? "text-[#FF9F1C] opacity-100 scale-100 rotate-0" 
-                      : "opacity-0 scale-0 -rotate-90"
-                  }`}
+                <Users
+                  size={14}
+                  className={`absolute transition-all duration-300 ${isMultipleMode
+                    ? "text-[#FF9F1C] opacity-100 scale-100 rotate-0"
+                    : "opacity-0 scale-0 -rotate-90"
+                    }`}
                 />
                 {/* Single Mode Icon */}
-                <User 
-                  size={14} 
-                  className={`absolute transition-all duration-300 ${
-                    !isMultipleMode 
-                      ? "text-blue-600 dark:text-blue-400 opacity-100 scale-100 rotate-0" 
-                      : "opacity-0 scale-0 rotate-90"
-                  }`}
+                <User
+                  size={14}
+                  className={`absolute transition-all duration-300 ${!isMultipleMode
+                    ? "text-blue-600 dark:text-blue-400 opacity-100 scale-100 rotate-0"
+                    : "opacity-0 scale-0 rotate-90"
+                    }`}
                 />
               </span>
             </button>
@@ -260,11 +249,10 @@ export default function CreateAssignmentsPage() {
                   key={role}
                   type="button"
                   onClick={() => setRoleFilter(role)}
-                  className={`px-3 sm:px-4 py-1.5 sm:py-2 rounded-lg text-[10px] sm:text-xs font-black uppercase tracking-widest transition-all border ${
-                    roleFilter === role
-                      ? "bg-[#CBF3F0] border-[#CBF3F0] text-[#FF9F1C] shadow-md"
-                      : "bg-white border-slate-100 text-slate-400 hover:border-[#CBF3F0]"
-                  }`}
+                  className={`px-3 sm:px-4 py-1.5 sm:py-2 rounded-lg text-[10px] sm:text-xs font-black uppercase tracking-widest transition-all border ${roleFilter === role
+                    ? "bg-[#CBF3F0] border-[#CBF3F0] text-[#FF9F1C] shadow-md"
+                    : "bg-white border-slate-100 text-slate-400 hover:border-[#CBF3F0]"
+                    }`}
                 >
                   {role}
                 </button>
@@ -274,34 +262,33 @@ export default function CreateAssignmentsPage() {
 
           {/* Selection Dropdowns - Dynamic based on mode */}
           <div className="space-y-6">
-              {/* User Selection */}
+            {/* User Selection */}
             <div className="text-left space-y-2" ref={usersDropdownRef}>
               <label className="text-xs font-black text-[#0f0f0f] dark:text-slate-100 uppercase tracking-widest ml-1">
                 {isMultipleMode ? `Select Users (${selectedUsers.length} selected)` : "Select User"}
               </label>
               <div className="relative">
-                <div 
+                <div
                   onClick={() => setIsUsersDropdownOpen(!isUsersDropdownOpen)}
                   className="relative cursor-pointer group"
                 >
                   <input
                     type="text"
                     readOnly
-                    value={isMultipleMode 
-                      ? selectedUsers.length > 0 
+                    value={isMultipleMode
+                      ? selectedUsers.length > 0
                         ? `${selectedUsers.length} user${selectedUsers.length > 1 ? 's' : ''} selected`
                         : "Click to select users..."
-                      : selectedUser 
-                        ? selectedUser.name 
+                      : selectedUser
+                        ? selectedUser.name
                         : "Select a user..."
                     }
                     placeholder={isMultipleMode ? "Click to select users..." : "Select a user..."}
                     className="w-full px-6 py-3.5 text-base rounded-xl border border-slate-100 dark:border-border bg-white dark:bg-card font-medium text-[#0f0f0f] dark:text-slate-100 outline-none focus:border-[#93C5FD] dark:focus:border-[hsl(var(--primary))] focus:ring-2 focus:ring-[#93C5FD]/20 dark:focus:ring-[hsl(var(--primary))]/20 transition-all cursor-pointer"
                   />
                   <ChevronDown
-                    className={`absolute right-5 top-1/2 -translate-y-1/2 text-slate-400 dark:text-slate-500 group-hover:text-[#FF9F1C] dark:group-hover:text-[hsl(var(--primary))] transition-all duration-300 ${
-                      isUsersDropdownOpen ? "rotate-180" : ""
-                    }`}
+                    className={`absolute right-5 top-1/2 -translate-y-1/2 text-slate-400 dark:text-slate-500 group-hover:text-[#FF9F1C] dark:group-hover:text-[hsl(var(--primary))] transition-all duration-300 ${isUsersDropdownOpen ? "rotate-180" : ""
+                      }`}
                     size={18}
                     strokeWidth={2.5}
                   />
@@ -351,33 +338,31 @@ export default function CreateAssignmentsPage() {
                         </div>
                       ) : (
                         filteredUsers.map((user) => {
-                          const isSelected = isMultipleMode 
+                          const isSelected = isMultipleMode
                             ? selectedUsers.some(u => u.id === user.id)
                             : selectedUser?.id === user.id;
                           return (
                             <div
                               key={user.id}
                               onClick={() => toggleUserSelection(user)}
-                              className={`flex items-center gap-3 px-4 py-3 cursor-pointer transition-colors ${
-                                isSelected
-                                  ? "bg-[#FDF9F2] dark:bg-[hsl(224,48%,16%)]"
-                                  : "hover:bg-slate-50 dark:hover:bg-[hsl(224,48%,14%)]"
-                              }`}
+                              className={`flex items-center gap-3 px-4 py-3 cursor-pointer transition-colors ${isSelected
+                                ? "bg-[#FDF9F2] dark:bg-[hsl(224,48%,16%)]"
+                                : "hover:bg-slate-50 dark:hover:bg-[hsl(224,48%,14%)]"
+                                }`}
                             >
                               {isMultipleMode ? (
                                 <input
                                   type="checkbox"
                                   checked={isSelected}
-                                  onChange={() => {}}
+                                  onChange={() => { }}
                                   className="w-4 h-4 text-[#FF9F1C] dark:text-[hsl(var(--primary))] border-slate-300 rounded focus:ring-[#FF9F1C]"
                                   onClick={(e) => e.stopPropagation()}
                                 />
                               ) : (
-                                <div className={`w-4 h-4 rounded-full border-2 flex items-center justify-center ${
-                                  isSelected 
-                                    ? "border-[#FF9F1C] dark:border-[hsl(var(--primary))] bg-[#FF9F1C] dark:bg-[hsl(var(--primary))]" 
-                                    : "border-slate-300 dark:border-slate-500"
-                                }`}>
+                                <div className={`w-4 h-4 rounded-full border-2 flex items-center justify-center ${isSelected
+                                  ? "border-[#FF9F1C] dark:border-[hsl(var(--primary))] bg-[#FF9F1C] dark:bg-[hsl(var(--primary))]"
+                                  : "border-slate-300 dark:border-slate-500"
+                                  }`}>
                                   {isSelected && <div className="w-2 h-2 rounded-full bg-white" />}
                                 </div>
                               )}
@@ -385,11 +370,10 @@ export default function CreateAssignmentsPage() {
                                 <p className="text-sm font-medium text-slate-900 dark:text-slate-100">{user.name}</p>
                                 <p className="text-xs text-slate-500 dark:text-slate-400">{user.email}</p>
                               </div>
-                              <span className={`px-2 py-0.5 rounded text-[10px] font-bold uppercase ${
-                                user.role === "supervisor"
-                                  ? "bg-blue-100 dark:bg-blue-900/30 text-blue-700 dark:text-blue-300"
-                                  : "bg-purple-100 dark:bg-purple-900/30 text-purple-700 dark:text-purple-300"
-                              }`}>
+                              <span className={`px-2 py-0.5 rounded text-[10px] font-bold uppercase ${user.role === "supervisor"
+                                ? "bg-blue-100 dark:bg-blue-900/30 text-blue-700 dark:text-blue-300"
+                                : "bg-purple-100 dark:bg-purple-900/30 text-purple-700 dark:text-purple-300"
+                                }`}>
                                 {user.role}
                               </span>
                             </div>
@@ -405,14 +389,14 @@ export default function CreateAssignmentsPage() {
             {/* Location Selection */}
             <div className="text-left space-y-2" ref={locationsDropdownRef}>
               <label className="text-xs font-black text-[#0f0f0f] dark:text-slate-100 uppercase tracking-widest ml-1">
-                {isMultipleMode 
+                {isMultipleMode
                   ? `Select Locations (${selectedLocations.length} selected)`
-                  : selectedUser 
+                  : selectedUser
                     ? `Select Locations (${selectedLocations.length} selected)`
                     : "Select Locations (0 selected)"
                 }
               </label>
-              
+
               {!isMultipleMode && !selectedUser && (
                 <div className="p-3 bg-orange-50 dark:bg-orange-900/20 border border-orange-200 dark:border-orange-800 rounded-xl">
                   <p className="text-sm font-medium text-orange-700 dark:text-orange-300">
@@ -422,19 +406,18 @@ export default function CreateAssignmentsPage() {
               )}
 
               <div className="relative">
-                <div 
+                <div
                   onClick={() => {
                     if (!isMultipleMode && !selectedUser) return;
                     setIsLocationsDropdownOpen(!isLocationsDropdownOpen);
                   }}
-                  className={`relative cursor-pointer group ${
-                    !isMultipleMode && !selectedUser ? "opacity-50 cursor-not-allowed" : ""
-                  }`}
+                  className={`relative cursor-pointer group ${!isMultipleMode && !selectedUser ? "opacity-50 cursor-not-allowed" : ""
+                    }`}
                 >
                   <input
                     type="text"
                     readOnly
-                    value={selectedLocations.length > 0 
+                    value={selectedLocations.length > 0
                       ? `${selectedLocations.length} location${selectedLocations.length > 1 ? 's' : ''} selected`
                       : "Click to select locations..."
                     }
@@ -443,9 +426,8 @@ export default function CreateAssignmentsPage() {
                     className="w-full px-6 py-3.5 text-base rounded-xl border border-slate-100 dark:border-border bg-white dark:bg-card font-medium text-[#0f0f0f] dark:text-slate-100 outline-none focus:border-[#93C5FD] dark:focus:border-[hsl(var(--primary))] focus:ring-2 focus:ring-[#93C5FD]/20 dark:focus:ring-[hsl(var(--primary))]/20 transition-all cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed"
                   />
                   <ChevronDown
-                    className={`absolute right-5 top-1/2 -translate-y-1/2 text-slate-400 dark:text-slate-500 group-hover:text-[#FF9F1C] dark:group-hover:text-[hsl(var(--primary))] transition-all duration-300 ${
-                      isLocationsDropdownOpen ? "rotate-180" : ""
-                    }`}
+                    className={`absolute right-5 top-1/2 -translate-y-1/2 text-slate-400 dark:text-slate-500 group-hover:text-[#FF9F1C] dark:group-hover:text-[hsl(var(--primary))] transition-all duration-300 ${isLocationsDropdownOpen ? "rotate-180" : ""
+                      }`}
                     size={18}
                     strokeWidth={2.5}
                   />
@@ -500,26 +482,24 @@ export default function CreateAssignmentsPage() {
                             <div
                               key={index}
                               onClick={() => toggleLocationSelection(location)}
-                              className={`flex items-center gap-3 px-4 py-3 cursor-pointer transition-colors ${
-                                isSelected
-                                  ? "bg-[#FDF9F2] dark:bg-[hsl(224,48%,16%)]"
-                                  : "hover:bg-slate-50 dark:hover:bg-[hsl(224,48%,14%)]"
-                              }`}
+                              className={`flex items-center gap-3 px-4 py-3 cursor-pointer transition-colors ${isSelected
+                                ? "bg-[#FDF9F2] dark:bg-[hsl(224,48%,16%)]"
+                                : "hover:bg-slate-50 dark:hover:bg-[hsl(224,48%,14%)]"
+                                }`}
                             >
                               {isMultipleMode ? (
                                 <input
                                   type="checkbox"
                                   checked={isSelected}
-                                  onChange={() => {}}
+                                  onChange={() => { }}
                                   className="w-4 h-4 text-[#FF9F1C] dark:text-[hsl(var(--primary))] border-slate-300 rounded focus:ring-[#FF9F1C]"
                                   onClick={(e) => e.stopPropagation()}
                                 />
                               ) : (
-                                <div className={`w-4 h-4 rounded-full border-2 flex items-center justify-center ${
-                                  isSelected 
-                                    ? "border-[#FF9F1C] dark:border-[hsl(var(--primary))] bg-[#FF9F1C] dark:bg-[hsl(var(--primary))]" 
-                                    : "border-slate-300 dark:border-slate-500"
-                                }`}>
+                                <div className={`w-4 h-4 rounded-full border-2 flex items-center justify-center ${isSelected
+                                  ? "border-[#FF9F1C] dark:border-[hsl(var(--primary))] bg-[#FF9F1C] dark:bg-[hsl(var(--primary))]"
+                                  : "border-slate-300 dark:border-slate-500"
+                                  }`}>
                                   {isSelected && <div className="w-2 h-2 rounded-full bg-white" />}
                                 </div>
                               )}
@@ -541,21 +521,19 @@ export default function CreateAssignmentsPage() {
           <div className="pt-6 border-t border-slate-100 dark:border-border">
             <button
               type="submit"
-              className={`w-full py-4 px-6 text-base font-bold text-white rounded-2xl shadow-md hover:shadow-lg transition-all duration-300 transform hover:-translate-y-0.5 active:translate-y-0 flex items-center justify-center gap-3 ${
-                isMultipleMode
-                  ? "bg-gradient-to-r from-[#FF9F1C] to-[#FFBF69] dark:from-[hsl(var(--primary))] dark:to-[hsl(var(--primary-light))] hover:from-[#E68900] hover:to-[#FF9F1C] shadow-[#FF9F1C]/30 dark:shadow-[hsl(var(--primary))]/30"
-                  : "bg-gradient-to-r from-blue-500 to-blue-600 dark:from-blue-600 dark:to-blue-700 hover:from-blue-600 hover:to-blue-700 shadow-blue-500/30 dark:shadow-blue-600/30"
-              }`}
-            >
-              <Check 
-                size={20} 
-                strokeWidth={3} 
-                className={`text-white transition-all duration-300 ${
-                  isMultipleMode ? "rotate-0" : "rotate-0"
+              className={`w-full py-4 px-6 text-base font-bold text-white rounded-2xl shadow-md hover:shadow-lg transition-all duration-300 transform hover:-translate-y-0.5 active:translate-y-0 flex items-center justify-center gap-3 ${isMultipleMode
+                ? "bg-gradient-to-r from-[#FF9F1C] to-[#FFBF69] dark:from-[hsl(var(--primary))] dark:to-[hsl(var(--primary-light))] hover:from-[#E68900] hover:to-[#FF9F1C] shadow-[#FF9F1C]/30 dark:shadow-[hsl(var(--primary))]/30"
+                : "bg-gradient-to-r from-blue-500 to-blue-600 dark:from-blue-600 dark:to-blue-700 hover:from-blue-600 hover:to-blue-700 shadow-blue-500/30 dark:shadow-blue-600/30"
                 }`}
+            >
+              <Check
+                size={20}
+                strokeWidth={3}
+                className={`text-white transition-all duration-300 ${isMultipleMode ? "rotate-0" : "rotate-0"
+                  }`}
               />
               <span className="transition-all duration-300">
-                {isMultipleMode 
+                {isMultipleMode
                   ? `Create ${selectedUsers.length > 0 && selectedLocations.length > 0 ? selectedUsers.length * selectedLocations.length : 0} Assignments`
                   : `Assign ${selectedLocations.length} Location${selectedLocations.length !== 1 ? 's' : ''}`
                 }
@@ -565,7 +543,7 @@ export default function CreateAssignmentsPage() {
         </form>
       </div>
 
-      
+
     </div>
   );
 }

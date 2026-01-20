@@ -53,14 +53,14 @@ export default function WashroomsMobilePage() {
 
     return (
         <div className="min-h-screen bg-white dark:bg-background pb-12 transition-colors duration-300">
-            <div className="max-w-full mx-auto p-4 space-y-4">
+            <div className="max-w-full mx-auto px-3 sm:px-4 lg:px-6 space-y-3 sm:space-y-4 lg:space-y-6">
                 {/* Header Section */}
                 <div className="z-20">
                     <WashroomHeader />
                 </div>
 
                 {/* Filter Card */}
-                <div className="bg-white dark:bg-card border border-slate-100 dark:border-border rounded-[24px] p-4 shadow-sm">
+                <div className="bg-white dark:bg-card border border-slate-100 dark:border-border rounded-[16px] sm:rounded-[20px] lg:rounded-[24px] p-3 sm:p-4 lg:p-5 shadow-sm">
                     <WashroomFilters
                         search={search}
                         onSearchChange={setSearch}
@@ -78,8 +78,8 @@ export default function WashroomsMobilePage() {
 
                 {/* Cards Container */}
                 <div className="relative group">
-                    <div className="relative bg-white dark:bg-card rounded-[28px] shadow-[0_8px_30px_rgb(0,0,0,0.04)] overflow-hidden border border-slate-100 dark:border-border">
-                        <div className="p-4">
+                    <div className="relative bg-white dark:bg-card rounded-[20px] sm:rounded-[24px] lg:rounded-[28px] shadow-[0_8px_30px_rgb(0,0,0,0.04)] overflow-hidden border border-slate-100 dark:border-border">
+                        <div className="p-3 sm:p-4 lg:p-5">
                             <WashroomCards items={filtered} />
                         </div>
                     </div>
