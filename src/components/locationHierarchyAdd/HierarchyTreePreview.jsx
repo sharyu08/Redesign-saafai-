@@ -103,7 +103,7 @@ export default function HierarchyTreePreview() {
                 </div>
 
                 {/* Normal View Scrollable Area */}
-                <div className="flex-1 overflow-auto custom-scrollbar bg-[radial-gradient(#e5e7eb_1px,transparent_1px)] [background-size:20px_20px]">
+                <div className="flex-1 overflow-auto custom-scrollbar bg-white dark:bg-slate-900">
                     <TreeContent />
                 </div>
             </div>
@@ -124,7 +124,7 @@ export default function HierarchyTreePreview() {
                                 <X size={20} />
                             </button>
                         </div>
-                        <div className="flex-1 overflow-auto bg-[radial-gradient(#e5e7eb_1px,transparent_1px)] [background-size:20px_20px] dark:bg-[radial-gradient(#1e293b_1px,transparent_1px)]">
+                        <div className="flex-1 overflow-auto bg-white dark:bg-slate-900">
                             <div className="min-h-full flex items-center justify-center">
                                 <TreeContent isModal={true} />
                             </div>

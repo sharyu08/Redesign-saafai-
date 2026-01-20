@@ -19,7 +19,7 @@ export default function WashroomRowWithModal({ washroom, index, onModalOpen }) {
     const extraCount = assignments.length > 1 ? assignments.length - 1 : 0;
 
     return (
-        <tr className="group border-b border-slate-50 dark:border-slate-800/30 hover:bg-cyan-400/5 transition-all duration-300">
+        <tr className="group border-b border-slate-50 dark:border-slate-800/30 hover:bg-cyan-50 dark:hover:bg-slate-700/50 transition-all duration-300">
             {/* SR NO - Faint Light Cyan */}
             <td className="py-4 px-4 font-mono">
                 <span className="px-2 py-1 rounded-lg bg-cyan-400/10 text-cyan-600 text-xs font-black border border-cyan-500/10">

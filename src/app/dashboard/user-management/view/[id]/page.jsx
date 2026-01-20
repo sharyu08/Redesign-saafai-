@@ -85,7 +85,7 @@ export default function ViewUserPage() {
                                     <h1 className="text-3xl font-black text-slate-800 uppercase tracking-tight">
                                         {user.fullName}
                                     </h1>
-                                    <span className="px-4 py-1 rounded-full text-[10px] font-black uppercase tracking-[0.2em] bg-emerald-50 text-emerald-600 border border-emerald-100">
+                                    <span className="px-4 py-1 rounded-full text-[10px] font-black uppercase tracking-[0.2em] bg-emerald-50 text-emerald-600 border border-emerald-100 dark:bg-emerald-900/20 dark:text-emerald-400 dark:border-emerald-800">
                                         System {user.status}
                                     </span>
                                 </div>

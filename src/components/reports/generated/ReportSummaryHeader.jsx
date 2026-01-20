@@ -70,8 +70,8 @@ export default function ReportSummaryHeader({ reportType, data, onRefine }) {
                         <BarChart3 className="h-6 w-6 text-[#58BECF]" strokeWidth={2.5} />
                     </div>
                     <div className="text-left">
-                        <h1 className="text-lg font-black text-[#007C85] tracking-tight uppercase leading-none">Report Generated</h1>
-                        <p className="text-[10px] font-bold text-[#2D8E97] uppercase tracking-widest opacity-70 mt-1">Registry Audit • {reportType}</p>
+                        <h1 className="text-lg font-black text-[#007C85] dark:text-slate-200 tracking-tight uppercase leading-none">Report Generated</h1>
+                        <p className="text-[10px] font-bold text-[#2D8E97] dark:text-slate-300 uppercase tracking-widest opacity-70 mt-1">Registry Audit • {reportType}</p>
                     </div>
                 </div>
 
@@ -95,7 +95,7 @@ export default function ReportSummaryHeader({ reportType, data, onRefine }) {
                     {/* Print Button */}
                     <button
                         onClick={handlePrint}
-                        className="flex items-center gap-2 px-6 py-2.5 rounded-xl bg-white border border-slate-200 text-slate-500 text-[10px] font-black uppercase tracking-widest hover:bg-slate-50 transition-all shadow-sm active:scale-95"
+                        className="flex items-center gap-2 px-6 py-2.5 rounded-xl bg-white dark:bg-slate-700 border border-slate-200 dark:border-slate-600 text-slate-500 dark:text-slate-300 text-[10px] font-black uppercase tracking-widest hover:bg-slate-50 transition-all shadow-sm active:scale-95"
                     >
                         <Printer size={14} /> Print
                     </button>

@@ -1447,8 +1447,8 @@
   .table-cell,
   .table td {
     padding: 1rem 1.25rem;
-    color: #000000 !important;
-    /* Force black in light mode */
+    color: hsl(var(--foreground)) !important;
+    /* Use theme color instead of forced black */
     font-size: var(--font-size-base) !important;
     /* Increased from sm to base for better readability */
     font-weight: var(--font-weight-normal) !important;
@@ -1477,7 +1477,8 @@
   /* Chip text color */
   .table .chip,
   .table-cell .chip {
-    color: #000000 !important;
+    color: hsl(var(--foreground)) !important;
+    /* Use theme color instead of forced black */
     font-weight: var(--font-weight-normal) !important;
     /* NOT bold */
     text-transform: none !important;

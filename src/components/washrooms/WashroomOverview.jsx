@@ -91,20 +91,20 @@ export default function WashroomOverview({ washroom = MOCK_WASHROOM }) {
       {/* 1. HERO CARD */}
       <div className="bg-white dark:bg-slate-900 rounded-[32px] shadow-md border border-slate-100 dark:border-slate-800 overflow-hidden">
         <div className="grid grid-cols-1 lg:grid-cols-[400px_1fr] gap-0">
-          <div className="relative h-72 lg:h-full min-h-[350px]">
-            <Image src="/image/dashboard img.png" alt={washroom.name} fill className="object-cover" priority />
+          <div className="relative h-48 sm:h-60 lg:h-72 lg:h-full min-h-[250px]">
+            <Image src="/image/washroomImg/washroomImg1.webp" alt={washroom.name} fill className="object-cover" priority />
           </div>
-          <div className="p-10 space-y-8">
-            <div className="flex justify-between items-start">
+          <div className="p-4 sm:p-6 lg:p-10 space-y-4 sm:space-y-6 lg:space-y-8">
+            <div className="flex flex-col sm:flex-row sm:justify-between items-start gap-4">
               <div className="space-y-2">
-                <h1 className="text-3xl font-black text-slate-800 dark:text-white tracking-tight">{washroom.name}</h1>
-                <div className="flex items-center gap-2 text-base text-slate-400">
-                  <MapPin size={18} className="text-cyan-500" />
-                  <span>{washroom.subtitle}</span>
+                <h1 className="text-xl sm:text-2xl lg:text-3xl font-black text-slate-800 dark:text-white tracking-tight">{washroom.name}</h1>
+                <div className="flex items-center gap-2 text-sm sm:text-base text-slate-400">
+                  <MapPin size={16} className="text-cyan-500" />
+                  <span className="text-sm sm:text-base">{washroom.subtitle}</span>
                 </div>
               </div>
-              <div className="bg-emerald-50 text-emerald-600 px-4 py-2 rounded-full flex items-center gap-2 text-xs font-bold uppercase tracking-widest border border-emerald-100">
-                <Sparkles size={14} /> Operational
+              <div className="bg-emerald-50 text-emerald-600 px-3 sm:px-4 py-1.5 sm:py-2 rounded-full flex items-center gap-2 text-[10px] sm:text-xs font-bold uppercase tracking-widest border border-emerald-100">
+                <Sparkles size={12} /> Operational
               </div>
             </div>
 
@@ -129,12 +129,12 @@ export default function WashroomOverview({ washroom = MOCK_WASHROOM }) {
                 <Map size={18} /> Locate
               </button>
 
-       
-<Link href={`/dashboard/washrooms/${washroom.id}/edit`} className="flex-1">
-  <button className="w-full py-3.5 rounded-2xl border-2 border-slate-100 text-slate-600 text-sm font-bold uppercase tracking-widest hover:bg-slate-50 transition-all flex items-center justify-center gap-2">
-    <Pencil size={18} /> Edit
-  </button>
-</Link>       
+
+              <Link href={`/dashboard/washrooms/${washroom.id}/edit`} className="flex-1">
+                <button className="w-full py-3.5 rounded-2xl border-2 border-slate-100 text-slate-600 text-sm font-bold uppercase tracking-widest hover:bg-slate-50 transition-all flex items-center justify-center gap-2">
+                  <Pencil size={18} /> Edit
+                </button>
+              </Link>
 
               {/* DELETE BUTTON - Functionally Active */}
               <button
