@@ -2,6 +2,8 @@
 import "./globals.css";
 import { ThemeProvider } from "@/components/theme/ThemeProvider";
 import { Roboto } from "next/font/google";
+import { CompanyProvider } from "@/providers/CompanyProvider";
+import { GoogleMapsProvider } from "@/providers/GoogleMapsProvider";
 
 const roboto = Roboto({
   subsets: ["latin"],
@@ -20,7 +22,11 @@ export default function RootLayout({ children }) {
     <html lang="en" suppressHydrationWarning className={roboto.variable}>
       <body className="min-h-screen bg-background text-foreground antialiased transition-colors duration-200">
         <ThemeProvider>
-          {children}
+          <CompanyProvider>
+            <GoogleMapsProvider>
+              {children}
+            </GoogleMapsProvider>
+          </CompanyProvider>
         </ThemeProvider>
       </body>
     </html>

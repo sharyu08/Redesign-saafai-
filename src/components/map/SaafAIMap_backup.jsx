@@ -1,18 +1,16 @@
 "use client";
 
 import React, { useEffect, useState, useCallback, useRef } from "react";
-import { GoogleMap, Marker } from "@react-google-maps/api";
+import { GoogleMap, Marker, InfoWindow } from "@react-google-maps/api";
 import { Loader2, Search, X } from "lucide-react";
 import locationsApi from "@/features/locations/locations.api";
 import { useRouter } from "next/navigation";
 import { useCompanyId } from "@/providers/CompanyProvider";
 import { useGoogleMaps } from "@/providers/GoogleMapsProvider";
-import LocationInfoPanel from "./LocationInfoPanel";
 
 const mapContainerStyle = {
     width: "100%",
     height: "80vh",
-    position: "relative",
 };
 
 const defaultCenter = {
@@ -41,11 +39,14 @@ const MapView = ({ selectedLocation, onSelectLocation, searchText, zoneIdFilter 
 
         try {
             const res = await locationsApi.getAllLocations(companyId || 26);
+            console.log('Map API Response:', res);
             if (res.success) {
+                console.log('Raw locations data:', res.data);
                 // Filter out any invalid locations (where lat/lng are 0)
                 const validLocations = res.data.filter(
                     loc => loc.latitude !== 0 && loc.longitude !== 0
                 );
+                console.log('Valid locations:', validLocations);
 
                 setLocations(validLocations);
                 setFiltered(validLocations);
@@ -285,18 +286,159 @@ const MapView = ({ selectedLocation, onSelectLocation, searchText, zoneIdFilter 
                         />
                     ))}
 
-                    {/* Location Info Panel */}
                     {selected && (
-                        <LocationInfoPanel
-                            selectedLocation={selected}
-                            onClose={() => {
+                        <InfoWindow
+                            position={{
+                                lat: parseFloat(selected.latitude),
+                                lng: parseFloat(selected.longitude),
+                            }}
+                            onCloseClick={() => {
                                 setSelected(null);
                                 if (onSelectLocation) {
                                     onSelectLocation(null);
                                 }
                             }}
-                            companyId={companyId}
-                        />
+                        >
+                            <div className="w-80 bg-white rounded-lg shadow-lg overflow-hidden">
+                                {/* Header with Status */}
+                                <div className="bg-gradient-to-r from-blue-500 to-blue-600 text-white p-4">
+                                    <div className="flex items-center justify-between mb-2">
+                                        <h3 className="text-lg font-bold leading-tight">
+                                            {selected.name || "Unnamed Location"}
+                                        </h3>
+                                        <span className={`px-2 py-1 rounded-full text-xs font-medium ${selected.status === 'active' ? 'bg-green-100 text-green-800' :
+                                                selected.status === 'inactive' ? 'bg-red-100 text-red-800' :
+                                                    'bg-gray-100 text-gray-800'
+                                            }`}>
+                                            {selected.status || 'UNKNOWN'}
+                                        </span>
+                                    </div>
+                                    <p className="text-blue-100 text-sm flex items-center gap-1">
+                                        <span>📍</span>
+                                        {parseFloat(selected.latitude).toFixed(6)}, {parseFloat(selected.longitude).toFixed(6)}
+                                    </p>
+                                </div>
+
+                                {/* Content Section */}
+                                <div className="p-4">
+                                    {/* Basic Info */}
+                                    <div className="grid grid-cols-2 gap-3 mb-4">
+                                        <div className="bg-gray-50 p-3 rounded-lg">
+                                            <p className="text-xs text-gray-500 mb-1">Type</p>
+                                            <p className="text-sm font-semibold text-gray-900">
+                                                {selected.type || 'WASHROOM'}
+                                            </p>
+                                        </div>
+                                        <div className="bg-gray-50 p-3 rounded-lg">
+                                            <p className="text-xs text-gray-500 mb-1">Company ID</p>
+                                            <p className="text-sm font-semibold text-gray-900">
+                                                {selected.company_id || 'N/A'}
+                                            </p>
+                                        </div>
+                                    </div>
+
+                                    {/* Rating Section */}
+                                    <div className="mb-4 p-3 bg-yellow-50 rounded-lg">
+                                        {selected.averageRating !== null && selected.averageRating > 0 ? (
+                                            <div className="flex items-center justify-between">
+                                                <div className="flex items-center gap-2">
+                                                    <span className="text-yellow-500 text-lg">⭐</span>
+                                                    <span className="font-bold text-gray-900 text-lg">
+                                                        {selected.averageRating.toFixed(1)}
+                                                    </span>
+                                                </div>
+                                                <span className="text-gray-600 text-sm">
+                                                    {selected.ratingCount || 0} {selected.ratingCount === 1 ? 'review' : 'reviews'}
+                                                </span>
+                                            </div>
+                                        ) : (
+                                            <div className="flex items-center gap-2">
+                                                <span className="text-gray-400">⭐</span>
+                                                <span className="text-gray-500 text-sm">No ratings yet</span>
+                                            </div>
+                                        )}
+                                    </div>
+
+                                    {/* Cleaning Score */}
+                                    {selected.average_cleaning_score !== null && (
+                                        <div className="mb-4 p-3 bg-green-50 rounded-lg">
+                                            <p className="text-xs text-gray-500 mb-1">Cleaning Score</p>
+                                            <div className="flex items-center gap-2">
+                                                <span className="text-green-500">🧼</span>
+                                                <span className="font-bold text-green-700">
+                                                    {selected.average_cleaning_score}/10
+                                                </span>
+                                            </div>
+                                        </div>
+                                    )}
+
+                                    {/* Address/Location Details */}
+                                    {(selected.address || selected.city || selected.state || selected.pincode) && (
+                                        <div className="mb-4 p-3 bg-blue-50 rounded-lg">
+                                            <p className="text-xs text-gray-500 mb-2">Location Details</p>
+                                            {selected.address && (
+                                                <p className="text-sm text-gray-700 mb-1">📍 {selected.address}</p>
+                                            )}
+                                            <div className="text-sm text-gray-600">
+                                                {selected.city && selected.state && (
+                                                    <p>{selected.city}, {selected.state}</p>
+                                                )}
+                                                {selected.pincode && <p>PIN: {selected.pincode}</p>}
+                                            </div>
+                                        </div>
+                                    )}
+
+                                    {/* Operating Hours */}
+                                    {(selected.open_time || selected.close_time) && (
+                                        <div className="mb-4 p-3 bg-purple-50 rounded-lg">
+                                            <p className="text-xs text-gray-500 mb-1">Operating Hours</p>
+                                            <p className="text-sm text-gray-700">
+                                                🕐 {selected.open_time || 'N/A'} - {selected.close_time || 'N/A'}
+                                            </p>
+                                        </div>
+                                    )}
+
+                                    {/* Public Access */}
+                                    <div className="mb-4 p-3 bg-indigo-50 rounded-lg">
+                                        <p className="text-xs text-gray-500 mb-1">Access</p>
+                                        <p className="text-sm font-medium text-indigo-700">
+                                            {selected.is_public ? '🌐 Public Access' : '🔒 Private Access'}
+                                        </p>
+                                    </div>
+
+                                    {/* Cleaner Assignment */}
+                                    {selected.cleaner_assignments && selected.cleaner_assignments.length > 0 && (
+                                        <div className="mb-4 p-3 bg-orange-50 rounded-lg">
+                                            <p className="text-xs text-gray-500 mb-2">Assigned Cleaner</p>
+                                            {selected.cleaner_assignments.map((assignment) => (
+                                                <div key={assignment.id} className="text-sm text-gray-700">
+                                                    <p className="font-medium">{assignment.cleaner_user?.name || 'Unknown'}</p>
+                                                    <p className="text-xs text-gray-500">{assignment.cleaner_user?.email || 'No email'}</p>
+                                                    <p className="text-xs text-gray-500">📞 {assignment.cleaner_user?.phone || 'No phone'}</p>
+                                                </div>
+                                            ))}
+                                        </div>
+                                    )}
+
+                                    {/* Footer */}
+                                    <div className="pt-3 border-t border-gray-200 flex items-center justify-between">
+                                        <div className="text-xs text-gray-500">
+                                            Added {new Date(selected.created_at).toLocaleDateString()}
+                                        </div>
+                                        <button
+                                            onClick={() => {
+                                                router.push(
+                                                    `/washrooms/item/${selected.id}?companyId=${companyId || 26}`,
+                                                );
+                                            }}
+                                            className="cursor-pointer text-blue-600 hover:text-blue-800 text-xs font-medium underline"
+                                        >
+                                            View Details →
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </InfoWindow>
                     )}
                 </GoogleMap>
             )}
